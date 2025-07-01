@@ -7,7 +7,7 @@ const router = express.Router();
 // @route   GET /api/rules
 // @desc    Get all detection rules
 // @access  Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const {
       limit = 1000,

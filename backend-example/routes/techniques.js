@@ -7,7 +7,7 @@ const router = express.Router();
 // @route   GET /api/techniques
 // @desc    Get all MITRE techniques
 // @access  Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const {
       limit = 1000,
