@@ -6,6 +6,7 @@ import { createPageUrl } from "@/utils";
 import { Shield, Database, Settings, BarChart3, ListChecks, Clock } from "lucide-react"; // Added Clock import
 import { DetectionRule, MitreTechnique } from "@/api/entities";
 import PlatformIcon from "@/components/PlatformIcon";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   Sidebar,
   SidebarContent,
@@ -72,13 +73,20 @@ const platformItems = [
     platform: "Containers",
     url: createPageUrl("Matrix?platform=Containers"),
     description: "Container-specific techniques"
+  },
+  {
+    title: "AI",
+    platform: "AI",
+    url: createPageUrl("Matrix?platform=AI"),
+    description: "AI and machine learning specific techniques"
   }
 ];
 
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
   const urlParams = new URLSearchParams(location.search);
-  const currentPlatform = urlParams.get('platform') || 'all'; 
+  const currentPlatform = urlParams.get('platform') || 'all';
+  const { logout } = useAuth(); 
   
   const [stats, setStats] = useState({
     activeRules: 0,
@@ -156,7 +164,9 @@ export default function Layout({ children, currentPageName }) {
     
     // Check if the platform parameter matches
     const urlPlatform = new URLSearchParams(query).get('platform');
-    return urlPlatform === currentPlatform;
+    const currentUrlPlatform = urlParams.get('platform');
+    
+    return urlPlatform === currentUrlPlatform;
   };
 
   return (
@@ -275,6 +285,20 @@ export default function Layout({ children, currentPageName }) {
                 <p className="font-semibold text-slate-900 text-sm truncate">Security Analyst</p>
                 <p className="text-xs text-slate-500 truncate">Threat Detection Team</p>
               </div>
+              {/* Temporarily hidden for development */}
+              {/* <button
+                className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200 flex-shrink-0"
+                title="Sign Out"
+                onClick={() => {
+                  if (window.confirm('Are you sure you want to sign out?')) {
+                    logout();
+                  }
+                }}
+              >
+                <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+              </button> */}
             </div>
           </SidebarFooter>
         </Sidebar>

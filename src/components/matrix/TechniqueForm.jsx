@@ -32,7 +32,7 @@ const CONTAINER_TACTICS = [
   "Exfiltration", "Impact"
 ];
 
-const ALL_PLATFORMS = ["Windows", "macOS", "Linux", "AWS", "Azure", "GCP", "Oracle", "Containers"];
+const ALL_PLATFORMS = ["Windows", "macOS", "Linux", "AWS", "Azure", "GCP", "Oracle", "Containers", "AI"];
 
 export default function TechniqueForm({ isOpen, onClose, onSave, technique = null, tacticId = null }) {
   const getInitialData = () => {
@@ -95,8 +95,9 @@ export default function TechniqueForm({ isOpen, onClose, onSave, technique = nul
       };
 
       if (technique) {
-        console.log('TechniqueForm - Updating existing technique:', technique.id);
-        await MitreTechnique.update(technique.id, techniqueData);
+              console.log('TechniqueForm - Updating existing technique:', technique._id || technique.id);
+      const techniqueId = technique._id || technique.id;
+      await MitreTechnique.update(techniqueId, techniqueData);
       } else {
         console.log('TechniqueForm - Creating new technique');
         const result = await MitreTechnique.create(techniqueData);
@@ -124,13 +125,14 @@ export default function TechniqueForm({ isOpen, onClose, onSave, technique = nul
 
         // Cascade Delete
         const detectionRules = await DetectionRule.filter({ technique_id: techniqueMitreId });
-        await Promise.all(detectionRules.map(r => DetectionRule.delete(r.id)));
+        await Promise.all(detectionRules.map(r => DetectionRule.delete(r._id || r.id)));
 
         const futureRules = await FutureRule.filter({ technique_id: techniqueMitreId });
-        await Promise.all(futureRules.map(r => FutureRule.delete(r.id)));
+        await Promise.all(futureRules.map(r => FutureRule.delete(r._id || r.id)));
 
         // Delete technique
-        await MitreTechnique.delete(technique.id);
+        const techniqueId = technique._id || technique.id;
+        await MitreTechnique.delete(techniqueId);
 
         onSave(); // Refreshes data
         onClose(); // Closes form

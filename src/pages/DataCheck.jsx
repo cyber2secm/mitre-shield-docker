@@ -110,9 +110,9 @@ export default function DataCheckPage() {
                      <p className="text-slate-600">
                        It appears your data is missing techniques for {missingTactics.length} tactics. To ensure full coverage, I can add a complete, clean dataset for macOS.
                        <br/><br/>
-                       However, I cannot delete existing data. **For the best result, please first manually delete all records** from the MitreTechnique entity by going to `Workspace > Data > MitreTechnique`.
+                       However, I cannot delete existing data. <strong>For the best result, please first manually delete all records</strong> from the MitreTechnique entity by going to Workspace &gt; Data &gt; MitreTechnique.
                        <br/><br/>
-                       Once the data is cleared, please ask me to "add the complete macOS dataset".
+                       Once the data is cleared, please ask me to &quot;add the complete macOS dataset&quot;.
                      </p>
                   ) : (
                     <p className="text-slate-600">Your data appears to be complete. No further action is needed regarding tactic coverage. You can ask me to remove this utility page when you're done.</p>

@@ -70,11 +70,11 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
         throw new Error(result.details || "Failed to parse file");
       }
 
-      if (!result.output || !Array.isArray(result.output)) {
+      if (!result.data || !Array.isArray(result.data)) {
         throw new Error("The parsed file did not return an array of rules. Please check the file format.");
       }
 
-      const rules = result.output.map((rule, index) => {
+      const rules = result.data.map((rule, index) => {
         // Handle tags: ensure it's an array, not a string
         if (rule.tags && typeof rule.tags === 'string') {
           rule.tags = rule.tags.split(',').map(tag => tag.trim()).filter(Boolean);

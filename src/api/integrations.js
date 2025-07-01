@@ -1,19 +1,53 @@
-import { base44 } from './base44Client';
+import { apiClient } from './apiClient';
 
+// Core integration services for our backend
+export const Core = {
+  // File upload service
+  UploadFile: async ({ file }) => {
+    return apiClient.uploadFile('/upload', file);
+  },
 
+  // Data extraction from uploaded files (CSV/Excel parsing)
+  ExtractDataFromUploadedFile: async ({ file_url, json_schema }) => {
+    return apiClient.post('/extract-data', {
+      file_url,
+      json_schema
+    });
+  },
 
+  // LLM integration (if needed in future)
+  InvokeLLM: async ({ prompt, model = 'gpt-3.5-turbo' }) => {
+    return apiClient.post('/llm/invoke', {
+      prompt,
+      model
+    });
+  },
 
-export const Core = base44.integrations.Core;
+  // Email service (if needed in future)
+  SendEmail: async ({ to, subject, body, attachments = [] }) => {
+    return apiClient.post('/email/send', {
+      to,
+      subject,
+      body,
+      attachments
+    });
+  },
 
-export const InvokeLLM = base44.integrations.Core.InvokeLLM;
+  // Image generation service (if needed in future)
+  GenerateImage: async ({ prompt, size = '512x512' }) => {
+    return apiClient.post('/image/generate', {
+      prompt,
+      size
+    });
+  }
+};
 
-export const SendEmail = base44.integrations.Core.SendEmail;
-
-export const UploadFile = base44.integrations.Core.UploadFile;
-
-export const GenerateImage = base44.integrations.Core.GenerateImage;
-
-export const ExtractDataFromUploadedFile = base44.integrations.Core.ExtractDataFromUploadedFile;
+// Export individual functions for compatibility with existing code
+export const UploadFile = Core.UploadFile;
+export const ExtractDataFromUploadedFile = Core.ExtractDataFromUploadedFile;
+export const InvokeLLM = Core.InvokeLLM;
+export const SendEmail = Core.SendEmail;
+export const GenerateImage = Core.GenerateImage;
 
 
 

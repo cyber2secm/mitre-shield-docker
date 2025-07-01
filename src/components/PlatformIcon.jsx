@@ -1,4 +1,5 @@
 import React from 'react';
+import { Brain } from 'lucide-react';
 
 const iconMap = {
   // Cloud Providers
@@ -13,9 +14,16 @@ const iconMap = {
   // Others
   Containers: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/e68ecd4a1_icons8-docker-48.png',
   Cloud: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/75b25a891_icons8-cloud-64.png',
+  // AI Platform - using Lucide icon
+  AI: 'brain-icon'
 };
 
 export default function PlatformIcon({ platform, className }) {
+  // Special handling for AI platform to use Brain icon
+  if (platform === 'AI') {
+    return <Brain className={className} />;
+  }
+  
   const src = iconMap[platform];
   if (!src) return null;
   return <img src={src} alt={`${platform} icon`} className={className} />;

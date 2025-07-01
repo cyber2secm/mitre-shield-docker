@@ -19,7 +19,7 @@ const TEAM_MEMBERS = [
   "Maria Prusskov"
 ];
 
-export default function RuleEditor({ rule, technique, onSave, onCancel }) {
+export default function RuleEditor({ rule, technique, onSave, onCancel, isPromotion = false }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newTag, setNewTag] = useState("");
 
@@ -67,17 +67,25 @@ export default function RuleEditor({ rule, technique, onSave, onCancel }) {
         tags: currentRule.tags || []
       };
       
-      let savedRule;
-      if (rule) {
-        // Update existing rule
-        await DetectionRule.update(rule.id, ruleData);
-        savedRule = { ...rule, ...ruleData };
+      if (isPromotion) {
+        // For promotion, just pass the form data to the promotion handler
+        // Don't create the rule here - let the promotion API handle it
+        onSave(ruleData);
       } else {
-        // Create new rule
-        savedRule = await DetectionRule.create(ruleData);
+        // Normal rule creation/update flow
+        let savedRule;
+        if (rule && (rule._id || rule.id)) {
+          // Update existing rule - use _id or id depending on what's available
+          const ruleId = rule._id || rule.id;
+          await DetectionRule.update(ruleId, ruleData);
+          savedRule = { ...rule, ...ruleData };
+        } else {
+          // Create new rule (either no rule prop or rule without ID)
+          savedRule = await DetectionRule.create(ruleData);
+        }
+        
+        onSave(savedRule);
       }
-      
-      onSave(savedRule);
     } catch (error) {
       console.error("Failed to save rule:", error);
       alert(`Failed to save rule: ${error.message}`);
@@ -194,6 +202,7 @@ export default function RuleEditor({ rule, technique, onSave, onCancel }) {
                   <SelectItem value="GCP">GCP</SelectItem>
                   <SelectItem value="Oracle">Oracle</SelectItem>
                   <SelectItem value="Containers">Containers</SelectItem>
+                  <SelectItem value="AI">AI</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -370,7 +379,7 @@ export default function RuleEditor({ rule, technique, onSave, onCancel }) {
           </Button>
           <Button type="submit" disabled={isSubmitting}>
             <Save className="w-4 h-4 mr-2" />
-            {isSubmitting ? "Saving..." : rule ? "Update Rule" : "Create Rule"}
+            {isSubmitting ? "Saving..." : isPromotion ? "Promote Rule" : (rule && (rule._id || rule.id)) ? "Update Rule" : "Create Rule"}
           </Button>
         </div>
       </form>

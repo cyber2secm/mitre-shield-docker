@@ -53,7 +53,7 @@ export default function TacticDetailModal({
       return;
     }
 
-    setDeletingTechniqueIds(prev => new Set(prev).add(technique.id));
+          setDeletingTechniqueIds(prev => new Set(prev).add(technique._id || technique.id));
 
     try {
       const allDetectionRules = await DetectionRule.list();
@@ -65,17 +65,24 @@ export default function TacticDetailModal({
       console.log('Deleting related rules:', { detectionRules: relatedDetectionRules.length, futureRules: relatedFutureRules.length });
       
       for (const rule of relatedDetectionRules) {
-        try { await DetectionRule.delete(rule.id); } 
-        catch (err) { if (!err.message?.includes('404')) console.warn(`Could not delete detection rule ${rule.id}:`, err); }
+        try { 
+          const ruleId = rule._id || rule.id;
+          await DetectionRule.delete(ruleId); 
+        } 
+        catch (err) { if (!err.message?.includes('404')) console.warn(`Could not delete detection rule ${rule._id || rule.id}:`, err); }
       }
       
       for (const rule of relatedFutureRules) {
-        try { await FutureRule.delete(rule.id); } 
-        catch (err) { if (!err.message?.includes('404')) console.warn(`Could not delete future rule ${rule.id}:`, err); }
+        try { 
+          const ruleId = rule._id || rule.id;
+          await FutureRule.delete(ruleId); 
+        } 
+        catch (err) { if (!err.message?.includes('404')) console.warn(`Could not delete future rule ${rule._id || rule.id}:`, err); }
       }
       
-      console.log('Deleting technique:', technique.id);
-      await MitreTechnique.delete(technique.id);
+      const techniqueId = technique._id || technique.id;
+      console.log('Deleting technique:', techniqueId);
+      await MitreTechnique.delete(techniqueId);
       console.log('Technique deleted successfully');
       
       await onRuleUpdate();
@@ -89,7 +96,7 @@ export default function TacticDetailModal({
     } finally {
       setDeletingTechniqueIds(prev => {
         const newSet = new Set(prev);
-        newSet.delete(technique.id);
+        newSet.delete(technique._id || technique.id);
         return newSet;
       });
     }
@@ -272,7 +279,7 @@ export default function TacticDetailModal({
                     onNewRule={handleNewRuleForTechnique}
                     onEdit={handleEditTechnique}
                     onDelete={handleDeleteTechnique}
-                    isDeleting={deletingTechniqueIds.has(technique.id)}
+                    isDeleting={deletingTechniqueIds.has(technique._id || technique.id)}
                   />
                 );
               })}

@@ -50,7 +50,8 @@ export default function RulesList({ rules, onEdit, onRuleUpdate }) {
   const handleToggleStatus = async (rule) => {
     try {
       const newStatus = rule.status === "Active" ? "Inactive" : "Active";
-      await DetectionRule.update(rule.id, { status: newStatus });
+      const ruleId = rule._id || rule.id;
+      await DetectionRule.update(ruleId, { status: newStatus });
       await onRuleUpdate();
     } catch (error) {
       console.error("Failed to update rule status:", error);

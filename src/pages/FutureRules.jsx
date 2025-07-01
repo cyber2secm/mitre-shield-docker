@@ -83,7 +83,8 @@ export default function FutureRulesPage() {
   const handleSubmit = async (ruleData) => {
     try {
       if (editingRule) {
-        await FutureRule.update(editingRule.id, ruleData);
+        const ruleId = editingRule._id || editingRule.id;
+        await FutureRule.update(ruleId, ruleData);
       } else {
         await FutureRule.create(ruleData);
       }
@@ -106,16 +107,48 @@ export default function FutureRulesPage() {
 
   const handlePromoteSave = async (newRuleData) => {
     try {
-      await DetectionRule.create(newRuleData);
-      if (promotingRule && promotingRule.id) {
-        await FutureRule.delete(promotingRule.id);
-      }
+      if (!promotingRule) return;
+      
+      const ruleId = promotingRule._id || promotingRule.id;
+      
+      // Debug: Log the entire newRuleData object
+      console.log('Full newRuleData received:', newRuleData);
+      console.log('rule_id value:', newRuleData.rule_id);
+      console.log('rule_id type:', typeof newRuleData.rule_id);
+      console.log('rule_id length:', newRuleData.rule_id ? newRuleData.rule_id.length : 'null/undefined');
+      
+      // Log the data being sent for debugging
+      const promotionData = {
+        rule_id: newRuleData.rule_id,
+        xql_query: newRuleData.xql_query,
+        status: newRuleData.status || 'Testing',
+        false_positive_rate: newRuleData.false_positive_rate || 'Medium',
+        tags: newRuleData.tags || []
+      };
+      console.log('Promoting rule with data:', promotionData);
+      
+      // Use the proper promotion API endpoint via apiClient
+      const { apiClient } = await import('../api/apiClient');
+      
+      const result = await apiClient.post(`/future-rules/${ruleId}/promote`, promotionData);
+      console.log('Promotion successful:', result);
+      
       setPromotingRule(null);
       await loadFutureRules();
-      // Optionally: Add a success toast/notification here
+      
+      // Show success message
+      alert(`Successfully promoted "${promotingRule.name}" to detection rule!`);
     } catch (error) {
       console.error("Failed to promote rule:", error);
-      alert(`Failed to promote rule: ${error.message}`);
+      console.error("Error details:", error);
+      
+      // Try to get more detailed error information
+      let errorMessage = error.message;
+      if (error.message.includes('Rule ID') && error.message.includes('already exists')) {
+        errorMessage = `The Rule ID "${newRuleData.rule_id}" is already in use. Please choose a different Rule ID.`;
+      }
+      
+      alert(`Failed to promote rule: ${errorMessage}`);
     }
   };
 
@@ -266,6 +299,7 @@ export default function FutureRulesPage() {
               rule={ruleToPromote}
               onSave={handlePromoteSave}
               onCancel={() => setPromotingRule(null)}
+              isPromotion={true}
             />
           </DialogContent>
         </Dialog>

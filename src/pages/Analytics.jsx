@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { DetectionRule, MitreTechnique } from "@/api/entities";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +10,7 @@ import CoverageHeatmap from "../components/analytics/CoverageHeatmap";
 import PlatformDistribution from "../components/analytics/PlatformDistribution";
 import RuleStatusChart from "../components/analytics/RuleStatusChart";
 import TopTechniques from "../components/analytics/TopTechniques";
+import MitreSyncStatus from "../components/analytics/MitreSyncStatus";
 
 export default function AnalyticsPage() {
   const [rules, setRules] = useState([]);
@@ -87,6 +87,7 @@ export default function AnalyticsPage() {
                   <SelectItem value="Azure">Azure</SelectItem>
                   <SelectItem value="GCP">GCP</SelectItem>
                   <SelectItem value="Containers">Containers</SelectItem>
+                  <SelectItem value="AI">AI</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -96,6 +97,16 @@ export default function AnalyticsPage() {
 
       <div className="p-6">
         <div className="max-w-7xl mx-auto space-y-8">
+          {/* Platform Distribution takes full width now */}
+          <div className="grid grid-cols-1 gap-8">
+            <PlatformDistribution 
+              rules={filteredRules} 
+              isLoading={isLoading}
+              onDataUpdate={loadData}
+            />
+          </div>
+
+          {/* Coverage Heatmap and Top Techniques side by side */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <CoverageHeatmap 
               rules={filteredRules} 
@@ -104,24 +115,31 @@ export default function AnalyticsPage() {
               selectedPlatform={selectedPlatform}
               onDataUpdate={loadData}
             />
-            <PlatformDistribution 
+            <TopTechniques 
               rules={filteredRules} 
               isLoading={isLoading}
               onDataUpdate={loadData}
             />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Rule Status Chart gets its own row */}
+          <div className="grid grid-cols-1 gap-8">
             <RuleStatusChart 
               rules={filteredRules} 
               isLoading={isLoading}
               onDataUpdate={loadData}
             />
-            <TopTechniques 
-              rules={filteredRules} 
-              isLoading={isLoading}
-              onDataUpdate={loadData}
-            />
+          </div>
+
+          {/* MITRE Sync Status moved to the end */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-1">
+              <MitreSyncStatus onDataUpdate={loadData} />
+            </div>
+            {/* Optional: Add some spacing or other components here if needed */}
+            <div className="lg:col-span-2">
+              {/* This space could be used for additional components in the future */}
+            </div>
           </div>
         </div>
       </div>

@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
@@ -14,46 +13,113 @@ const techniquesRoutes = require('./routes/techniques');
 const futureRulesRoutes = require('./routes/futureRules');
 const fileRoutes = require('./routes/files');
 const analyticsRoutes = require('./routes/analytics');
+const { router: mitreRoutes } = require('./routes/mitre');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Security middleware
-app.use(helmet());
-app.use(compression());
+// Enhanced MongoDB connection configuration for large datasets
+const mongooseOptions = {
+  maxPoolSize: 20, // Maximum number of connections in the connection pool
+  serverSelectionTimeoutMS: 10000, // How long mongoose will try to connect
+  socketTimeoutMS: 45000, // Close connections after 45 seconds of inactivity
+  maxIdleTimeMS: 30000, // Close connections after 30 seconds of inactivity
+  // Use IPv4, skip trying IPv6
+  family: 4
+};
 
-// Rate limiting - more generous during development
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: process.env.NODE_ENV === 'production' ? 100 : 1000, // Higher limit for development
-  message: 'Too many requests from this IP, please try again later.'
+// Enhanced CORS configuration
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow localhost on any port for development
+    if (origin.match(/^http:\/\/localhost:\d+$/)) {
+      return callback(null, true);
+    }
+    
+    // Add your production domains here
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'https://your-production-domain.com'
+    ];
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+  exposedHeaders: ['X-Total-Count', 'X-Page-Count']
+};
+
+// Enhanced rate limiting for different endpoints
+const createRateLimit = (windowMs, max, message) => rateLimit({
+  windowMs,
+  max,
+  message: { error: message },
+  standardHeaders: true,
+  legacyHeaders: false,
+  // Skip successful requests for some endpoints
+  skip: (req, res) => res.statusCode < 400,
+  keyGenerator: (req) => {
+    return req.ip || 'unknown';
+  }
 });
-app.use('/api/', limiter);
 
-// CORS configuration
-app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:5174',
-    process.env.FRONTEND_URL || 'http://localhost:5173'
-  ],
-  credentials: true
+// Different rate limits for different types of requests
+const generalLimit = createRateLimit(15 * 60 * 1000, 1000, 'Too many requests, please try again later'); // 1000 requests per 15 minutes
+const syncLimit = createRateLimit(60 * 60 * 1000, 10, 'Too many sync requests, please try again later'); // 10 sync requests per hour
+const authLimit = createRateLimit(15 * 60 * 1000, 20, 'Too many authentication attempts, please try again later'); // 20 auth attempts per 15 minutes
+
+// Security middleware
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: false // Disable CSP for development
 }));
 
-// Body parsing middleware
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// Enhanced request processing middleware
+app.use(express.json({ 
+  limit: '50mb', // Increase payload limit for large data imports
+  type: 'application/json'
+}));
+app.use(express.urlencoded({ 
+  extended: true, 
+  limit: '50mb',
+  parameterLimit: 10000 // Allow more parameters for complex queries
+}));
 
-// Logging
-app.use(morgan('combined'));
+app.use(cors(corsOptions));
 
-// MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mitre-shield', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.error('MongoDB connection error:', err));
+// Enhanced logging
+app.use(morgan('combined', {
+  skip: function (req, res) {
+    // Skip logging successful requests to reduce noise
+    return res.statusCode < 400;
+  }
+}));
+
+// Apply rate limiting
+app.use('/api/auth', authLimit);
+app.use('/api/mitre/sync', syncLimit);
+app.use('/api', generalLimit);
+
+// Health check endpoint (not rate limited)
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    memory: process.memoryUsage(),
+    pid: process.pid
+  });
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -62,75 +128,178 @@ app.use('/api/techniques', techniquesRoutes);
 app.use('/api/future-rules', futureRulesRoutes);
 app.use('/api', fileRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/mitre', mitreRoutes);
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime()
-  });
-});
-
-// Error handling middleware
+// Enhanced error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    success: false,
-    error: 'Something went wrong!',
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+  console.error('Error details:', {
+    message: err.message,
+    stack: err.stack,
+    url: req.url,
+    method: req.method,
+    ip: req.ip,
+    userAgent: req.get('User-Agent'),
+    timestamp: new Date().toISOString()
+  });
+
+  // Handle specific error types
+  if (err.name === 'ValidationError') {
+    return res.status(400).json({ error: 'Validation failed', details: err.errors });
+  }
+  
+  if (err.name === 'CastError') {
+    return res.status(400).json({ error: 'Invalid data format' });
+  }
+  
+  if (err.code === 11000) {
+    return res.status(400).json({ error: 'Duplicate entry detected' });
+  }
+  
+  if (err.name === 'MongoTimeoutError') {
+    return res.status(503).json({ error: 'Database timeout, please try again later' });
+  }
+
+  // Default error response
+  res.status(err.status || 500).json({ 
+    error: process.env.NODE_ENV === 'production' ? 'Internal server error' : err.message 
   });
 });
 
 // 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({
-    success: false,
-    error: 'Route not found'
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// Enhanced MongoDB connection with retry logic
+const connectWithRetry = async () => {
+  const maxRetries = 5;
+  let retries = 0;
+  
+  while (retries < maxRetries) {
+    try {
+      await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mitre-shield', mongooseOptions);
+      console.log('✅ MongoDB connected successfully');
+      break;
+    } catch (err) {
+      retries++;
+      console.error(`❌ MongoDB connection attempt ${retries} failed:`, err.message);
+      
+      if (retries >= maxRetries) {
+        console.error('❌ Max MongoDB connection retries reached. Exiting...');
+        process.exit(1);
+      }
+      
+      // Wait before retrying (exponential backoff)
+      const delay = Math.pow(2, retries) * 1000;
+      console.log(`⏳ Retrying MongoDB connection in ${delay}ms...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+};
+
+// Enhanced graceful shutdown
+const gracefulShutdown = async (signal) => {
+  console.log(`\n🛑 ${signal} received, shutting down gracefully...`);
+  
+  // Stop accepting new connections
+  server.close(async () => {
+    console.log('📡 HTTP server closed');
+    
+    try {
+      // Close database connection
+      await mongoose.connection.close();
+      console.log('🗄️ MongoDB connection closed');
+      
+      // Exit process
+      console.log('✅ Graceful shutdown completed');
+      process.exit(0);
+    } catch (err) {
+      console.error('❌ Error during graceful shutdown:', err);
+      process.exit(1);
+    }
   });
-});
-
-// Process error handling
-process.on('uncaughtException', (err) => {
-  console.error('Uncaught Exception:', err);
-  process.exit(1);
-});
-
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-  process.exit(1);
-});
-
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('SIGTERM received, shutting down gracefully');
-  mongoose.connection.close(() => {
-    console.log('MongoDB connection closed');
-    process.exit(0);
-  });
-});
-
-process.on('SIGINT', () => {
-  console.log('SIGINT received, shutting down gracefully');
-  mongoose.connection.close(() => {
-    console.log('MongoDB connection closed');
-    process.exit(0);
-  });
-});
-
-// Start server
-const server = app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-});
-
-// Handle server errors
-server.on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(`Port ${PORT} is already in use. Please close other processes or use a different port.`);
+  
+  // Force exit after timeout
+  setTimeout(() => {
+    console.error('❌ Graceful shutdown timed out, forcing exit');
     process.exit(1);
-  } else {
-    console.error('Server error:', err);
+  }, 10000);
+};
+
+// Enhanced process error handlers
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('🚨 Unhandled Rejection at:', promise, 'reason:', reason);
+  // Don't exit the process for unhandled rejections in production
+  if (process.env.NODE_ENV !== 'production') {
     process.exit(1);
   }
-}); 
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('🚨 Uncaught Exception:', err);
+  // Always exit on uncaught exceptions
+  process.exit(1);
+});
+
+// Graceful shutdown handlers
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+// Memory monitoring
+const logMemoryUsage = () => {
+  const used = process.memoryUsage();
+  console.log('📊 Memory usage:', {
+    rss: `${Math.round(used.rss / 1024 / 1024 * 100) / 100} MB`,
+    heapTotal: `${Math.round(used.heapTotal / 1024 / 1024 * 100) / 100} MB`,
+    heapUsed: `${Math.round(used.heapUsed / 1024 / 1024 * 100) / 100} MB`,
+    external: `${Math.round(used.external / 1024 / 1024 * 100) / 100} MB`
+  });
+};
+
+// Start server
+let server;
+
+const startServer = async () => {
+  try {
+    // Connect to MongoDB first
+    await connectWithRetry();
+    
+    // Start HTTP server
+    server = app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`📊 Process ID: ${process.pid}`);
+      
+      // Log memory usage periodically in development
+      if (process.env.NODE_ENV !== 'production') {
+        setInterval(logMemoryUsage, 60000); // Every minute
+      }
+    });
+    
+    // Handle server errors
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.error(`❌ Port ${PORT} is already in use`);
+        process.exit(1);
+      } else {
+        console.error('❌ Server error:', err);
+        process.exit(1);
+      }
+    });
+    
+    // Start scheduler service after server is running
+    try {
+      const scheduler = require('./services/scheduler');
+      scheduler.start();
+    } catch (err) {
+      console.error('⚠️ Scheduler service failed to start:', err.message);
+    }
+    
+  } catch (err) {
+    console.error('❌ Failed to start server:', err);
+    process.exit(1);
+  }
+};
+
+// Start the server
+startServer(); 
