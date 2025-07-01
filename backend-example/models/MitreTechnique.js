@@ -68,6 +68,10 @@ const MitreTechniqueSchema = new mongoose.Schema({
     type: String,
     default: 'manual'
   },
+  extraction_platform: {
+    type: String,
+    trim: true
+  },
   // Enhanced metadata fields
   complexity: {
     type: String,

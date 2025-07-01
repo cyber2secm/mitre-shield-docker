@@ -19,7 +19,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513738",
+    "last_updated": "2025-07-01T22:53:25.485279",
     "subtechniques": []
   },
   {
@@ -42,7 +42,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513754",
+    "last_updated": "2025-07-01T22:53:25.485292",
     "subtechniques": []
   },
   {
@@ -65,7 +65,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513760",
+    "last_updated": "2025-07-01T22:53:25.485298",
     "subtechniques": [
       {
         "id": "T1566.002",
@@ -97,7 +97,7 @@
     "parent_technique_id": "T1566",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513764"
+    "last_updated": "2025-07-01T22:53:25.485302"
   },
   {
     "technique_id": "T1566.004",
@@ -119,7 +119,7 @@
     "parent_technique_id": "T1566",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513769"
+    "last_updated": "2025-07-01T22:53:25.485307"
   },
   {
     "technique_id": "T1199",
@@ -141,7 +141,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513773",
+    "last_updated": "2025-07-01T22:53:25.485311",
     "subtechniques": []
   },
   {
@@ -164,7 +164,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513777",
+    "last_updated": "2025-07-01T22:53:25.485315",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -196,7 +196,7 @@
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513780"
+    "last_updated": "2025-07-01T22:53:25.485318"
   },
   {
     "technique_id": "T1078.004",
@@ -218,7 +218,7 @@
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513784"
+    "last_updated": "2025-07-01T22:53:25.485321"
   },
   {
     "technique_id": "T1651",
@@ -240,7 +240,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513926",
+    "last_updated": "2025-07-01T22:53:25.485459",
     "subtechniques": []
   },
   {
@@ -263,7 +263,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513930",
+    "last_updated": "2025-07-01T22:53:25.485463",
     "subtechniques": [
       {
         "id": "T1059.009",
@@ -291,7 +291,7 @@
     "parent_technique_id": "T1059",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513934"
+    "last_updated": "2025-07-01T22:53:25.485467"
   },
   {
     "technique_id": "T1648",
@@ -313,7 +313,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513937",
+    "last_updated": "2025-07-01T22:53:25.485470",
     "subtechniques": []
   },
   {
@@ -336,7 +336,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513940",
+    "last_updated": "2025-07-01T22:53:25.485473",
     "subtechniques": []
   },
   {
@@ -359,7 +359,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513943",
+    "last_updated": "2025-07-01T22:53:25.485476",
     "subtechniques": [
       {
         "id": "T1204.003",
@@ -387,7 +387,7 @@
     "parent_technique_id": "T1204",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.513946"
+    "last_updated": "2025-07-01T22:53:25.485480"
   },
   {
     "technique_id": "T1098",
@@ -409,7 +409,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514154",
+    "last_updated": "2025-07-01T22:53:25.485684",
     "subtechniques": [
       {
         "id": "T1098.001",
@@ -453,7 +453,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514158"
+    "last_updated": "2025-07-01T22:53:25.485688"
   },
   {
     "technique_id": "T1098.002",
@@ -475,7 +475,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514161"
+    "last_updated": "2025-07-01T22:53:25.485692"
   },
   {
     "technique_id": "T1098.003",
@@ -497,7 +497,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514164"
+    "last_updated": "2025-07-01T22:53:25.485695"
   },
   {
     "technique_id": "T1098.004",
@@ -519,7 +519,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514167"
+    "last_updated": "2025-07-01T22:53:25.485698"
   },
   {
     "technique_id": "T1098.005",
@@ -541,7 +541,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514170"
+    "last_updated": "2025-07-01T22:53:25.485701"
   },
   {
     "technique_id": "T1671",
@@ -563,7 +563,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514173",
+    "last_updated": "2025-07-01T22:53:25.485704",
     "subtechniques": []
   },
   {
@@ -586,7 +586,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514177",
+    "last_updated": "2025-07-01T22:53:25.485708",
     "subtechniques": [
       {
         "id": "T1136.003",
@@ -614,7 +614,7 @@
     "parent_technique_id": "T1136",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514180"
+    "last_updated": "2025-07-01T22:53:25.485711"
   },
   {
     "technique_id": "T1546",
@@ -636,7 +636,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514183",
+    "last_updated": "2025-07-01T22:53:25.485714",
     "subtechniques": []
   },
   {
@@ -659,7 +659,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514186",
+    "last_updated": "2025-07-01T22:53:25.485716",
     "subtechniques": []
   },
   {
@@ -682,7 +682,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514189",
+    "last_updated": "2025-07-01T22:53:25.485720",
     "subtechniques": [
       {
         "id": "T1556.006",
@@ -718,7 +718,7 @@
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514192"
+    "last_updated": "2025-07-01T22:53:25.485724"
   },
   {
     "technique_id": "T1556.007",
@@ -740,7 +740,7 @@
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514196"
+    "last_updated": "2025-07-01T22:53:25.485727"
   },
   {
     "technique_id": "T1556.009",
@@ -762,7 +762,7 @@
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514199"
+    "last_updated": "2025-07-01T22:53:25.485730"
   },
   {
     "technique_id": "T1137",
@@ -784,7 +784,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514202",
+    "last_updated": "2025-07-01T22:53:25.485733",
     "subtechniques": [
       {
         "id": "T1137.001",
@@ -832,7 +832,7 @@
     "parent_technique_id": "T1137",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514205"
+    "last_updated": "2025-07-01T22:53:25.485736"
   },
   {
     "technique_id": "T1137.002",
@@ -854,7 +854,7 @@
     "parent_technique_id": "T1137",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514208"
+    "last_updated": "2025-07-01T22:53:25.485739"
   },
   {
     "technique_id": "T1137.003",
@@ -876,7 +876,7 @@
     "parent_technique_id": "T1137",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514211"
+    "last_updated": "2025-07-01T22:53:25.485742"
   },
   {
     "technique_id": "T1137.004",
@@ -898,7 +898,7 @@
     "parent_technique_id": "T1137",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514214"
+    "last_updated": "2025-07-01T22:53:25.485745"
   },
   {
     "technique_id": "T1137.005",
@@ -920,7 +920,7 @@
     "parent_technique_id": "T1137",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514217"
+    "last_updated": "2025-07-01T22:53:25.485748"
   },
   {
     "technique_id": "T1137.006",
@@ -942,7 +942,7 @@
     "parent_technique_id": "T1137",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514224"
+    "last_updated": "2025-07-01T22:53:25.485751"
   },
   {
     "technique_id": "T1078",
@@ -964,7 +964,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514260",
+    "last_updated": "2025-07-01T22:53:25.485787",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -996,7 +996,7 @@
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514263"
+    "last_updated": "2025-07-01T22:53:25.485790"
   },
   {
     "technique_id": "T1078.004",
@@ -1018,7 +1018,7 @@
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514266"
+    "last_updated": "2025-07-01T22:53:25.485793"
   },
   {
     "technique_id": "T1548",
@@ -1040,7 +1040,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514525",
+    "last_updated": "2025-07-01T22:53:25.486042",
     "subtechniques": [
       {
         "id": "T1548.005",
@@ -1068,7 +1068,7 @@
     "parent_technique_id": "T1548",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514529"
+    "last_updated": "2025-07-01T22:53:25.486046"
   },
   {
     "technique_id": "T1098",
@@ -1090,7 +1090,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514532",
+    "last_updated": "2025-07-01T22:53:25.486050",
     "subtechniques": [
       {
         "id": "T1098.001",
@@ -1134,7 +1134,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514536"
+    "last_updated": "2025-07-01T22:53:25.486053"
   },
   {
     "technique_id": "T1098.002",
@@ -1156,7 +1156,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514539"
+    "last_updated": "2025-07-01T22:53:25.486056"
   },
   {
     "technique_id": "T1098.003",
@@ -1178,7 +1178,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514542"
+    "last_updated": "2025-07-01T22:53:25.486059"
   },
   {
     "technique_id": "T1098.004",
@@ -1200,7 +1200,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514545"
+    "last_updated": "2025-07-01T22:53:25.486062"
   },
   {
     "technique_id": "T1098.005",
@@ -1222,7 +1222,7 @@
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514548"
+    "last_updated": "2025-07-01T22:53:25.486065"
   },
   {
     "technique_id": "T1484",
@@ -1244,7 +1244,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514552",
+    "last_updated": "2025-07-01T22:53:25.486069",
     "subtechniques": [
       {
         "id": "T1484.002",
@@ -1272,7 +1272,7 @@
     "parent_technique_id": "T1484",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514555"
+    "last_updated": "2025-07-01T22:53:25.486072"
   },
   {
     "technique_id": "T1546",
@@ -1294,7 +1294,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514558",
+    "last_updated": "2025-07-01T22:53:25.486075",
     "subtechniques": []
   },
   {
@@ -1317,7 +1317,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514561",
+    "last_updated": "2025-07-01T22:53:25.486078",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -1349,7 +1349,7 @@
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514564"
+    "last_updated": "2025-07-01T22:53:25.486081"
   },
   {
     "technique_id": "T1078.004",
@@ -1371,7 +1371,7 @@
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514567"
+    "last_updated": "2025-07-01T22:53:25.486084"
   },
   {
     "technique_id": "T1548",
@@ -1393,7 +1393,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514885",
+    "last_updated": "2025-07-01T22:53:25.486402",
     "subtechniques": [
       {
         "id": "T1548.005",
@@ -1421,7 +1421,7 @@
     "parent_technique_id": "T1548",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514888"
+    "last_updated": "2025-07-01T22:53:25.486405"
   },
   {
     "technique_id": "T1484",
@@ -1443,7 +1443,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514892",
+    "last_updated": "2025-07-01T22:53:25.486409",
     "subtechniques": [
       {
         "id": "T1484.002",
@@ -1471,7 +1471,7 @@
     "parent_technique_id": "T1484",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514895"
+    "last_updated": "2025-07-01T22:53:25.486412"
   },
   {
     "technique_id": "T1672",
@@ -1493,7 +1493,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514898",
+    "last_updated": "2025-07-01T22:53:25.486415",
     "subtechniques": []
   },
   {
@@ -1516,7 +1516,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514900",
+    "last_updated": "2025-07-01T22:53:25.486418",
     "subtechniques": []
   },
   {
@@ -1539,7 +1539,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514904",
+    "last_updated": "2025-07-01T22:53:25.486422",
     "subtechniques": [
       {
         "id": "T1564.008",
@@ -1567,7 +1567,7 @@
     "parent_technique_id": "T1564",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514906"
+    "last_updated": "2025-07-01T22:53:25.486425"
   },
   {
     "technique_id": "T1562",
@@ -1589,7 +1589,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514910",
+    "last_updated": "2025-07-01T22:53:25.486428",
     "subtechniques": [
       {
         "id": "T1562.001",
@@ -1625,7 +1625,7 @@
     "parent_technique_id": "T1562",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514913"
+    "last_updated": "2025-07-01T22:53:25.486431"
   },
   {
     "technique_id": "T1562.007",
@@ -1647,7 +1647,7 @@
     "parent_technique_id": "T1562",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514916"
+    "last_updated": "2025-07-01T22:53:25.486434"
   },
   {
     "technique_id": "T1562.008",
@@ -1669,7 +1669,7 @@
     "parent_technique_id": "T1562",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514919"
+    "last_updated": "2025-07-01T22:53:25.486437"
   },
   {
     "technique_id": "T1656",
@@ -1691,7 +1691,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514922",
+    "last_updated": "2025-07-01T22:53:25.486440",
     "subtechniques": []
   },
   {
@@ -1714,7 +1714,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514925",
+    "last_updated": "2025-07-01T22:53:25.486443",
     "subtechniques": [
       {
         "id": "T1070.008",
@@ -1742,7 +1742,7 @@
     "parent_technique_id": "T1070",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514928"
+    "last_updated": "2025-07-01T22:53:25.486446"
   },
   {
     "technique_id": "T1556",
@@ -1764,7 +1764,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514931",
+    "last_updated": "2025-07-01T22:53:25.486450",
     "subtechniques": [
       {
         "id": "T1556.006",
@@ -1800,7 +1800,7 @@
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514934"
+    "last_updated": "2025-07-01T22:53:25.486453"
   },
   {
     "technique_id": "T1556.007",
@@ -1822,7 +1822,7 @@
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514937"
+    "last_updated": "2025-07-01T22:53:25.486456"
   },
   {
     "technique_id": "T1556.009",
@@ -1844,7 +1844,7 @@
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514942"
+    "last_updated": "2025-07-01T22:53:25.486459"
   },
   {
     "technique_id": "T1578",
@@ -1866,7 +1866,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514945",
+    "last_updated": "2025-07-01T22:53:25.486462",
     "subtechniques": [
       {
         "id": "T1578.001",
@@ -1910,7 +1910,7 @@
     "parent_technique_id": "T1578",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514948"
+    "last_updated": "2025-07-01T22:53:25.486465"
   },
   {
     "technique_id": "T1578.002",
@@ -1932,7 +1932,7 @@
     "parent_technique_id": "T1578",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514951"
+    "last_updated": "2025-07-01T22:53:25.486470"
   },
   {
     "technique_id": "T1578.003",
@@ -1954,7 +1954,7 @@
     "parent_technique_id": "T1578",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514956"
+    "last_updated": "2025-07-01T22:53:25.486475"
   },
   {
     "technique_id": "T1578.004",
@@ -1976,7 +1976,7 @@
     "parent_technique_id": "T1578",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514959"
+    "last_updated": "2025-07-01T22:53:25.486478"
   },
   {
     "technique_id": "T1578.005",
@@ -1998,7 +1998,7 @@
     "parent_technique_id": "T1578",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514962"
+    "last_updated": "2025-07-01T22:53:25.486481"
   },
   {
     "technique_id": "T1666",
@@ -2020,7 +2020,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514965",
+    "last_updated": "2025-07-01T22:53:25.486484",
     "subtechniques": []
   },
   {
@@ -2043,7 +2043,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514967",
+    "last_updated": "2025-07-01T22:53:25.486487",
     "subtechniques": []
   },
   {
@@ -2066,7 +2066,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514971",
+    "last_updated": "2025-07-01T22:53:25.486491",
     "subtechniques": [
       {
         "id": "T1550.001",
@@ -2098,7 +2098,7 @@
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514974"
+    "last_updated": "2025-07-01T22:53:25.486494"
   },
   {
     "technique_id": "T1550.004",
@@ -2120,7 +2120,7 @@
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514977"
+    "last_updated": "2025-07-01T22:53:25.486497"
   },
   {
     "technique_id": "T1078",
@@ -2142,7 +2142,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514980",
+    "last_updated": "2025-07-01T22:53:25.486500",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -2174,7 +2174,7 @@
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514982"
+    "last_updated": "2025-07-01T22:53:25.486503"
   },
   {
     "technique_id": "T1078.004",
@@ -2196,7 +2196,7 @@
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.514985"
+    "last_updated": "2025-07-01T22:53:25.486505"
   },
   {
     "technique_id": "T1110",
@@ -2218,7 +2218,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515321",
+    "last_updated": "2025-07-01T22:53:25.486845",
     "subtechniques": [
       {
         "id": "T1110.001",
@@ -2258,7 +2258,7 @@
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515324"
+    "last_updated": "2025-07-01T22:53:25.486849"
   },
   {
     "technique_id": "T1110.002",
@@ -2280,7 +2280,7 @@
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515327"
+    "last_updated": "2025-07-01T22:53:25.486852"
   },
   {
     "technique_id": "T1110.003",
@@ -2302,7 +2302,7 @@
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515330"
+    "last_updated": "2025-07-01T22:53:25.486855"
   },
   {
     "technique_id": "T1110.004",
@@ -2324,7 +2324,7 @@
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515333"
+    "last_updated": "2025-07-01T22:53:25.486857"
   },
   {
     "technique_id": "T1555",
@@ -2346,7 +2346,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515337",
+    "last_updated": "2025-07-01T22:53:25.486861",
     "subtechniques": [
       {
         "id": "T1555.006",
@@ -2374,7 +2374,7 @@
     "parent_technique_id": "T1555",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515340"
+    "last_updated": "2025-07-01T22:53:25.486864"
   },
   {
     "technique_id": "T1212",
@@ -2396,7 +2396,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515343",
+    "last_updated": "2025-07-01T22:53:25.486867",
     "subtechniques": []
   },
   {
@@ -2419,7 +2419,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515347",
+    "last_updated": "2025-07-01T22:53:25.486870",
     "subtechniques": [
       {
         "id": "T1606.001",
@@ -2451,7 +2451,7 @@
     "parent_technique_id": "T1606",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515350"
+    "last_updated": "2025-07-01T22:53:25.486873"
   },
   {
     "technique_id": "T1606.002",
@@ -2473,7 +2473,7 @@
     "parent_technique_id": "T1606",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515353"
+    "last_updated": "2025-07-01T22:53:25.486876"
   },
   {
     "technique_id": "T1556",
@@ -2495,7 +2495,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515356",
+    "last_updated": "2025-07-01T22:53:25.486880",
     "subtechniques": [
       {
         "id": "T1556.006",
@@ -2531,7 +2531,7 @@
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515359"
+    "last_updated": "2025-07-01T22:53:25.486883"
   },
   {
     "technique_id": "T1556.007",
@@ -2553,7 +2553,7 @@
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515362"
+    "last_updated": "2025-07-01T22:53:25.486885"
   },
   {
     "technique_id": "T1556.009",
@@ -2575,7 +2575,7 @@
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515365"
+    "last_updated": "2025-07-01T22:53:25.486888"
   },
   {
     "technique_id": "T1621",
@@ -2597,7 +2597,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515368",
+    "last_updated": "2025-07-01T22:53:25.486891",
     "subtechniques": []
   },
   {
@@ -2620,7 +2620,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515370",
+    "last_updated": "2025-07-01T22:53:25.486894",
     "subtechniques": []
   },
   {
@@ -2643,7 +2643,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515373",
+    "last_updated": "2025-07-01T22:53:25.486896",
     "subtechniques": []
   },
   {
@@ -2666,7 +2666,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515376",
+    "last_updated": "2025-07-01T22:53:25.486899",
     "subtechniques": []
   },
   {
@@ -2689,7 +2689,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515379",
+    "last_updated": "2025-07-01T22:53:25.486902",
     "subtechniques": []
   },
   {
@@ -2712,7 +2712,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515382",
+    "last_updated": "2025-07-01T22:53:25.486905",
     "subtechniques": [
       {
         "id": "T1552.001",
@@ -2748,7 +2748,7 @@
     "parent_technique_id": "T1552",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515385"
+    "last_updated": "2025-07-01T22:53:25.486908"
   },
   {
     "technique_id": "T1552.005",
@@ -2770,7 +2770,7 @@
     "parent_technique_id": "T1552",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515388"
+    "last_updated": "2025-07-01T22:53:25.486911"
   },
   {
     "technique_id": "T1552.008",
@@ -2792,7 +2792,7 @@
     "parent_technique_id": "T1552",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515391"
+    "last_updated": "2025-07-01T22:53:25.486914"
   },
   {
     "technique_id": "T1087",
@@ -2814,7 +2814,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515651",
+    "last_updated": "2025-07-01T22:53:25.487166",
     "subtechniques": [
       {
         "id": "T1087.003",
@@ -2846,7 +2846,7 @@
     "parent_technique_id": "T1087",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515655"
+    "last_updated": "2025-07-01T22:53:25.487169"
   },
   {
     "technique_id": "T1087.004",
@@ -2868,7 +2868,7 @@
     "parent_technique_id": "T1087",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515658"
+    "last_updated": "2025-07-01T22:53:25.487172"
   },
   {
     "technique_id": "T1580",
@@ -2890,7 +2890,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515661",
+    "last_updated": "2025-07-01T22:53:25.487175",
     "subtechniques": []
   },
   {
@@ -2913,7 +2913,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515664",
+    "last_updated": "2025-07-01T22:53:25.487178",
     "subtechniques": []
   },
   {
@@ -2936,7 +2936,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515666",
+    "last_updated": "2025-07-01T22:53:25.487182",
     "subtechniques": []
   },
   {
@@ -2959,7 +2959,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515671",
+    "last_updated": "2025-07-01T22:53:25.487184",
     "subtechniques": []
   },
   {
@@ -2982,7 +2982,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515674",
+    "last_updated": "2025-07-01T22:53:25.487187",
     "subtechniques": []
   },
   {
@@ -3005,7 +3005,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515676",
+    "last_updated": "2025-07-01T22:53:25.487190",
     "subtechniques": []
   },
   {
@@ -3028,7 +3028,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515679",
+    "last_updated": "2025-07-01T22:53:25.487192",
     "subtechniques": []
   },
   {
@@ -3051,7 +3051,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515682",
+    "last_updated": "2025-07-01T22:53:25.487195",
     "subtechniques": []
   },
   {
@@ -3074,7 +3074,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515685",
+    "last_updated": "2025-07-01T22:53:25.487198",
     "subtechniques": [
       {
         "id": "T1069.003",
@@ -3102,7 +3102,7 @@
     "parent_technique_id": "T1069",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515688"
+    "last_updated": "2025-07-01T22:53:25.487200"
   },
   {
     "technique_id": "T1518",
@@ -3124,7 +3124,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515691",
+    "last_updated": "2025-07-01T22:53:25.487204",
     "subtechniques": [
       {
         "id": "T1518.001",
@@ -3152,7 +3152,7 @@
     "parent_technique_id": "T1518",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515694"
+    "last_updated": "2025-07-01T22:53:25.487207"
   },
   {
     "technique_id": "T1082",
@@ -3174,7 +3174,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515697",
+    "last_updated": "2025-07-01T22:53:25.487209",
     "subtechniques": []
   },
   {
@@ -3197,7 +3197,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515700",
+    "last_updated": "2025-07-01T22:53:25.487212",
     "subtechniques": []
   },
   {
@@ -3220,7 +3220,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515703",
+    "last_updated": "2025-07-01T22:53:25.487215",
     "subtechniques": []
   },
   {
@@ -3243,7 +3243,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515879",
+    "last_updated": "2025-07-01T22:53:25.487374",
     "subtechniques": []
   },
   {
@@ -3266,7 +3266,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515883",
+    "last_updated": "2025-07-01T22:53:25.487378",
     "subtechniques": [
       {
         "id": "T1021.007",
@@ -3298,7 +3298,7 @@
     "parent_technique_id": "T1021",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515886"
+    "last_updated": "2025-07-01T22:53:25.487382"
   },
   {
     "technique_id": "T1021.008",
@@ -3320,7 +3320,7 @@
     "parent_technique_id": "T1021",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515889"
+    "last_updated": "2025-07-01T22:53:25.487385"
   },
   {
     "technique_id": "T1072",
@@ -3342,7 +3342,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515892",
+    "last_updated": "2025-07-01T22:53:25.487388",
     "subtechniques": []
   },
   {
@@ -3365,7 +3365,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515895",
+    "last_updated": "2025-07-01T22:53:25.487391",
     "subtechniques": []
   },
   {
@@ -3388,7 +3388,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515898",
+    "last_updated": "2025-07-01T22:53:25.487394",
     "subtechniques": [
       {
         "id": "T1550.001",
@@ -3420,7 +3420,7 @@
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515901"
+    "last_updated": "2025-07-01T22:53:25.487452"
   },
   {
     "technique_id": "T1550.004",
@@ -3442,7 +3442,7 @@
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.515904"
+    "last_updated": "2025-07-01T22:53:25.487465"
   },
   {
     "technique_id": "T1119",
@@ -3464,7 +3464,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516068",
+    "last_updated": "2025-07-01T22:53:25.487723",
     "subtechniques": []
   },
   {
@@ -3487,7 +3487,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516071",
+    "last_updated": "2025-07-01T22:53:25.487730",
     "subtechniques": []
   },
   {
@@ -3510,7 +3510,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516075",
+    "last_updated": "2025-07-01T22:53:25.487735",
     "subtechniques": [
       {
         "id": "T1213.001",
@@ -3554,7 +3554,7 @@
     "parent_technique_id": "T1213",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516078"
+    "last_updated": "2025-07-01T22:53:25.487740"
   },
   {
     "technique_id": "T1213.002",
@@ -3576,7 +3576,7 @@
     "parent_technique_id": "T1213",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516081"
+    "last_updated": "2025-07-01T22:53:25.487744"
   },
   {
     "technique_id": "T1213.003",
@@ -3598,7 +3598,7 @@
     "parent_technique_id": "T1213",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516084"
+    "last_updated": "2025-07-01T22:53:25.487748"
   },
   {
     "technique_id": "T1213.004",
@@ -3620,7 +3620,7 @@
     "parent_technique_id": "T1213",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516087"
+    "last_updated": "2025-07-01T22:53:25.487752"
   },
   {
     "technique_id": "T1213.005",
@@ -3642,7 +3642,7 @@
     "parent_technique_id": "T1213",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516090"
+    "last_updated": "2025-07-01T22:53:25.487755"
   },
   {
     "technique_id": "T1074",
@@ -3664,7 +3664,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516093",
+    "last_updated": "2025-07-01T22:53:25.487759",
     "subtechniques": [
       {
         "id": "T1074.002",
@@ -3692,7 +3692,7 @@
     "parent_technique_id": "T1074",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516096"
+    "last_updated": "2025-07-01T22:53:25.487762"
   },
   {
     "technique_id": "T1114",
@@ -3714,7 +3714,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516099",
+    "last_updated": "2025-07-01T22:53:25.487765",
     "subtechniques": [
       {
         "id": "T1114.002",
@@ -3746,7 +3746,7 @@
     "parent_technique_id": "T1114",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516103"
+    "last_updated": "2025-07-01T22:53:25.487768"
   },
   {
     "technique_id": "T1114.003",
@@ -3768,7 +3768,7 @@
     "parent_technique_id": "T1114",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516107"
+    "last_updated": "2025-07-01T22:53:25.487771"
   },
   {
     "technique_id": "T1048",
@@ -3790,7 +3790,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516226",
+    "last_updated": "2025-07-01T22:53:25.487905",
     "subtechniques": []
   },
   {
@@ -3813,7 +3813,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516230",
+    "last_updated": "2025-07-01T22:53:25.487911",
     "subtechniques": [
       {
         "id": "T1567.004",
@@ -3841,7 +3841,7 @@
     "parent_technique_id": "T1567",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516233"
+    "last_updated": "2025-07-01T22:53:25.487914"
   },
   {
     "technique_id": "T1537",
@@ -3863,7 +3863,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516236",
+    "last_updated": "2025-07-01T22:53:25.487917",
     "subtechniques": []
   },
   {
@@ -3886,7 +3886,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516423",
+    "last_updated": "2025-07-01T22:53:25.488102",
     "subtechniques": []
   },
   {
@@ -3909,7 +3909,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516427",
+    "last_updated": "2025-07-01T22:53:25.488111",
     "subtechniques": [
       {
         "id": "T1485.001",
@@ -3937,7 +3937,7 @@
     "parent_technique_id": "T1485",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516434"
+    "last_updated": "2025-07-01T22:53:25.488114"
   },
   {
     "technique_id": "T1486",
@@ -3959,7 +3959,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516437",
+    "last_updated": "2025-07-01T22:53:25.488117",
     "subtechniques": []
   },
   {
@@ -3982,7 +3982,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516440",
+    "last_updated": "2025-07-01T22:53:25.488120",
     "subtechniques": [
       {
         "id": "T1491.002",
@@ -4010,7 +4010,7 @@
     "parent_technique_id": "T1491",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516443"
+    "last_updated": "2025-07-01T22:53:25.488123"
   },
   {
     "technique_id": "T1667",
@@ -4032,7 +4032,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516446",
+    "last_updated": "2025-07-01T22:53:25.488126",
     "subtechniques": []
   },
   {
@@ -4055,7 +4055,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516449",
+    "last_updated": "2025-07-01T22:53:25.488129",
     "subtechniques": [
       {
         "id": "T1499.002",
@@ -4091,7 +4091,7 @@
     "parent_technique_id": "T1499",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516452"
+    "last_updated": "2025-07-01T22:53:25.488132"
   },
   {
     "technique_id": "T1499.003",
@@ -4113,7 +4113,7 @@
     "parent_technique_id": "T1499",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516455"
+    "last_updated": "2025-07-01T22:53:25.488135"
   },
   {
     "technique_id": "T1499.004",
@@ -4135,7 +4135,7 @@
     "parent_technique_id": "T1499",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516458"
+    "last_updated": "2025-07-01T22:53:25.488138"
   },
   {
     "technique_id": "T1657",
@@ -4157,7 +4157,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516461",
+    "last_updated": "2025-07-01T22:53:25.488141",
     "subtechniques": []
   },
   {
@@ -4180,7 +4180,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516464",
+    "last_updated": "2025-07-01T22:53:25.488144",
     "subtechniques": []
   },
   {
@@ -4203,7 +4203,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516467",
+    "last_updated": "2025-07-01T22:53:25.488147",
     "subtechniques": [
       {
         "id": "T1498.001",
@@ -4235,7 +4235,7 @@
     "parent_technique_id": "T1498",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516470"
+    "last_updated": "2025-07-01T22:53:25.488150"
   },
   {
     "technique_id": "T1498.002",
@@ -4257,7 +4257,7 @@
     "parent_technique_id": "T1498",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516473"
+    "last_updated": "2025-07-01T22:53:25.488161"
   },
   {
     "technique_id": "T1496",
@@ -4279,7 +4279,7 @@
     "parent_technique_id": "",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516476",
+    "last_updated": "2025-07-01T22:53:25.488164",
     "subtechniques": [
       {
         "id": "T1496.001",
@@ -4319,7 +4319,7 @@
     "parent_technique_id": "T1496",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516479"
+    "last_updated": "2025-07-01T22:53:25.488169"
   },
   {
     "technique_id": "T1496.002",
@@ -4341,7 +4341,7 @@
     "parent_technique_id": "T1496",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516484"
+    "last_updated": "2025-07-01T22:53:25.488172"
   },
   {
     "technique_id": "T1496.003",
@@ -4363,7 +4363,7 @@
     "parent_technique_id": "T1496",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516487"
+    "last_updated": "2025-07-01T22:53:25.488174"
   },
   {
     "technique_id": "T1496.004",
@@ -4385,6 +4385,6 @@
     "parent_technique_id": "T1496",
     "mitre_version": "1.0",
     "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:51:34.516489"
+    "last_updated": "2025-07-01T22:53:25.488177"
   }
 ]

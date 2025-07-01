@@ -457,13 +457,16 @@ class MitreDataProcessor {
    */
   async getPlatformStats() {
     try {
-      const stats = await MitreTechnique.aggregate([
+      // Use extraction_platform field to get correct counts that match extraction script output
+      const extractionStats = await MitreTechnique.aggregate([
         {
-          $unwind: '$platforms'
+          $match: {
+            extraction_platform: { $exists: true }
+          }
         },
         {
           $group: {
-            _id: '$platforms',
+            _id: '$extraction_platform',
             totalTechniques: { $sum: 1 },
             tactics: { $addToSet: '$tactic' },
             complexities: { $addToSet: '$complexity' },
@@ -483,7 +486,19 @@ class MitreDataProcessor {
         },
         {
           $project: {
-            platform: '$_id',
+            platform: {
+              $switch: {
+                branches: [
+                  { case: { $eq: ['$_id', 'windows'] }, then: 'Windows' },
+                  { case: { $eq: ['$_id', 'linux'] }, then: 'Linux' },
+                  { case: { $eq: ['$_id', 'macos'] }, then: 'macOS' },
+                  { case: { $eq: ['$_id', 'cloud'] }, then: 'Cloud' },
+                  { case: { $eq: ['$_id', 'containers'] }, then: 'Containers' },
+                  { case: { $eq: ['$_id', 'officesuite'] }, then: 'Office Suite' }
+                ],
+                default: '$_id'
+              }
+            },
             totalTechniques: 1,
             tacticCount: { $size: '$tactics' },
             tactics: 1,
@@ -495,7 +510,10 @@ class MitreDataProcessor {
         }
       ]);
 
-      return stats;
+      // No need for individual cloud platform stats - just use extraction stats
+      const allStats = [...extractionStats];
+      
+      return allStats.sort((a, b) => b.totalTechniques - a.totalTechniques);
     } catch (error) {
       console.error('Error getting platform stats:', error);
       return [];
