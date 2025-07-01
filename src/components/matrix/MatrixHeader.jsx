@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -80,6 +79,54 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
           </div>
 
           <div className="flex gap-4">
+            {/* Cloud Service Categories - Only show when viewing Cloud platform */}
+            {isCloudPlatform && (
+              <Select 
+                value={filters.cloudService || "all"} 
+                onValueChange={(value) => setFilters(prev => ({ ...prev, cloudService: value }))}
+              >
+                <SelectTrigger className="w-56 bg-white/90 border-slate-200">
+                  <Cloud className="w-4 h-4 mr-2 text-slate-400" />
+                  <SelectValue placeholder="Cloud Service" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Services</SelectItem>
+                  <SelectItem value="Office Suite">
+                    <div className="flex items-center">
+                      <div className="w-4 h-4 mr-2 bg-blue-500 rounded-sm flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">O</span>
+                      </div>
+                      Office Suite
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="Identity Provider">
+                    <div className="flex items-center">
+                      <div className="w-4 h-4 mr-2 bg-green-500 rounded-sm flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">I</span>
+                      </div>
+                      Identity Provider
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="SaaS">
+                    <div className="flex items-center">
+                      <div className="w-4 h-4 mr-2 bg-purple-500 rounded-sm flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">S</span>
+                      </div>
+                      SaaS
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="IaaS">
+                    <div className="flex items-center">
+                      <div className="w-4 h-4 mr-2 bg-orange-500 rounded-sm flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">I</span>
+                      </div>
+                      IaaS
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            )}
+
             {/* Cloud Provider Filter - Only show when viewing Cloud platform */}
             {isCloudPlatform && (
               <Select 

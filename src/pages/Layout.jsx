@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -66,7 +64,41 @@ const platformItems = [
     title: "Cloud",
     platform: "Cloud",
     url: createPageUrl("Matrix?platform=Cloud"),
-    description: "Cloud-specific techniques (AWS, Azure, GCP)"
+    description: "Cloud-specific techniques (AWS, Azure, GCP)",
+    subItems: [
+      {
+        title: "Office Suite",
+        platform: "Cloud",
+        url: createPageUrl("Matrix?platform=Cloud&cloudService=Office%20Suite"),
+        description: "Microsoft 365, SharePoint, Teams",
+        icon: "O",
+        iconColor: "bg-blue-500"
+      },
+      {
+        title: "Identity Provider", 
+        platform: "Cloud",
+        url: createPageUrl("Matrix?platform=Cloud&cloudService=Identity%20Provider"),
+        description: "Authentication & SSO services",
+        icon: "I",
+        iconColor: "bg-green-500"
+      },
+      {
+        title: "SaaS",
+        platform: "Cloud", 
+        url: createPageUrl("Matrix?platform=Cloud&cloudService=SaaS"),
+        description: "Software as a Service platforms",
+        icon: "S",
+        iconColor: "bg-purple-500"
+      },
+      {
+        title: "IaaS",
+        platform: "Cloud",
+        url: createPageUrl("Matrix?platform=Cloud&cloudService=IaaS"),
+        description: "Infrastructure as a Service",
+        icon: "I",
+        iconColor: "bg-orange-500"
+      }
+    ]
   },
   {
     title: "Containers",
@@ -224,26 +256,64 @@ export default function Layout({ children, currentPageName }) {
                 <SidebarMenu className="space-y-2">
                   {platformItems.map((item) => {
                     const isActive = isCurrentPage(item.url);
+                    const isCloudPlatform = item.platform === "Cloud";
+                    const currentCloudService = urlParams.get('cloudService');
+                    const showCloudSubItems = isCloudPlatform && (currentPlatform === "Cloud" || isActive);
                     
                     return (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton 
-                          asChild 
-                          className={`w-full justify-start hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg p-3 min-h-[56px] ${
-                            isActive
-                              ? 'bg-purple-50 text-purple-700 shadow-sm border border-purple-100' 
-                              : 'text-slate-700 hover:shadow-sm'
-                          }`}
-                        >
-                          <Link to={item.url} className="flex items-center gap-3 w-full">
-                            <PlatformIcon platform={item.platform} className="w-4 h-4 flex-shrink-0" />
-                            <div className="flex-1 text-left min-w-0">
-                              <div className="font-medium text-sm truncate leading-tight">{item.title}</div>
-                              <div className="text-xs text-slate-500 mt-1 truncate leading-tight">{item.description}</div>
-                            </div>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
+                      <div key={item.title}>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton 
+                            asChild 
+                            className={`w-full justify-start hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg p-3 min-h-[56px] ${
+                              isActive && !currentCloudService
+                                ? 'bg-purple-50 text-purple-700 shadow-sm border border-purple-100' 
+                                : 'text-slate-700 hover:shadow-sm'
+                            }`}
+                          >
+                            <Link to={item.url} className="flex items-center gap-3 w-full">
+                              <PlatformIcon platform={item.platform} className="w-4 h-4 flex-shrink-0" />
+                              <div className="flex-1 text-left min-w-0">
+                                <div className="font-medium text-sm truncate leading-tight">{item.title}</div>
+                                <div className="text-xs text-slate-500 mt-1 truncate leading-tight">{item.description}</div>
+                              </div>
+                            </Link>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+
+                        {/* Cloud Service Sub-items */}
+                        {showCloudSubItems && item.subItems && (
+                          <div className="ml-6 mt-2 space-y-1">
+                            {item.subItems.map((subItem) => {
+                              const isSubItemActive = currentPlatform === "Cloud" && 
+                                                    currentCloudService === subItem.title;
+                              
+                              return (
+                                <SidebarMenuItem key={subItem.title}>
+                                  <SidebarMenuButton 
+                                    asChild 
+                                    className={`w-full justify-start hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-lg p-2 min-h-[44px] ${
+                                      isSubItemActive
+                                        ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100' 
+                                        : 'text-slate-600 hover:shadow-sm'
+                                    }`}
+                                  >
+                                    <Link to={subItem.url} className="flex items-center gap-2 w-full">
+                                      <div className={`w-3 h-3 ${subItem.iconColor} rounded-sm flex items-center justify-center flex-shrink-0`}>
+                                        <span className="text-white text-xs font-bold">{subItem.icon}</span>
+                                      </div>
+                                      <div className="flex-1 text-left min-w-0">
+                                        <div className="font-medium text-xs truncate leading-tight">{subItem.title}</div>
+                                        <div className="text-xs text-slate-400 mt-0.5 truncate leading-tight">{subItem.description}</div>
+                                      </div>
+                                    </Link>
+                                  </SidebarMenuButton>
+                                </SidebarMenuItem>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </SidebarMenu>

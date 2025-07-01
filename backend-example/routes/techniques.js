@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const {
-      limit = 1000,
+      limit = 10000,
       sort = 'createdAt',
       order = 'desc',
       tactic,

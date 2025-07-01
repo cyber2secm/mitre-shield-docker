@@ -20,7 +20,7 @@ const DEFAULT_TACTIC_ORDER = [
   "Discovery",
   "Lateral Movement",
   "Collection",
-  "Command And Control",
+  "Command and Control",
   "Exfiltration",
   "Impact"
 ];
@@ -63,7 +63,8 @@ export default function MatrixPage() {
     platform: "all",
     search: "",
     status: "all",
-    cloudProvider: "all"
+    cloudProvider: "all",
+    cloudService: "all"
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -78,16 +79,24 @@ export default function MatrixPage() {
     const urlParams = new URLSearchParams(location.search);
     const platformParam = urlParams.get('platform');
     const cloudProviderParam = urlParams.get('cloudProvider');
+    const cloudServiceParam = urlParams.get('cloudService');
 
     // Default to 'Windows' if no platform is specified or if 'all' is explicitly used
     if (!platformParam || platformParam === 'all') {
-      setFilters(prev => ({ ...prev, platform: 'Windows' }));
+      setFilters(prev => ({ 
+        ...prev, 
+        platform: 'Windows',
+        cloudProvider: "all",
+        cloudService: "all"
+      }));
     } else {
-      setFilters(prev => ({ ...prev, platform: platformParam }));
-    }
-
-    if (cloudProviderParam) {
-      setFilters(prev => ({ ...prev, cloudProvider: cloudProviderParam }));
+      setFilters(prev => ({ 
+        ...prev, 
+        platform: platformParam,
+        // Reset cloud filters when switching to non-Cloud platforms
+        cloudProvider: platformParam === "Cloud" ? (cloudProviderParam || "all") : "all",
+        cloudService: platformParam === "Cloud" ? (cloudServiceParam || "all") : "all"
+      }));
     }
   }, [location.search]);
 
@@ -111,6 +120,51 @@ export default function MatrixPage() {
       if (filters.cloudProvider && filters.cloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
       }
+
+      // Apply cloud service filter if specified
+      if (filters.cloudService && filters.cloudService !== "all") {
+        // Filter techniques based on cloud service category
+        filteredTechniques = filteredTechniques.filter(t => {
+          // This would need to be extended based on technique metadata
+          // For now, we'll use technique names/descriptions to categorize
+          const techName = t.name?.toLowerCase() || '';
+          const techDesc = t.description?.toLowerCase() || '';
+          
+          switch (filters.cloudService) {
+            case 'Office Suite':
+              return techName.includes('office') || techName.includes('365') || techName.includes('sharepoint') || 
+                     techName.includes('teams') || techName.includes('onedrive') || techName.includes('outlook');
+            case 'Identity Provider':
+              return techName.includes('identity') || techName.includes('authentication') || techName.includes('sso') ||
+                     techName.includes('saml') || techName.includes('oauth') || techName.includes('active directory');
+            case 'SaaS':
+              return techName.includes('saas') || techName.includes('application') || techName.includes('software service');
+            case 'IaaS':
+              return techName.includes('iaas') || techName.includes('infrastructure') || techName.includes('compute') ||
+                     techName.includes('storage') || techName.includes('network') || techName.includes('instance');
+            default:
+              return true;
+          }
+        });
+        
+        // Filter rules similarly if needed
+        filteredRules = filteredRules.filter(r => {
+          const ruleName = r.name?.toLowerCase() || '';
+          
+          switch (filters.cloudService) {
+            case 'Office Suite':
+              return ruleName.includes('office') || ruleName.includes('365') || ruleName.includes('sharepoint');
+            case 'Identity Provider':
+              return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
+            case 'SaaS':
+              return ruleName.includes('saas') || ruleName.includes('application');
+            case 'IaaS':
+              return ruleName.includes('iaas') || ruleName.includes('infrastructure') || ruleName.includes('compute');
+            default:
+              return true;
+          }
+        });
+      }
     } else if (filters.platform === "all") {
       filteredTechniques = techniques;
       filteredRules = rules;
@@ -122,7 +176,7 @@ export default function MatrixPage() {
 
     setPlatformTechniques(filteredTechniques);
     setPlatformRules(filteredRules);
-  }, [techniques, rules, filters.platform, filters.cloudProvider]);
+  }, [techniques, rules, filters.platform, filters.cloudProvider, filters.cloudService]);
 
   const loadData = async () => {
     setIsLoading(true);
@@ -166,6 +220,30 @@ export default function MatrixPage() {
       platformTechniques = platformTechniques.filter(t => 
         t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
       );
+
+      // Apply cloud service filter if specified
+      if (filters.cloudService && filters.cloudService !== "all") {
+        platformTechniques = platformTechniques.filter(t => {
+          const techName = t.name?.toLowerCase() || '';
+          const techDesc = t.description?.toLowerCase() || '';
+          
+          switch (filters.cloudService) {
+            case 'Office Suite':
+              return techName.includes('office') || techName.includes('365') || techName.includes('sharepoint') || 
+                     techName.includes('teams') || techName.includes('onedrive') || techName.includes('outlook');
+            case 'Identity Provider':
+              return techName.includes('identity') || techName.includes('authentication') || techName.includes('sso') ||
+                     techName.includes('saml') || techName.includes('oauth') || techName.includes('active directory');
+            case 'SaaS':
+              return techName.includes('saas') || techName.includes('application') || techName.includes('software service');
+            case 'IaaS':
+              return techName.includes('iaas') || techName.includes('infrastructure') || techName.includes('compute') ||
+                     techName.includes('storage') || techName.includes('network') || techName.includes('instance');
+            default:
+              return true;
+          }
+        });
+      }
     } else if (filters.platform !== "all") {
       platformTechniques = platformTechniques.filter(t => t.platforms?.includes(filters.platform));
     }
@@ -186,6 +264,26 @@ export default function MatrixPage() {
       // Apply cloud provider filter if specified
       if (filters.cloudProvider && filters.cloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
+      }
+
+      // Apply cloud service filter if specified
+      if (filters.cloudService && filters.cloudService !== "all") {
+        filteredRules = filteredRules.filter(r => {
+          const ruleName = r.name?.toLowerCase() || '';
+          
+          switch (filters.cloudService) {
+            case 'Office Suite':
+              return ruleName.includes('office') || ruleName.includes('365') || ruleName.includes('sharepoint');
+            case 'Identity Provider':
+              return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
+            case 'SaaS':
+              return ruleName.includes('saas') || ruleName.includes('application');
+            case 'IaaS':
+              return ruleName.includes('iaas') || ruleName.includes('infrastructure') || ruleName.includes('compute');
+            default:
+              return true;
+          }
+        });
       }
     } else if (filters.platform !== "all") {
       filteredRules = filteredRules.filter(r => r.platform === filters.platform);
@@ -221,10 +319,17 @@ export default function MatrixPage() {
   const getCurrentPlatformName = () => {
     if (filters.platform === "all") return "All Platforms"; 
     if (filters.platform === "Cloud") {
-      if (filters.cloudProvider && filters.cloudProvider !== "all") {
-        return `Cloud (${filters.cloudProvider})`;
+      let name = "Cloud";
+      
+      if (filters.cloudService && filters.cloudService !== "all") {
+        name += ` (${filters.cloudService})`;
       }
-      return "Cloud";
+      
+      if (filters.cloudProvider && filters.cloudProvider !== "all") {
+        name += filters.cloudService !== "all" ? ` - ${filters.cloudProvider}` : ` (${filters.cloudProvider})`;
+      }
+      
+      return name;
     }
     return filters.platform;
   };
@@ -316,6 +421,7 @@ export default function MatrixPage() {
         onRuleUpdate={loadData}
         currentPlatform={filters.platform}
         currentCloudProvider={filters.cloudProvider}
+        currentCloudService={filters.cloudService}
       />
     </div>
   );

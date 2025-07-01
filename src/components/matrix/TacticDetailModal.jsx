@@ -21,7 +21,8 @@ export default function TacticDetailModal({
   onClose,
   onRuleUpdate,
   currentPlatform,
-  currentCloudProvider
+  currentCloudProvider,
+  currentCloudService
 }) {
   const [selectedTechnique, setSelectedTechnique] = useState(null);
   const [startRuleEditor, setStartRuleEditor] = useState(false);
@@ -125,6 +126,26 @@ export default function TacticDetailModal({
       if (currentCloudProvider && currentCloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
       }
+
+      // Apply cloud service filter if specified
+      if (currentCloudService && currentCloudService !== "all") {
+        filteredRules = filteredRules.filter(r => {
+          const ruleName = r.name?.toLowerCase() || '';
+          
+          switch (currentCloudService) {
+            case 'Office Suite':
+              return ruleName.includes('office') || ruleName.includes('365') || ruleName.includes('sharepoint');
+            case 'Identity Provider':
+              return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
+            case 'SaaS':
+              return ruleName.includes('saas') || ruleName.includes('application');
+            case 'IaaS':
+              return ruleName.includes('iaas') || ruleName.includes('infrastructure') || ruleName.includes('compute');
+            default:
+              return true;
+          }
+        });
+      }
     } else if (currentPlatform !== "all") {
       filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
     }
@@ -143,6 +164,26 @@ export default function TacticDetailModal({
 
       if (currentCloudProvider && currentCloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
+      }
+
+      // Apply cloud service filter if specified
+      if (currentCloudService && currentCloudService !== "all") {
+        filteredRules = filteredRules.filter(r => {
+          const ruleName = r.name?.toLowerCase() || '';
+          
+          switch (currentCloudService) {
+            case 'Office Suite':
+              return ruleName.includes('office') || ruleName.includes('365') || ruleName.includes('sharepoint');
+            case 'Identity Provider':
+              return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
+            case 'SaaS':
+              return ruleName.includes('saas') || ruleName.includes('application');
+            case 'IaaS':
+              return ruleName.includes('iaas') || ruleName.includes('infrastructure') || ruleName.includes('compute');
+            default:
+              return true;
+          }
+        });
       }
     } else if (currentPlatform !== "all") {
       filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
@@ -176,6 +217,26 @@ export default function TacticDetailModal({
 
       if (currentCloudProvider && currentCloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
+      }
+
+      // Apply cloud service filter if specified
+      if (currentCloudService && currentCloudService !== "all") {
+        filteredRules = filteredRules.filter(r => {
+          const ruleName = r.name?.toLowerCase() || '';
+          
+          switch (currentCloudService) {
+            case 'Office Suite':
+              return ruleName.includes('office') || ruleName.includes('365') || ruleName.includes('sharepoint');
+            case 'Identity Provider':
+              return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
+            case 'SaaS':
+              return ruleName.includes('saas') || ruleName.includes('application');
+            case 'IaaS':
+              return ruleName.includes('iaas') || ruleName.includes('infrastructure') || ruleName.includes('compute');
+            default:
+              return true;
+          }
+        });
       }
     } else if (currentPlatform !== "all") {
       filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
