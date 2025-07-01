@@ -4,7 +4,6 @@ const MitreTechniqueSchema = new mongoose.Schema({
   technique_id: {
     type: String,
     required: true,
-    unique: true,
     trim: true
   },
   name: {

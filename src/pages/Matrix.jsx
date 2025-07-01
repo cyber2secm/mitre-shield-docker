@@ -169,6 +169,10 @@ export default function MatrixPage() {
     } else if (filters.platform !== "all") {
       platformTechniques = platformTechniques.filter(t => t.platforms?.includes(filters.platform));
     }
+
+    // Separate parent techniques and sub-techniques for accurate counting
+    const parentTechniques = platformTechniques.filter(t => !t.is_subtechnique);
+    const subTechniques = platformTechniques.filter(t => t.is_subtechnique);
     
     // Calculate rule counts - Apply cloud provider filter if on Cloud platform
     let filteredRules = rules.filter(rule => 
@@ -201,7 +205,12 @@ export default function MatrixPage() {
     }
     
     return {
-      techniqueCount: searchedTechniques.length,
+      // Display parent technique count (main number shown on cards)
+      techniqueCount: parentTechniques.length,
+      // Additional breakdown for detailed view
+      parentTechniqueCount: parentTechniques.length,
+      subTechniqueCount: subTechniques.length,
+      totalTechniqueCount: platformTechniques.length,
       ruleCount: filteredRules.length,
       activeRules: activeRules.length,
       testingRules: testingRules.length,

@@ -1,0 +1,60 @@
+{
+  "platform": "Linux",
+  "extraction_date": "2025-07-01T22:37:16.973475",
+  "tactics": [
+    {
+      "name": "Initial Access",
+      "technique_count": 10
+    },
+    {
+      "name": "Execution",
+      "technique_count": 10
+    },
+    {
+      "name": "Persistence",
+      "technique_count": 18
+    },
+    {
+      "name": "Privilege Escalation",
+      "technique_count": 12
+    },
+    {
+      "name": "Defense Evasion",
+      "technique_count": 25
+    },
+    {
+      "name": "Credential Access",
+      "technique_count": 15
+    },
+    {
+      "name": "Discovery",
+      "technique_count": 25
+    },
+    {
+      "name": "Lateral Movement",
+      "technique_count": 8
+    },
+    {
+      "name": "Collection",
+      "technique_count": 14
+    },
+    {
+      "name": "Command and Control",
+      "technique_count": 18
+    },
+    {
+      "name": "Exfiltration",
+      "technique_count": 8
+    },
+    {
+      "name": "Impact",
+      "technique_count": 15
+    }
+  ],
+  "summary": {
+    "total_tactics": 12,
+    "total_techniques": 178,
+    "total_subtechniques": 250,
+    "total_items": 428
+  }
+}
