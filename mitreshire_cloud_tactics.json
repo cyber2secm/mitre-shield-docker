@@ -1,0 +1,56 @@
+{
+  "platform": "Cloud",
+  "extraction_date": "2025-07-01T22:53:25.488314",
+  "tactics": [
+    {
+      "name": "Initial Access",
+      "technique_count": 5
+    },
+    {
+      "name": "Execution",
+      "technique_count": 5
+    },
+    {
+      "name": "Persistence",
+      "technique_count": 8
+    },
+    {
+      "name": "Privilege Escalation",
+      "technique_count": 5
+    },
+    {
+      "name": "Defense Evasion",
+      "technique_count": 14
+    },
+    {
+      "name": "Credential Access",
+      "technique_count": 11
+    },
+    {
+      "name": "Discovery",
+      "technique_count": 14
+    },
+    {
+      "name": "Lateral Movement",
+      "technique_count": 5
+    },
+    {
+      "name": "Collection",
+      "technique_count": 5
+    },
+    {
+      "name": "Exfiltration",
+      "technique_count": 3
+    },
+    {
+      "name": "Impact",
+      "technique_count": 10
+    }
+  ],
+  "summary": {
+    "total_tactics": 11,
+    "total_techniques": 85,
+    "total_subtechniques": 92,
+    "total_items": 177
+  }
+}

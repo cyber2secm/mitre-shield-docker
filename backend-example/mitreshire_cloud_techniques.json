@@ -1,0 +1,4390 @@
+[
+  {
+    "technique_id": "T1189",
+    "name": "Drive-by Compromise",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485279",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1190",
+    "name": "Exploit Public-Facing Application",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485292",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1566",
+    "name": "Phishing",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485298",
+    "subtechniques": [
+      {
+        "id": "T1566.002",
+        "name": "Spearphishing Link"
+      },
+      {
+        "id": "T1566.004",
+        "name": "Spearphishing Voice"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1566.002",
+    "name": "Spearphishing Link",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Phishing",
+    "parent_technique_id": "T1566",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485302"
+  },
+  {
+    "technique_id": "T1566.004",
+    "name": "Spearphishing Voice",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Phishing",
+    "parent_technique_id": "T1566",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485307"
+  },
+  {
+    "technique_id": "T1199",
+    "name": "Trusted Relationship",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485311",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485315",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.004",
+        "name": "Cloud Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485318"
+  },
+  {
+    "technique_id": "T1078.004",
+    "name": "Cloud Accounts",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485321"
+  },
+  {
+    "technique_id": "T1651",
+    "name": "Cloud Administration Command",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485459",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1059",
+    "name": "Command and Scripting Interpreter",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485463",
+    "subtechniques": [
+      {
+        "id": "T1059.009",
+        "name": "Cloud API"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1059.009",
+    "name": "Cloud API",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Command and Scripting Interpreter",
+    "parent_technique_id": "T1059",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485467"
+  },
+  {
+    "technique_id": "T1648",
+    "name": "Serverless Execution",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485470",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1072",
+    "name": "Software Deployment Tools",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485473",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1204",
+    "name": "User Execution",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485476",
+    "subtechniques": [
+      {
+        "id": "T1204.003",
+        "name": "Malicious Image"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1204.003",
+    "name": "Malicious Image",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "User Execution",
+    "parent_technique_id": "T1204",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485480"
+  },
+  {
+    "technique_id": "T1098",
+    "name": "Account Manipulation",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485684",
+    "subtechniques": [
+      {
+        "id": "T1098.001",
+        "name": "Additional Cloud Credentials"
+      },
+      {
+        "id": "T1098.002",
+        "name": "Additional Email Delegate Permissions"
+      },
+      {
+        "id": "T1098.003",
+        "name": "Additional Cloud Roles"
+      },
+      {
+        "id": "T1098.004",
+        "name": "SSH Authorized Keys"
+      },
+      {
+        "id": "T1098.005",
+        "name": "Device Registration"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1098.001",
+    "name": "Additional Cloud Credentials",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485688"
+  },
+  {
+    "technique_id": "T1098.002",
+    "name": "Additional Email Delegate Permissions",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485692"
+  },
+  {
+    "technique_id": "T1098.003",
+    "name": "Additional Cloud Roles",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485695"
+  },
+  {
+    "technique_id": "T1098.004",
+    "name": "SSH Authorized Keys",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485698"
+  },
+  {
+    "technique_id": "T1098.005",
+    "name": "Device Registration",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485701"
+  },
+  {
+    "technique_id": "T1671",
+    "name": "Cloud Application Integration",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485704",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1136",
+    "name": "Create Account",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485708",
+    "subtechniques": [
+      {
+        "id": "T1136.003",
+        "name": "Cloud Account"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1136.003",
+    "name": "Cloud Account",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Create Account",
+    "parent_technique_id": "T1136",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485711"
+  },
+  {
+    "technique_id": "T1546",
+    "name": "Event Triggered Execution",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485714",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1525",
+    "name": "Implant Internal Image",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485716",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1556",
+    "name": "Modify Authentication Process",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485720",
+    "subtechniques": [
+      {
+        "id": "T1556.006",
+        "name": "Multi-Factor Authentication"
+      },
+      {
+        "id": "T1556.007",
+        "name": "Hybrid Identity"
+      },
+      {
+        "id": "T1556.009",
+        "name": "Conditional Access Policies"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1556.006",
+    "name": "Multi-Factor Authentication",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485724"
+  },
+  {
+    "technique_id": "T1556.007",
+    "name": "Hybrid Identity",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485727"
+  },
+  {
+    "technique_id": "T1556.009",
+    "name": "Conditional Access Policies",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485730"
+  },
+  {
+    "technique_id": "T1137",
+    "name": "Office Application Startup",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485733",
+    "subtechniques": [
+      {
+        "id": "T1137.001",
+        "name": "Office Template Macros"
+      },
+      {
+        "id": "T1137.002",
+        "name": "Office Test"
+      },
+      {
+        "id": "T1137.003",
+        "name": "Outlook Forms"
+      },
+      {
+        "id": "T1137.004",
+        "name": "Outlook Home Page"
+      },
+      {
+        "id": "T1137.005",
+        "name": "Outlook Rules"
+      },
+      {
+        "id": "T1137.006",
+        "name": "Add-ins"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1137.001",
+    "name": "Office Template Macros",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485736"
+  },
+  {
+    "technique_id": "T1137.002",
+    "name": "Office Test",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485739"
+  },
+  {
+    "technique_id": "T1137.003",
+    "name": "Outlook Forms",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485742"
+  },
+  {
+    "technique_id": "T1137.004",
+    "name": "Outlook Home Page",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485745"
+  },
+  {
+    "technique_id": "T1137.005",
+    "name": "Outlook Rules",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485748"
+  },
+  {
+    "technique_id": "T1137.006",
+    "name": "Add-ins",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485751"
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485787",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.004",
+        "name": "Cloud Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485790"
+  },
+  {
+    "technique_id": "T1078.004",
+    "name": "Cloud Accounts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.485793"
+  },
+  {
+    "technique_id": "T1548",
+    "name": "Abuse Elevation Control Mechanism",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486042",
+    "subtechniques": [
+      {
+        "id": "T1548.005",
+        "name": "Temporary Elevated Cloud Access"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1548.005",
+    "name": "Temporary Elevated Cloud Access",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Abuse Elevation Control Mechanism",
+    "parent_technique_id": "T1548",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486046"
+  },
+  {
+    "technique_id": "T1098",
+    "name": "Account Manipulation",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486050",
+    "subtechniques": [
+      {
+        "id": "T1098.001",
+        "name": "Additional Cloud Credentials"
+      },
+      {
+        "id": "T1098.002",
+        "name": "Additional Email Delegate Permissions"
+      },
+      {
+        "id": "T1098.003",
+        "name": "Additional Cloud Roles"
+      },
+      {
+        "id": "T1098.004",
+        "name": "SSH Authorized Keys"
+      },
+      {
+        "id": "T1098.005",
+        "name": "Device Registration"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1098.001",
+    "name": "Additional Cloud Credentials",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486053"
+  },
+  {
+    "technique_id": "T1098.002",
+    "name": "Additional Email Delegate Permissions",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486056"
+  },
+  {
+    "technique_id": "T1098.003",
+    "name": "Additional Cloud Roles",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486059"
+  },
+  {
+    "technique_id": "T1098.004",
+    "name": "SSH Authorized Keys",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486062"
+  },
+  {
+    "technique_id": "T1098.005",
+    "name": "Device Registration",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486065"
+  },
+  {
+    "technique_id": "T1484",
+    "name": "Domain or Tenant Policy Modification",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486069",
+    "subtechniques": [
+      {
+        "id": "T1484.002",
+        "name": "Trust Modification"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1484.002",
+    "name": "Trust Modification",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Domain or Tenant Policy Modification",
+    "parent_technique_id": "T1484",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486072"
+  },
+  {
+    "technique_id": "T1546",
+    "name": "Event Triggered Execution",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486075",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486078",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.004",
+        "name": "Cloud Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486081"
+  },
+  {
+    "technique_id": "T1078.004",
+    "name": "Cloud Accounts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486084"
+  },
+  {
+    "technique_id": "T1548",
+    "name": "Abuse Elevation Control Mechanism",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486402",
+    "subtechniques": [
+      {
+        "id": "T1548.005",
+        "name": "Temporary Elevated Cloud Access"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1548.005",
+    "name": "Temporary Elevated Cloud Access",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Abuse Elevation Control Mechanism",
+    "parent_technique_id": "T1548",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486405"
+  },
+  {
+    "technique_id": "T1484",
+    "name": "Domain or Tenant Policy Modification",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486409",
+    "subtechniques": [
+      {
+        "id": "T1484.002",
+        "name": "Trust Modification"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1484.002",
+    "name": "Trust Modification",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Domain or Tenant Policy Modification",
+    "parent_technique_id": "T1484",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486412"
+  },
+  {
+    "technique_id": "T1672",
+    "name": "Email Spoofing",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486415",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1211",
+    "name": "Exploitation for Defense Evasion",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486418",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1564",
+    "name": "Hide Artifacts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486422",
+    "subtechniques": [
+      {
+        "id": "T1564.008",
+        "name": "Email Hiding Rules"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1564.008",
+    "name": "Email Hiding Rules",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Hide Artifacts",
+    "parent_technique_id": "T1564",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486425"
+  },
+  {
+    "technique_id": "T1562",
+    "name": "Impair Defenses",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486428",
+    "subtechniques": [
+      {
+        "id": "T1562.001",
+        "name": "Disable or Modify Tools"
+      },
+      {
+        "id": "T1562.007",
+        "name": "Disable or Modify Cloud Firewall"
+      },
+      {
+        "id": "T1562.008",
+        "name": "Disable or Modify Cloud Logs"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1562.001",
+    "name": "Disable or Modify Tools",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Impair Defenses",
+    "parent_technique_id": "T1562",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486431"
+  },
+  {
+    "technique_id": "T1562.007",
+    "name": "Disable or Modify Cloud Firewall",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Impair Defenses",
+    "parent_technique_id": "T1562",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486434"
+  },
+  {
+    "technique_id": "T1562.008",
+    "name": "Disable or Modify Cloud Logs",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Impair Defenses",
+    "parent_technique_id": "T1562",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486437"
+  },
+  {
+    "technique_id": "T1656",
+    "name": "Impersonation",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486440",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1070",
+    "name": "Indicator Removal",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486443",
+    "subtechniques": [
+      {
+        "id": "T1070.008",
+        "name": "Clear Mailbox Data"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1070.008",
+    "name": "Clear Mailbox Data",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Indicator Removal",
+    "parent_technique_id": "T1070",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486446"
+  },
+  {
+    "technique_id": "T1556",
+    "name": "Modify Authentication Process",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486450",
+    "subtechniques": [
+      {
+        "id": "T1556.006",
+        "name": "Multi-Factor Authentication"
+      },
+      {
+        "id": "T1556.007",
+        "name": "Hybrid Identity"
+      },
+      {
+        "id": "T1556.009",
+        "name": "Conditional Access Policies"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1556.006",
+    "name": "Multi-Factor Authentication",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486453"
+  },
+  {
+    "technique_id": "T1556.007",
+    "name": "Hybrid Identity",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486456"
+  },
+  {
+    "technique_id": "T1556.009",
+    "name": "Conditional Access Policies",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486459"
+  },
+  {
+    "technique_id": "T1578",
+    "name": "Modify Cloud Compute Infrastructure",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486462",
+    "subtechniques": [
+      {
+        "id": "T1578.001",
+        "name": "Create Snapshot"
+      },
+      {
+        "id": "T1578.002",
+        "name": "Create Cloud Instance"
+      },
+      {
+        "id": "T1578.003",
+        "name": "Delete Cloud Instance"
+      },
+      {
+        "id": "T1578.004",
+        "name": "Revert Cloud Instance"
+      },
+      {
+        "id": "T1578.005",
+        "name": "Modify Cloud Compute Configurations"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1578.001",
+    "name": "Create Snapshot",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Cloud Compute Infrastructure",
+    "parent_technique_id": "T1578",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486465"
+  },
+  {
+    "technique_id": "T1578.002",
+    "name": "Create Cloud Instance",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Cloud Compute Infrastructure",
+    "parent_technique_id": "T1578",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486470"
+  },
+  {
+    "technique_id": "T1578.003",
+    "name": "Delete Cloud Instance",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Cloud Compute Infrastructure",
+    "parent_technique_id": "T1578",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486475"
+  },
+  {
+    "technique_id": "T1578.004",
+    "name": "Revert Cloud Instance",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Cloud Compute Infrastructure",
+    "parent_technique_id": "T1578",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486478"
+  },
+  {
+    "technique_id": "T1578.005",
+    "name": "Modify Cloud Compute Configurations",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Cloud Compute Infrastructure",
+    "parent_technique_id": "T1578",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486481"
+  },
+  {
+    "technique_id": "T1666",
+    "name": "Modify Cloud Resource Hierarchy",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486484",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1535",
+    "name": "Unused/Unsupported Cloud Regions",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486487",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1550",
+    "name": "Use Alternate Authentication Material",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486491",
+    "subtechniques": [
+      {
+        "id": "T1550.001",
+        "name": "Application Access Token"
+      },
+      {
+        "id": "T1550.004",
+        "name": "Web Session Cookie"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1550.001",
+    "name": "Application Access Token",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Use Alternate Authentication Material",
+    "parent_technique_id": "T1550",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486494"
+  },
+  {
+    "technique_id": "T1550.004",
+    "name": "Web Session Cookie",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Use Alternate Authentication Material",
+    "parent_technique_id": "T1550",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486497"
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486500",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.004",
+        "name": "Cloud Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486503"
+  },
+  {
+    "technique_id": "T1078.004",
+    "name": "Cloud Accounts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486505"
+  },
+  {
+    "technique_id": "T1110",
+    "name": "Brute Force",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486845",
+    "subtechniques": [
+      {
+        "id": "T1110.001",
+        "name": "Password Guessing"
+      },
+      {
+        "id": "T1110.002",
+        "name": "Password Cracking"
+      },
+      {
+        "id": "T1110.003",
+        "name": "Password Spraying"
+      },
+      {
+        "id": "T1110.004",
+        "name": "Credential Stuffing"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1110.001",
+    "name": "Password Guessing",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486849"
+  },
+  {
+    "technique_id": "T1110.002",
+    "name": "Password Cracking",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486852"
+  },
+  {
+    "technique_id": "T1110.003",
+    "name": "Password Spraying",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486855"
+  },
+  {
+    "technique_id": "T1110.004",
+    "name": "Credential Stuffing",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486857"
+  },
+  {
+    "technique_id": "T1555",
+    "name": "Credentials from Password Stores",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486861",
+    "subtechniques": [
+      {
+        "id": "T1555.006",
+        "name": "Cloud Secrets Management Stores"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1555.006",
+    "name": "Cloud Secrets Management Stores",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Credentials from Password Stores",
+    "parent_technique_id": "T1555",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486864"
+  },
+  {
+    "technique_id": "T1212",
+    "name": "Exploitation for Credential Access",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486867",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1606",
+    "name": "Forge Web Credentials",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486870",
+    "subtechniques": [
+      {
+        "id": "T1606.001",
+        "name": "Web Cookies"
+      },
+      {
+        "id": "T1606.002",
+        "name": "SAML Tokens"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1606.001",
+    "name": "Web Cookies",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Forge Web Credentials",
+    "parent_technique_id": "T1606",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486873"
+  },
+  {
+    "technique_id": "T1606.002",
+    "name": "SAML Tokens",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Forge Web Credentials",
+    "parent_technique_id": "T1606",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486876"
+  },
+  {
+    "technique_id": "T1556",
+    "name": "Modify Authentication Process",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486880",
+    "subtechniques": [
+      {
+        "id": "T1556.006",
+        "name": "Multi-Factor Authentication"
+      },
+      {
+        "id": "T1556.007",
+        "name": "Hybrid Identity"
+      },
+      {
+        "id": "T1556.009",
+        "name": "Conditional Access Policies"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1556.006",
+    "name": "Multi-Factor Authentication",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486883"
+  },
+  {
+    "technique_id": "T1556.007",
+    "name": "Hybrid Identity",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486885"
+  },
+  {
+    "technique_id": "T1556.009",
+    "name": "Conditional Access Policies",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486888"
+  },
+  {
+    "technique_id": "T1621",
+    "name": "Multi-Factor Authentication Request Generation",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486891",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1040",
+    "name": "Network Sniffing",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486894",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1528",
+    "name": "Steal Application Access Token",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486896",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1649",
+    "name": "Steal or Forge Authentication Certificates",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486899",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1539",
+    "name": "Steal Web Session Cookie",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486902",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1552",
+    "name": "Unsecured Credentials",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486905",
+    "subtechniques": [
+      {
+        "id": "T1552.001",
+        "name": "Credentials In Files"
+      },
+      {
+        "id": "T1552.005",
+        "name": "Cloud Instance Metadata API"
+      },
+      {
+        "id": "T1552.008",
+        "name": "Chat Messages"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1552.001",
+    "name": "Credentials In Files",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Unsecured Credentials",
+    "parent_technique_id": "T1552",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486908"
+  },
+  {
+    "technique_id": "T1552.005",
+    "name": "Cloud Instance Metadata API",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Unsecured Credentials",
+    "parent_technique_id": "T1552",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486911"
+  },
+  {
+    "technique_id": "T1552.008",
+    "name": "Chat Messages",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Unsecured Credentials",
+    "parent_technique_id": "T1552",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.486914"
+  },
+  {
+    "technique_id": "T1087",
+    "name": "Account Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487166",
+    "subtechniques": [
+      {
+        "id": "T1087.003",
+        "name": "Email Account"
+      },
+      {
+        "id": "T1087.004",
+        "name": "Cloud Account"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1087.003",
+    "name": "Email Account",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Discovery",
+    "parent_technique_id": "T1087",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487169"
+  },
+  {
+    "technique_id": "T1087.004",
+    "name": "Cloud Account",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Discovery",
+    "parent_technique_id": "T1087",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487172"
+  },
+  {
+    "technique_id": "T1580",
+    "name": "Cloud Infrastructure Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487175",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1538",
+    "name": "Cloud Service Dashboard",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487178",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1526",
+    "name": "Cloud Service Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487182",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1619",
+    "name": "Cloud Storage Object Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487184",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1654",
+    "name": "Log Enumeration",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487187",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1046",
+    "name": "Network Service Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487190",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1040",
+    "name": "Network Sniffing",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487192",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1201",
+    "name": "Password Policy Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487195",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1069",
+    "name": "Permission Groups Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487198",
+    "subtechniques": [
+      {
+        "id": "T1069.003",
+        "name": "Cloud Groups"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1069.003",
+    "name": "Cloud Groups",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Permission Groups Discovery",
+    "parent_technique_id": "T1069",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487200"
+  },
+  {
+    "technique_id": "T1518",
+    "name": "Software Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487204",
+    "subtechniques": [
+      {
+        "id": "T1518.001",
+        "name": "Security Software Discovery"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1518.001",
+    "name": "Security Software Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Software Discovery",
+    "parent_technique_id": "T1518",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487207"
+  },
+  {
+    "technique_id": "T1082",
+    "name": "System Information Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487209",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1614",
+    "name": "System Location Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487212",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1049",
+    "name": "System Network Connections Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487215",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1534",
+    "name": "Internal Spearphishing",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487374",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1021",
+    "name": "Remote Services",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487378",
+    "subtechniques": [
+      {
+        "id": "T1021.007",
+        "name": "Cloud Services"
+      },
+      {
+        "id": "T1021.008",
+        "name": "Direct Cloud VM Connections"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1021.007",
+    "name": "Cloud Services",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Remote Services",
+    "parent_technique_id": "T1021",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487382"
+  },
+  {
+    "technique_id": "T1021.008",
+    "name": "Direct Cloud VM Connections",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Remote Services",
+    "parent_technique_id": "T1021",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487385"
+  },
+  {
+    "technique_id": "T1072",
+    "name": "Software Deployment Tools",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487388",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1080",
+    "name": "Taint Shared Content",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487391",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1550",
+    "name": "Use Alternate Authentication Material",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487394",
+    "subtechniques": [
+      {
+        "id": "T1550.001",
+        "name": "Application Access Token"
+      },
+      {
+        "id": "T1550.004",
+        "name": "Web Session Cookie"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1550.001",
+    "name": "Application Access Token",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Use Alternate Authentication Material",
+    "parent_technique_id": "T1550",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487452"
+  },
+  {
+    "technique_id": "T1550.004",
+    "name": "Web Session Cookie",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Use Alternate Authentication Material",
+    "parent_technique_id": "T1550",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487465"
+  },
+  {
+    "technique_id": "T1119",
+    "name": "Automated Collection",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487723",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1530",
+    "name": "Data from Cloud Storage",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487730",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1213",
+    "name": "Data from Information Repositories",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487735",
+    "subtechniques": [
+      {
+        "id": "T1213.001",
+        "name": "Confluence"
+      },
+      {
+        "id": "T1213.002",
+        "name": "Sharepoint"
+      },
+      {
+        "id": "T1213.003",
+        "name": "Code Repositories"
+      },
+      {
+        "id": "T1213.004",
+        "name": "Customer Relationship Management Software"
+      },
+      {
+        "id": "T1213.005",
+        "name": "Messaging Applications"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1213.001",
+    "name": "Confluence",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data from Information Repositories",
+    "parent_technique_id": "T1213",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487740"
+  },
+  {
+    "technique_id": "T1213.002",
+    "name": "Sharepoint",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data from Information Repositories",
+    "parent_technique_id": "T1213",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487744"
+  },
+  {
+    "technique_id": "T1213.003",
+    "name": "Code Repositories",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data from Information Repositories",
+    "parent_technique_id": "T1213",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487748"
+  },
+  {
+    "technique_id": "T1213.004",
+    "name": "Customer Relationship Management Software",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data from Information Repositories",
+    "parent_technique_id": "T1213",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487752"
+  },
+  {
+    "technique_id": "T1213.005",
+    "name": "Messaging Applications",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data from Information Repositories",
+    "parent_technique_id": "T1213",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487755"
+  },
+  {
+    "technique_id": "T1074",
+    "name": "Data Staged",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487759",
+    "subtechniques": [
+      {
+        "id": "T1074.002",
+        "name": "Remote Data Staging"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1074.002",
+    "name": "Remote Data Staging",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data Staged",
+    "parent_technique_id": "T1074",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487762"
+  },
+  {
+    "technique_id": "T1114",
+    "name": "Email Collection",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487765",
+    "subtechniques": [
+      {
+        "id": "T1114.002",
+        "name": "Remote Email Collection"
+      },
+      {
+        "id": "T1114.003",
+        "name": "Email Forwarding Rule"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1114.002",
+    "name": "Remote Email Collection",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Email Collection",
+    "parent_technique_id": "T1114",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487768"
+  },
+  {
+    "technique_id": "T1114.003",
+    "name": "Email Forwarding Rule",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Email Collection",
+    "parent_technique_id": "T1114",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487771"
+  },
+  {
+    "technique_id": "T1048",
+    "name": "Exfiltration Over Alternative Protocol",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487905",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1567",
+    "name": "Exfiltration Over Web Service",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487911",
+    "subtechniques": [
+      {
+        "id": "T1567.004",
+        "name": "Exfiltration Over Webhook"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1567.004",
+    "name": "Exfiltration Over Webhook",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Exfiltration Over Web Service",
+    "parent_technique_id": "T1567",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487914"
+  },
+  {
+    "technique_id": "T1537",
+    "name": "Transfer Data to Cloud Account",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.487917",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1531",
+    "name": "Account Access Removal",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488102",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1485",
+    "name": "Data Destruction",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488111",
+    "subtechniques": [
+      {
+        "id": "T1485.001",
+        "name": "Lifecycle-Triggered Deletion"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1485.001",
+    "name": "Lifecycle-Triggered Deletion",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data Destruction",
+    "parent_technique_id": "T1485",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488114"
+  },
+  {
+    "technique_id": "T1486",
+    "name": "Data Encrypted for Impact",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488117",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1491",
+    "name": "Defacement",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488120",
+    "subtechniques": [
+      {
+        "id": "T1491.002",
+        "name": "External Defacement"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1491.002",
+    "name": "External Defacement",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Defacement",
+    "parent_technique_id": "T1491",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488123"
+  },
+  {
+    "technique_id": "T1667",
+    "name": "Email Bombing",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488126",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1499",
+    "name": "Endpoint Denial of Service",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488129",
+    "subtechniques": [
+      {
+        "id": "T1499.002",
+        "name": "Service Exhaustion Flood"
+      },
+      {
+        "id": "T1499.003",
+        "name": "Application Exhaustion Flood"
+      },
+      {
+        "id": "T1499.004",
+        "name": "Application or System Exploitation"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1499.002",
+    "name": "Service Exhaustion Flood",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Endpoint Denial of Service",
+    "parent_technique_id": "T1499",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488132"
+  },
+  {
+    "technique_id": "T1499.003",
+    "name": "Application Exhaustion Flood",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Endpoint Denial of Service",
+    "parent_technique_id": "T1499",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488135"
+  },
+  {
+    "technique_id": "T1499.004",
+    "name": "Application or System Exploitation",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Endpoint Denial of Service",
+    "parent_technique_id": "T1499",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488138"
+  },
+  {
+    "technique_id": "T1657",
+    "name": "Financial Theft",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488141",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1490",
+    "name": "Inhibit System Recovery",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488144",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1498",
+    "name": "Network Denial of Service",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488147",
+    "subtechniques": [
+      {
+        "id": "T1498.001",
+        "name": "Direct Network Flood"
+      },
+      {
+        "id": "T1498.002",
+        "name": "Reflection Amplification"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1498.001",
+    "name": "Direct Network Flood",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Network Denial of Service",
+    "parent_technique_id": "T1498",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488150"
+  },
+  {
+    "technique_id": "T1498.002",
+    "name": "Reflection Amplification",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Network Denial of Service",
+    "parent_technique_id": "T1498",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488161"
+  },
+  {
+    "technique_id": "T1496",
+    "name": "Resource Hijacking",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488164",
+    "subtechniques": [
+      {
+        "id": "T1496.001",
+        "name": "Compute Hijacking"
+      },
+      {
+        "id": "T1496.002",
+        "name": "Bandwidth Hijacking"
+      },
+      {
+        "id": "T1496.003",
+        "name": "SMS Pumping"
+      },
+      {
+        "id": "T1496.004",
+        "name": "Cloud Service Hijacking"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1496.001",
+    "name": "Compute Hijacking",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Resource Hijacking",
+    "parent_technique_id": "T1496",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488169"
+  },
+  {
+    "technique_id": "T1496.002",
+    "name": "Bandwidth Hijacking",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Resource Hijacking",
+    "parent_technique_id": "T1496",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488172"
+  },
+  {
+    "technique_id": "T1496.003",
+    "name": "SMS Pumping",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Resource Hijacking",
+    "parent_technique_id": "T1496",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488174"
+  },
+  {
+    "technique_id": "T1496.004",
+    "name": "Cloud Service Hijacking",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Oracle"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Resource Hijacking",
+    "parent_technique_id": "T1496",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T22:53:25.488177"
+  }
+]
