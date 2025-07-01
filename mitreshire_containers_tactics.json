@@ -1,0 +1,48 @@
+{
+  "platform": "Containers",
+  "extraction_date": "2025-07-01T22:49:33.912821",
+  "tactics": [
+    {
+      "name": "Initial Access",
+      "technique_count": 3
+    },
+    {
+      "name": "Execution",
+      "technique_count": 4
+    },
+    {
+      "name": "Persistence",
+      "technique_count": 7
+    },
+    {
+      "name": "Privilege Escalation",
+      "technique_count": 6
+    },
+    {
+      "name": "Defense Evasion",
+      "technique_count": 7
+    },
+    {
+      "name": "Credential Access",
+      "technique_count": 3
+    },
+    {
+      "name": "Discovery",
+      "technique_count": 3
+    },
+    {
+      "name": "Lateral Movement",
+      "technique_count": 1
+    },
+    {
+      "name": "Impact",
+      "technique_count": 5
+    }
+  ],
+  "summary": {
+    "total_tactics": 9,
+    "total_techniques": 39,
+    "total_subtechniques": 29,
+    "total_items": 68
+  }
+}
