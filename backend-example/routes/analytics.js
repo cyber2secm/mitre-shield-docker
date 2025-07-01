@@ -8,7 +8,7 @@ const router = express.Router();
 // @route   GET /api/analytics/stats
 // @desc    Get overall statistics
 // @access  Private
-router.get('/stats', auth, async (req, res) => {
+router.get('/stats', async (req, res) => {
   try {
     // Get rule statistics
     const totalRules = await DetectionRule.countDocuments();

@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
 // @route   POST /api/techniques
 // @desc    Create MITRE technique
 // @access  Private
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const technique = new MitreTechnique(req.body);
     await technique.save();

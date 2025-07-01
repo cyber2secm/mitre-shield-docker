@@ -225,20 +225,84 @@ router.post('/:id/promote', async (req, res) => {
       });
     }
 
-    // This endpoint will be used later when promoting to detection rules
-    // For now, just return success
+    // Import DetectionRule model
+    const DetectionRule = require('../models/DetectionRule');
+
+    // Get the additional data from request body (XQL query, rule ID, etc.)
+    const { rule_id, xql_query, status = 'Testing', false_positive_rate = 'Medium', tags = [] } = req.body;
+
+    if (!rule_id || !xql_query) {
+      return res.status(400).json({
+        success: false,
+        error: 'rule_id and xql_query are required for promotion'
+      });
+    }
+
+    // Check if rule_id already exists
+    const existingRule = await DetectionRule.findOne({ rule_id });
+    if (existingRule) {
+      return res.status(400).json({
+        success: false,
+        error: `Rule ID '${rule_id}' already exists in detection rules`
+      });
+    }
+
+    // Create new detection rule from future rule data
+    const detectionRuleData = {
+      rule_id,
+      name: futureRule.name,
+      description: futureRule.description,
+      technique_id: futureRule.technique_id,
+      platform: futureRule.platform,
+      tactic: futureRule.tactic,
+      xql_query,
+      status,
+      severity: futureRule.priority, // Map priority to severity
+      false_positive_rate,
+      tags: Array.isArray(tags) ? tags : [],
+      assigned_user: futureRule.assigned_to === 'Unassigned' ? '' : futureRule.assigned_to,
+      // created_by: req.user?.id, // Will be undefined since auth is disabled
+      // updated_by: req.user?.id
+    };
+
+    // Create the detection rule
+    const detectionRule = new DetectionRule(detectionRuleData);
+    await detectionRule.save();
+
+    // Delete the future rule after successful promotion
+    await FutureRule.findByIdAndDelete(req.params.id);
+
+    // Transform response for frontend
+    const transformedRule = {
+      ...detectionRule.toObject(),
+      id: detectionRule._id,
+      created_date: detectionRule.createdAt,
+      updated_date: detectionRule.updatedAt
+    };
+
     res.json({
       success: true,
-      message: 'Future rule promotion endpoint ready',
-      futureRule: {
-        ...futureRule.toObject(),
-        id: futureRule._id,
-        created_date: futureRule.createdAt,
-        updated_date: futureRule.updatedAt
-      }
+      message: 'Future rule promoted to detection rule successfully',
+      detectionRule: transformedRule
     });
   } catch (error) {
     console.error(error.message);
+    
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        error: 'Rule ID already exists in detection rules'
+      });
+    }
+    
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({
+        success: false,
+        error: errors.join(', ')
+      });
+    }
+    
     res.status(500).json({
       success: false,
       error: 'Server error'

@@ -58,7 +58,7 @@ router.get('/', async (req, res) => {
 // @route   GET /api/rules/:id
 // @desc    Get single detection rule
 // @access  Private
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const rule = await DetectionRule.findById(req.params.id);
 
@@ -96,12 +96,12 @@ router.get('/:id', auth, async (req, res) => {
 // @route   POST /api/rules
 // @desc    Create detection rule
 // @access  Private
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const ruleData = {
       ...req.body,
-      created_by: req.user.id,
-      updated_by: req.user.id
+      // created_by: req.user.id,
+      // updated_by: req.user.id
     };
 
     const rule = new DetectionRule(ruleData);
@@ -144,11 +144,11 @@ router.post('/', auth, async (req, res) => {
 // @route   PUT /api/rules/:id
 // @desc    Update detection rule
 // @access  Private
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const updateData = {
       ...req.body,
-      updated_by: req.user.id
+      // updated_by: req.user.id
     };
 
     const rule = await DetectionRule.findByIdAndUpdate(
@@ -201,7 +201,7 @@ router.put('/:id', auth, async (req, res) => {
 // @route   DELETE /api/rules/:id
 // @desc    Delete detection rule
 // @access  Private
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const rule = await DetectionRule.findByIdAndDelete(req.params.id);
 
@@ -228,7 +228,7 @@ router.delete('/:id', auth, async (req, res) => {
 // @route   POST /api/rules/bulk
 // @desc    Create multiple detection rules
 // @access  Private
-router.post('/bulk', auth, async (req, res) => {
+router.post('/bulk', async (req, res) => {
   try {
     const { items } = req.body;
 
@@ -242,8 +242,8 @@ router.post('/bulk', auth, async (req, res) => {
     // Add user info to each rule
     const rulesData = items.map(item => ({
       ...item,
-      created_by: req.user.id,
-      updated_by: req.user.id
+      // created_by: req.user.id,
+      // updated_by: req.user.id
     }));
 
     const rules = await DetectionRule.insertMany(rulesData);

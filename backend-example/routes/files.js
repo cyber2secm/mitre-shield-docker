@@ -15,7 +15,7 @@ const upload = multer({
 // @route   POST /api/upload
 // @desc    Upload file
 // @access  Private
-router.post('/upload', auth, upload.single('file'), async (req, res) => {
+router.post('/upload', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -44,7 +44,7 @@ router.post('/upload', auth, upload.single('file'), async (req, res) => {
 // @route   POST /api/extract-data
 // @desc    Extract data from uploaded file
 // @access  Private
-router.post('/extract-data', auth, async (req, res) => {
+router.post('/extract-data', async (req, res) => {
   try {
     const { file_url, json_schema } = req.body;
 
