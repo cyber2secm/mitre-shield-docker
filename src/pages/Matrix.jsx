@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { DetectionRule, MitreTechnique } from "@/api/entities";
@@ -10,7 +9,8 @@ import MatrixHeader from "../components/matrix/MatrixHeader";
 import TacticCard from "../components/matrix/TacticCard";
 import TacticDetailModal from "../components/matrix/TacticDetailModal";
 
-const TACTICS = [
+// Default tactic order for consistent display
+const DEFAULT_TACTIC_ORDER = [
   "Initial Access",
   "Execution", 
   "Persistence",
@@ -20,7 +20,7 @@ const TACTICS = [
   "Discovery",
   "Lateral Movement",
   "Collection",
-  "Command and Control",
+  "Command And Control",
   "Exfiltration",
   "Impact"
 ];
@@ -57,12 +57,13 @@ const CONTAINER_TACTICS = [
 export default function MatrixPage() {
   const [techniques, setTechniques] = useState([]);
   const [rules, setRules] = useState([]);
+  const [tactics, setTactics] = useState([]);
   const [selectedTactic, setSelectedTactic] = useState(null);
   const [filters, setFilters] = useState({
     platform: "all",
     search: "",
     status: "all",
-    cloudProvider: "all" // New: Add cloudProvider filter
+    cloudProvider: "all"
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -88,7 +89,7 @@ export default function MatrixPage() {
     if (cloudProviderParam) {
       setFilters(prev => ({ ...prev, cloudProvider: cloudProviderParam }));
     }
-  }, [location.search]); // React to location.search changes
+  }, [location.search]);
 
   useEffect(() => {
     loadData();
@@ -99,8 +100,6 @@ export default function MatrixPage() {
     let filteredTechniques = [];
     let filteredRules = [];
 
-    // The 'all' platform case is removed, as filters.platform will now always be a specific platform or 'Cloud'.
-    // The initial useEffect ensures filters.platform is never 'all' now.
     if (filters.platform === "Cloud") {
       // For Cloud platform, include techniques that support AWS, Azure, GCP, or Oracle
       filteredTechniques = techniques.filter(t => 
@@ -112,7 +111,11 @@ export default function MatrixPage() {
       if (filters.cloudProvider && filters.cloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
       }
-    } else { // Specific platform like "Windows", "Linux", "Containers" etc.
+    } else if (filters.platform === "all") {
+      filteredTechniques = techniques;
+      filteredRules = rules;
+    } else {
+      // Specific platform like "Windows", "Linux", "Containers" etc.
       filteredTechniques = techniques.filter(t => t.platforms?.includes(filters.platform));
       filteredRules = rules.filter(r => r.platform === filters.platform);
     }
@@ -130,6 +133,24 @@ export default function MatrixPage() {
       ]);
       setTechniques(techniqueData);
       setRules(ruleData);
+      
+      // Extract unique tactics from techniques and sort them
+      const uniqueTactics = [...new Set(techniqueData.map(t => t.tactic).filter(Boolean))];
+      const sortedTactics = uniqueTactics.sort((a, b) => {
+        const aIndex = DEFAULT_TACTIC_ORDER.indexOf(a);
+        const bIndex = DEFAULT_TACTIC_ORDER.indexOf(b);
+        
+        // If both tactics are in the default order, sort by their position
+        if (aIndex !== -1 && bIndex !== -1) {
+          return aIndex - bIndex;
+        }
+        // If only one is in the default order, prioritize it
+        if (aIndex !== -1) return -1;
+        if (bIndex !== -1) return 1;
+        // If neither is in the default order, sort alphabetically
+        return a.localeCompare(b);
+      });
+      setTactics(sortedTactics);
     } catch (error) {
       console.error("Failed to load data:", error);
     }
@@ -145,7 +166,7 @@ export default function MatrixPage() {
       platformTechniques = platformTechniques.filter(t => 
         t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
       );
-    } else { // Since 'all' platform is removed, this handles specific platforms directly
+    } else if (filters.platform !== "all") {
       platformTechniques = platformTechniques.filter(t => t.platforms?.includes(filters.platform));
     }
     
@@ -162,7 +183,7 @@ export default function MatrixPage() {
       if (filters.cloudProvider && filters.cloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
       }
-    } else { // Since 'all' platform is removed, this handles specific platforms directly
+    } else if (filters.platform !== "all") {
       filteredRules = filteredRules.filter(r => r.platform === filters.platform);
     }
     
@@ -189,7 +210,6 @@ export default function MatrixPage() {
   };
 
   const getCurrentPlatformName = () => {
-    // This check is now mostly redundant but safe to keep, as 'all' should no longer be set via URL.
     if (filters.platform === "all") return "All Platforms"; 
     if (filters.platform === "Cloud") {
       if (filters.cloudProvider && filters.cloudProvider !== "all") {
@@ -201,144 +221,35 @@ export default function MatrixPage() {
   };
 
   const getFilteredTactics = () => {
-    // Use container-specific tactics when viewing Containers platform
-    let tacticsToUse = TACTICS;
-    if (filters.platform === "Cloud") {
-      tacticsToUse = CLOUD_TACTICS;
-    } else if (filters.platform === "Containers") {
-      tacticsToUse = CONTAINER_TACTICS;
-    }
-    
-    // For cloud platform, show all cloud tactics regardless of whether they have techniques
-    if (filters.platform === "Cloud") {
-      return CLOUD_TACTICS.filter(tactic => {
-        // Apply search filter to tactic name
-        if (filters.search) {
-          const searchTerm = filters.search.toLowerCase();
-          const tacticNameMatches = tactic.toLowerCase().includes(searchTerm);
-          
-          // Also check if any techniques match the search
-          const tacticTechniques = techniques.filter(t => 
-            t.tactic === tactic && 
-            t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
-          );
-          const hasMatchingTechniques = tacticTechniques.some(t => 
-            t.name.toLowerCase().includes(searchTerm) ||
-            t.technique_id.toLowerCase().includes(searchTerm)
-          );
-          
-          return tacticNameMatches || hasMatchingTechniques;
-        }
-        
-        // For status filter, only hide if no rules match the status
-        if (filters.status !== "all") {
-          const tacticTechniques = techniques.filter(t => 
-            t.tactic === tactic && 
-            t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
-          );
-          const techniqueIds = tacticTechniques.map(t => t.technique_id);
-          const hasMatchingRule = rules.some(rule => 
-            techniqueIds.includes(rule.technique_id) &&
-            rule.status === filters.status &&
-            ['AWS', 'Azure', 'GCP', 'Oracle'].includes(rule.platform) &&
-            (filters.cloudProvider === "all" || rule.platform === filters.cloudProvider)
-          );
-          return hasMatchingRule;
-        }
-        
-        // Always show all cloud tactics by default
-        return true;
-      });
-    }
-    
-    // For containers platform, show only container tactics
-    if (filters.platform === "Containers") {
-      return CONTAINER_TACTICS.filter(tactic => {
-        // Get all techniques for the tactic for containers platform
-        let tacticTechniques = techniques.filter(t => t.tactic === tactic);
-        tacticTechniques = tacticTechniques.filter(t => t.platforms?.includes(filters.platform));
-        
-        // Hide tactics that have no techniques for the selected platform (unless searching for the tactic name)
-        if (tacticTechniques.length === 0) {
-          if (filters.search && tactic.toLowerCase().includes(filters.search.toLowerCase())) {
-            return true; // Still show if tactic name matches search, even if no techniques for platform
-          }
-          return false;
-        }
-        
-        // Apply search filter to the tactic name or its techniques
-        if (filters.search) {
-          const searchTerm = filters.search.toLowerCase();
-          const tacticNameMatches = tactic.toLowerCase().includes(searchTerm);
-          const hasMatchingTechniques = tacticTechniques.some(t => 
-            t.name.toLowerCase().includes(searchTerm) ||
-            t.technique_id.toLowerCase().includes(searchTerm)
-          );
-          if (!tacticNameMatches && !hasMatchingTechniques) {
-            return false;
-          }
-        }
-
-        // Apply status filter
-        if (filters.status !== "all") {
-          const techniqueIds = tacticTechniques.map(t => t.technique_id);
-          const hasMatchingRule = rules.some(rule => 
-            techniqueIds.includes(rule.technique_id) &&
-            rule.status === filters.status &&
-            rule.platform === filters.platform
-          );
-          if (!hasMatchingRule) {
-            return false;
-          }
-        }
-
-        return true;
-      });
-    }
-    
-    // For non-cloud, non-container platforms, use existing logic
-    return tacticsToUse.filter(tactic => {
-      // Get all techniques for the tactic for the current platform
-      let tacticTechniques = techniques.filter(t => t.tactic === tactic);
-      
-      // Since filters.platform is guaranteed not to be "all", this filter is always applied.
-      tacticTechniques = tacticTechniques.filter(t => t.platforms?.includes(filters.platform));
-      
-      // Hide tactics that have no techniques for the selected platform (unless searching for the tactic name)
-      if (tacticTechniques.length === 0) {
-        if (filters.search && tactic.toLowerCase().includes(filters.search.toLowerCase())) {
-          return true; // Still show if tactic name matches search, even if no techniques for platform
-        }
-        return false;
-      }
-      
-      // Apply search filter to the tactic name or its techniques
+    // Filter tactics based on search and status filters
+    return tactics.filter(tactic => {
+      // Apply search filter to tactic name
       if (filters.search) {
         const searchTerm = filters.search.toLowerCase();
         const tacticNameMatches = tactic.toLowerCase().includes(searchTerm);
-        const hasMatchingTechniques = tacticTechniques.some(t => 
-          t.name.toLowerCase().includes(searchTerm) ||
-          t.technique_id.toLowerCase().includes(searchTerm)
-        );
+        
+        // Also check if any techniques match the search
+        const stats = getTacticStats(tactic);
+        const hasMatchingTechniques = stats.techniques.length > 0;
+        
         if (!tacticNameMatches && !hasMatchingTechniques) {
           return false;
         }
       }
-
+      
       // Apply status filter
       if (filters.status !== "all") {
-        const techniqueIds = tacticTechniques.map(t => t.technique_id);
-        const hasMatchingRule = rules.some(rule => 
-          techniqueIds.includes(rule.technique_id) &&
-          rule.status === filters.status &&
-          rule.platform === filters.platform
-        );
+        const stats = getTacticStats(tactic);
+        const hasMatchingRule = stats.activeRules > 0 && filters.status === "Active" ||
+                               stats.testingRules > 0 && filters.status === "Testing";
         if (!hasMatchingRule) {
           return false;
         }
       }
-
-      return true;
+      
+      // For platform filtering, check if tactic has any techniques for the platform
+      const stats = getTacticStats(tactic);
+      return stats.techniqueCount > 0;
     });
   };
 
@@ -395,7 +306,7 @@ export default function MatrixPage() {
         onClose={() => setSelectedTactic(null)}
         onRuleUpdate={loadData}
         currentPlatform={filters.platform}
-        currentCloudProvider={filters.cloudProvider} // Pass cloudProvider to modal if needed
+        currentCloudProvider={filters.cloudProvider}
       />
     </div>
   );

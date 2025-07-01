@@ -1,99 +1,153 @@
 const TaxiiService = require('./taxiiService');
+const GitHubMitreService = require('./githubMitreService');
 const MitreTechnique = require('../models/MitreTechnique');
+const MitreDataProcessor = require('./mitreDataProcessor');
 const DetectionRule = require('../models/DetectionRule');
 
 class MitreSyncService {
   constructor() {
     this.taxiiService = new TaxiiService();
+    this.githubService = new GitHubMitreService();
+    this.dataProcessor = new MitreDataProcessor();
     this.isRunning = false;
     this.lastSyncTime = null;
     this.syncProgress = {
       status: 'idle',
-      totalTechniques: 0,
-      processedTechniques: 0,
-      totalTactics: 0,
-      processedTactics: 0,
-      errors: [],
       startTime: null,
-      endTime: null
+      endTime: null,
+      progress: 0,
+      currentOperation: '',
+      errors: []
     };
   }
 
   /**
-   * Perform a full sync of MITRE ATT&CK data with enhanced error handling
+   * Sync MITRE data using GitHub as primary source with TAXII fallback
    */
-  async syncMitreData(force = false) {
+  async syncMitreData(force = false, useGitHub = true) {
     if (this.isRunning) {
-      console.log('🔄 Sync already in progress, skipping...');
-      return { success: false, message: 'Sync already in progress', progress: this.syncProgress };
+      return {
+        success: false,
+        message: 'Sync already in progress',
+        progress: this.syncProgress
+      };
     }
 
-    try {
-      this.isRunning = true;
-      this.resetProgress();
-      this.syncProgress.status = 'fetching';
-      this.syncProgress.startTime = new Date();
-      
-      console.log('🚀 Starting MITRE ATT&CK data sync...');
+    this.isRunning = true;
+    this.syncProgress = {
+      status: 'running',
+      startTime: new Date(),
+      endTime: null,
+      progress: 0,
+      currentOperation: 'Starting sync...',
+      errors: []
+    };
 
-      // Check if we need to sync (unless forced)
-      if (!force && this.lastSyncTime) {
-        const hoursSinceLastSync = (Date.now() - new Date(this.lastSyncTime).getTime()) / (1000 * 60 * 60);
-        if (hoursSinceLastSync < 24) {
-          console.log(`⏭️ Last sync was ${hoursSinceLastSync.toFixed(1)} hours ago, skipping...`);
-          return { 
-            success: false, 
-            message: `Sync not needed, last sync was ${hoursSinceLastSync.toFixed(1)} hours ago`,
-            lastSyncTime: this.lastSyncTime 
-          };
+    try {
+      console.log('🚀 Starting MITRE ATT&CK data sync...');
+      
+      let rawData;
+      let dataSource = 'unknown';
+      
+      // Try GitHub first (faster and more reliable)
+      if (useGitHub) {
+        try {
+          console.log('📁 Attempting to fetch data from GitHub...');
+          this.syncProgress.currentOperation = 'Fetching data from GitHub...';
+          this.syncProgress.progress = 10;
+          
+          rawData = await this.githubService.fetchAttackData('enterprise', !force);
+          dataSource = 'github';
+          console.log('✅ Successfully fetched data from GitHub');
+          
+        } catch (githubError) {
+          console.warn('⚠️ GitHub fetch failed, falling back to TAXII:', githubError.message);
+          this.syncProgress.errors.push({
+            source: 'github',
+            message: githubError.message,
+            timestamp: new Date().toISOString()
+          });
+        }
+      }
+      
+      // Fallback to TAXII if GitHub failed
+      if (!rawData) {
+        try {
+          console.log('🌐 Attempting to fetch data from TAXII API...');
+          this.syncProgress.currentOperation = 'Fetching data from TAXII API...';
+          this.syncProgress.progress = 10;
+          
+          const taxiiResult = await this.taxiiService.fetchAttackData();
+          rawData = taxiiResult.data;
+          dataSource = 'taxii';
+          console.log('✅ Successfully fetched data from TAXII');
+          
+        } catch (taxiiError) {
+          console.error('❌ Both GitHub and TAXII failed:', taxiiError.message);
+          throw new Error(`All data sources failed. GitHub: ${this.syncProgress.errors[0]?.message || 'unknown'}. TAXII: ${taxiiError.message}`);
         }
       }
 
-      // Fetch data from MITRE TAXII API
-      console.log('📥 Fetching data from MITRE TAXII API...');
-      const taxiiData = await this.taxiiService.fetchAttackData();
+      // Process the data
+      this.syncProgress.currentOperation = 'Processing MITRE data...';
+      this.syncProgress.progress = 30;
       
-      if (!taxiiData.success || !taxiiData.data) {
-        throw new Error('Failed to fetch data from MITRE TAXII API');
-      }
+      const processedData = dataSource === 'github' 
+        ? await this.githubService.processAttackData(rawData)
+        : rawData;
 
-      const { techniques, tactics } = taxiiData.data;
-      console.log(`📊 Fetched ${techniques.length} techniques and ${tactics.length} tactics`);
+      // Extract tactics and techniques
+      const tactics = processedData.tactics || [];
+      const techniques = processedData.techniques || [];
 
-      // Update progress
-      this.syncProgress.totalTechniques = techniques.length;
-      this.syncProgress.totalTactics = tactics.length;
-      this.syncProgress.status = 'processing';
+      console.log(`📊 Data summary from ${dataSource}:`);
+      console.log(`   Tactics: ${tactics.length}`);
+      console.log(`   Techniques: ${techniques.length}`);
 
-      // Process tactics first (they're needed for technique-tactic relationships)
-      console.log('🏷️ Processing tactics...');
+      // Process tactics
+      this.syncProgress.currentOperation = 'Processing tactics...';
+      this.syncProgress.progress = 50;
+      console.log('⚡ Processing tactics...');
       const tacticsResult = await this.processTactics(tactics);
+
+      // Process techniques with enhanced data processor
+      this.syncProgress.currentOperation = 'Processing techniques...';
+      this.syncProgress.progress = 70;
+      console.log('⚡ Processing techniques with enhanced data processor...');
+      const techniquesResult = await this.dataProcessor.processAndStoreTechniques(techniques);
       
-      // Process techniques in batches
-      console.log('⚡ Processing techniques...');
-      const techniquesResult = await this.processTechniques(techniques);
+      // Generate AI-specific techniques
+      this.syncProgress.currentOperation = 'Generating AI-specific techniques...';
+      this.syncProgress.progress = 90;
+      console.log('🧠 Generating AI-specific techniques...');
+      const aiResult = await this.dataProcessor.generateAISpecificTechniques();
 
       // Update sync timestamp
       this.lastSyncTime = new Date().toISOString();
       this.syncProgress.status = 'completed';
       this.syncProgress.endTime = new Date();
+      this.syncProgress.progress = 100;
+      this.syncProgress.currentOperation = 'Sync completed successfully';
 
       const results = {
         tactics: tacticsResult,
         techniques: techniquesResult,
-        totalObjects: taxiiData.totalObjects,
-        pages: taxiiData.pages
+        aiTechniques: aiResult,
+        dataSource: dataSource,
+        totalObjects: rawData.objects ? rawData.objects.length : (techniques.length + tactics.length)
       };
 
       console.log('✅ MITRE sync completed successfully:', {
+        dataSource,
         tacticsProcessed: tacticsResult.processed,
         techniquesProcessed: techniquesResult.processed,
+        aiTechniquesCreated: aiResult.created,
         totalDuration: this.getSyncDuration()
       });
 
       return {
         success: true,
-        message: 'MITRE data sync completed successfully',
+        message: `MITRE data sync completed successfully using ${dataSource}`,
         lastSyncTime: this.lastSyncTime,
         results,
         progress: this.syncProgress
@@ -102,6 +156,7 @@ class MitreSyncService {
     } catch (error) {
       this.syncProgress.status = 'error';
       this.syncProgress.endTime = new Date();
+      this.syncProgress.currentOperation = `Failed: ${error.message}`;
       this.syncProgress.errors.push({
         message: error.message,
         timestamp: new Date().toISOString()

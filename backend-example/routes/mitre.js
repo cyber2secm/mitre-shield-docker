@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const MitreSyncService = require('../services/mitreSync');
+const MitreDataProcessor = require('../services/mitreDataProcessor');
 
-// Create a single instance of the sync service
+// Create a single instance of the sync service and data processor
 const mitreSyncService = new MitreSyncService();
+const mitreDataProcessor = new MitreDataProcessor();
 
 /**
  * @route   POST /api/mitre/sync
@@ -308,6 +310,63 @@ router.get('/diagnostics', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Diagnostics failed',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * @route   GET /api/mitre/platforms/stats
+ * @desc    Get platform-specific technique statistics
+ * @access  Public
+ */
+router.get('/platforms/stats', async (req, res) => {
+  try {
+    console.log('📊 Getting platform-specific technique statistics...');
+    
+    const stats = await mitreDataProcessor.getPlatformStats();
+    
+    res.status(200).json({
+      success: true,
+      data: {
+        platforms: stats,
+        timestamp: new Date().toISOString(),
+        totalPlatforms: stats.length
+      }
+    });
+    
+  } catch (error) {
+    console.error('❌ Error getting platform statistics:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get platform statistics',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * @route   POST /api/mitre/generate-ai-techniques
+ * @desc    Generate AI-specific techniques
+ * @access  Public
+ */
+router.post('/generate-ai-techniques', async (req, res) => {
+  try {
+    console.log('🧠 Generating AI-specific techniques...');
+    
+    const result = await mitreDataProcessor.generateAISpecificTechniques();
+    
+    res.status(200).json({
+      success: true,
+      message: `Generated ${result.created} AI-specific techniques`,
+      data: result
+    });
+    
+  } catch (error) {
+    console.error('❌ Error generating AI techniques:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to generate AI techniques',
       error: error.message
     });
   }
