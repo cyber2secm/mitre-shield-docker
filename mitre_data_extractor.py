@@ -39,7 +39,8 @@ PLATFORM_MAPPING = {
     "azure": "Azure",
     "gcp": "GCP",
     "oracle": "Oracle",
-    "containers": "Containers"
+    "containers": "Containers",
+    "officesuite": "Office Suite"
 }
 
 def fetch_matrix_page(platform="windows"):
@@ -49,7 +50,8 @@ def fetch_matrix_page(platform="windows"):
         "macos": "https://attack.mitre.org/matrices/enterprise/macos/",
         "linux": "https://attack.mitre.org/matrices/enterprise/linux/",
         "cloud": "https://attack.mitre.org/matrices/enterprise/cloud/",
-        "containers": "https://attack.mitre.org/matrices/enterprise/containers/"
+        "containers": "https://attack.mitre.org/matrices/enterprise/containers/",
+        "officesuite": "https://attack.mitre.org/matrices/enterprise/cloud/officesuite/"
     }
     
     url = platform_urls.get(platform.lower(), f"https://attack.mitre.org/matrices/enterprise/{platform.lower()}/")
@@ -89,6 +91,8 @@ def get_platform_list(platform):
         return ["AWS", "Azure", "GCP", "Oracle"]
     elif platform.lower() == "containers":
         return ["Containers"]
+    elif platform.lower() == "officesuite":
+        return ["Office Suite"]
     else:
         return [PLATFORM_MAPPING.get(platform.lower(), platform.title())]
 
@@ -475,11 +479,12 @@ def print_summary(data):
 def main():
     if len(sys.argv) < 2:
         print("Usage: python3 mitre_data_extractor.py <platform> [format]")
-        print("Platforms: windows, macos, linux, cloud, containers")
+        print("Platforms: windows, macos, linux, cloud, containers, officesuite")
         print("Format: mitreshire (default) | complete")
         print("\nExample:")
         print("  python3 mitre_data_extractor.py windows")
         print("  python3 mitre_data_extractor.py cloud mitreshire")
+        print("  python3 mitre_data_extractor.py officesuite")
         sys.exit(1)
     
     platform = sys.argv[1].lower()

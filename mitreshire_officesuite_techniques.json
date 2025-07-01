@@ -1,0 +1,2180 @@
+[
+  {
+    "technique_id": "T1566",
+    "name": "Phishing",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197646",
+    "subtechniques": [
+      {
+        "id": "T1566.002",
+        "name": "Spearphishing Link"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1566.002",
+    "name": "Spearphishing Link",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Phishing",
+    "parent_technique_id": "T1566",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197661"
+  },
+  {
+    "technique_id": "T1199",
+    "name": "Trusted Relationship",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197667",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197672",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.004",
+        "name": "Cloud Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197677"
+  },
+  {
+    "technique_id": "T1078.004",
+    "name": "Cloud Accounts",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197681"
+  },
+  {
+    "technique_id": "T1059",
+    "name": "Command and Scripting Interpreter",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197787",
+    "subtechniques": [
+      {
+        "id": "T1059.009",
+        "name": "Cloud API"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1059.009",
+    "name": "Cloud API",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Command and Scripting Interpreter",
+    "parent_technique_id": "T1059",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197793"
+  },
+  {
+    "technique_id": "T1648",
+    "name": "Serverless Execution",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197796",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1098",
+    "name": "Account Manipulation",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197988",
+    "subtechniques": [
+      {
+        "id": "T1098.002",
+        "name": "Additional Email Delegate Permissions"
+      },
+      {
+        "id": "T1098.003",
+        "name": "Additional Cloud Roles"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1098.002",
+    "name": "Additional Email Delegate Permissions",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197992"
+  },
+  {
+    "technique_id": "T1098.003",
+    "name": "Additional Cloud Roles",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.197996"
+  },
+  {
+    "technique_id": "T1671",
+    "name": "Cloud Application Integration",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198000",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1136",
+    "name": "Create Account",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198004",
+    "subtechniques": [
+      {
+        "id": "T1136.003",
+        "name": "Cloud Account"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1136.003",
+    "name": "Cloud Account",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Create Account",
+    "parent_technique_id": "T1136",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198007"
+  },
+  {
+    "technique_id": "T1546",
+    "name": "Event Triggered Execution",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198010",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1556",
+    "name": "Modify Authentication Process",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198014",
+    "subtechniques": [
+      {
+        "id": "T1556.006",
+        "name": "Multi-Factor Authentication"
+      },
+      {
+        "id": "T1556.007",
+        "name": "Hybrid Identity"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1556.006",
+    "name": "Multi-Factor Authentication",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198018"
+  },
+  {
+    "technique_id": "T1556.007",
+    "name": "Hybrid Identity",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198021"
+  },
+  {
+    "technique_id": "T1137",
+    "name": "Office Application Startup",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198025",
+    "subtechniques": [
+      {
+        "id": "T1137.001",
+        "name": "Office Template Macros"
+      },
+      {
+        "id": "T1137.002",
+        "name": "Office Test"
+      },
+      {
+        "id": "T1137.003",
+        "name": "Outlook Forms"
+      },
+      {
+        "id": "T1137.004",
+        "name": "Outlook Home Page"
+      },
+      {
+        "id": "T1137.005",
+        "name": "Outlook Rules"
+      },
+      {
+        "id": "T1137.006",
+        "name": "Add-ins"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1137.001",
+    "name": "Office Template Macros",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198028"
+  },
+  {
+    "technique_id": "T1137.002",
+    "name": "Office Test",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198032"
+  },
+  {
+    "technique_id": "T1137.003",
+    "name": "Outlook Forms",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198035"
+  },
+  {
+    "technique_id": "T1137.004",
+    "name": "Outlook Home Page",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198038"
+  },
+  {
+    "technique_id": "T1137.005",
+    "name": "Outlook Rules",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198042"
+  },
+  {
+    "technique_id": "T1137.006",
+    "name": "Add-ins",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Office Application Startup",
+    "parent_technique_id": "T1137",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198045"
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198049",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.004",
+        "name": "Cloud Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198052"
+  },
+  {
+    "technique_id": "T1078.004",
+    "name": "Cloud Accounts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198055"
+  },
+  {
+    "technique_id": "T1548",
+    "name": "Abuse Elevation Control Mechanism",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198405",
+    "subtechniques": [
+      {
+        "id": "T1548.005",
+        "name": "Temporary Elevated Cloud Access"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1548.005",
+    "name": "Temporary Elevated Cloud Access",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Abuse Elevation Control Mechanism",
+    "parent_technique_id": "T1548",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198416"
+  },
+  {
+    "technique_id": "T1098",
+    "name": "Account Manipulation",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198423",
+    "subtechniques": [
+      {
+        "id": "T1098.002",
+        "name": "Additional Email Delegate Permissions"
+      },
+      {
+        "id": "T1098.003",
+        "name": "Additional Cloud Roles"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1098.002",
+    "name": "Additional Email Delegate Permissions",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198428"
+  },
+  {
+    "technique_id": "T1098.003",
+    "name": "Additional Cloud Roles",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198431"
+  },
+  {
+    "technique_id": "T1546",
+    "name": "Event Triggered Execution",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198435",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198439",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.004",
+        "name": "Cloud Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198442"
+  },
+  {
+    "technique_id": "T1078.004",
+    "name": "Cloud Accounts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198445"
+  },
+  {
+    "technique_id": "T1548",
+    "name": "Abuse Elevation Control Mechanism",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198727",
+    "subtechniques": [
+      {
+        "id": "T1548.005",
+        "name": "Temporary Elevated Cloud Access"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1548.005",
+    "name": "Temporary Elevated Cloud Access",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Abuse Elevation Control Mechanism",
+    "parent_technique_id": "T1548",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198732"
+  },
+  {
+    "technique_id": "T1672",
+    "name": "Email Spoofing",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198736",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1564",
+    "name": "Hide Artifacts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198739",
+    "subtechniques": [
+      {
+        "id": "T1564.008",
+        "name": "Email Hiding Rules"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1564.008",
+    "name": "Email Hiding Rules",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Hide Artifacts",
+    "parent_technique_id": "T1564",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198743"
+  },
+  {
+    "technique_id": "T1562",
+    "name": "Impair Defenses",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198746",
+    "subtechniques": [
+      {
+        "id": "T1562.008",
+        "name": "Disable or Modify Cloud Logs"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1562.008",
+    "name": "Disable or Modify Cloud Logs",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Impair Defenses",
+    "parent_technique_id": "T1562",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198750"
+  },
+  {
+    "technique_id": "T1656",
+    "name": "Impersonation",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198753",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1070",
+    "name": "Indicator Removal",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198757",
+    "subtechniques": [
+      {
+        "id": "T1070.008",
+        "name": "Clear Mailbox Data"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1070.008",
+    "name": "Clear Mailbox Data",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Indicator Removal",
+    "parent_technique_id": "T1070",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198766"
+  },
+  {
+    "technique_id": "T1556",
+    "name": "Modify Authentication Process",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198773",
+    "subtechniques": [
+      {
+        "id": "T1556.006",
+        "name": "Multi-Factor Authentication"
+      },
+      {
+        "id": "T1556.007",
+        "name": "Hybrid Identity"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1556.006",
+    "name": "Multi-Factor Authentication",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198777"
+  },
+  {
+    "technique_id": "T1556.007",
+    "name": "Hybrid Identity",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198780"
+  },
+  {
+    "technique_id": "T1550",
+    "name": "Use Alternate Authentication Material",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198784",
+    "subtechniques": [
+      {
+        "id": "T1550.001",
+        "name": "Application Access Token"
+      },
+      {
+        "id": "T1550.004",
+        "name": "Web Session Cookie"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1550.001",
+    "name": "Application Access Token",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Use Alternate Authentication Material",
+    "parent_technique_id": "T1550",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198787"
+  },
+  {
+    "technique_id": "T1550.004",
+    "name": "Web Session Cookie",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Use Alternate Authentication Material",
+    "parent_technique_id": "T1550",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198791"
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198794",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.004",
+        "name": "Cloud Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198797"
+  },
+  {
+    "technique_id": "T1078.004",
+    "name": "Cloud Accounts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.198801"
+  },
+  {
+    "technique_id": "T1110",
+    "name": "Brute Force",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199064",
+    "subtechniques": [
+      {
+        "id": "T1110.001",
+        "name": "Password Guessing"
+      },
+      {
+        "id": "T1110.002",
+        "name": "Password Cracking"
+      },
+      {
+        "id": "T1110.003",
+        "name": "Password Spraying"
+      },
+      {
+        "id": "T1110.004",
+        "name": "Credential Stuffing"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1110.001",
+    "name": "Password Guessing",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199069"
+  },
+  {
+    "technique_id": "T1110.002",
+    "name": "Password Cracking",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199072"
+  },
+  {
+    "technique_id": "T1110.003",
+    "name": "Password Spraying",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199075"
+  },
+  {
+    "technique_id": "T1110.004",
+    "name": "Credential Stuffing",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199079"
+  },
+  {
+    "technique_id": "T1606",
+    "name": "Forge Web Credentials",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199083",
+    "subtechniques": [
+      {
+        "id": "T1606.002",
+        "name": "SAML Tokens"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1606.002",
+    "name": "SAML Tokens",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Forge Web Credentials",
+    "parent_technique_id": "T1606",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199086"
+  },
+  {
+    "technique_id": "T1556",
+    "name": "Modify Authentication Process",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199090",
+    "subtechniques": [
+      {
+        "id": "T1556.006",
+        "name": "Multi-Factor Authentication"
+      },
+      {
+        "id": "T1556.007",
+        "name": "Hybrid Identity"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1556.006",
+    "name": "Multi-Factor Authentication",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199094"
+  },
+  {
+    "technique_id": "T1556.007",
+    "name": "Hybrid Identity",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199097"
+  },
+  {
+    "technique_id": "T1621",
+    "name": "Multi-Factor Authentication Request Generation",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199101",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1528",
+    "name": "Steal Application Access Token",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199104",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1539",
+    "name": "Steal Web Session Cookie",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199107",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1552",
+    "name": "Unsecured Credentials",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199111",
+    "subtechniques": [
+      {
+        "id": "T1552.008",
+        "name": "Chat Messages"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1552.008",
+    "name": "Chat Messages",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Unsecured Credentials",
+    "parent_technique_id": "T1552",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199114"
+  },
+  {
+    "technique_id": "T1087",
+    "name": "Account Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199301",
+    "subtechniques": [
+      {
+        "id": "T1087.003",
+        "name": "Email Account"
+      },
+      {
+        "id": "T1087.004",
+        "name": "Cloud Account"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1087.003",
+    "name": "Email Account",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Discovery",
+    "parent_technique_id": "T1087",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199305"
+  },
+  {
+    "technique_id": "T1087.004",
+    "name": "Cloud Account",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Discovery",
+    "parent_technique_id": "T1087",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199309"
+  },
+  {
+    "technique_id": "T1538",
+    "name": "Cloud Service Dashboard",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199312",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1526",
+    "name": "Cloud Service Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199315",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1201",
+    "name": "Password Policy Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199318",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1069",
+    "name": "Permission Groups Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199331",
+    "subtechniques": [
+      {
+        "id": "T1069.003",
+        "name": "Cloud Groups"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1069.003",
+    "name": "Cloud Groups",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Permission Groups Discovery",
+    "parent_technique_id": "T1069",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199335"
+  },
+  {
+    "technique_id": "T1534",
+    "name": "Internal Spearphishing",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199448",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1080",
+    "name": "Taint Shared Content",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199452",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1550",
+    "name": "Use Alternate Authentication Material",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199456",
+    "subtechniques": [
+      {
+        "id": "T1550.001",
+        "name": "Application Access Token"
+      },
+      {
+        "id": "T1550.004",
+        "name": "Web Session Cookie"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1550.001",
+    "name": "Application Access Token",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Use Alternate Authentication Material",
+    "parent_technique_id": "T1550",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199460"
+  },
+  {
+    "technique_id": "T1550.004",
+    "name": "Web Session Cookie",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Use Alternate Authentication Material",
+    "parent_technique_id": "T1550",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199463"
+  },
+  {
+    "technique_id": "T1119",
+    "name": "Automated Collection",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199583",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1530",
+    "name": "Data from Cloud Storage",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199587",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1213",
+    "name": "Data from Information Repositories",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199591",
+    "subtechniques": [
+      {
+        "id": "T1213.002",
+        "name": "Sharepoint"
+      },
+      {
+        "id": "T1213.005",
+        "name": "Messaging Applications"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1213.002",
+    "name": "Sharepoint",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data from Information Repositories",
+    "parent_technique_id": "T1213",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199594"
+  },
+  {
+    "technique_id": "T1213.005",
+    "name": "Messaging Applications",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data from Information Repositories",
+    "parent_technique_id": "T1213",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199598"
+  },
+  {
+    "technique_id": "T1114",
+    "name": "Email Collection",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199602",
+    "subtechniques": [
+      {
+        "id": "T1114.002",
+        "name": "Remote Email Collection"
+      },
+      {
+        "id": "T1114.003",
+        "name": "Email Forwarding Rule"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1114.002",
+    "name": "Remote Email Collection",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Email Collection",
+    "parent_technique_id": "T1114",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199605"
+  },
+  {
+    "technique_id": "T1114.003",
+    "name": "Email Forwarding Rule",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Email Collection",
+    "parent_technique_id": "T1114",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199608"
+  },
+  {
+    "technique_id": "T1048",
+    "name": "Exfiltration Over Alternative Protocol",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199718",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1567",
+    "name": "Exfiltration Over Web Service",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199723",
+    "subtechniques": [
+      {
+        "id": "T1567.004",
+        "name": "Exfiltration Over Webhook"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1567.004",
+    "name": "Exfiltration Over Webhook",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Exfiltration Over Web Service",
+    "parent_technique_id": "T1567",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199726"
+  },
+  {
+    "technique_id": "T1537",
+    "name": "Transfer Data to Cloud Account",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199729",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1531",
+    "name": "Account Access Removal",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199802",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1667",
+    "name": "Email Bombing",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199806",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1657",
+    "name": "Financial Theft",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "Office Suite"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-01T23:11:37.199809",
+    "subtechniques": []
+  }
+]

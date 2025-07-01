@@ -130,17 +130,22 @@ export default function TacticDetailModal({
       // Apply cloud service filter if specified
       if (currentCloudService && currentCloudService !== "all") {
         filteredRules = filteredRules.filter(r => {
-          const ruleName = r.name?.toLowerCase() || '';
-          
           switch (currentCloudService) {
             case 'Office Suite':
-              return ruleName.includes('office') || ruleName.includes('365') || ruleName.includes('sharepoint');
+              // For Office Suite, check if rule has Office Suite platform or contains office-related keywords
+              return r.platform === 'Office Suite' || 
+                     r.name?.toLowerCase().includes('office') || 
+                     r.name?.toLowerCase().includes('365') || 
+                     r.name?.toLowerCase().includes('sharepoint');
             case 'Identity Provider':
+              const ruleName = r.name?.toLowerCase() || '';
               return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
             case 'SaaS':
-              return ruleName.includes('saas') || ruleName.includes('application');
+              const saasRuleName = r.name?.toLowerCase() || '';
+              return saasRuleName.includes('saas') || saasRuleName.includes('application');
             case 'IaaS':
-              return ruleName.includes('iaas') || ruleName.includes('infrastructure') || ruleName.includes('compute');
+              const iaasRuleName = r.name?.toLowerCase() || '';
+              return iaasRuleName.includes('iaas') || iaasRuleName.includes('infrastructure') || iaasRuleName.includes('compute');
             default:
               return true;
           }
@@ -169,17 +174,22 @@ export default function TacticDetailModal({
       // Apply cloud service filter if specified
       if (currentCloudService && currentCloudService !== "all") {
         filteredRules = filteredRules.filter(r => {
-          const ruleName = r.name?.toLowerCase() || '';
-          
           switch (currentCloudService) {
             case 'Office Suite':
-              return ruleName.includes('office') || ruleName.includes('365') || ruleName.includes('sharepoint');
+              // For Office Suite, check if rule has Office Suite platform or contains office-related keywords
+              return r.platform === 'Office Suite' || 
+                     r.name?.toLowerCase().includes('office') || 
+                     r.name?.toLowerCase().includes('365') || 
+                     r.name?.toLowerCase().includes('sharepoint');
             case 'Identity Provider':
+              const ruleName = r.name?.toLowerCase() || '';
               return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
             case 'SaaS':
-              return ruleName.includes('saas') || ruleName.includes('application');
+              const saasRuleName = r.name?.toLowerCase() || '';
+              return saasRuleName.includes('saas') || saasRuleName.includes('application');
             case 'IaaS':
-              return ruleName.includes('iaas') || ruleName.includes('infrastructure') || ruleName.includes('compute');
+              const iaasRuleName = r.name?.toLowerCase() || '';
+              return iaasRuleName.includes('iaas') || iaasRuleName.includes('infrastructure') || iaasRuleName.includes('compute');
             default:
               return true;
           }
@@ -222,17 +232,22 @@ export default function TacticDetailModal({
       // Apply cloud service filter if specified
       if (currentCloudService && currentCloudService !== "all") {
         filteredRules = filteredRules.filter(r => {
-          const ruleName = r.name?.toLowerCase() || '';
-          
           switch (currentCloudService) {
             case 'Office Suite':
-              return ruleName.includes('office') || ruleName.includes('365') || ruleName.includes('sharepoint');
+              // For Office Suite, check if rule has Office Suite platform or contains office-related keywords
+              return r.platform === 'Office Suite' || 
+                     r.name?.toLowerCase().includes('office') || 
+                     r.name?.toLowerCase().includes('365') || 
+                     r.name?.toLowerCase().includes('sharepoint');
             case 'Identity Provider':
+              const ruleName = r.name?.toLowerCase() || '';
               return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
             case 'SaaS':
-              return ruleName.includes('saas') || ruleName.includes('application');
+              const saasRuleName = r.name?.toLowerCase() || '';
+              return saasRuleName.includes('saas') || saasRuleName.includes('application');
             case 'IaaS':
-              return ruleName.includes('iaas') || ruleName.includes('infrastructure') || ruleName.includes('compute');
+              const iaasRuleName = r.name?.toLowerCase() || '';
+              return iaasRuleName.includes('iaas') || iaasRuleName.includes('infrastructure') || iaasRuleName.includes('compute');
             default:
               return true;
           }
