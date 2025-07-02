@@ -40,7 +40,11 @@ PLATFORM_MAPPING = {
     "gcp": "GCP",
     "oracle": "Oracle",
     "containers": "Containers",
-    "officesuite": "Office Suite"
+    "officesuite": "Office Suite",
+    "identity_provider": "Identity Provider",
+    "saas": "SaaS",
+    "iaas": "IaaS",
+    "network_devices": "Network Devices"
 }
 
 def fetch_matrix_page(platform="windows"):
@@ -51,7 +55,11 @@ def fetch_matrix_page(platform="windows"):
         "linux": "https://attack.mitre.org/matrices/enterprise/linux/",
         "cloud": "https://attack.mitre.org/matrices/enterprise/cloud/",
         "containers": "https://attack.mitre.org/matrices/enterprise/containers/",
-        "officesuite": "https://attack.mitre.org/matrices/enterprise/cloud/officesuite/"
+        "officesuite": "https://attack.mitre.org/matrices/enterprise/cloud/officesuite/",
+        "identity_provider": "https://attack.mitre.org/matrices/enterprise/cloud/identityprovider/",
+        "saas": "https://attack.mitre.org/matrices/enterprise/cloud/saas/",
+        "iaas": "https://attack.mitre.org/matrices/enterprise/cloud/iaas/",
+        "network_devices": "https://attack.mitre.org/matrices/enterprise/network-devices/"
     }
     
     url = platform_urls.get(platform.lower(), f"https://attack.mitre.org/matrices/enterprise/{platform.lower()}/")
@@ -93,6 +101,14 @@ def get_platform_list(platform):
         return ["Containers"]
     elif platform.lower() == "officesuite":
         return ["Office Suite"]
+    elif platform.lower() == "identity_provider":
+        return ["Identity Provider"]
+    elif platform.lower() == "saas":
+        return ["SaaS"]
+    elif platform.lower() == "iaas":
+        return ["IaaS"]
+    elif platform.lower() == "network_devices":
+        return ["Network Devices"]
     else:
         return [PLATFORM_MAPPING.get(platform.lower(), platform.title())]
 
@@ -479,7 +495,7 @@ def print_summary(data):
 def main():
     if len(sys.argv) < 2:
         print("Usage: python3 mitre_data_extractor.py <platform> [format]")
-        print("Platforms: windows, macos, linux, cloud, containers, officesuite")
+        print("Platforms: windows, macos, linux, cloud, containers, officesuite, identity_provider, saas, iaas, network_devices")
         print("Format: mitreshire (default) | complete")
         print("\nExample:")
         print("  python3 mitre_data_extractor.py windows")

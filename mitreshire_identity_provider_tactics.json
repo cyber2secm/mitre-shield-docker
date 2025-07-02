@@ -1,0 +1,44 @@
+{
+  "platform": "Identity Provider",
+  "extraction_date": "2025-07-02T11:14:51.300585",
+  "tactics": [
+    {
+      "name": "Initial Access",
+      "technique_count": 4
+    },
+    {
+      "name": "Execution",
+      "technique_count": 1
+    },
+    {
+      "name": "Persistence",
+      "technique_count": 4
+    },
+    {
+      "name": "Privilege Escalation",
+      "technique_count": 4
+    },
+    {
+      "name": "Defense Evasion",
+      "technique_count": 6
+    },
+    {
+      "name": "Credential Access",
+      "technique_count": 8
+    },
+    {
+      "name": "Discovery",
+      "technique_count": 5
+    },
+    {
+      "name": "Lateral Movement",
+      "technique_count": 1
+    }
+  ],
+  "summary": {
+    "total_tactics": 8,
+    "total_techniques": 33,
+    "total_subtechniques": 41,
+    "total_items": 74
+  }
+}

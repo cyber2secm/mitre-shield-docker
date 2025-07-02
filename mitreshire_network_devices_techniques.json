@@ -1,0 +1,2858 @@
+[
+  {
+    "technique_id": "T1190",
+    "name": "Exploit Public-Facing Application",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530626",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530645",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.003",
+        "name": "Local Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530650"
+  },
+  {
+    "technique_id": "T1078.003",
+    "name": "Local Accounts",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530656"
+  },
+  {
+    "technique_id": "T1669",
+    "name": "Wi-Fi Networks",
+    "description": "",
+    "tactic": "Initial Access",
+    "tactics": [
+      "Initial Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530660",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1059",
+    "name": "Command and Scripting Interpreter",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530767",
+    "subtechniques": [
+      {
+        "id": "T1059.004",
+        "name": "Unix Shell"
+      },
+      {
+        "id": "T1059.008",
+        "name": "Network Device CLI"
+      },
+      {
+        "id": "T1059.011",
+        "name": "Lua"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1059.004",
+    "name": "Unix Shell",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Command and Scripting Interpreter",
+    "parent_technique_id": "T1059",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530773"
+  },
+  {
+    "technique_id": "T1059.008",
+    "name": "Network Device CLI",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Command and Scripting Interpreter",
+    "parent_technique_id": "T1059",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530776"
+  },
+  {
+    "technique_id": "T1059.011",
+    "name": "Lua",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Command and Scripting Interpreter",
+    "parent_technique_id": "T1059",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530830"
+  },
+  {
+    "technique_id": "T1072",
+    "name": "Software Deployment Tools",
+    "description": "",
+    "tactic": "Execution",
+    "tactics": [
+      "Execution"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.530839",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1098",
+    "name": "Account Manipulation",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531100",
+    "subtechniques": [
+      {
+        "id": "T1098.004",
+        "name": "SSH Authorized Keys"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1098.004",
+    "name": "SSH Authorized Keys",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531104"
+  },
+  {
+    "technique_id": "T1547",
+    "name": "Boot or Logon Autostart Execution",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531108",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1037",
+    "name": "Boot or Logon Initialization Scripts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531112",
+    "subtechniques": [
+      {
+        "id": "T1037.004",
+        "name": "RC Scripts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1037.004",
+    "name": "RC Scripts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Boot or Logon Initialization Scripts",
+    "parent_technique_id": "T1037",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531115"
+  },
+  {
+    "technique_id": "T1136",
+    "name": "Create Account",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531119",
+    "subtechniques": [
+      {
+        "id": "T1136.001",
+        "name": "Local Account"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1136.001",
+    "name": "Local Account",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Create Account",
+    "parent_technique_id": "T1136",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531122"
+  },
+  {
+    "technique_id": "T1556",
+    "name": "Modify Authentication Process",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531125",
+    "subtechniques": [
+      {
+        "id": "T1556.004",
+        "name": "Network Device Authentication"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1556.004",
+    "name": "Network Device Authentication",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531128"
+  },
+  {
+    "technique_id": "T1653",
+    "name": "Power Settings",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531131",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1542",
+    "name": "Pre-OS Boot",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531135",
+    "subtechniques": [
+      {
+        "id": "T1542.001",
+        "name": "System Firmware"
+      },
+      {
+        "id": "T1542.004",
+        "name": "ROMMONkit"
+      },
+      {
+        "id": "T1542.005",
+        "name": "TFTP Boot"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1542.001",
+    "name": "System Firmware",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Pre-OS Boot",
+    "parent_technique_id": "T1542",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531138"
+  },
+  {
+    "technique_id": "T1542.004",
+    "name": "ROMMONkit",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Pre-OS Boot",
+    "parent_technique_id": "T1542",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531141"
+  },
+  {
+    "technique_id": "T1542.005",
+    "name": "TFTP Boot",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Pre-OS Boot",
+    "parent_technique_id": "T1542",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531144"
+  },
+  {
+    "technique_id": "T1505",
+    "name": "Server Software Component",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531147",
+    "subtechniques": [
+      {
+        "id": "T1505.003",
+        "name": "Web Shell"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1505.003",
+    "name": "Web Shell",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Server Software Component",
+    "parent_technique_id": "T1505",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531150"
+  },
+  {
+    "technique_id": "T1205",
+    "name": "Traffic Signaling",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531154",
+    "subtechniques": [
+      {
+        "id": "T1205.001",
+        "name": "Port Knocking"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1205.001",
+    "name": "Port Knocking",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Traffic Signaling",
+    "parent_technique_id": "T1205",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531156"
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531160",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.003",
+        "name": "Local Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531163"
+  },
+  {
+    "technique_id": "T1078.003",
+    "name": "Local Accounts",
+    "description": "",
+    "tactic": "Persistence",
+    "tactics": [
+      "Persistence"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531166"
+  },
+  {
+    "technique_id": "T1098",
+    "name": "Account Manipulation",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531391",
+    "subtechniques": [
+      {
+        "id": "T1098.004",
+        "name": "SSH Authorized Keys"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1098.004",
+    "name": "SSH Authorized Keys",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Account Manipulation",
+    "parent_technique_id": "T1098",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531395"
+  },
+  {
+    "technique_id": "T1547",
+    "name": "Boot or Logon Autostart Execution",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531398",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1037",
+    "name": "Boot or Logon Initialization Scripts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531402",
+    "subtechniques": [
+      {
+        "id": "T1037.004",
+        "name": "RC Scripts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1037.004",
+    "name": "RC Scripts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Boot or Logon Initialization Scripts",
+    "parent_technique_id": "T1037",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531405"
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531408",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.003",
+        "name": "Local Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531413"
+  },
+  {
+    "technique_id": "T1078.003",
+    "name": "Local Accounts",
+    "description": "",
+    "tactic": "Privilege Escalation",
+    "tactics": [
+      "Privilege Escalation"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531416"
+  },
+  {
+    "technique_id": "T1006",
+    "name": "Direct Volume Access",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531704",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1562",
+    "name": "Impair Defenses",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531708",
+    "subtechniques": [
+      {
+        "id": "T1562.001",
+        "name": "Disable or Modify Tools"
+      },
+      {
+        "id": "T1562.003",
+        "name": "Impair Command History Logging"
+      },
+      {
+        "id": "T1562.004",
+        "name": "Disable or Modify System Firewall"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1562.001",
+    "name": "Disable or Modify Tools",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Impair Defenses",
+    "parent_technique_id": "T1562",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531712"
+  },
+  {
+    "technique_id": "T1562.003",
+    "name": "Impair Command History Logging",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Impair Defenses",
+    "parent_technique_id": "T1562",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531715"
+  },
+  {
+    "technique_id": "T1562.004",
+    "name": "Disable or Modify System Firewall",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Impair Defenses",
+    "parent_technique_id": "T1562",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531718"
+  },
+  {
+    "technique_id": "T1070",
+    "name": "Indicator Removal",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531723",
+    "subtechniques": [
+      {
+        "id": "T1070.003",
+        "name": "Clear Command History"
+      },
+      {
+        "id": "T1070.007",
+        "name": "Clear Network Connection History and Configurations"
+      },
+      {
+        "id": "T1070.010",
+        "name": "Relocate Malware"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1070.003",
+    "name": "Clear Command History",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Indicator Removal",
+    "parent_technique_id": "T1070",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531727"
+  },
+  {
+    "technique_id": "T1070.007",
+    "name": "Clear Network Connection History and Configurations",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Indicator Removal",
+    "parent_technique_id": "T1070",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531730"
+  },
+  {
+    "technique_id": "T1070.010",
+    "name": "Relocate Malware",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Indicator Removal",
+    "parent_technique_id": "T1070",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531733"
+  },
+  {
+    "technique_id": "T1556",
+    "name": "Modify Authentication Process",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531736",
+    "subtechniques": [
+      {
+        "id": "T1556.004",
+        "name": "Network Device Authentication"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1556.004",
+    "name": "Network Device Authentication",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531739"
+  },
+  {
+    "technique_id": "T1601",
+    "name": "Modify System Image",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531743",
+    "subtechniques": [
+      {
+        "id": "T1601.001",
+        "name": "Patch System Image"
+      },
+      {
+        "id": "T1601.002",
+        "name": "Downgrade System Image"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1601.001",
+    "name": "Patch System Image",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify System Image",
+    "parent_technique_id": "T1601",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531746"
+  },
+  {
+    "technique_id": "T1601.002",
+    "name": "Downgrade System Image",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify System Image",
+    "parent_technique_id": "T1601",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531749"
+  },
+  {
+    "technique_id": "T1599",
+    "name": "Network Boundary Bridging",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531753",
+    "subtechniques": [
+      {
+        "id": "T1599.001",
+        "name": "Network Address Translation Traversal"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1599.001",
+    "name": "Network Address Translation Traversal",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Network Boundary Bridging",
+    "parent_technique_id": "T1599",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531756"
+  },
+  {
+    "technique_id": "T1027",
+    "name": "Obfuscated Files or Information",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531760",
+    "subtechniques": [
+      {
+        "id": "T1027.008",
+        "name": "Stripped Payloads"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1027.008",
+    "name": "Stripped Payloads",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Obfuscated Files or Information",
+    "parent_technique_id": "T1027",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531763"
+  },
+  {
+    "technique_id": "T1542",
+    "name": "Pre-OS Boot",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531766",
+    "subtechniques": [
+      {
+        "id": "T1542.001",
+        "name": "System Firmware"
+      },
+      {
+        "id": "T1542.004",
+        "name": "ROMMONkit"
+      },
+      {
+        "id": "T1542.005",
+        "name": "TFTP Boot"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1542.001",
+    "name": "System Firmware",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Pre-OS Boot",
+    "parent_technique_id": "T1542",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531769"
+  },
+  {
+    "technique_id": "T1542.004",
+    "name": "ROMMONkit",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Pre-OS Boot",
+    "parent_technique_id": "T1542",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531772"
+  },
+  {
+    "technique_id": "T1542.005",
+    "name": "TFTP Boot",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Pre-OS Boot",
+    "parent_technique_id": "T1542",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531775"
+  },
+  {
+    "technique_id": "T1205",
+    "name": "Traffic Signaling",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531778",
+    "subtechniques": [
+      {
+        "id": "T1205.001",
+        "name": "Port Knocking"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1205.001",
+    "name": "Port Knocking",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Traffic Signaling",
+    "parent_technique_id": "T1205",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531781"
+  },
+  {
+    "technique_id": "T1078",
+    "name": "Valid Accounts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531785",
+    "subtechniques": [
+      {
+        "id": "T1078.001",
+        "name": "Default Accounts"
+      },
+      {
+        "id": "T1078.003",
+        "name": "Local Accounts"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1078.001",
+    "name": "Default Accounts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531787"
+  },
+  {
+    "technique_id": "T1078.003",
+    "name": "Local Accounts",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Valid Accounts",
+    "parent_technique_id": "T1078",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531790"
+  },
+  {
+    "technique_id": "T1600",
+    "name": "Weaken Encryption",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531794",
+    "subtechniques": [
+      {
+        "id": "T1600.001",
+        "name": "Reduce Key Space"
+      },
+      {
+        "id": "T1600.002",
+        "name": "Disable Crypto Hardware"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1600.001",
+    "name": "Reduce Key Space",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Weaken Encryption",
+    "parent_technique_id": "T1600",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531797"
+  },
+  {
+    "technique_id": "T1600.002",
+    "name": "Disable Crypto Hardware",
+    "description": "",
+    "tactic": "Defense Evasion",
+    "tactics": [
+      "Defense Evasion"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Weaken Encryption",
+    "parent_technique_id": "T1600",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.531800"
+  },
+  {
+    "technique_id": "T1557",
+    "name": "Adversary-in-the-Middle",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532081",
+    "subtechniques": [
+      {
+        "id": "T1557.004",
+        "name": "Evil Twin"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1557.004",
+    "name": "Evil Twin",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Adversary-in-the-Middle",
+    "parent_technique_id": "T1557",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532085"
+  },
+  {
+    "technique_id": "T1110",
+    "name": "Brute Force",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532088",
+    "subtechniques": [
+      {
+        "id": "T1110.001",
+        "name": "Password Guessing"
+      },
+      {
+        "id": "T1110.002",
+        "name": "Password Cracking"
+      },
+      {
+        "id": "T1110.003",
+        "name": "Password Spraying"
+      },
+      {
+        "id": "T1110.004",
+        "name": "Credential Stuffing"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1110.001",
+    "name": "Password Guessing",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532091"
+  },
+  {
+    "technique_id": "T1110.002",
+    "name": "Password Cracking",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532094"
+  },
+  {
+    "technique_id": "T1110.003",
+    "name": "Password Spraying",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532097"
+  },
+  {
+    "technique_id": "T1110.004",
+    "name": "Credential Stuffing",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Brute Force",
+    "parent_technique_id": "T1110",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532100"
+  },
+  {
+    "technique_id": "T1056",
+    "name": "Input Capture",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532103",
+    "subtechniques": [
+      {
+        "id": "T1056.001",
+        "name": "Keylogging"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1056.001",
+    "name": "Keylogging",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Input Capture",
+    "parent_technique_id": "T1056",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532108"
+  },
+  {
+    "technique_id": "T1556",
+    "name": "Modify Authentication Process",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532113",
+    "subtechniques": [
+      {
+        "id": "T1556.004",
+        "name": "Network Device Authentication"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1556.004",
+    "name": "Network Device Authentication",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Modify Authentication Process",
+    "parent_technique_id": "T1556",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532116"
+  },
+  {
+    "technique_id": "T1040",
+    "name": "Network Sniffing",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532119",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1552",
+    "name": "Unsecured Credentials",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532122",
+    "subtechniques": [
+      {
+        "id": "T1552.004",
+        "name": "Private Keys"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1552.004",
+    "name": "Private Keys",
+    "description": "",
+    "tactic": "Credential Access",
+    "tactics": [
+      "Credential Access"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Unsecured Credentials",
+    "parent_technique_id": "T1552",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532125"
+  },
+  {
+    "technique_id": "T1083",
+    "name": "File and Directory Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532295",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1046",
+    "name": "Network Service Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532298",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1040",
+    "name": "Network Sniffing",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532301",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1201",
+    "name": "Password Policy Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532304",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1057",
+    "name": "Process Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532306",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1018",
+    "name": "Remote System Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532309",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1082",
+    "name": "System Information Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532312",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1016",
+    "name": "System Network Configuration Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532315",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1049",
+    "name": "System Network Connections Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532318",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1033",
+    "name": "System Owner/User Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532320",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1124",
+    "name": "System Time Discovery",
+    "description": "",
+    "tactic": "Discovery",
+    "tactics": [
+      "Discovery"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532323",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1072",
+    "name": "Software Deployment Tools",
+    "description": "",
+    "tactic": "Lateral Movement",
+    "tactics": [
+      "Lateral Movement"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532394",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1557",
+    "name": "Adversary-in-the-Middle",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532491",
+    "subtechniques": [
+      {
+        "id": "T1557.004",
+        "name": "Evil Twin"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1557.004",
+    "name": "Evil Twin",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Adversary-in-the-Middle",
+    "parent_technique_id": "T1557",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532495"
+  },
+  {
+    "technique_id": "T1602",
+    "name": "Data from Configuration Repository",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532499",
+    "subtechniques": [
+      {
+        "id": "T1602.001",
+        "name": "SNMP (MIB Dump)"
+      },
+      {
+        "id": "T1602.002",
+        "name": "Network Device Configuration Dump"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1602.001",
+    "name": "SNMP (MIB Dump)",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data from Configuration Repository",
+    "parent_technique_id": "T1602",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532502"
+  },
+  {
+    "technique_id": "T1602.002",
+    "name": "Network Device Configuration Dump",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Data from Configuration Repository",
+    "parent_technique_id": "T1602",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532505"
+  },
+  {
+    "technique_id": "T1005",
+    "name": "Data from Local System",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532508",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1056",
+    "name": "Input Capture",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532511",
+    "subtechniques": [
+      {
+        "id": "T1056.001",
+        "name": "Keylogging"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1056.001",
+    "name": "Keylogging",
+    "description": "",
+    "tactic": "Collection",
+    "tactics": [
+      "Collection"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Input Capture",
+    "parent_technique_id": "T1056",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532514"
+  },
+  {
+    "technique_id": "T1071",
+    "name": "Application Layer Protocol",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532726",
+    "subtechniques": [
+      {
+        "id": "T1071.001",
+        "name": "Web Protocols"
+      },
+      {
+        "id": "T1071.002",
+        "name": "File Transfer Protocols"
+      },
+      {
+        "id": "T1071.003",
+        "name": "Mail Protocols"
+      },
+      {
+        "id": "T1071.004",
+        "name": "DNS"
+      },
+      {
+        "id": "T1071.005",
+        "name": "Publish/Subscribe Protocols"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1071.001",
+    "name": "Web Protocols",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Application Layer Protocol",
+    "parent_technique_id": "T1071",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532729"
+  },
+  {
+    "technique_id": "T1071.002",
+    "name": "File Transfer Protocols",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Application Layer Protocol",
+    "parent_technique_id": "T1071",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532732"
+  },
+  {
+    "technique_id": "T1071.003",
+    "name": "Mail Protocols",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Application Layer Protocol",
+    "parent_technique_id": "T1071",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532735"
+  },
+  {
+    "technique_id": "T1071.004",
+    "name": "DNS",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Application Layer Protocol",
+    "parent_technique_id": "T1071",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532738"
+  },
+  {
+    "technique_id": "T1071.005",
+    "name": "Publish/Subscribe Protocols",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Application Layer Protocol",
+    "parent_technique_id": "T1071",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532741"
+  },
+  {
+    "technique_id": "T1573",
+    "name": "Encrypted Channel",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532744",
+    "subtechniques": [
+      {
+        "id": "T1573.001",
+        "name": "Symmetric Cryptography"
+      },
+      {
+        "id": "T1573.002",
+        "name": "Asymmetric Cryptography"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1573.001",
+    "name": "Symmetric Cryptography",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Encrypted Channel",
+    "parent_technique_id": "T1573",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532747"
+  },
+  {
+    "technique_id": "T1573.002",
+    "name": "Asymmetric Cryptography",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Encrypted Channel",
+    "parent_technique_id": "T1573",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532750"
+  },
+  {
+    "technique_id": "T1665",
+    "name": "Hide Infrastructure",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532753",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1105",
+    "name": "Ingress Tool Transfer",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532756",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1095",
+    "name": "Non-Application Layer Protocol",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532758",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1090",
+    "name": "Proxy",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532762",
+    "subtechniques": [
+      {
+        "id": "T1090.001",
+        "name": "Internal Proxy"
+      },
+      {
+        "id": "T1090.002",
+        "name": "External Proxy"
+      },
+      {
+        "id": "T1090.003",
+        "name": "Multi-hop Proxy"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1090.001",
+    "name": "Internal Proxy",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Proxy",
+    "parent_technique_id": "T1090",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532767"
+  },
+  {
+    "technique_id": "T1090.002",
+    "name": "External Proxy",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Proxy",
+    "parent_technique_id": "T1090",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532770"
+  },
+  {
+    "technique_id": "T1090.003",
+    "name": "Multi-hop Proxy",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Proxy",
+    "parent_technique_id": "T1090",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532773"
+  },
+  {
+    "technique_id": "T1205",
+    "name": "Traffic Signaling",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532776",
+    "subtechniques": [
+      {
+        "id": "T1205.001",
+        "name": "Port Knocking"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1205.001",
+    "name": "Port Knocking",
+    "description": "",
+    "tactic": "Command and Control",
+    "tactics": [
+      "Command and Control"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Traffic Signaling",
+    "parent_technique_id": "T1205",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532779"
+  },
+  {
+    "technique_id": "T1020",
+    "name": "Automated Exfiltration",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532935",
+    "subtechniques": [
+      {
+        "id": "T1020.001",
+        "name": "Traffic Duplication"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1020.001",
+    "name": "Traffic Duplication",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Automated Exfiltration",
+    "parent_technique_id": "T1020",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532938"
+  },
+  {
+    "technique_id": "T1048",
+    "name": "Exfiltration Over Alternative Protocol",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532942",
+    "subtechniques": [
+      {
+        "id": "T1048.003",
+        "name": "Exfiltration Over Unencrypted Non-C2 Protocol"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1048.003",
+    "name": "Exfiltration Over Unencrypted Non-C2 Protocol",
+    "description": "",
+    "tactic": "Exfiltration",
+    "tactics": [
+      "Exfiltration"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Exfiltration Over Alternative Protocol",
+    "parent_technique_id": "T1048",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.532945"
+  },
+  {
+    "technique_id": "T1561",
+    "name": "Disk Wipe",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.533037",
+    "subtechniques": [
+      {
+        "id": "T1561.001",
+        "name": "Disk Content Wipe"
+      },
+      {
+        "id": "T1561.002",
+        "name": "Disk Structure Wipe"
+      }
+    ]
+  },
+  {
+    "technique_id": "T1561.001",
+    "name": "Disk Content Wipe",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Disk Wipe",
+    "parent_technique_id": "T1561",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.533040"
+  },
+  {
+    "technique_id": "T1561.002",
+    "name": "Disk Structure Wipe",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": true,
+    "parent_technique": "Disk Wipe",
+    "parent_technique_id": "T1561",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.533043"
+  },
+  {
+    "technique_id": "T1495",
+    "name": "Firmware Corruption",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.533047",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1490",
+    "name": "Inhibit System Recovery",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.533050",
+    "subtechniques": []
+  },
+  {
+    "technique_id": "T1529",
+    "name": "System Shutdown/Reboot",
+    "description": "",
+    "tactic": "Impact",
+    "tactics": [
+      "Impact"
+    ],
+    "platforms": [
+      "Network Devices"
+    ],
+    "data_sources": [],
+    "is_subtechnique": false,
+    "parent_technique": "",
+    "parent_technique_id": "",
+    "mitre_version": "1.0",
+    "sync_source": "mitre_extractor",
+    "last_updated": "2025-07-02T11:26:18.533053",
+    "subtechniques": []
+  }
+]

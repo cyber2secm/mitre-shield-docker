@@ -1,6 +1,6 @@
 {
-  "platform": "Office Suite",
-  "extraction_date": "2025-07-02T11:13:11.839654",
+  "platform": "IaaS",
+  "extraction_date": "2025-07-02T11:15:14.426882",
   "tactics": [
     {
       "name": "Initial Access",
@@ -8,11 +8,11 @@
     },
     {
       "name": "Execution",
-      "technique_count": 2
+      "technique_count": 4
     },
     {
       "name": "Persistence",
-      "technique_count": 7
+      "technique_count": 6
     },
     {
       "name": "Privilege Escalation",
@@ -24,15 +24,15 @@
     },
     {
       "name": "Credential Access",
-      "technique_count": 7
+      "technique_count": 8
     },
     {
       "name": "Discovery",
-      "technique_count": 5
+      "technique_count": 14
     },
     {
       "name": "Lateral Movement",
-      "technique_count": 3
+      "technique_count": 2
     },
     {
       "name": "Collection",
@@ -40,17 +40,17 @@
     },
     {
       "name": "Exfiltration",
-      "technique_count": 3
+      "technique_count": 2
     },
     {
       "name": "Impact",
-      "technique_count": 3
+      "technique_count": 8
     }
   ],
   "summary": {
     "total_tactics": 11,
-    "total_techniques": 50,
-    "total_subtechniques": 50,
-    "total_items": 100
+    "total_techniques": 64,
+    "total_subtechniques": 63,
+    "total_items": 127
   }
 }

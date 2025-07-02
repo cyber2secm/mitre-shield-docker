@@ -1,6 +1,6 @@
 {
-  "platform": "Office Suite",
-  "extraction_date": "2025-07-02T11:13:11.839654",
+  "platform": "SaaS",
+  "extraction_date": "2025-07-02T11:15:03.238274",
   "tactics": [
     {
       "name": "Initial Access",
@@ -12,15 +12,15 @@
     },
     {
       "name": "Persistence",
-      "technique_count": 7
+      "technique_count": 6
     },
     {
       "name": "Privilege Escalation",
-      "technique_count": 4
+      "technique_count": 3
     },
     {
       "name": "Defense Evasion",
-      "technique_count": 9
+      "technique_count": 5
     },
     {
       "name": "Credential Access",
@@ -32,11 +32,11 @@
     },
     {
       "name": "Lateral Movement",
-      "technique_count": 3
+      "technique_count": 4
     },
     {
       "name": "Collection",
-      "technique_count": 4
+      "technique_count": 3
     },
     {
       "name": "Exfiltration",
@@ -49,8 +49,8 @@
   ],
   "summary": {
     "total_tactics": 11,
-    "total_techniques": 50,
-    "total_subtechniques": 50,
-    "total_items": 100
+    "total_techniques": 44,
+    "total_subtechniques": 39,
+    "total_items": 83
   }
 }
