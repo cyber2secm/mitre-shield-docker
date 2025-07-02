@@ -187,6 +187,7 @@ export default function TacticDetailModal({
 
   const getTacticColor = (tactic) => {
     const colors = {
+      // Traditional MITRE ATT&CK Tactics
       "Initial Access": "from-red-600 to-red-700",
       "Execution": "from-orange-600 to-orange-700",
       "Persistence": "from-amber-600 to-amber-700",
@@ -198,7 +199,13 @@ export default function TacticDetailModal({
       "Collection": "from-sky-600 to-sky-700",
       "Command and Control": "from-blue-600 to-blue-700",
       "Exfiltration": "from-indigo-600 to-indigo-700",
-      "Impact": "from-purple-600 to-purple-700"
+      "Impact": "from-purple-600 to-purple-700",
+      "Reconnaissance": "from-slate-600 to-slate-700",
+      "Resource Development": "from-stone-600 to-stone-700",
+      
+      // ATLAS AI-Specific Tactics (Distinctive AI Colors)
+      "AI Model Access": "from-violet-600 to-violet-700",
+      "AI Attack Staging": "from-fuchsia-600 to-fuchsia-700"
     };
     return colors[tactic] || "from-slate-600 to-slate-700";
   };

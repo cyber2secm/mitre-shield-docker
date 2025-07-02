@@ -1,0 +1,70 @@
+{
+  "timestamp": "2025-07-02T09:15:53.083Z",
+  "total_imported": 115,
+  "success_count": 115,
+  "error_count": 0,
+  "tactics_stats": [
+    {
+      "_id": "AI Attack Staging",
+      "count": 11
+    },
+    {
+      "_id": "AI Model Access",
+      "count": 4
+    },
+    {
+      "_id": "Collection",
+      "count": 3
+    },
+    {
+      "_id": "Command and Control",
+      "count": 1
+    },
+    {
+      "_id": "Credential Access",
+      "count": 1
+    },
+    {
+      "_id": "Defense Evasion",
+      "count": 7
+    },
+    {
+      "_id": "Discovery",
+      "count": 10
+    },
+    {
+      "_id": "Execution",
+      "count": 8
+    },
+    {
+      "_id": "Exfiltration",
+      "count": 8
+    },
+    {
+      "_id": "Impact",
+      "count": 11
+    },
+    {
+      "_id": "Initial Access",
+      "count": 12
+    },
+    {
+      "_id": "Persistence",
+      "count": 6
+    },
+    {
+      "_id": "Privilege Escalation",
+      "count": 1
+    },
+    {
+      "_id": "Reconnaissance",
+      "count": 9
+    },
+    {
+      "_id": "Resource Development",
+      "count": 23
+    }
+  ],
+  "framework": "ATLAS",
+  "extraction_platform": "ai"
+}

@@ -499,7 +499,8 @@ class MitreDataProcessor {
                   { case: { $eq: ['$_id', 'officesuite'] }, then: 'Office Suite' },
                   { case: { $eq: ['$_id', 'identity_provider'] }, then: 'Identity Provider' },
                   { case: { $eq: ['$_id', 'saas'] }, then: 'SaaS' },
-                  { case: { $eq: ['$_id', 'iaas'] }, then: 'IaaS' }
+                  { case: { $eq: ['$_id', 'iaas'] }, then: 'IaaS' },
+                  { case: { $eq: ['$_id', 'ai'] }, then: 'AI' }
                 ],
                 default: '$_id'
               }

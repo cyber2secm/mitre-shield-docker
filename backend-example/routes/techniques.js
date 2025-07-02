@@ -34,7 +34,8 @@ router.get('/', async (req, res) => {
         'Office Suite': 'officesuite',
         'Identity Provider': 'identity_provider',
         'SaaS': 'saas',
-        'IaaS': 'iaas'
+        'IaaS': 'iaas',
+        'AI': 'ai'
       };
       
       const extractionPlatform = platformMapping[platform];

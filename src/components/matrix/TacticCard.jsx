@@ -8,6 +8,7 @@ import { Target, Shield, ChevronRight, Activity, CheckCircle, TestTube } from "l
 export default function TacticCard({ tactic, stats, onClick, isLoading }) {
   const getTacticColor = (tactic) => {
     const colors = {
+      // Traditional MITRE ATT&CK Tactics
       "Initial Access": "border-red-200 bg-gradient-to-br from-red-50 to-red-100 hover:from-red-100 hover:to-red-150",
       "Execution": "border-orange-200 bg-gradient-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-150",
       "Persistence": "border-amber-200 bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-150",
@@ -19,9 +20,15 @@ export default function TacticCard({ tactic, stats, onClick, isLoading }) {
       "Collection": "border-sky-200 bg-gradient-to-br from-sky-50 to-sky-100 hover:from-sky-100 hover:to-sky-150",
       "Command and Control": "border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-150",
       "Exfiltration": "border-indigo-200 bg-gradient-to-br from-indigo-50 to-indigo-100 hover:from-indigo-100 hover:to-indigo-150",
-      "Impact": "border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-150"
+      "Impact": "border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-150",
+      "Reconnaissance": "border-slate-300 bg-gradient-to-br from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-250",
+      "Resource Development": "border-stone-300 bg-gradient-to-br from-stone-100 to-stone-200 hover:from-stone-200 hover:to-stone-250",
+      
+      // ATLAS AI-Specific Tactics (Distinctive AI Colors)
+      "AI Model Access": "border-violet-300 bg-gradient-to-br from-violet-100 to-violet-200 hover:from-violet-200 hover:to-violet-250",
+      "AI Attack Staging": "border-fuchsia-300 bg-gradient-to-br from-fuchsia-100 to-fuchsia-200 hover:from-fuchsia-200 hover:to-fuchsia-250"
     };
-    return colors[tactic] || "border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100";
+    return colors[tactic] || "border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-150";
   };
 
   if (isLoading) {
