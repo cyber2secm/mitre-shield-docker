@@ -8,11 +8,11 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Target, ArrowLeft, Filter, Trash2 } from "lucide-react";
+import { Plus, Target, ArrowLeft, Filter, Trash2, X } from "lucide-react";
 
 import TechniqueCard from "./TechniqueCard";
 import TechniqueModal from "./TechniqueModal";
-import TechniqueForm from "./TechniqueForm";
+import TechniqueEditModal from "./TechniqueEditModal";
 
 export default function TacticDetailModal({
   tactic,
@@ -219,19 +219,19 @@ export default function TacticDetailModal({
   return (
     <>
       <Dialog open={!!tactic} onOpenChange={onClose}>
-        <DialogContent className="max-w-7xl max-h-[90vh] overflow-hidden p-0 flex flex-col">
-          <DialogHeader className="border-b border-slate-200 pb-4 px-6 pt-6 flex-shrink-0">
+        <DialogContent className="max-w-7xl max-h-[90vh] overflow-hidden p-0 flex flex-col [&>button]:hidden">
+          <DialogHeader className="border-b border-slate-200 dark:border-slate-700 pb-4 px-6 pt-6 flex-shrink-0">
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-4 flex-1 min-w-0">
                 <div className={`w-12 h-12 bg-gradient-to-br ${getTacticColor(tactic)} rounded-xl flex items-center justify-center shadow-lg flex-shrink-0`}>
                   <Target className="w-6 h-6 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <DialogTitle className="text-2xl font-bold text-slate-900 leading-tight mb-2">
+                  <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100 leading-tight mb-2">
                     {tactic}
                   </DialogTitle>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <Badge className="bg-blue-100 text-blue-700 border-blue-200">
+                    <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700">
                       {techniques.length} technique{techniques.length !== 1 ? 's' : ''}
                     </Badge>
                     <Badge
@@ -240,7 +240,7 @@ export default function TacticDetailModal({
                       className={`cursor-pointer transition-all ${
                         filterByRules
                           ? 'bg-emerald-600 text-white border-emerald-700 shadow-md'
-                          : 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                          : 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700 hover:bg-emerald-100 dark:hover:bg-emerald-900/50'
                       }`}
                       title={filterByRules ? "Click to show all techniques" : "Click to show only techniques with rules"}
                     >
@@ -269,6 +269,14 @@ export default function TacticDetailModal({
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Tactics
                 </Button>
+                <Button 
+                  onClick={onClose} 
+                  variant="outline"
+                  className="ml-4 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-slate-200 rounded-xl w-12 h-12 p-0 shadow-sm"
+                  size="lg"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
               </div>
             </div>
           </DialogHeader>
@@ -294,13 +302,13 @@ export default function TacticDetailModal({
             </div>
 
             {filteredTechniques.length === 0 && (
-              <div className="text-center py-16 text-slate-500">
+              <div className="text-center py-16 text-slate-500 dark:text-slate-400">
                 <Target className="w-16 h-16 mx-auto mb-4 opacity-50" />
                 <h3 className="text-xl font-semibold mb-2">No Techniques Found</h3>
                 {filterByRules ? (
                    <div className="space-y-2">
                     <p className="text-sm">No techniques with rules were found for this tactic.</p>
-                    <Button variant="link" onClick={() => setFilterByRules(false)} className="h-auto p-0 text-blue-600">
+                    <Button variant="link" onClick={() => setFilterByRules(false)} className="h-auto p-0 text-blue-600 dark:text-blue-400">
                       Clear filter to see all techniques
                     </Button>
                   </div>
@@ -332,7 +340,7 @@ export default function TacticDetailModal({
         startWithRuleEditor={startRuleEditor}
       />
 
-      <TechniqueForm
+      <TechniqueEditModal
         isOpen={showTechniqueForm}
         onClose={() => {
           setShowTechniqueForm(false);

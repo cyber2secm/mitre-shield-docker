@@ -2,7 +2,7 @@
   {
     "technique_id": "T1566",
     "name": "Phishing",
-    "description": "",
+    "description": "Adversaries may send phishing messages to gain access to victim systems. All forms of phishing are electronically delivered social engineering. Phishing can be targeted, known as spearphishing. In spearphishing, a specific individual, company, or industry will be targeted by the adversary. More generally, adversaries can conduct non-targeted phishing, such as in mass malware spam campaigns.Adversaries may send victims emails containing malicious attachments or links, typically to execute malicious code on victim systems. Phishing may also be conducted via third-party services, like social media platforms. Phishing may also involve social engineering techniques, such as posing as a trusted source, as well as evasive techniques such as removing or manipulating emails or metadata/headers from compromised accounts being abused to send messages (e.g.,Email Hiding Rules).[1][2]Another way to accomplish this is byEmail Spoofing[3]the identity of the sender, which can be used to fool both the human recipient as well as automated security tools,[4]or by including the intended target as a party to an existing email thread that includes malicious files or links (i.e., \"thread hijacking\").[5]Victims may also receive phishing messages that instruct them to call a phone number where they are directed to visit a malicious URL, download malware,[6][7]or install adversary-accessible remote management tools onto their computer (i.e.,User Execution).[8]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -15,8 +15,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236362",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.187326",
     "subtechniques": [
       {
         "id": "T1566.002",
@@ -27,7 +27,7 @@
   {
     "technique_id": "T1566.002",
     "name": "Spearphishing Link",
-    "description": "",
+    "description": "Adversaries may send spearphishing emails with a malicious link in an attempt to gain access to victim systems. Spearphishing with a link is a specific variant of spearphishing. It is different from other forms of spearphishing in that it employs the use of links to download malware contained in email, instead of attaching malicious files to the email itself, to avoid defenses that may inspect email attachments. Spearphishing may also involve social engineering techniques, such as posing as a trusted source.All forms of spearphishing are electronically delivered social engineering targeted at a specific individual, company, or industry. In this case, the malicious emails contain links. Generally, the links will be accompanied by social engineering text and require the user to actively click or copy and paste a URL into a browser, leveragingUser Execution. The visited website may compromise the web browser using an exploit, or the user will be prompted to download applications, documents, zip files, or even executables depending on the pretext for the email in the first place.Adversaries may also include links that are intended to interact directly with an email reader, including embedded images intended to exploit the end system directly. Additionally, adversaries may use seemingly benign links that abuse special characters to mimic legitimate websites (known as an \"IDN homograph attack\").[1]URLs may also be obfuscated by taking advantage of quirks in the URL schema, such as the acceptance of integer- or hexadecimal-based hostname formats and the automatic discarding of text before an \"@\" symbol: for example,hxxp://google.com@1157586937.[2]Adversaries may also utilize links to perform consent phishing, typically with OAuth 2.0 request URLs that when accepted by the user provide permissions/access for malicious applications, allowing adversaries toSteal Application Access Tokens.[3]These stolen access tokens allow the adversary to perform various actions on behalf of the user via API calls.[4]Adversaries may also utilize spearphishing links toSteal Application Access Tokens that grant immediate access to the victim environment. For example, a user may be lured through \"consent phishing\" into granting adversaries permissions/access via a malicious OAuth 2.0 request URL .[3][4]Similarly, malicious links may also target device-based authorization, such as OAuth 2.0 device authorization grant flow which is typically used to authenticate devices without UIs/browsers. Known as \"device code phishing,\" an adversary may send a link that directs the victim to a malicious authorization page where the user is tricked into entering a code/credentials that produces a device token.[5][6][7]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -40,13 +40,13 @@
     "parent_technique": "Phishing",
     "parent_technique_id": "T1566",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236380"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.187341"
   },
   {
     "technique_id": "T1199",
     "name": "Trusted Relationship",
-    "description": "",
+    "description": "Adversaries may breach or otherwise leverage organizations who have access to intended victims. Access through trusted third party relationship abuses an existing connection that may not be protected or receives less scrutiny than standard mechanisms of gaining access to a network.Organizations often grant elevated access to second or third-party external providers in order to allow them to manage internal systems as well as cloud-based environments. Some examples of these relationships include IT services contractors, managed security providers, infrastructure contractors (e.g. HVAC, elevators, physical security). The third-party provider's access may be intended to be limited to the infrastructure being maintained, but may exist on the same network as the rest of the enterprise. As such,Valid Accountsused by the other party for access to internal network systems may be compromised and used.[1]In Office 365 environments, organizations may grant Microsoft partners or resellers delegated administrator permissions. By compromising a partner or reseller account, an adversary may be able to leverage existing delegated administrator relationships or send new delegated administrator offers to clients in order to gain administrative control over the victim tenant.[2]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -59,14 +59,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236386",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.187347",
     "subtechniques": []
   },
   {
     "technique_id": "T1078",
     "name": "Valid Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access, network devices, and remote desktop.[1]Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools in conjunction with the legitimate access those credentials provide to make it harder to detect their presence.In some cases, adversaries may abuse inactive accounts: for example, those belonging to individuals who are no longer part of an organization. Using these accounts may allow the adversary to evade detection, as the original account user will not be present to identify any anomalous activity taking place on their account.[2]The overlap of permissions for local, domain, and cloud accounts across a network of systems is of concern because the adversary may be able to pivot across accounts and systems to reach a high level of access (i.e., domain or enterprise administrator) to bypass access controls set within the enterprise.[3]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -79,8 +79,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236392",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.187352",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -95,7 +95,7 @@
   {
     "technique_id": "T1078.001",
     "name": "Default Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a default account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Default accounts are those that are built-into an OS, such as the Guest or Administrator accounts on Windows systems. Default accounts also include default factory/provider set accounts on other types of systems, software, or devices, including the root user account in AWS, the root user account in ESXi, and the default service account in Kubernetes.[1][2][3]Default accounts are not limited to client machines; rather, they also include accounts that are preset for equipment such as network devices and computer applications, whether they are internal, open source, or commercial. Appliances that come preset with a username and password combination pose a serious threat to organizations that do not change it post installation, as they are easy targets for an adversary. Similarly, adversaries may also utilize publicly disclosed or stolenPrivate Keysor credential materials to legitimately connect to remote environments viaRemote Services.[4]Default accounts may be created on a system after initial setup by connecting or integrating it with another application. For example, when an ESXi server is connected to a vCenter server, a default privileged account calledvpxuseris created on the ESXi server. If a threat actor is able to compromise this account’s credentials (for example, viaExploitation for Credential Accesson the vCenter host), they will then have access to the ESXi server.[5][6]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -108,13 +108,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236397"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.187357"
   },
   {
     "technique_id": "T1078.004",
     "name": "Cloud Accounts",
-    "description": "",
+    "description": "Valid accounts in cloud environments may allow adversaries to perform actions to achieve Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Cloud accounts are those created and configured by an organization for use by users, remote support, services, or for administration of resources within a cloud service provider or SaaS application. Cloud Accounts can exist solely in the cloud; alternatively, they may be hybrid-joined between on-premises systems and the cloud through syncing or federation with other identity sources such as Windows Active Directory.[1][2][3]Service or user accounts may be targeted by adversaries throughBrute Force,Phishing, or various other means to gain access to the environment. Federated or synced accounts may be a pathway for the adversary to affect both on-premises systems and cloud environments - for example, by leveraging shared credentials to log ontoRemote Services. High privileged cloud accounts, whether federated, synced, or cloud-only, may also allow pivoting to on-premises environments by leveraging SaaS-basedSoftware Deployment Toolsto run commands on hybrid-joined devices.An adversary may create long lastingAdditional Cloud Credentialson a compromised cloud account to maintain persistence in the environment. Such credentials may also be used to bypass security controls such as multi-factor authentication.Cloud accounts may also be able to assumeTemporary Elevated Cloud Accessor other privileges through various means within the environment. Misconfigurations in role assignments or role assumption policies may allow an adversary to use these mechanisms to leverage permissions outside the intended scope of the account. Such over privileged accounts may be used to harvest sensitive data from online storage accounts and databases throughCloud APIor other methods. For example, in Azure environments, adversaries may target Azure Managed Identities, which allow associated Azure resources to request access tokens. By compromising a resource with an attached Managed Identity, such as an Azure VM, adversaries may be able toSteal Application Access Tokens to move laterally across the cloud environment.[4]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -127,13 +127,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236402"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.187362"
   },
   {
     "technique_id": "T1648",
     "name": "Serverless Execution",
-    "description": "",
+    "description": "Adversaries may abuse serverless computing, integration, and automation services to execute arbitrary code in cloud environments. Many cloud providers offer a variety of serverless resources, including compute engines, application integration services, and web servers.Adversaries may abuse these resources in various ways as a means of executing arbitrary commands. For example, adversaries may use serverless functions to execute malicious code, such as crypto-mining malware (i.e.Resource Hijacking).[1]Adversaries may also create functions that enable further compromise of the cloud environment. For example, an adversary may use theIAM:PassRolepermission in AWS or theiam.serviceAccounts.actAspermission in Google Cloud to addAdditional Cloud Rolesto a serverless cloud function, which may then be able to perform actions the original user cannot.[2][3]Serverless functions can also be invoked in response to cloud events (i.e.Event Triggered Execution), potentially enabling persistent execution over time. For example, in AWS environments, an adversary may create a Lambda function that automatically addsAdditional Cloud Credentialsto a user and a corresponding CloudWatch events rule that invokes that function whenever a new user is created.[4]This is also possible in many cloud-based office application suites. For example, in Microsoft 365 environments, an adversary may create a Power Automate workflow that forwards all emails a user receives or creates anonymous sharing links whenever a user is granted access to a document in SharePoint.[5][6]In Google Workspace environments, they may instead create an Apps Script that exfiltrates a user's data when they open a file.[7][8]",
     "tactic": "Execution",
     "tactics": [
       "Execution"
@@ -146,14 +146,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236511",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.187963",
     "subtechniques": []
   },
   {
     "technique_id": "T1072",
     "name": "Software Deployment Tools",
-    "description": "",
+    "description": "Adversaries may gain access to and use centralized software suites installed within an enterprise to execute commands and move laterally through the network. Configuration management and software deployment applications may be used in an enterprise network or cloud environment for routine administration purposes. These systems may also be integrated into CI/CD pipelines. Examples of such solutions include: SCCM, HBSS, Altiris, AWS Systems Manager, Microsoft Intune, Azure Arc, and GCP Deployment Manager.Access to network-wide or enterprise-wide endpoint management software may enable an adversary to achieve remote code execution on all connected systems. The access may be used to laterally move to other systems, gather information, or cause a specific effect, such as wiping the hard drives on all endpoints.SaaS-based configuration management services may allow for broadCloud Administration Commandon cloud-hosted instances, as well as the execution of arbitrary commands on on-premises endpoints. For example, Microsoft Configuration Manager allows Global or Intune Administrators to run scripts as SYSTEM on on-premises devices joined to Entra ID.[1]Such services may also utilizeWeb Protocolsto communicate back to adversary owned infrastructure.[2]Network infrastructure devices may also have configuration management tools that can be similarly abused by adversaries.[3]The permissions required for this action vary by system configuration; local credentials may be sufficient with direct access to the third-party system, or specific domain credentials may be required. However, the system may require an administrative account to log in or to access specific functionality.",
     "tactic": "Execution",
     "tactics": [
       "Execution"
@@ -166,14 +166,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236516",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.187968",
     "subtechniques": []
   },
   {
     "technique_id": "T1098",
     "name": "Account Manipulation",
-    "description": "",
+    "description": "Adversaries may manipulate accounts to maintain and/or elevate access to victim systems. Account manipulation may consist of any action that preserves or modifies adversary access to a compromised account, such as modifying credentials or permission groups.[1]These actions could also include account activity designed to subvert security policies, such as performing iterative password updates to bypass password duration policies and preserve the life of compromised credentials.In order to create or manipulate accounts, the adversary must already have sufficient permissions on systems or the domain. However, account manipulation may also lead to privilege escalation where modifications grant access to additional roles, permissions, or higher-privilegedValid Accounts.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -186,8 +186,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236682",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188116",
     "subtechniques": [
       {
         "id": "T1098.001",
@@ -202,7 +202,7 @@
   {
     "technique_id": "T1098.001",
     "name": "Additional Cloud Credentials",
-    "description": "",
+    "description": "Adversaries may add adversary-controlled credentials to a cloud account to maintain persistent access to victim accounts and instances within the environment.For example, adversaries may add credentials for Service Principals and Applications in addition to existing legitimate credentials in Azure / Entra ID.[1][2][3]These credentials include both x509 keys and passwords.[1]With sufficient permissions, there are a variety of ways to add credentials including the Azure Portal, Azure command line interface, and Azure or Az PowerShell modules.[4]In infrastructure-as-a-service (IaaS) environments, after gaining access throughCloud Accounts, adversaries may generate or import their own SSH keys using either theCreateKeyPairorImportKeyPairAPI in AWS or thegcloud compute os-login ssh-keys addcommand in GCP.[5]This allows persistent access to instances within the cloud environment without further usage of the compromised cloud accounts.[6][7]Adversaries may also use theCreateAccessKeyAPI in AWS or thegcloud iam service-accounts keys createcommand in GCP to add access keys to an account. Alternatively, they may use theCreateLoginProfileAPI in AWS to add a password that can be used to log into the AWS Management Console forCloud Service Dashboard.[8][9]If the target account has different permissions from the requesting account, the adversary may also be able to escalate their privileges in the environment (i.e.Cloud Accounts).[10][11]For example, in Entra ID environments, an adversary with the Application Administrator role can add a new set of credentials to their application's service principal. In doing so the adversary would be able to access the service principal’s roles and permissions, which may be different from those of the Application Administrator.[12]In AWS environments, adversaries with the appropriate permissions may also use thests:GetFederationTokenAPI call to create a temporary set of credentials toForge Web Credentialstied to the permissions of the original user account. These temporary credentials may remain valid for the duration of their lifetime even if the original account’s API credentials are deactivated.[13]In Entra ID environments with the app password feature enabled, adversaries may be able to add an app password to a user account.[14]As app passwords are intended to be used with legacy devices that do not support multi-factor authentication (MFA), adding an app password can allow an adversary to bypass MFA requirements. Additionally, app passwords may remain valid even if the user’s primary password is reset.[15]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -215,13 +215,13 @@
     "parent_technique": "Account Manipulation",
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236688"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188121"
   },
   {
     "technique_id": "T1098.003",
     "name": "Additional Cloud Roles",
-    "description": "",
+    "description": "An adversary may add additional roles or permissions to an adversary-controlled cloud account to maintain persistent access to a tenant. For example, adversaries may update IAM policies in cloud-based environments or add a new global administrator in Office 365 environments.[1][2][3][4]With sufficient permissions, a compromised account can gain almost unlimited access to data and settings (including the ability to reset the passwords of other admins).[5][4]This account modification may immediately followCreate Accountor other malicious account activity. Adversaries may also modify existingValid Accountsthat they have compromised. This could lead to privilege escalation, particularly if the roles added allow for lateral movement to additional accounts.For example, in AWS environments, an adversary with appropriate permissions may be able to use theCreatePolicyVersionAPI to define a new version of an IAM policy or theAttachUserPolicyAPI to attach an IAM policy with additional or distinct permissions to a compromised user account.[6]In some cases, adversaries may add roles to adversary-controlled accounts outside the victim cloud tenant. This allows these external accounts to perform actions inside the victim tenant without requiring the adversary toCreate Accountor modify a victim-owned account.[7]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -234,13 +234,13 @@
     "parent_technique": "Account Manipulation",
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236692"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188125"
   },
   {
     "technique_id": "T1671",
     "name": "Cloud Application Integration",
-    "description": "",
+    "description": "Adversaries may achieve persistence by leveraging OAuth application integrations in a software-as-a-service environment. Adversaries may create a custom application, add a legitimate application into the environment, or even co-opt an existing integration to achieve malicious ends.[1][2]OAuth is an open standard that allows users to authorize applications to access their information on their behalf. In a SaaS environment such as Microsoft 365 or Google Workspace, users may integrate applications to improve their workflow and achieve tasks.Leveraging application integrations may allow adversaries to persist in an environment – for example, by granting consent to an application from a high-privileged adversary-controlled account in order to maintain access to its data, even in the event of losing access to the account.[3][4][5]In some cases, integrations may remain valid even after the original consenting user account is disabled.[6]Application integrations may also allow adversaries to bypass multi-factor authentication requirements through the use ofApplication Access Tokens. Finally, they may enable persistentAutomated Exfiltrationover time.[7]Creating or adding a new application may require the adversary to create a dedicatedCloud Accountfor the application and assign itAdditional Cloud Roles– for example, in Microsoft 365 environments, an application can only access resources via an associated service principal.[8]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -253,14 +253,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236696",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188128",
     "subtechniques": []
   },
   {
     "technique_id": "T1136",
     "name": "Create Account",
-    "description": "",
+    "description": "Adversaries may create an account to maintain access to victim systems.[1]With a sufficient level of access, creating such accounts may be used to establish secondary credentialed access that do not require persistent remote access tools to be deployed on the system.Accounts may be created on the local system or within a domain or cloud tenant. In cloud environments, adversaries may create accounts that only have access to specific services, which can reduce the chance of detection.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -273,8 +273,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236701",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188132",
     "subtechniques": [
       {
         "id": "T1136.003",
@@ -285,7 +285,7 @@
   {
     "technique_id": "T1136.003",
     "name": "Cloud Account",
-    "description": "",
+    "description": "Adversaries may create a cloud account to maintain access to victim systems. With a sufficient level of access, such accounts may be used to establish secondary credentialed access that does not require persistent remote access tools to be deployed on the system.[1][2][3][4][5]In addition to user accounts, cloud accounts may be associated with services. Cloud providers handle the concept of service accounts in different ways. In Azure, service accounts include service principals and managed identities, which can be linked to various resources such as OAuth applications, serverless functions, and virtual machines in order to grant those resources permissions to perform various activities in the environment.[6]In GCP, service accounts can also be linked to specific resources, as well as be impersonated by other accounts forTemporary Elevated Cloud Access.[7]While AWS has no specific concept of service accounts, resources can be directly granted permission to assume roles.[8][9]Adversaries may create accounts that only have access to specific cloud services, which can reduce the chance of detection.Once an adversary has created a cloud account, they can then manipulate that account to ensure persistence and allow access to additional resources - for example, by addingAdditional Cloud Credentialsor assigningAdditional Cloud Roles.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -298,13 +298,13 @@
     "parent_technique": "Create Account",
     "parent_technique_id": "T1136",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236705"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188135"
   },
   {
     "technique_id": "T1546",
     "name": "Event Triggered Execution",
-    "description": "",
+    "description": "Adversaries may establish persistence and/or elevate privileges using system mechanisms that trigger execution based on specific events. Various operating systems have means to monitor and subscribe to events such as logons or other user activity such as running specific applications/binaries. Cloud environments may also support various functions and services that monitor and can be invoked in response to specific cloud events.[1][2][3]Adversaries may abuse these mechanisms as a means of maintaining persistent access to a victim via repeatedly executing malicious code. After gaining access to a victim system, adversaries may create/modify event triggers to point to malicious content that will be executed whenever the event trigger is invoked.[4][5][6]Since the execution can be proxied by an account with higher permissions, such as SYSTEM or service accounts, an adversary may be able to abuse these triggered execution mechanisms to escalate their privileges.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -317,14 +317,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236709",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188139",
     "subtechniques": []
   },
   {
     "technique_id": "T1556",
     "name": "Modify Authentication Process",
-    "description": "",
+    "description": "Adversaries may modify authentication mechanisms and processes to access user credentials or enable otherwise unwarranted access to accounts. The authentication process is handled by mechanisms, such as the Local Security Authentication Server (LSASS) process and the Security Accounts Manager (SAM) on Windows, pluggable authentication modules (PAM) on Unix-based systems, and authorization plugins on MacOS systems, responsible for gathering, storing, and validating credentials. By modifying an authentication process, an adversary may be able to authenticate to a service or system without usingValid Accounts.Adversaries may maliciously modify a part of this process to either reveal credentials or bypass authentication mechanisms. Compromised credentials or access may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access and remote desktop.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -337,8 +337,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236713",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188142",
     "subtechniques": [
       {
         "id": "T1556.006",
@@ -353,7 +353,7 @@
   {
     "technique_id": "T1556.006",
     "name": "Multi-Factor Authentication",
-    "description": "",
+    "description": "Adversaries may disable or modify multi-factor authentication (MFA) mechanisms to enable persistent access to compromised accounts.Once adversaries have gained access to a network by either compromising an account lacking MFA or by employing an MFA bypass method such asMulti-Factor Authentication Request Generation, adversaries may leverage their access to modify or completely disable MFA defenses. This can be accomplished by abusing legitimate features, such as excluding users from Azure AD Conditional Access Policies, registering a new yet vulnerable/adversary-controlled MFA method, or by manually patching MFA programs and configuration files to bypass expected functionality.[1][2]For example, modifying the Windows hosts file (C:\\windows\\system32\\drivers\\etc\\hosts) to redirect MFA calls to localhost instead of an MFA server may cause the MFA process to fail. If a \"fail open\" policy is in place, any otherwise successful authentication attempt may be granted access without enforcing MFA.[3]Depending on the scope, goals, and privileges of the adversary, MFA defenses may be disabled for individual accounts or for all accounts tied to a larger group, such as all domain accounts in a victim's network environment.[3]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -366,13 +366,13 @@
     "parent_technique": "Modify Authentication Process",
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236717"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188146"
   },
   {
     "technique_id": "T1556.007",
     "name": "Hybrid Identity",
-    "description": "",
+    "description": "Adversaries may patch, modify, or otherwise backdoor cloud authentication processes that are tied to on-premises user identities in order to bypass typical authentication mechanisms, access credentials, and enable persistent access to accounts.Many organizations maintain hybrid user and device identities that are shared between on-premises and cloud-based environments. These can be maintained in a number of ways. For example, Microsoft Entra ID includes three options for synchronizing identities between Active Directory and Entra ID[1]:Password Hash Synchronization (PHS), in which a privileged on-premises account synchronizes user password hashes between Active Directory and Entra ID, allowing authentication to Entra ID to take place entirely in the cloudPass Through Authentication (PTA), in which Entra ID authentication attempts are forwarded to an on-premises PTA agent, which validates the credentials against Active DirectoryActive Directory Federation Services (AD FS), in which a trust relationship is established between Active Directory and Entra IDAD FS can also be used with other SaaS and cloud platforms such as AWS and GCP, which will hand off the authentication process to AD FS and receive a token containing the hybrid users’ identity and privileges.By modifying authentication processes tied to hybrid identities, an adversary may be able to establish persistent privileged access to cloud resources. For example, adversaries who compromise an on-premises server running a PTA agent may inject a malicious DLL into theAzureADConnectAuthenticationAgentServiceprocess that authorizes all attempts to authenticate to Entra ID, as well as records user credentials.[2][3]In environments using AD FS, an adversary may edit theMicrosoft.IdentityServer.Servicehostconfiguration file to load a malicious DLL that generates authentication tokens for any user with any set of claims, thereby bypassing multi-factor authentication and defined AD FS policies.[4]In some cases, adversaries may be able to modify the hybrid identity authentication process from the cloud. For example, adversaries who compromise a Global Administrator account in an Entra ID tenant may be able to register a new PTA agent via the web console, similarly allowing them to harvest credentials and log into the Entra ID environment as any user.[5]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -385,13 +385,13 @@
     "parent_technique": "Modify Authentication Process",
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236721"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188150"
   },
   {
     "technique_id": "T1078",
     "name": "Valid Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access, network devices, and remote desktop.[1]Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools in conjunction with the legitimate access those credentials provide to make it harder to detect their presence.In some cases, adversaries may abuse inactive accounts: for example, those belonging to individuals who are no longer part of an organization. Using these accounts may allow the adversary to evade detection, as the original account user will not be present to identify any anomalous activity taking place on their account.[2]The overlap of permissions for local, domain, and cloud accounts across a network of systems is of concern because the adversary may be able to pivot across accounts and systems to reach a high level of access (i.e., domain or enterprise administrator) to bypass access controls set within the enterprise.[3]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -404,8 +404,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236725",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188154",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -420,7 +420,7 @@
   {
     "technique_id": "T1078.001",
     "name": "Default Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a default account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Default accounts are those that are built-into an OS, such as the Guest or Administrator accounts on Windows systems. Default accounts also include default factory/provider set accounts on other types of systems, software, or devices, including the root user account in AWS, the root user account in ESXi, and the default service account in Kubernetes.[1][2][3]Default accounts are not limited to client machines; rather, they also include accounts that are preset for equipment such as network devices and computer applications, whether they are internal, open source, or commercial. Appliances that come preset with a username and password combination pose a serious threat to organizations that do not change it post installation, as they are easy targets for an adversary. Similarly, adversaries may also utilize publicly disclosed or stolenPrivate Keysor credential materials to legitimately connect to remote environments viaRemote Services.[4]Default accounts may be created on a system after initial setup by connecting or integrating it with another application. For example, when an ESXi server is connected to a vCenter server, a default privileged account calledvpxuseris created on the ESXi server. If a threat actor is able to compromise this account’s credentials (for example, viaExploitation for Credential Accesson the vCenter host), they will then have access to the ESXi server.[5][6]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -433,13 +433,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236728"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188157"
   },
   {
     "technique_id": "T1078.004",
     "name": "Cloud Accounts",
-    "description": "",
+    "description": "Valid accounts in cloud environments may allow adversaries to perform actions to achieve Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Cloud accounts are those created and configured by an organization for use by users, remote support, services, or for administration of resources within a cloud service provider or SaaS application. Cloud Accounts can exist solely in the cloud; alternatively, they may be hybrid-joined between on-premises systems and the cloud through syncing or federation with other identity sources such as Windows Active Directory.[1][2][3]Service or user accounts may be targeted by adversaries throughBrute Force,Phishing, or various other means to gain access to the environment. Federated or synced accounts may be a pathway for the adversary to affect both on-premises systems and cloud environments - for example, by leveraging shared credentials to log ontoRemote Services. High privileged cloud accounts, whether federated, synced, or cloud-only, may also allow pivoting to on-premises environments by leveraging SaaS-basedSoftware Deployment Toolsto run commands on hybrid-joined devices.An adversary may create long lastingAdditional Cloud Credentialson a compromised cloud account to maintain persistence in the environment. Such credentials may also be used to bypass security controls such as multi-factor authentication.Cloud accounts may also be able to assumeTemporary Elevated Cloud Accessor other privileges through various means within the environment. Misconfigurations in role assignments or role assumption policies may allow an adversary to use these mechanisms to leverage permissions outside the intended scope of the account. Such over privileged accounts may be used to harvest sensitive data from online storage accounts and databases throughCloud APIor other methods. For example, in Azure environments, adversaries may target Azure Managed Identities, which allow associated Azure resources to request access tokens. By compromising a resource with an attached Managed Identity, such as an Azure VM, adversaries may be able toSteal Application Access Tokens to move laterally across the cloud environment.[4]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -452,13 +452,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236737"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188160"
   },
   {
     "technique_id": "T1098",
     "name": "Account Manipulation",
-    "description": "",
+    "description": "Adversaries may manipulate accounts to maintain and/or elevate access to victim systems. Account manipulation may consist of any action that preserves or modifies adversary access to a compromised account, such as modifying credentials or permission groups.[1]These actions could also include account activity designed to subvert security policies, such as performing iterative password updates to bypass password duration policies and preserve the life of compromised credentials.In order to create or manipulate accounts, the adversary must already have sufficient permissions on systems or the domain. However, account manipulation may also lead to privilege escalation where modifications grant access to additional roles, permissions, or higher-privilegedValid Accounts.",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -471,8 +471,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236915",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188317",
     "subtechniques": [
       {
         "id": "T1098.001",
@@ -487,7 +487,7 @@
   {
     "technique_id": "T1098.001",
     "name": "Additional Cloud Credentials",
-    "description": "",
+    "description": "Adversaries may add adversary-controlled credentials to a cloud account to maintain persistent access to victim accounts and instances within the environment.For example, adversaries may add credentials for Service Principals and Applications in addition to existing legitimate credentials in Azure / Entra ID.[1][2][3]These credentials include both x509 keys and passwords.[1]With sufficient permissions, there are a variety of ways to add credentials including the Azure Portal, Azure command line interface, and Azure or Az PowerShell modules.[4]In infrastructure-as-a-service (IaaS) environments, after gaining access throughCloud Accounts, adversaries may generate or import their own SSH keys using either theCreateKeyPairorImportKeyPairAPI in AWS or thegcloud compute os-login ssh-keys addcommand in GCP.[5]This allows persistent access to instances within the cloud environment without further usage of the compromised cloud accounts.[6][7]Adversaries may also use theCreateAccessKeyAPI in AWS or thegcloud iam service-accounts keys createcommand in GCP to add access keys to an account. Alternatively, they may use theCreateLoginProfileAPI in AWS to add a password that can be used to log into the AWS Management Console forCloud Service Dashboard.[8][9]If the target account has different permissions from the requesting account, the adversary may also be able to escalate their privileges in the environment (i.e.Cloud Accounts).[10][11]For example, in Entra ID environments, an adversary with the Application Administrator role can add a new set of credentials to their application's service principal. In doing so the adversary would be able to access the service principal’s roles and permissions, which may be different from those of the Application Administrator.[12]In AWS environments, adversaries with the appropriate permissions may also use thests:GetFederationTokenAPI call to create a temporary set of credentials toForge Web Credentialstied to the permissions of the original user account. These temporary credentials may remain valid for the duration of their lifetime even if the original account’s API credentials are deactivated.[13]In Entra ID environments with the app password feature enabled, adversaries may be able to add an app password to a user account.[14]As app passwords are intended to be used with legacy devices that do not support multi-factor authentication (MFA), adding an app password can allow an adversary to bypass MFA requirements. Additionally, app passwords may remain valid even if the user’s primary password is reset.[15]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -500,13 +500,13 @@
     "parent_technique": "Account Manipulation",
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236920"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188321"
   },
   {
     "technique_id": "T1098.003",
     "name": "Additional Cloud Roles",
-    "description": "",
+    "description": "An adversary may add additional roles or permissions to an adversary-controlled cloud account to maintain persistent access to a tenant. For example, adversaries may update IAM policies in cloud-based environments or add a new global administrator in Office 365 environments.[1][2][3][4]With sufficient permissions, a compromised account can gain almost unlimited access to data and settings (including the ability to reset the passwords of other admins).[5][4]This account modification may immediately followCreate Accountor other malicious account activity. Adversaries may also modify existingValid Accountsthat they have compromised. This could lead to privilege escalation, particularly if the roles added allow for lateral movement to additional accounts.For example, in AWS environments, an adversary with appropriate permissions may be able to use theCreatePolicyVersionAPI to define a new version of an IAM policy or theAttachUserPolicyAPI to attach an IAM policy with additional or distinct permissions to a compromised user account.[6]In some cases, adversaries may add roles to adversary-controlled accounts outside the victim cloud tenant. This allows these external accounts to perform actions inside the victim tenant without requiring the adversary toCreate Accountor modify a victim-owned account.[7]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -519,13 +519,13 @@
     "parent_technique": "Account Manipulation",
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236924"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188325"
   },
   {
     "technique_id": "T1546",
     "name": "Event Triggered Execution",
-    "description": "",
+    "description": "Adversaries may establish persistence and/or elevate privileges using system mechanisms that trigger execution based on specific events. Various operating systems have means to monitor and subscribe to events such as logons or other user activity such as running specific applications/binaries. Cloud environments may also support various functions and services that monitor and can be invoked in response to specific cloud events.[1][2][3]Adversaries may abuse these mechanisms as a means of maintaining persistent access to a victim via repeatedly executing malicious code. After gaining access to a victim system, adversaries may create/modify event triggers to point to malicious content that will be executed whenever the event trigger is invoked.[4][5][6]Since the execution can be proxied by an account with higher permissions, such as SYSTEM or service accounts, an adversary may be able to abuse these triggered execution mechanisms to escalate their privileges.",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -538,14 +538,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236928",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188328",
     "subtechniques": []
   },
   {
     "technique_id": "T1078",
     "name": "Valid Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access, network devices, and remote desktop.[1]Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools in conjunction with the legitimate access those credentials provide to make it harder to detect their presence.In some cases, adversaries may abuse inactive accounts: for example, those belonging to individuals who are no longer part of an organization. Using these accounts may allow the adversary to evade detection, as the original account user will not be present to identify any anomalous activity taking place on their account.[2]The overlap of permissions for local, domain, and cloud accounts across a network of systems is of concern because the adversary may be able to pivot across accounts and systems to reach a high level of access (i.e., domain or enterprise administrator) to bypass access controls set within the enterprise.[3]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -558,8 +558,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236932",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188332",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -574,7 +574,7 @@
   {
     "technique_id": "T1078.001",
     "name": "Default Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a default account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Default accounts are those that are built-into an OS, such as the Guest or Administrator accounts on Windows systems. Default accounts also include default factory/provider set accounts on other types of systems, software, or devices, including the root user account in AWS, the root user account in ESXi, and the default service account in Kubernetes.[1][2][3]Default accounts are not limited to client machines; rather, they also include accounts that are preset for equipment such as network devices and computer applications, whether they are internal, open source, or commercial. Appliances that come preset with a username and password combination pose a serious threat to organizations that do not change it post installation, as they are easy targets for an adversary. Similarly, adversaries may also utilize publicly disclosed or stolenPrivate Keysor credential materials to legitimately connect to remote environments viaRemote Services.[4]Default accounts may be created on a system after initial setup by connecting or integrating it with another application. For example, when an ESXi server is connected to a vCenter server, a default privileged account calledvpxuseris created on the ESXi server. If a threat actor is able to compromise this account’s credentials (for example, viaExploitation for Credential Accesson the vCenter host), they will then have access to the ESXi server.[5][6]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -587,13 +587,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236936"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188335"
   },
   {
     "technique_id": "T1078.004",
     "name": "Cloud Accounts",
-    "description": "",
+    "description": "Valid accounts in cloud environments may allow adversaries to perform actions to achieve Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Cloud accounts are those created and configured by an organization for use by users, remote support, services, or for administration of resources within a cloud service provider or SaaS application. Cloud Accounts can exist solely in the cloud; alternatively, they may be hybrid-joined between on-premises systems and the cloud through syncing or federation with other identity sources such as Windows Active Directory.[1][2][3]Service or user accounts may be targeted by adversaries throughBrute Force,Phishing, or various other means to gain access to the environment. Federated or synced accounts may be a pathway for the adversary to affect both on-premises systems and cloud environments - for example, by leveraging shared credentials to log ontoRemote Services. High privileged cloud accounts, whether federated, synced, or cloud-only, may also allow pivoting to on-premises environments by leveraging SaaS-basedSoftware Deployment Toolsto run commands on hybrid-joined devices.An adversary may create long lastingAdditional Cloud Credentialson a compromised cloud account to maintain persistence in the environment. Such credentials may also be used to bypass security controls such as multi-factor authentication.Cloud accounts may also be able to assumeTemporary Elevated Cloud Accessor other privileges through various means within the environment. Misconfigurations in role assignments or role assumption policies may allow an adversary to use these mechanisms to leverage permissions outside the intended scope of the account. Such over privileged accounts may be used to harvest sensitive data from online storage accounts and databases throughCloud APIor other methods. For example, in Azure environments, adversaries may target Azure Managed Identities, which allow associated Azure resources to request access tokens. By compromising a resource with an attached Managed Identity, such as an Azure VM, adversaries may be able toSteal Application Access Tokens to move laterally across the cloud environment.[4]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -606,13 +606,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.236939"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188338"
   },
   {
     "technique_id": "T1211",
     "name": "Exploitation for Defense Evasion",
-    "description": "",
+    "description": "Adversaries may exploit a system or application vulnerability to bypass security features. Exploitation of a vulnerability occurs when an adversary takes advantage of a programming error in a program, service, or within the operating system software or kernel itself to execute adversary-controlled code. Vulnerabilities may exist in defensive security software that can be used to disable or circumvent them.Adversaries may have prior knowledge through reconnaissance that security software exists within an environment or they may perform checks during or shortly after the system is compromised forSecurity Software Discovery. The security software will likely be targeted directly for exploitation. There are examples of antivirus software being targeted by persistent threat groups to avoid detection.There have also been examples of vulnerabilities in public cloud infrastructure of SaaS applications that may bypass defense boundaries[1], evade security logs[2], or deploy hidden infrastructure.[3]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -625,14 +625,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237118",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188491",
     "subtechniques": []
   },
   {
     "technique_id": "T1656",
     "name": "Impersonation",
-    "description": "",
+    "description": "Adversaries may impersonate a trusted person or organization in order to persuade and trick a target into performing some action on their behalf. For example, adversaries may communicate with victims (viaPhishing for Information,Phishing, orInternal Spearphishing) while impersonating a known sender such as an executive, colleague, or third-party vendor. Established trust can then be leveraged to accomplish an adversary’s ultimate goals, possibly against multiple victims.In many cases of business email compromise or email fraud campaigns, adversaries use impersonation to defraud victims -- deceiving them into sending money or divulging information that ultimately enablesFinancial Theft.Adversaries will often also use social engineering techniques such as manipulative and persuasive language in email subject lines and body text such aspayment,request, orurgentto push the victim to act quickly before malicious activity is detected. These campaigns are often specifically targeted against people who, due to job roles and/or accesses, can carry out the adversary’s goal.Impersonation is typically preceded by reconnaissance techniques such asGather Victim Identity InformationandGather Victim Org Informationas well as acquiring infrastructure such as email domains (i.e.Domains) to substantiate their false identity.[1]There is the potential for multiple victims in campaigns involving impersonation. For example, an adversary mayCompromise Accountstargeting one organization which can then be used to support impersonation against other entities.[2]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -645,14 +645,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237122",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188495",
     "subtechniques": []
   },
   {
     "technique_id": "T1556",
     "name": "Modify Authentication Process",
-    "description": "",
+    "description": "Adversaries may modify authentication mechanisms and processes to access user credentials or enable otherwise unwarranted access to accounts. The authentication process is handled by mechanisms, such as the Local Security Authentication Server (LSASS) process and the Security Accounts Manager (SAM) on Windows, pluggable authentication modules (PAM) on Unix-based systems, and authorization plugins on MacOS systems, responsible for gathering, storing, and validating credentials. By modifying an authentication process, an adversary may be able to authenticate to a service or system without usingValid Accounts.Adversaries may maliciously modify a part of this process to either reveal credentials or bypass authentication mechanisms. Compromised credentials or access may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access and remote desktop.",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -665,8 +665,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237126",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188499",
     "subtechniques": [
       {
         "id": "T1556.006",
@@ -681,7 +681,7 @@
   {
     "technique_id": "T1556.006",
     "name": "Multi-Factor Authentication",
-    "description": "",
+    "description": "Adversaries may disable or modify multi-factor authentication (MFA) mechanisms to enable persistent access to compromised accounts.Once adversaries have gained access to a network by either compromising an account lacking MFA or by employing an MFA bypass method such asMulti-Factor Authentication Request Generation, adversaries may leverage their access to modify or completely disable MFA defenses. This can be accomplished by abusing legitimate features, such as excluding users from Azure AD Conditional Access Policies, registering a new yet vulnerable/adversary-controlled MFA method, or by manually patching MFA programs and configuration files to bypass expected functionality.[1][2]For example, modifying the Windows hosts file (C:\\windows\\system32\\drivers\\etc\\hosts) to redirect MFA calls to localhost instead of an MFA server may cause the MFA process to fail. If a \"fail open\" policy is in place, any otherwise successful authentication attempt may be granted access without enforcing MFA.[3]Depending on the scope, goals, and privileges of the adversary, MFA defenses may be disabled for individual accounts or for all accounts tied to a larger group, such as all domain accounts in a victim's network environment.[3]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -694,13 +694,13 @@
     "parent_technique": "Modify Authentication Process",
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237130"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188502"
   },
   {
     "technique_id": "T1556.007",
     "name": "Hybrid Identity",
-    "description": "",
+    "description": "Adversaries may patch, modify, or otherwise backdoor cloud authentication processes that are tied to on-premises user identities in order to bypass typical authentication mechanisms, access credentials, and enable persistent access to accounts.Many organizations maintain hybrid user and device identities that are shared between on-premises and cloud-based environments. These can be maintained in a number of ways. For example, Microsoft Entra ID includes three options for synchronizing identities between Active Directory and Entra ID[1]:Password Hash Synchronization (PHS), in which a privileged on-premises account synchronizes user password hashes between Active Directory and Entra ID, allowing authentication to Entra ID to take place entirely in the cloudPass Through Authentication (PTA), in which Entra ID authentication attempts are forwarded to an on-premises PTA agent, which validates the credentials against Active DirectoryActive Directory Federation Services (AD FS), in which a trust relationship is established between Active Directory and Entra IDAD FS can also be used with other SaaS and cloud platforms such as AWS and GCP, which will hand off the authentication process to AD FS and receive a token containing the hybrid users’ identity and privileges.By modifying authentication processes tied to hybrid identities, an adversary may be able to establish persistent privileged access to cloud resources. For example, adversaries who compromise an on-premises server running a PTA agent may inject a malicious DLL into theAzureADConnectAuthenticationAgentServiceprocess that authorizes all attempts to authenticate to Entra ID, as well as records user credentials.[2][3]In environments using AD FS, an adversary may edit theMicrosoft.IdentityServer.Servicehostconfiguration file to load a malicious DLL that generates authentication tokens for any user with any set of claims, thereby bypassing multi-factor authentication and defined AD FS policies.[4]In some cases, adversaries may be able to modify the hybrid identity authentication process from the cloud. For example, adversaries who compromise a Global Administrator account in an Entra ID tenant may be able to register a new PTA agent via the web console, similarly allowing them to harvest credentials and log into the Entra ID environment as any user.[5]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -713,13 +713,13 @@
     "parent_technique": "Modify Authentication Process",
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237134"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188505"
   },
   {
     "technique_id": "T1550",
     "name": "Use Alternate Authentication Material",
-    "description": "",
+    "description": "Adversaries may use alternate authentication material, such as password hashes, Kerberos tickets, and application access tokens, in order to move laterally within an environment and bypass normal system access controls.Authentication processes generally require a valid identity (e.g., username) along with one or more authentication factors (e.g., password, pin, physical smart card, token generator, etc.). Alternate authentication material is legitimately generated by systems after a user or application successfully authenticates by providing a valid identity and the required authentication factor(s). Alternate authentication material may also be generated during the identity creation process.[1][2]Caching alternate authentication material allows the system to verify an identity has successfully authenticated without asking the user to reenter authentication factor(s). Because the alternate authentication must be maintained by the system—either in memory or on disk—it may be at risk of being stolen throughCredential Accesstechniques. By stealing alternate authentication material, adversaries are able to bypass system access controls and authenticate to systems without knowing the plaintext password or any additional authentication factors.",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -732,8 +732,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237139",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188509",
     "subtechniques": [
       {
         "id": "T1550.001",
@@ -748,7 +748,7 @@
   {
     "technique_id": "T1550.001",
     "name": "Application Access Token",
-    "description": "",
+    "description": "Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used in lieu of login credentials.Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used to access resources in cloud, container-based applications, and software-as-a-service (SaaS).[1]OAuth is one commonly implemented framework that issues tokens to users for access to systems. These frameworks are used collaboratively to verify the user and determine what actions the user is allowed to perform. Once identity is established, the token allows actions to be authorized, without passing the actual credentials of the user. Therefore, compromise of the token can grant the adversary access to resources of other sites through a malicious application.[2]For example, with a cloud-based email service, once an OAuth access token is granted to a malicious application, it can potentially gain long-term access to features of the user account if a \"refresh\" token enabling background access is awarded.[3]With an OAuth access token an adversary can use the user-granted REST API to perform functions such as email searching and contact enumeration.[4]Compromised access tokens may be used as an initial step in compromising other services. For example, if a token grants access to a victim’s primary email, the adversary may be able to extend access to all other services which the target subscribes by triggering forgotten password routines. In AWS and GCP environments, adversaries can trigger a request for a short-lived access token with the privileges of another user account.[5][6]The adversary can then use this token to request data or perform actions the original account could not. If permissions for this feature are misconfigured – for example, by allowing all users to request a token for a particular account - an adversary may be able to gain initial access to a Cloud Account or escalate their privileges.[7]Direct API access through a token negates the effectiveness of a second authentication factor and may be immune to intuitive countermeasures like changing passwords. For example, in AWS environments, an adversary who compromises a user’s AWS API credentials may be able to use thests:GetFederationTokenAPI call to create a federated user session, which will have the same permissions as the original user but may persist even if the original user credentials are deactivated.[8]Additionally, access abuse over an API channel can be difficult to detect even from the service provider end, as the access can still align well with a legitimate workflow.",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -761,13 +761,13 @@
     "parent_technique": "Use Alternate Authentication Material",
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237143"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188513"
   },
   {
     "technique_id": "T1550.004",
     "name": "Web Session Cookie",
-    "description": "",
+    "description": "Adversaries can use stolen session cookies to authenticate to web applications and services. This technique bypasses some multi-factor authentication protocols since the session is already authenticated.[1]Authentication cookies are commonly used in web applications, including cloud-based services, after a user has authenticated to the service so credentials are not passed and re-authentication does not need to occur as frequently. Cookies are often valid for an extended period of time, even if the web application is not actively used. After the cookie is obtained throughSteal Web Session CookieorWeb Cookies, the adversary may then import the cookie into a browser they control and is then able to use the site or application as the user for as long as the session cookie is active. Once logged into the site, an adversary can access sensitive information, read email, or perform actions that the victim account has permissions to perform.There have been examples of malware targeting session cookies to bypass multi-factor authentication systems.[2]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -780,13 +780,13 @@
     "parent_technique": "Use Alternate Authentication Material",
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237147"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188516"
   },
   {
     "technique_id": "T1078",
     "name": "Valid Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access, network devices, and remote desktop.[1]Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools in conjunction with the legitimate access those credentials provide to make it harder to detect their presence.In some cases, adversaries may abuse inactive accounts: for example, those belonging to individuals who are no longer part of an organization. Using these accounts may allow the adversary to evade detection, as the original account user will not be present to identify any anomalous activity taking place on their account.[2]The overlap of permissions for local, domain, and cloud accounts across a network of systems is of concern because the adversary may be able to pivot across accounts and systems to reach a high level of access (i.e., domain or enterprise administrator) to bypass access controls set within the enterprise.[3]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -799,8 +799,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237151",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188520",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -815,7 +815,7 @@
   {
     "technique_id": "T1078.001",
     "name": "Default Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a default account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Default accounts are those that are built-into an OS, such as the Guest or Administrator accounts on Windows systems. Default accounts also include default factory/provider set accounts on other types of systems, software, or devices, including the root user account in AWS, the root user account in ESXi, and the default service account in Kubernetes.[1][2][3]Default accounts are not limited to client machines; rather, they also include accounts that are preset for equipment such as network devices and computer applications, whether they are internal, open source, or commercial. Appliances that come preset with a username and password combination pose a serious threat to organizations that do not change it post installation, as they are easy targets for an adversary. Similarly, adversaries may also utilize publicly disclosed or stolenPrivate Keysor credential materials to legitimately connect to remote environments viaRemote Services.[4]Default accounts may be created on a system after initial setup by connecting or integrating it with another application. For example, when an ESXi server is connected to a vCenter server, a default privileged account calledvpxuseris created on the ESXi server. If a threat actor is able to compromise this account’s credentials (for example, viaExploitation for Credential Accesson the vCenter host), they will then have access to the ESXi server.[5][6]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -828,13 +828,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237159"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188523"
   },
   {
     "technique_id": "T1078.004",
     "name": "Cloud Accounts",
-    "description": "",
+    "description": "Valid accounts in cloud environments may allow adversaries to perform actions to achieve Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Cloud accounts are those created and configured by an organization for use by users, remote support, services, or for administration of resources within a cloud service provider or SaaS application. Cloud Accounts can exist solely in the cloud; alternatively, they may be hybrid-joined between on-premises systems and the cloud through syncing or federation with other identity sources such as Windows Active Directory.[1][2][3]Service or user accounts may be targeted by adversaries throughBrute Force,Phishing, or various other means to gain access to the environment. Federated or synced accounts may be a pathway for the adversary to affect both on-premises systems and cloud environments - for example, by leveraging shared credentials to log ontoRemote Services. High privileged cloud accounts, whether federated, synced, or cloud-only, may also allow pivoting to on-premises environments by leveraging SaaS-basedSoftware Deployment Toolsto run commands on hybrid-joined devices.An adversary may create long lastingAdditional Cloud Credentialson a compromised cloud account to maintain persistence in the environment. Such credentials may also be used to bypass security controls such as multi-factor authentication.Cloud accounts may also be able to assumeTemporary Elevated Cloud Accessor other privileges through various means within the environment. Misconfigurations in role assignments or role assumption policies may allow an adversary to use these mechanisms to leverage permissions outside the intended scope of the account. Such over privileged accounts may be used to harvest sensitive data from online storage accounts and databases throughCloud APIor other methods. For example, in Azure environments, adversaries may target Azure Managed Identities, which allow associated Azure resources to request access tokens. By compromising a resource with an attached Managed Identity, such as an Azure VM, adversaries may be able toSteal Application Access Tokens to move laterally across the cloud environment.[4]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -847,13 +847,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237163"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188527"
   },
   {
     "technique_id": "T1110",
     "name": "Brute Force",
-    "description": "",
+    "description": "Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained.[1]Without knowledge of the password for an account or set of accounts, an adversary may systematically guess the password using a repetitive or iterative mechanism.[2]Brute forcing passwords can take place via interaction with a service that will check the validity of those credentials or offline against previously acquired credential data, such as password hashes.Brute forcing credentials may take place at various points during a breach. For example, adversaries may attempt to brute force access toValid Accountswithin a victim environment leveraging knowledge gathered from other post-compromise behaviors such asOS Credential Dumping,Account Discovery, orPassword Policy Discovery. Adversaries may also combine brute forcing activity with behaviors such asExternal Remote Servicesas part of Initial Access.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -866,8 +866,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237405",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188739",
     "subtechniques": [
       {
         "id": "T1110.001",
@@ -886,7 +886,7 @@
   {
     "technique_id": "T1110.001",
     "name": "Password Guessing",
-    "description": "",
+    "description": "Adversaries with no prior knowledge of legitimate credentials within the system or environment may guess passwords to attempt access to accounts. Without knowledge of the password for an account, an adversary may opt to systematically guess the password using a repetitive or iterative mechanism. An adversary may guess login credentials without prior knowledge of system or environment passwords during an operation by using a list of common passwords. Password guessing may or may not take into account the target's policies on password complexity or use policies that may lock accounts out after a number of failed attempts.Guessing passwords can be a risky option because it could cause numerous authentication failures and account lockouts, depending on the organization's login failure policies.[1]Typically, management services over commonly used ports are used when guessing passwords. Commonly targeted services include the following:SSH (22/TCP)Telnet (23/TCP)FTP (21/TCP)NetBIOS / SMB / Samba (139/TCP & 445/TCP)LDAP (389/TCP)Kerberos (88/TCP)RDP / Terminal Services (3389/TCP)HTTP/HTTP Management Services (80/TCP & 443/TCP)MSSQL (1433/TCP)Oracle (1521/TCP)MySQL (3306/TCP)VNC (5900/TCP)SNMP (161/UDP and 162/TCP/UDP)In addition to management services, adversaries may \"target single sign-on (SSO) and cloud-based applications utilizing federated authentication protocols,\" as well as externally facing email applications, such as Office 365.[2]. Further, adversaries may abuse network device interfaces (such aswlanAPI) to brute force accessible wifi-router(s) via wireless authentication protocols.[3]In default environments, LDAP and Kerberos connection attempts are less likely to trigger events over SMB, which creates Windows \"logon failure\" event ID 4625.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -899,13 +899,13 @@
     "parent_technique": "Brute Force",
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237410"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188743"
   },
   {
     "technique_id": "T1110.003",
     "name": "Password Spraying",
-    "description": "",
+    "description": "Adversaries may use a single or small list of commonly used passwords against many different accounts to attempt to acquire valid account credentials. Password spraying uses one password (e.g. 'Password01'), or a small list of commonly used passwords, that may match the complexity policy of the domain. Logins are attempted with that password against many different accounts on a network to avoid account lockouts that would normally occur when brute forcing a single account with many passwords.[1]Typically, management services over commonly used ports are used when password spraying. Commonly targeted services include the following:SSH (22/TCP)Telnet (23/TCP)FTP (21/TCP)NetBIOS / SMB / Samba (139/TCP & 445/TCP)LDAP (389/TCP)Kerberos (88/TCP)RDP / Terminal Services (3389/TCP)HTTP/HTTP Management Services (80/TCP & 443/TCP)MSSQL (1433/TCP)Oracle (1521/TCP)MySQL (3306/TCP)VNC (5900/TCP)In addition to management services, adversaries may \"target single sign-on (SSO) and cloud-based applications utilizing federated authentication protocols,\" as well as externally facing email applications, such as Office 365.[2]In default environments, LDAP and Kerberos connection attempts are less likely to trigger events over SMB, which creates Windows \"logon failure\" event ID 4625.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -918,13 +918,13 @@
     "parent_technique": "Brute Force",
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237413"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188746"
   },
   {
     "technique_id": "T1110.004",
     "name": "Credential Stuffing",
-    "description": "",
+    "description": "Adversaries may use credentials obtained from breach dumps of unrelated accounts to gain access to target accounts through credential overlap. Occasionally, large numbers of username and password pairs are dumped online when a website or service is compromised and the user account credentials accessed. The information may be useful to an adversary attempting to compromise accounts by taking advantage of the tendency for users to use the same passwords across personal and business accounts.Credential stuffing is a risky option because it could cause numerous authentication failures and account lockouts, depending on the organization's login failure policies.Typically, management services over commonly used ports are used when stuffing credentials. Commonly targeted services include the following:SSH (22/TCP)Telnet (23/TCP)FTP (21/TCP)NetBIOS / SMB / Samba (139/TCP & 445/TCP)LDAP (389/TCP)Kerberos (88/TCP)RDP / Terminal Services (3389/TCP)HTTP/HTTP Management Services (80/TCP & 443/TCP)MSSQL (1433/TCP)Oracle (1521/TCP)MySQL (3306/TCP)VNC (5900/TCP)In addition to management services, adversaries may \"target single sign-on (SSO) and cloud-based applications utilizing federated authentication protocols,\" as well as externally facing email applications, such as Office 365.[1]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -937,13 +937,13 @@
     "parent_technique": "Brute Force",
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237417"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188750"
   },
   {
     "technique_id": "T1606",
     "name": "Forge Web Credentials",
-    "description": "",
+    "description": "Adversaries may forge credential materials that can be used to gain access to web applications or Internet services. Web applications and services (hosted in cloud SaaS environments or on-premise servers) often use session cookies, tokens, or other materials to authenticate and authorize user access.Adversaries may generate these credential materials in order to gain access to web resources. This differs fromSteal Web Session Cookie,Steal Application Access Token, and other similar behaviors in that the credentials are new and forged by the adversary, rather than stolen or intercepted from legitimate users.The generation of web credentials often requires secret values, such as passwords,Private Keys, or other cryptographic seed values.[1]Adversaries may also forge tokens by taking advantage of features such as theAssumeRoleandGetFederationTokenAPIs in AWS, which allow users to request temporary security credentials (i.e.,Temporary Elevated Cloud Access), or thezmprov gdpakcommand in Zimbra, which generates a pre-authentication key that can be used to generate tokens for any user in the domain.[2][3]Once forged, adversaries may use these web credentials to access resources (ex:Use Alternate Authentication Material), which may bypass multi-factor and other authentication protection mechanisms.[4][5][6]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -956,8 +956,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237421",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188754",
     "subtechniques": [
       {
         "id": "T1606.001",
@@ -972,7 +972,7 @@
   {
     "technique_id": "T1606.001",
     "name": "Web Cookies",
-    "description": "",
+    "description": "Adversaries may forge web cookies that can be used to gain access to web applications or Internet services. Web applications and services (hosted in cloud SaaS environments or on-premise servers) often use session cookies to authenticate and authorize user access.Adversaries may generate these cookies in order to gain access to web resources. This differs fromSteal Web Session Cookieand other similar behaviors in that the cookies are new and forged by the adversary, rather than stolen or intercepted from legitimate users. Most common web applications have standardized and documented cookie values that can be generated using provided tools or interfaces.[1]The generation of web cookies often requires secret values, such as passwords,Private Keys, or other cryptographic seed values.Once forged, adversaries may use these web cookies to access resources (Web Session Cookie), which may bypass multi-factor and other authentication protection mechanisms.[2][1][3]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -985,13 +985,13 @@
     "parent_technique": "Forge Web Credentials",
     "parent_technique_id": "T1606",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237425"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188757"
   },
   {
     "technique_id": "T1606.002",
     "name": "SAML Tokens",
-    "description": "",
+    "description": "An adversary may forge SAML tokens with any permissions claims and lifetimes if they possess a valid SAML token-signing certificate.[1]The default lifetime of a SAML token is one hour, but the validity period can be specified in theNotOnOrAftervalue of theconditions ...element in a token. This value can be changed using theAccessTokenLifetimein aLifetimeTokenPolicy.[2]Forged SAML tokens enable adversaries to authenticate across services that use SAML 2.0 as an SSO (single sign-on) mechanism.[3]An adversary may utilizePrivate Keysto compromise an organization's token-signing certificate to create forged SAML tokens. If the adversary has sufficient permissions to establish a new federation trust with their own Active Directory Federation Services (AD FS) server, they may instead generate their own trusted token-signing certificate.[4]This differs fromSteal Application Access Tokenand other similar behaviors in that the tokens are new and forged by the adversary, rather than stolen or intercepted from legitimate users.An adversary may gain administrative Entra ID privileges if a SAML token is forged which claims to represent a highly privileged account. This may lead toUse Alternate Authentication Material, which may bypass multi-factor and other authentication protection mechanisms.[4]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1004,13 +1004,13 @@
     "parent_technique": "Forge Web Credentials",
     "parent_technique_id": "T1606",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237428"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188760"
   },
   {
     "technique_id": "T1556",
     "name": "Modify Authentication Process",
-    "description": "",
+    "description": "Adversaries may modify authentication mechanisms and processes to access user credentials or enable otherwise unwarranted access to accounts. The authentication process is handled by mechanisms, such as the Local Security Authentication Server (LSASS) process and the Security Accounts Manager (SAM) on Windows, pluggable authentication modules (PAM) on Unix-based systems, and authorization plugins on MacOS systems, responsible for gathering, storing, and validating credentials. By modifying an authentication process, an adversary may be able to authenticate to a service or system without usingValid Accounts.Adversaries may maliciously modify a part of this process to either reveal credentials or bypass authentication mechanisms. Compromised credentials or access may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access and remote desktop.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1023,8 +1023,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237432",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188764",
     "subtechniques": [
       {
         "id": "T1556.006",
@@ -1039,7 +1039,7 @@
   {
     "technique_id": "T1556.006",
     "name": "Multi-Factor Authentication",
-    "description": "",
+    "description": "Adversaries may disable or modify multi-factor authentication (MFA) mechanisms to enable persistent access to compromised accounts.Once adversaries have gained access to a network by either compromising an account lacking MFA or by employing an MFA bypass method such asMulti-Factor Authentication Request Generation, adversaries may leverage their access to modify or completely disable MFA defenses. This can be accomplished by abusing legitimate features, such as excluding users from Azure AD Conditional Access Policies, registering a new yet vulnerable/adversary-controlled MFA method, or by manually patching MFA programs and configuration files to bypass expected functionality.[1][2]For example, modifying the Windows hosts file (C:\\windows\\system32\\drivers\\etc\\hosts) to redirect MFA calls to localhost instead of an MFA server may cause the MFA process to fail. If a \"fail open\" policy is in place, any otherwise successful authentication attempt may be granted access without enforcing MFA.[3]Depending on the scope, goals, and privileges of the adversary, MFA defenses may be disabled for individual accounts or for all accounts tied to a larger group, such as all domain accounts in a victim's network environment.[3]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1052,13 +1052,13 @@
     "parent_technique": "Modify Authentication Process",
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237436"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188770"
   },
   {
     "technique_id": "T1556.007",
     "name": "Hybrid Identity",
-    "description": "",
+    "description": "Adversaries may patch, modify, or otherwise backdoor cloud authentication processes that are tied to on-premises user identities in order to bypass typical authentication mechanisms, access credentials, and enable persistent access to accounts.Many organizations maintain hybrid user and device identities that are shared between on-premises and cloud-based environments. These can be maintained in a number of ways. For example, Microsoft Entra ID includes three options for synchronizing identities between Active Directory and Entra ID[1]:Password Hash Synchronization (PHS), in which a privileged on-premises account synchronizes user password hashes between Active Directory and Entra ID, allowing authentication to Entra ID to take place entirely in the cloudPass Through Authentication (PTA), in which Entra ID authentication attempts are forwarded to an on-premises PTA agent, which validates the credentials against Active DirectoryActive Directory Federation Services (AD FS), in which a trust relationship is established between Active Directory and Entra IDAD FS can also be used with other SaaS and cloud platforms such as AWS and GCP, which will hand off the authentication process to AD FS and receive a token containing the hybrid users’ identity and privileges.By modifying authentication processes tied to hybrid identities, an adversary may be able to establish persistent privileged access to cloud resources. For example, adversaries who compromise an on-premises server running a PTA agent may inject a malicious DLL into theAzureADConnectAuthenticationAgentServiceprocess that authorizes all attempts to authenticate to Entra ID, as well as records user credentials.[2][3]In environments using AD FS, an adversary may edit theMicrosoft.IdentityServer.Servicehostconfiguration file to load a malicious DLL that generates authentication tokens for any user with any set of claims, thereby bypassing multi-factor authentication and defined AD FS policies.[4]In some cases, adversaries may be able to modify the hybrid identity authentication process from the cloud. For example, adversaries who compromise a Global Administrator account in an Entra ID tenant may be able to register a new PTA agent via the web console, similarly allowing them to harvest credentials and log into the Entra ID environment as any user.[5]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1071,13 +1071,13 @@
     "parent_technique": "Modify Authentication Process",
     "parent_technique_id": "T1556",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237440"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188773"
   },
   {
     "technique_id": "T1621",
     "name": "Multi-Factor Authentication Request Generation",
-    "description": "",
+    "description": "Adversaries may attempt to bypass multi-factor authentication (MFA) mechanisms and gain access to accounts by generating MFA requests sent to users.Adversaries in possession of credentials toValid Accountsmay be unable to complete the login process if they lack access to the 2FA or MFA mechanisms required as an additional credential and security control. To circumvent this, adversaries may abuse the automatic generation of push notifications to MFA services such as Duo Push, Microsoft Authenticator, Okta, or similar services to have the user grant access to their account. If adversaries lack credentials to victim accounts, they may also abuse automatic push notification generation when this option is configured for self-service password reset (SSPR).[1]In some cases, adversaries may continuously repeat login attempts in order to bombard users with MFA push notifications, SMS messages, and phone calls, potentially resulting in the user finally accepting the authentication request in response to \"MFA fatigue.\"[2][3][4]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1090,14 +1090,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237444",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188777",
     "subtechniques": []
   },
   {
     "technique_id": "T1528",
     "name": "Steal Application Access Token",
-    "description": "",
+    "description": "Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources.Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS).[1]Adversaries who steal account API tokens in cloud and containerized environments may be able to access data and perform actions with the permissions of these accounts, which can lead to privilege escalation and further compromise of the environment.For example, in Kubernetes environments, processes running inside a container may communicate with the Kubernetes API server using service account tokens. If a container is compromised, an adversary may be able to steal the container’s token and thereby gain access to Kubernetes API commands.[2]Similarly, instances within continuous-development / continuous-integration (CI/CD) pipelines will often use API tokens to authenticate to other services for testing and deployment.[3]If these pipelines are compromised, adversaries may be able to steal these tokens and leverage their privileges.In Azure, an adversary who compromises a resource with an attached Managed Identity, such as an Azure VM, can request short-lived tokens through the Azure Instance Metadata Service (IMDS). These tokens can then facilitate unauthorized actions or further access to other Azure services, bypassing typical credential-based authentication.[4][5]Token theft can also occur through social engineering, in which case user action may be required to grant access. OAuth is one commonly implemented framework that issues tokens to users for access to systems. An application desiring access to cloud-based services or protected APIs can gain entry using OAuth 2.0 through a variety of authorization protocols. An example commonly-used sequence is Microsoft's Authorization Code Grant flow.[6][7]An OAuth access token enables a third-party application to interact with resources containing user data in the ways requested by the application without obtaining user credentials.Adversaries can leverage OAuth authorization by constructing a malicious application designed to be granted access to resources with the target user's OAuth token.[8][9]The adversary will need to complete registration of their application with the authorization server, for example Microsoft Identity Platform using Azure Portal, the Visual Studio IDE, the command-line interface, PowerShell, or REST API calls.[10]Then, they can send aSpearphishing Linkto the target user to entice them to grant access to the application. Once the OAuth access token is granted, the application can gain potentially long-term access to features of the user account throughApplication Access Token.[11]Application access tokens may function within a limited lifetime, limiting how long an adversary can utilize the stolen token. However, in some cases, adversaries can also steal application refresh tokens[12], allowing them to obtain new access tokens without prompting the user.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1110,14 +1110,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237448",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188780",
     "subtechniques": []
   },
   {
     "technique_id": "T1539",
     "name": "Steal Web Session Cookie",
-    "description": "",
+    "description": "An adversary may steal web application or service session cookies and use them to gain access to web applications or Internet services as an authenticated user without needing credentials. Web applications and services often use session cookies as an authentication token after a user has authenticated to a website.Cookies are often valid for an extended period of time, even if the web application is not actively used. Cookies can be found on disk, in the process memory of the browser, and in network traffic to remote systems. Additionally, other applications on the targets machine might store sensitive authentication cookies in memory (e.g. apps which authenticate to cloud services). Session cookies can be used to bypasses some multi-factor authentication protocols.[1]There are several examples of malware targeting cookies from web browsers on the local system.[2][3]Adversaries may also steal cookies by injecting malicious JavaScript content into websites or relying onUser Executionby tricking victims into running malicious JavaScript in their browser.[4][5]There are also open source frameworks such asEvilginx2andMuraenathat can gather session cookies through a malicious proxy (e.g.,Adversary-in-the-Middle) that can be set up by an adversary and used in phishing campaigns.[6][7]After an adversary acquires a valid cookie, they can then perform aWeb Session Cookietechnique to login to the corresponding web application.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1130,14 +1130,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237451",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188783",
     "subtechniques": []
   },
   {
     "technique_id": "T1552",
     "name": "Unsecured Credentials",
-    "description": "",
+    "description": "Adversaries may search compromised systems to find and obtain insecurely stored credentials. These credentials can be stored and/or misplaced in many locations on a system, including plaintext files (e.g.Bash History), operating system or application-specific repositories (e.g.Credentials in Registry), or other specialized files/artifacts (e.g.Private Keys).[1]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1150,8 +1150,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237455",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188787",
     "subtechniques": [
       {
         "id": "T1552.008",
@@ -1162,7 +1162,7 @@
   {
     "technique_id": "T1552.008",
     "name": "Chat Messages",
-    "description": "",
+    "description": "Adversaries may directly collect unsecured credentials stored or passed through user communication services. Credentials may be sent and stored in user chat communication applications such as email, chat services like Slack or Teams, collaboration tools like Jira or Trello, and any other services that support user communication. Users may share various forms of credentials (such as usernames and passwords, API keys, or authentication tokens) on private or public corporate internal communications channels.Rather than accessing the stored chat logs (i.e.,Credentials In Files), adversaries may directly access credentials within these services on the user endpoint, through servers hosting the services, or through administrator portals for cloud hosted services. Adversaries may also compromise integration tools like Slack Workflows to automatically search through messages to extract user credentials. These credentials may then be abused to perform follow-on activities such as lateral movement or privilege escalation[1].",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1175,13 +1175,13 @@
     "parent_technique": "Unsecured Credentials",
     "parent_technique_id": "T1552",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237459"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188790"
   },
   {
     "technique_id": "T1087",
     "name": "Account Discovery",
-    "description": "",
+    "description": "Adversaries may attempt to get a listing of valid accounts, usernames, or email addresses on a system or within a compromised environment. This information can help adversaries determine which accounts exist, which can aid in follow-on behavior such as brute-forcing, spear-phishing attacks, or account takeovers (e.g.,Valid Accounts).Adversaries may use several methods to enumerate accounts, including abuse of existing tools, built-in commands, and potential misconfigurations that leak account names and roles or permissions in the targeted environment.For examples, cloud environments typically provide easily accessible interfaces to obtain user lists.[1][2]On hosts, adversaries can use defaultPowerShelland other command line functionality to identify accounts. Information about email addresses and accounts may also be extracted by searching an infected system’s files.",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1194,8 +1194,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237651",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188961",
     "subtechniques": [
       {
         "id": "T1087.004",
@@ -1206,7 +1206,7 @@
   {
     "technique_id": "T1087.004",
     "name": "Cloud Account",
-    "description": "",
+    "description": "Adversaries may attempt to get a listing of cloud accounts. Cloud accounts are those created and configured by an organization for use by users, remote support, services, or for administration of resources within a cloud service provider or SaaS application.With authenticated access there are several tools that can be used to find accounts. TheGet-MsolRoleMemberPowerShell cmdlet can be used to obtain account names given a role or permissions group in Office 365.[1][2]The Azure CLI (AZ CLI) also provides an interface to obtain user accounts with authenticated access to a domain. The commandaz ad user listwill list all users within a domain.[3][4]The AWS commandaws iam list-usersmay be used to obtain a list of users in the current account whileaws iam list-rolescan obtain IAM roles that have a specified path prefix.[5][6]In GCP,gcloud iam service-accounts listandgcloud projects get-iam-policymay be used to obtain a listing of service accounts and users in a project.[7]",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1219,13 +1219,13 @@
     "parent_technique": "Account Discovery",
     "parent_technique_id": "T1087",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237655"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188965"
   },
   {
     "technique_id": "T1538",
     "name": "Cloud Service Dashboard",
-    "description": "",
+    "description": "An adversary may use a cloud service dashboard GUI with stolen credentials to gain useful information from an operational cloud environment, such as specific services, resources, and features. For example, the GCP Command Center can be used to view all assets, review findings of potential security risks, and run additional queries, such as finding public IP addresses and open ports.[1]Depending on the configuration of the environment, an adversary may be able to enumerate more information via the graphical dashboard than an API. This also allows the adversary to gain information without manually making any API requests.",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1238,14 +1238,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237659",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188968",
     "subtechniques": []
   },
   {
     "technique_id": "T1526",
     "name": "Cloud Service Discovery",
-    "description": "",
+    "description": "An adversary may attempt to enumerate the cloud services running on a system after gaining access. These methods can differ from platform-as-a-service (PaaS), to infrastructure-as-a-service (IaaS), or software-as-a-service (SaaS). Many services exist throughout the various cloud providers and can include Continuous Integration and Continuous Delivery (CI/CD), Lambda Functions, Entra ID, etc. They may also include security services, such as AWS GuardDuty and Microsoft Defender for Cloud, and logging services, such as AWS CloudTrail and Google Cloud Audit Logs.Adversaries may attempt to discover information about the services enabled throughout the environment. Azure tools and APIs, such as the Microsoft Graph API and Azure Resource Manager API, can enumerate resources and services, including applications, management groups, resources and policy definitions, and their relationships that are accessible by an identity.[1][2]For example, Stormspotter is an open source tool for enumerating and constructing a graph for Azure resources and services, and Pacu is an open source AWS exploitation framework that supports several methods for discovering cloud services.[3][4]Adversaries may use the information gained to shape follow-on behaviors, such as targeting data or credentials from enumerated services or evading identified defenses throughDisable or Modify ToolsorDisable or Modify Cloud Logs.",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1258,14 +1258,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237662",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188972",
     "subtechniques": []
   },
   {
     "technique_id": "T1201",
     "name": "Password Policy Discovery",
-    "description": "",
+    "description": "Adversaries may attempt to access detailed information about the password policy used within an enterprise network or cloud environment. Password policies are a way to enforce complex passwords that are difficult to guess or crack throughBrute Force. This information may help the adversary to create a list of common passwords and launch dictionary and/or brute force attacks which adheres to the policy (e.g. if the minimum password length should be 8, then not trying passwords such as 'pass123'; not checking for more than 3-4 passwords per account if the lockout is set to 6 as to not lock out accounts).Password policies can be set and discovered on Windows, Linux, and macOS systems via various command shell utilities such asnet accounts (/domain),Get-ADDefaultDomainPasswordPolicy,chage -l,cat /etc/pam.d/common-password, andpwpolicy getaccountpolicies[1][2]. Adversaries may also leverage aNetwork Device CLIon network devices to discover password policy information (e.g.show aaa,show aaa common-criteria policy all).[3]Password policies can be discovered in cloud environments using available APIs such asGetAccountPasswordPolicyin AWS[4].",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1278,14 +1278,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237666",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188975",
     "subtechniques": []
   },
   {
     "technique_id": "T1069",
     "name": "Permission Groups Discovery",
-    "description": "",
+    "description": "Adversaries may attempt to discover group and permission settings. This information can help adversaries determine which user accounts and groups are available, the membership of users in particular groups, and which users and groups have elevated permissions.Adversaries may attempt to discover group permission settings in many different ways. This data may provide the adversary with information about the compromised environment that can be used in follow-on activity and targeting.[1]",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1298,8 +1298,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237670",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188979",
     "subtechniques": [
       {
         "id": "T1069.003",
@@ -1310,7 +1310,7 @@
   {
     "technique_id": "T1069.003",
     "name": "Cloud Groups",
-    "description": "",
+    "description": "Adversaries may attempt to find cloud groups and permission settings. The knowledge of cloud permission groups can help adversaries determine the particular roles of users and groups within an environment, as well as which users are associated with a particular group.With authenticated access there are several tools that can be used to find permissions groups. TheGet-MsolRolePowerShell cmdlet can be used to obtain roles and permissions groups for Exchange and Office 365 accounts[1][2].Azure CLI (AZ CLI) and the Google Cloud Identity Provider API also provide interfaces to obtain permissions groups. The commandaz ad user get-member-groupswill list groups associated to a user account for Azure while the API endpointGET https://cloudidentity.googleapis.com/v1/groupslists group resources available to a user for Google.[3][4][5]In AWS, the commandsListRolePoliciesandListAttachedRolePoliciesallow users to enumerate the policies attached to a role.[6]Adversaries may attempt to list ACLs for objects to determine the owner and other accounts with access to the object, for example, via the AWSGetBucketAclAPI[7]. Using this information an adversary can target accounts with permissions to a given object or leverage accounts they have already compromised to access the object.",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1323,13 +1323,13 @@
     "parent_technique": "Permission Groups Discovery",
     "parent_technique_id": "T1069",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237674"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.188983"
   },
   {
     "technique_id": "T1534",
     "name": "Internal Spearphishing",
-    "description": "",
+    "description": "After they already have access to accounts or systems within the environment, adversaries may use internal spearphishing to gain access to additional information or compromise other users within the same organization. Internal spearphishing is multi-staged campaign where a legitimate account is initially compromised either by controlling the user's device or by compromising the account credentials of the user. Adversaries may then attempt to take advantage of the trusted internal account to increase the likelihood of tricking more victims into falling for phish attempts, often incorporatingImpersonation.[1]For example, adversaries may leverageSpearphishing AttachmentorSpearphishing Linkas part of internal spearphishing to deliver a payload or redirect to an external site to capture credentials throughInput Captureon sites that mimic login interfaces.Adversaries may also leverage internal chat apps, such as Microsoft Teams, to spread malicious content or engage users in attempts to capture sensitive information and/or credentials.[2]",
     "tactic": "Lateral Movement",
     "tactics": [
       "Lateral Movement"
@@ -1342,14 +1342,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237796",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189098",
     "subtechniques": []
   },
   {
     "technique_id": "T1072",
     "name": "Software Deployment Tools",
-    "description": "",
+    "description": "Adversaries may gain access to and use centralized software suites installed within an enterprise to execute commands and move laterally through the network. Configuration management and software deployment applications may be used in an enterprise network or cloud environment for routine administration purposes. These systems may also be integrated into CI/CD pipelines. Examples of such solutions include: SCCM, HBSS, Altiris, AWS Systems Manager, Microsoft Intune, Azure Arc, and GCP Deployment Manager.Access to network-wide or enterprise-wide endpoint management software may enable an adversary to achieve remote code execution on all connected systems. The access may be used to laterally move to other systems, gather information, or cause a specific effect, such as wiping the hard drives on all endpoints.SaaS-based configuration management services may allow for broadCloud Administration Commandon cloud-hosted instances, as well as the execution of arbitrary commands on on-premises endpoints. For example, Microsoft Configuration Manager allows Global or Intune Administrators to run scripts as SYSTEM on on-premises devices joined to Entra ID.[1]Such services may also utilizeWeb Protocolsto communicate back to adversary owned infrastructure.[2]Network infrastructure devices may also have configuration management tools that can be similarly abused by adversaries.[3]The permissions required for this action vary by system configuration; local credentials may be sufficient with direct access to the third-party system, or specific domain credentials may be required. However, the system may require an administrative account to log in or to access specific functionality.",
     "tactic": "Lateral Movement",
     "tactics": [
       "Lateral Movement"
@@ -1362,14 +1362,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237800",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189101",
     "subtechniques": []
   },
   {
     "technique_id": "T1080",
     "name": "Taint Shared Content",
-    "description": "",
+    "description": "Adversaries may deliver payloads to remote systems by adding content to shared storage locations, such as network drives or internal code repositories. Content stored on network drives or in other shared locations may be tainted by adding malicious programs, scripts, or exploit code to otherwise valid files. Once a user opens the shared tainted content, the malicious portion can be executed to run the adversary's code on a remote system. Adversaries may use tainted shared content to move laterally.A directory share pivot is a variation on this technique that uses several other techniques to propagate malware when users access a shared network directory. It usesShortcut Modificationof directory .LNK files that useMasqueradingto look like the real directories, which are hidden throughHidden Files and Directories. The malicious .LNK-based directories have an embedded command that executes the hidden malware file in the directory and then opens the real intended directory so that the user's expected action still occurs. When used with frequently used network directories, the technique may result in frequent reinfections and broad access to systems and potentially to new and higher privileged accounts.[1]Adversaries may also compromise shared network directories through binary infections by appending or prepending its code to the healthy binary on the shared network directory. The malware may modify the original entry point (OEP) of the healthy binary to ensure that it is executed before the legitimate code. The infection could continue to spread via the newly infected file when it is executed by a remote system. These infections may target both binary and non-binary formats that end with extensions including, but not limited to, .EXE, .DLL, .SCR, .BAT, and/or .VBS.",
     "tactic": "Lateral Movement",
     "tactics": [
       "Lateral Movement"
@@ -1382,14 +1382,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237803",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189104",
     "subtechniques": []
   },
   {
     "technique_id": "T1550",
     "name": "Use Alternate Authentication Material",
-    "description": "",
+    "description": "Adversaries may use alternate authentication material, such as password hashes, Kerberos tickets, and application access tokens, in order to move laterally within an environment and bypass normal system access controls.Authentication processes generally require a valid identity (e.g., username) along with one or more authentication factors (e.g., password, pin, physical smart card, token generator, etc.). Alternate authentication material is legitimately generated by systems after a user or application successfully authenticates by providing a valid identity and the required authentication factor(s). Alternate authentication material may also be generated during the identity creation process.[1][2]Caching alternate authentication material allows the system to verify an identity has successfully authenticated without asking the user to reenter authentication factor(s). Because the alternate authentication must be maintained by the system—either in memory or on disk—it may be at risk of being stolen throughCredential Accesstechniques. By stealing alternate authentication material, adversaries are able to bypass system access controls and authenticate to systems without knowing the plaintext password or any additional authentication factors.",
     "tactic": "Lateral Movement",
     "tactics": [
       "Lateral Movement"
@@ -1402,8 +1402,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237808",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189108",
     "subtechniques": [
       {
         "id": "T1550.001",
@@ -1418,7 +1418,7 @@
   {
     "technique_id": "T1550.001",
     "name": "Application Access Token",
-    "description": "",
+    "description": "Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used in lieu of login credentials.Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used to access resources in cloud, container-based applications, and software-as-a-service (SaaS).[1]OAuth is one commonly implemented framework that issues tokens to users for access to systems. These frameworks are used collaboratively to verify the user and determine what actions the user is allowed to perform. Once identity is established, the token allows actions to be authorized, without passing the actual credentials of the user. Therefore, compromise of the token can grant the adversary access to resources of other sites through a malicious application.[2]For example, with a cloud-based email service, once an OAuth access token is granted to a malicious application, it can potentially gain long-term access to features of the user account if a \"refresh\" token enabling background access is awarded.[3]With an OAuth access token an adversary can use the user-granted REST API to perform functions such as email searching and contact enumeration.[4]Compromised access tokens may be used as an initial step in compromising other services. For example, if a token grants access to a victim’s primary email, the adversary may be able to extend access to all other services which the target subscribes by triggering forgotten password routines. In AWS and GCP environments, adversaries can trigger a request for a short-lived access token with the privileges of another user account.[5][6]The adversary can then use this token to request data or perform actions the original account could not. If permissions for this feature are misconfigured – for example, by allowing all users to request a token for a particular account - an adversary may be able to gain initial access to a Cloud Account or escalate their privileges.[7]Direct API access through a token negates the effectiveness of a second authentication factor and may be immune to intuitive countermeasures like changing passwords. For example, in AWS environments, an adversary who compromises a user’s AWS API credentials may be able to use thests:GetFederationTokenAPI call to create a federated user session, which will have the same permissions as the original user but may persist even if the original user credentials are deactivated.[8]Additionally, access abuse over an API channel can be difficult to detect even from the service provider end, as the access can still align well with a legitimate workflow.",
     "tactic": "Lateral Movement",
     "tactics": [
       "Lateral Movement"
@@ -1431,13 +1431,13 @@
     "parent_technique": "Use Alternate Authentication Material",
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237812"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189112"
   },
   {
     "technique_id": "T1550.004",
     "name": "Web Session Cookie",
-    "description": "",
+    "description": "Adversaries can use stolen session cookies to authenticate to web applications and services. This technique bypasses some multi-factor authentication protocols since the session is already authenticated.[1]Authentication cookies are commonly used in web applications, including cloud-based services, after a user has authenticated to the service so credentials are not passed and re-authentication does not need to occur as frequently. Cookies are often valid for an extended period of time, even if the web application is not actively used. After the cookie is obtained throughSteal Web Session CookieorWeb Cookies, the adversary may then import the cookie into a browser they control and is then able to use the site or application as the user for as long as the session cookie is active. Once logged into the site, an adversary can access sensitive information, read email, or perform actions that the victim account has permissions to perform.There have been examples of malware targeting session cookies to bypass multi-factor authentication systems.[2]",
     "tactic": "Lateral Movement",
     "tactics": [
       "Lateral Movement"
@@ -1450,13 +1450,13 @@
     "parent_technique": "Use Alternate Authentication Material",
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237815"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189115"
   },
   {
     "technique_id": "T1119",
     "name": "Automated Collection",
-    "description": "",
+    "description": "Once established within a system or network, an adversary may use automated techniques for collecting internal data. Methods for performing this technique could include use of aCommand and Scripting Interpreterto search for and copy information fitting set criteria such as file type, location, or name at specific time intervals.In cloud-based environments, adversaries may also use cloud APIs, data pipelines, command line interfaces, or extract, transform, and load (ETL) services to automatically collect data.[1]This functionality could also be built into remote access tools.This technique may incorporate use of other techniques such asFile and Directory DiscoveryandLateral Tool Transferto identify and move files, as well asCloud Service DashboardandCloud Storage Object Discoveryto identify resources in cloud environments.",
     "tactic": "Collection",
     "tactics": [
       "Collection"
@@ -1469,14 +1469,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237944",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189220",
     "subtechniques": []
   },
   {
     "technique_id": "T1530",
     "name": "Data from Cloud Storage",
-    "description": "",
+    "description": "Adversaries may access data from cloud storage.Many IaaS providers offer solutions for online data object storage such as Amazon S3, Azure Storage, and Google Cloud Storage. Similarly, SaaS enterprise platforms such as Office 365 and Google Workspace provide cloud-based document storage to users through services such as OneDrive and Google Drive, while SaaS application providers such as Slack, Confluence, Salesforce, and Dropbox may provide cloud storage solutions as a peripheral or primary use case of their platform.In some cases, as with IaaS-based cloud storage, there exists no overarching application (such as SQL or Elasticsearch) with which to interact with the stored objects: instead, data from these solutions is retrieved directly though theCloud API. In SaaS applications, adversaries may be able to collect this data directly from APIs or backend cloud storage objects, rather than through their front-end application or interface (i.e.,Data from Information Repositories).Adversaries may collect sensitive data from these cloud storage solutions. Providers typically offer security guides to help end users configure systems, though misconfigurations are a common problem.[1][2][3]There have been numerous incidents where cloud storage has been improperly secured, typically by unintentionally allowing public access to unauthenticated users, overly-broad access by all users, or even access for any anonymous person outside the control of the Identity Access Management system without even needing basic user permissions.This open access may expose various types of sensitive data, such as credit cards, personally identifiable information, or medical records.[4][5][6][7]Adversaries may also obtain then abuse leaked credentials from source repositories, logs, or other means as a way to gain access to cloud storage objects.",
     "tactic": "Collection",
     "tactics": [
       "Collection"
@@ -1489,14 +1489,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237948",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189224",
     "subtechniques": []
   },
   {
     "technique_id": "T1213",
     "name": "Data from Information Repositories",
-    "description": "",
+    "description": "Adversaries may leverage information repositories to mine valuable information. Information repositories are tools that allow for storage of information, typically to facilitate collaboration or information sharing between users, and can store a wide variety of data that may aid adversaries in further objectives, such as Credential Access, Lateral Movement, or Defense Evasion, or direct access to the target information. Adversaries may also abuse external sharing features to share sensitive documents with recipients outside of the organization (i.e.,Transfer Data to Cloud Account).The following is a brief list of example information that may hold potential value to an adversary and may also be found on an information repository:Policies, procedures, and standardsPhysical / logical network diagramsSystem architecture diagramsTechnical system documentationTesting / development credentials (i.e.,Unsecured Credentials)Work / project schedulesSource code snippetsLinks to network shares and other internal resourcesContact or other sensitive information about business partners and customers, including personally identifiable information (PII)Information stored in a repository may vary based on the specific instance or environment. Specific common information repositories include the following:Storage services such as IaaS databases, enterprise databases, and more specialized platforms such as customer relationship management (CRM) databasesCollaboration platforms such as SharePoint, Confluence, and code repositoriesMessaging platforms such as Slack and Microsoft TeamsIn some cases, information repositories have been improperly secured, typically by unintentionally allowing for overly-broad access by all users or even public access to unauthenticated users. This is particularly common with cloud-native or cloud-hosted services, such as AWS Relational Database Service (RDS), Redis, or ElasticSearch.[1][2][3]",
     "tactic": "Collection",
     "tactics": [
       "Collection"
@@ -1509,8 +1509,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237952",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189227",
     "subtechniques": [
       {
         "id": "T1213.001",
@@ -1533,7 +1533,7 @@
   {
     "technique_id": "T1213.001",
     "name": "Confluence",
-    "description": "",
+    "description": "Adversaries may leverage Confluence repositories to mine valuable information. Often found in development environments alongside Atlassian JIRA, Confluence is generally used to store development-related documentation, however, in general may contain more diverse categories of useful information, such as:Policies, procedures, and standardsPhysical / logical network diagramsSystem architecture diagramsTechnical system documentationTesting / development credentials (i.e.,Unsecured Credentials)Work / project schedulesSource code snippetsLinks to network shares and other internal resources",
     "tactic": "Collection",
     "tactics": [
       "Collection"
@@ -1546,13 +1546,13 @@
     "parent_technique": "Data from Information Repositories",
     "parent_technique_id": "T1213",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237955"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189231"
   },
   {
     "technique_id": "T1213.003",
     "name": "Code Repositories",
-    "description": "",
+    "description": "Adversaries may leverage code repositories to collect valuable information. Code repositories are tools/services that store source code and automate software builds. They may be hosted internally or privately on third party sites such as Github, GitLab, SourceForge, and BitBucket. Users typically interact with code repositories through a web application or command-line utilities such as git.Once adversaries gain access to a victim network or a private code repository, they may collect sensitive information such as proprietary source code orUnsecured Credentialscontained within software's source code. Having access to software's source code may allow adversaries to developExploits, while credentials may provide access to additional resources usingValid Accounts.[1][2]Note:This is distinct fromCode Repositories, which focuses on conductingReconnaissancevia public code repositories.",
     "tactic": "Collection",
     "tactics": [
       "Collection"
@@ -1565,13 +1565,13 @@
     "parent_technique": "Data from Information Repositories",
     "parent_technique_id": "T1213",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237959"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189234"
   },
   {
     "technique_id": "T1213.004",
     "name": "Customer Relationship Management Software",
-    "description": "",
+    "description": "Adversaries may leverage Customer Relationship Management (CRM) software to mine valuable information. CRM software is used to assist organizations in tracking and managing customer interactions, as well as storing customer data.Once adversaries gain access to a victim organization, they may mine CRM software for customer data. This may include personally identifiable information (PII) such as full names, emails, phone numbers, and addresses, as well as additional details such as purchase histories and IT support interactions. By collecting this data, an adversary may be able to send personalizedPhishingemails, engage in SIM swapping, or otherwise target the organization’s customers in ways that enable financial gain or the compromise of additional organizations.[1][2][3]CRM software may be hosted on-premises or in the cloud. Information stored in these solutions may vary based on the specific instance or environment. Examples of CRM software include Microsoft Dynamics 365, Salesforce, Zoho, Zendesk, and HubSpot.",
     "tactic": "Collection",
     "tactics": [
       "Collection"
@@ -1584,13 +1584,13 @@
     "parent_technique": "Data from Information Repositories",
     "parent_technique_id": "T1213",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237963"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189238"
   },
   {
     "technique_id": "T1213.005",
     "name": "Messaging Applications",
-    "description": "",
+    "description": "Adversaries may leverage chat and messaging applications, such as Microsoft Teams, Google Chat, and Slack, to mine valuable information.The following is a brief list of example information that may hold potential value to an adversary and may also be found on messaging applications:Testing / development credentials (i.e.,Chat Messages)Source code snippetsLinks to network shares and other internal resourcesProprietary data[1]Discussions about ongoing incident response efforts[2][3]In addition to exfiltrating data from messaging applications, adversaries may leverage data from chat messages in order to improve their targeting - for example, by learning more about an environment or evading ongoing incident response efforts.[4][5]",
     "tactic": "Collection",
     "tactics": [
       "Collection"
@@ -1603,13 +1603,13 @@
     "parent_technique": "Data from Information Repositories",
     "parent_technique_id": "T1213",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.237966"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189241"
   },
   {
     "technique_id": "T1048",
     "name": "Exfiltration Over Alternative Protocol",
-    "description": "",
+    "description": "Adversaries may steal data by exfiltrating it over a different protocol than that of the existing command and control channel. The data may also be sent to an alternate network location from the main command and control server.Alternate protocols include FTP, SMTP, HTTP/S, DNS, SMB, or any other network protocol not being used as the main command and control channel. Adversaries may also opt to encrypt and/or obfuscate these alternate channels.Exfiltration Over Alternative Protocolcan be done using various common operating system utilities such asNet/SMB or FTP.[1]On macOS and Linuxcurlmay be used to invoke protocols such as HTTP/S or FTP/S to exfiltrate data from a system.[2]Many IaaS and SaaS platforms (such as Microsoft Exchange, Microsoft SharePoint, GitHub, and AWS S3) support the direct download of files, emails, source code, and other sensitive information via the web console orCloud API.",
     "tactic": "Exfiltration",
     "tactics": [
       "Exfiltration"
@@ -1622,14 +1622,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.238110",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189380",
     "subtechniques": []
   },
   {
     "technique_id": "T1567",
     "name": "Exfiltration Over Web Service",
-    "description": "",
+    "description": "Adversaries may use an existing, legitimate external Web service to exfiltrate data rather than their primary command and control channel. Popular Web services acting as an exfiltration mechanism may give a significant amount of cover due to the likelihood that hosts within a network are already communicating with them prior to compromise. Firewall rules may also already exist to permit traffic to these services.Web service providers also commonly use SSL/TLS encryption, giving adversaries an added level of protection.",
     "tactic": "Exfiltration",
     "tactics": [
       "Exfiltration"
@@ -1642,8 +1642,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.238115",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189385",
     "subtechniques": [
       {
         "id": "T1567.004",
@@ -1654,7 +1654,7 @@
   {
     "technique_id": "T1567.004",
     "name": "Exfiltration Over Webhook",
-    "description": "",
+    "description": "Adversaries may exfiltrate data to a webhook endpoint rather than over their primary command and control channel. Webhooks are simple mechanisms for allowing a server to push data over HTTP/S to a client without the need for the client to continuously poll the server.[1]Many public and commercial services, such as Discord, Slack, andwebhook.site, support the creation of webhook endpoints that can be used by other services, such as Github, Jira, or Trello.[2]When changes happen in the linked services (such as pushing a repository update or modifying a ticket), these services will automatically post the data to the webhook endpoint for use by the consuming application.Adversaries may link an adversary-owned environment to a victim-owned SaaS service to achieve repeatedAutomated Exfiltrationof emails, chat messages, and other data.[3]Alternatively, instead of linking the webhook endpoint to a service, an adversary can manually post staged data directly to the URL in order to exfiltrate it.[4]Access to webhook endpoints is often over HTTPS, which gives the adversary an additional level of protection. Exfiltration leveraging webhooks can also blend in with normal network traffic if the webhook endpoint points to a commonly used SaaS application or collaboration service.[5][6][7]",
     "tactic": "Exfiltration",
     "tactics": [
       "Exfiltration"
@@ -1667,13 +1667,13 @@
     "parent_technique": "Exfiltration Over Web Service",
     "parent_technique_id": "T1567",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.238121"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189389"
   },
   {
     "technique_id": "T1537",
     "name": "Transfer Data to Cloud Account",
-    "description": "",
+    "description": "Adversaries may exfiltrate data by transferring the data, including through sharing/syncing and creating backups of cloud environments, to another cloud account they control on the same service.A defender who is monitoring for large transfers to outside the cloud environment through normal file transfers or over command and control channels may not be watching for data transfers to another account within the same cloud provider. Such transfers may utilize existing cloud provider APIs and the internal address space of the cloud provider to blend into normal traffic or avoid data transfers over external network interfaces.[1]Adversaries may also use cloud-native mechanisms to share victim data with adversary-controlled cloud accounts, such as creating anonymous file sharing links or, in Azure, a shared access signature (SAS) URI.[2]Incidents have been observed where adversaries have created backups of cloud instances and transferred them to separate accounts.[3]",
     "tactic": "Exfiltration",
     "tactics": [
       "Exfiltration"
@@ -1686,14 +1686,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.238126",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189394",
     "subtechniques": []
   },
   {
     "technique_id": "T1531",
     "name": "Account Access Removal",
-    "description": "",
+    "description": "Adversaries may interrupt availability of system and network resources by inhibiting access to accounts utilized by legitimate users. Accounts may be deleted, locked, or manipulated (ex: changed credentials) to remove access to accounts. Adversaries may also subsequently log off and/or perform aSystem Shutdown/Rebootto set malicious changes into place.[1][2]In Windows,Netutility,Set-LocalUserandSet-ADAccountPasswordPowerShellcmdlets may be used by adversaries to modify user accounts. Accounts could also be disabled by Group Policy. In Linux, thepasswdutility may be used to change passwords. On ESXi servers, accounts can be removed or modified via esxcli (system account set,system account remove).Adversaries who use ransomware or similar attacks may first perform this and other Impact behaviors, such asData DestructionandDefacement, in order to impede incident response/recovery before completing theData Encrypted for Impactobjective.",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1706,14 +1706,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.238218",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189487",
     "subtechniques": []
   },
   {
     "technique_id": "T1657",
     "name": "Financial Theft",
-    "description": "",
+    "description": "Adversaries may steal monetary resources from targets through extortion, social engineering, technical theft, or other methods aimed at their own financial gain at the expense of the availability of these resources for victims. Financial theft is the ultimate objective of several popular campaign types including extortion by ransomware,[1]business email compromise (BEC) and fraud,[2]\"pig butchering,\"[3]bank hacking,[4]and exploiting cryptocurrency networks.[5]Adversaries mayCompromise Accountsto conduct unauthorized transfers of funds.[6]In the case of business email compromise or email fraud, an adversary may utilizeImpersonationof a trusted entity. Once the social engineering is successful, victims can be deceived into sending money to financial accounts controlled by an adversary.[2]This creates the potential for multiple victims (i.e., compromised accounts as well as the ultimate monetary loss) in incidents involving financial theft.[7]Extortion by ransomware may occur, for example, when an adversary demands payment from a victim afterData Encrypted for Impact[8]andExfiltrationof data, followed by threatening to leak sensitive data to the public unless payment is made to the adversary.[9]Adversaries may use dedicated leak sites to distribute victim data.[10]Due to the potentially immense business impact of financial theft, an adversary may abuse the possibility of financial theft and seeking monetary gain to divert attention from their true goals such asData Destructionand business disruption.[11]",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1726,14 +1726,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.238222",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189491",
     "subtechniques": []
   },
   {
     "technique_id": "T1496",
     "name": "Resource Hijacking",
-    "description": "",
+    "description": "Adversaries may leverage the resources of co-opted systems to complete resource-intensive tasks, which may impact system and/or hosted service availability.Resource hijacking may take a number of different forms. For example, adversaries may:Leverage compute resources in order to mine cryptocurrencySell network bandwidth to proxy networksGenerate SMS traffic for profitAbuse cloud-based messaging services to send large quantities of spam messagesIn some cases, adversaries may leverage multiple types of Resource Hijacking at once.[1]",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1746,8 +1746,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.238226",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189495",
     "subtechniques": [
       {
         "id": "T1496.003",
@@ -1762,7 +1762,7 @@
   {
     "technique_id": "T1496.003",
     "name": "SMS Pumping",
-    "description": "",
+    "description": "Adversaries may leverage messaging services for SMS pumping, which may impact system and/or hosted service availability.[1]SMS pumping is a type of telecommunications fraud whereby a threat actor first obtains a set of phone numbers from a telecommunications provider, then leverages a victim’s messaging infrastructure to send large amounts of SMS messages to numbers in that set. By generating SMS traffic to their phone number set, a threat actor may earn payments from the telecommunications provider.[2]Threat actors often use publicly available web forms, such as one-time password (OTP) or account verification fields, in order to generate SMS traffic. These fields may leverage services such as Twilio, AWS SNS, and Amazon Cognito in the background.[1][3]In response to the large quantity of requests, SMS costs may increase and communication channels may become overwhelmed.[1]",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1775,13 +1775,13 @@
     "parent_technique": "Resource Hijacking",
     "parent_technique_id": "T1496",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.238230"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189498"
   },
   {
     "technique_id": "T1496.004",
     "name": "Cloud Service Hijacking",
-    "description": "",
+    "description": "Adversaries may leverage compromised software-as-a-service (SaaS) applications to complete resource-intensive tasks, which may impact hosted service availability.For example, adversaries may leverage email and messaging services, such as AWS Simple Email Service (SES), AWS Simple Notification Service (SNS), SendGrid, and Twilio, in order to send large quantities of spam /Phishingemails and SMS messages.[1][2][3]Alternatively, they may engage in LLMJacking by leveraging reverse proxies to hijack the power of cloud-hosted AI models.[4][5]In some cases, adversaries may leverage services that the victim is already using. In others, particularly when the service is part of a larger cloud platform, they may first enable the service.[4]Leveraging SaaS applications may cause the victim to incur significant financial costs, use up service quotas, and otherwise impact availability.",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1794,7 +1794,7 @@
     "parent_technique": "Resource Hijacking",
     "parent_technique_id": "T1496",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T11:15:03.238233"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:50:55.189501"
   }
 ]

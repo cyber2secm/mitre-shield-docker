@@ -55,17 +55,17 @@ export default function AnalyticsPage() {
     : techniques.filter(t => t.platforms?.includes(selectedPlatform));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100">
-      <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200/60 sticky top-0 z-40">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200/60 dark:border-slate-700/60 sticky top-0 z-40">
         <div className="px-6 py-6">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 dark:from-purple-500 dark:to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                 <BarChart3 className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-slate-900">Analytics Dashboard</h1>
-                <p className="text-slate-600 text-sm font-medium">
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Analytics Dashboard</h1>
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">
                   {selectedPlatform === 'all'
                     ? 'Detection coverage and performance insights'
                     : `Insights for ${selectedPlatform}`
@@ -75,7 +75,7 @@ export default function AnalyticsPage() {
             </div>
             <div>
               <Select value={selectedPlatform} onValueChange={setSelectedPlatform}>
-                <SelectTrigger className="w-48 bg-white border-slate-200">
+                <SelectTrigger className="w-48 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                   <SelectValue placeholder="Select Platform" />
                 </SelectTrigger>
                 <SelectContent>

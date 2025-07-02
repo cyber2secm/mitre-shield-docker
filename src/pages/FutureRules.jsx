@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { FutureRule } from "@/api/entities";
 import { DetectionRule } from "@/api/entities";
@@ -6,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Filter, Plus, Clock, Calendar, User } from "lucide-react";
+import { Search, Filter, Plus, Clock, Calendar, User, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -14,6 +13,15 @@ import FutureRulesTable from "../components/future-rules/FutureRulesTable";
 import FutureRulesStats from "../components/future-rules/FutureRulesStats";
 import FutureRuleForm from "../components/future-rules/FutureRuleForm";
 import RuleEditor from "../components/matrix/RuleEditor";
+
+const TEAM_MEMBERS = [
+  "Isaac Krzywanowski",
+  "Leeroy Perera", 
+  "Alexey Didusenko",
+  "Chava Connack",
+  "Adir Amar",
+  "Maria Prusskov"
+];
 
 export default function FutureRulesPage() {
   const [futureRules, setFutureRules] = useState([]);
@@ -27,7 +35,9 @@ export default function FutureRulesPage() {
     platform: "all",
     status: "all",
     priority: "all",
-    tactic: "all"
+    tactic: "all",
+    rule_type: "all",
+    assigned_to: "all"
   });
 
   useEffect(() => {
@@ -75,6 +85,18 @@ export default function FutureRulesPage() {
 
     if (filters.tactic !== "all") {
       filtered = filtered.filter(rule => rule.tactic === filters.tactic);
+    }
+
+    if (filters.rule_type !== "all") {
+      filtered = filtered.filter(rule => rule.rule_type === filters.rule_type);
+    }
+
+    if (filters.assigned_to !== "all") {
+      if (filters.assigned_to === "unassigned") {
+        filtered = filtered.filter(rule => !rule.assigned_to || rule.assigned_to === "Unassigned" || rule.assigned_to.trim() === "");
+      } else {
+        filtered = filtered.filter(rule => rule.assigned_to === filters.assigned_to);
+      }
     }
 
     setFilteredRules(filtered);
@@ -159,6 +181,7 @@ export default function FutureRulesPage() {
     platform: promotingRule.platform,
     tactic: promotingRule.tactic,
     severity: promotingRule.priority, // Map FutureRule priority to DetectionRule severity
+    rule_type: promotingRule.rule_type || 'SOC', // Map rule_type, default to SOC if not set
     assigned_user: promotingRule.assigned_to === 'Unassigned' ? '' : promotingRule.assigned_to, // Map assigned_to, handle 'Unassigned'
     status: 'Testing', // Default status for promoted rules
     false_positive_rate: 'Medium', // Default FPR
@@ -168,24 +191,27 @@ export default function FutureRulesPage() {
   } : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-slate-100">
-      <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200/60 sticky top-0 z-40">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200/60 dark:border-slate-700/60 sticky top-0 z-40">
         <div className="px-6 py-6">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 dark:from-purple-500 dark:to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                 <Clock className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-slate-900">Future Rules</h1>
-                <p className="text-slate-600 text-sm font-medium">Plan and track upcoming detection rule implementations</p>
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Future Rules</h1>
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">Plan and track upcoming detection rule implementations</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
               <Button
-                onClick={() => setShowForm(!showForm)}
-                className="bg-purple-600 hover:bg-purple-700 flex items-center gap-2"
+                onClick={() => {
+                  setEditingRule(null); // Clear any existing edit state
+                  setShowForm(!showForm);
+                }}
+                className="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 flex items-center gap-2"
               >
                 <Plus className="w-4 h-4" />
                 Add Future Rule
@@ -199,15 +225,15 @@ export default function FutureRulesPage() {
         <div className="max-w-7xl mx-auto space-y-6">
           <FutureRulesStats rules={futureRules} />
 
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm border border-slate-200/60 p-6">
+          <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-xl shadow-sm border border-slate-200/60 dark:border-slate-700/60 p-6">
             <div className="flex flex-col lg:flex-row gap-4 mb-6">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 w-4 h-4" />
                 <Input
                   placeholder="Search future rules by name, technique, or description..."
                   value={filters.search}
                   onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-                  className="pl-10 bg-white border-slate-200 focus:border-purple-300 focus:ring-purple-200"
+                  className="pl-10 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:border-purple-300 dark:focus:border-purple-500 focus:ring-purple-200 dark:focus:ring-purple-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400"
                 />
               </div>
               
@@ -216,7 +242,7 @@ export default function FutureRulesPage() {
                   value={filters.platform} 
                   onValueChange={(value) => setFilters(prev => ({ ...prev, platform: value }))}
                 >
-                  <SelectTrigger className="w-40 bg-white border-slate-200">
+                  <SelectTrigger className="w-40 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                     <SelectValue placeholder="Platform" />
                   </SelectTrigger>
                   <SelectContent>
@@ -236,7 +262,7 @@ export default function FutureRulesPage() {
                   value={filters.status} 
                   onValueChange={(value) => setFilters(prev => ({ ...prev, status: value }))}
                 >
-                  <SelectTrigger className="w-40 bg-white border-slate-200">
+                  <SelectTrigger className="w-40 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                     <SelectValue placeholder="Status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -251,7 +277,7 @@ export default function FutureRulesPage() {
                   value={filters.priority} 
                   onValueChange={(value) => setFilters(prev => ({ ...prev, priority: value }))}
                 >
-                  <SelectTrigger className="w-32 bg-white border-slate-200">
+                  <SelectTrigger className="w-32 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                     <SelectValue placeholder="Priority" />
                   </SelectTrigger>
                   <SelectContent>
@@ -260,6 +286,36 @@ export default function FutureRulesPage() {
                     <SelectItem value="High">High</SelectItem>
                     <SelectItem value="Medium">Medium</SelectItem>
                     <SelectItem value="Low">Low</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select 
+                  value={filters.rule_type} 
+                  onValueChange={(value) => setFilters(prev => ({ ...prev, rule_type: value }))}
+                >
+                  <SelectTrigger className="w-32 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
+                    <SelectValue placeholder="Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Types</SelectItem>
+                    <SelectItem value="Product">Product</SelectItem>
+                    <SelectItem value="SOC">SOC</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select 
+                  value={filters.assigned_to} 
+                  onValueChange={(value) => setFilters(prev => ({ ...prev, assigned_to: value }))}
+                >
+                  <SelectTrigger className="w-32 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
+                    <SelectValue placeholder="Assigned to" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Users</SelectItem>
+                    <SelectItem value="unassigned">Unassigned</SelectItem>
+                    {TEAM_MEMBERS.map((member) => (
+                      <SelectItem key={member} value={member}>{member}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

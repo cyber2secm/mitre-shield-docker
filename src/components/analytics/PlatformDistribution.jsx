@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -96,8 +95,8 @@ export default function PlatformDistribution({ rules, isLoading }) {
                   <PlatformIcon platform={platform} className="w-full h-full object-contain" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-slate-800">{platform}</h4>
-                  <p className="text-xs text-slate-500">{stats.total} rules</p>
+                  <h4 className="font-medium text-slate-800 dark:text-slate-200">{platform}</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{stats.total} rules</p>
                 </div>
               </div>
               <Badge className={`${colors.bg} ${colors.text} ${colors.border} border`}>
@@ -106,12 +105,12 @@ export default function PlatformDistribution({ rules, isLoading }) {
             </div>
             
             <div className="flex items-center gap-2 text-xs">
-              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-emerald-500 rounded-full" /> <span className="text-slate-600">{stats.active} Active</span></div>
-              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-amber-500 rounded-full" /> <span className="text-slate-600">{stats.testing} Testing</span></div>
-              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-slate-400 rounded-full" /> <span className="text-slate-600">{stats.inactive} Inactive</span></div>
+              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-emerald-500 rounded-full" /> <span className="text-slate-600 dark:text-slate-300">{stats.active} Active</span></div>
+              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-amber-500 rounded-full" /> <span className="text-slate-600 dark:text-slate-300">{stats.testing} Testing</span></div>
+              <div className="flex items-center gap-1"><div className="w-2 h-2 bg-slate-400 rounded-full" /> <span className="text-slate-600 dark:text-slate-300">{stats.inactive} Inactive</span></div>
             </div>
             
-            <div className="w-full bg-slate-200 rounded-full h-2">
+            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
               <div className={`h-2 rounded-full transition-all duration-500 ${colors.fill}`} style={{ width: `${percentage}%` }} />
             </div>
           </div>
@@ -132,7 +131,7 @@ export default function PlatformDistribution({ rules, isLoading }) {
               <span className={`font-medium ${colors.text}`}>{tactic}</span>
               <span className={`font-semibold ${colors.text}`}>{stats.total}</span>
             </div>
-            <div className="w-full bg-slate-200 rounded-full h-2">
+            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
               <div className={`h-2 rounded-full transition-all duration-500 ${colors.fill}`} style={{ width: `${percentage}%` }} />
             </div>
           </div>
@@ -142,13 +141,13 @@ export default function PlatformDistribution({ rules, isLoading }) {
   );
 
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border-slate-200">
+    <Card className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-slate-200 dark:border-slate-700">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-slate-900 dark:text-slate-100">
           {isSinglePlatform ? <Target className="w-5 h-5" /> : <BarChart2 className="w-5 h-5" />}
           {isSinglePlatform ? `Tactic Distribution for ${singlePlatformName}` : 'Rule Distribution by Platform'}
         </CardTitle>
-        <Badge variant="outline" className="w-fit">
+        <Badge variant="outline" className="w-fit border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
           {totalRules} total rules
         </Badge>
       </CardHeader>

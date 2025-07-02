@@ -30,6 +30,12 @@ const FutureRuleSchema = new mongoose.Schema({
     enum: ['Critical', 'High', 'Medium', 'Low'],
     default: 'Medium'
   },
+  rule_type: {
+    type: String,
+    required: true,
+    enum: ['Product', 'SOC'],
+    trim: true
+  },
   status: {
     type: String,
     enum: ['Planned', 'In Progress', 'Ready for Review'],
@@ -64,6 +70,7 @@ FutureRuleSchema.index({ technique_id: 1 });
 FutureRuleSchema.index({ platform: 1 });
 FutureRuleSchema.index({ status: 1 });
 FutureRuleSchema.index({ priority: 1 });
+FutureRuleSchema.index({ rule_type: 1 });
 FutureRuleSchema.index({ assigned_to: 1 });
 
 module.exports = mongoose.model('FutureRule', FutureRuleSchema); 

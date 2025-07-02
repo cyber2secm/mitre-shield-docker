@@ -283,7 +283,7 @@ export default function MatrixPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       <MatrixHeader 
         filters={filters}
         setFilters={setFilters}
@@ -317,7 +317,7 @@ export default function MatrixPage() {
           </div>
 
           {getFilteredTactics().length === 0 && !isLoading && (
-            <div className="text-center py-16 text-slate-500">
+            <div className="text-center py-16 text-slate-500 dark:text-slate-400">
               <Target className="w-16 h-16 mx-auto mb-4 opacity-50" />
               <h3 className="text-xl font-semibold mb-2">No Tactics Found</h3>
               <p className="text-sm">

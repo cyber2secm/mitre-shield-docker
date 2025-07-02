@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { DetectionRule } from "@/api/entities";
 import { Button } from "@/components/ui/button";
@@ -12,6 +11,15 @@ import RulesTable from "../components/rules/RulesTable";
 import RulesStats from "../components/rules/RulesStats";
 import ImportModal from "../components/rules/ImportModal";
 
+const TEAM_MEMBERS = [
+  "Isaac Krzywanowski",
+  "Leeroy Perera", 
+  "Alexey Didusenko",
+  "Chava Connack",
+  "Adir Amar",
+  "Maria Prusskov"
+];
+
 export default function RulesPage() {
   const [rules, setRules] = useState([]);
   const [filteredRules, setFilteredRules] = useState([]);
@@ -22,7 +30,9 @@ export default function RulesPage() {
     platform: "all",
     status: "all",
     tactic: "all",
-    severity: "all"
+    severity: "all",
+    rule_type: "all",
+    assigned_user: "all"
   });
 
   useEffect(() => {
@@ -73,6 +83,18 @@ export default function RulesPage() {
       filtered = filtered.filter(rule => rule.severity === filters.severity);
     }
 
+    if (filters.rule_type !== "all") {
+      filtered = filtered.filter(rule => rule.rule_type === filters.rule_type);
+    }
+
+    if (filters.assigned_user !== "all") {
+      if (filters.assigned_user === "unassigned") {
+        filtered = filtered.filter(rule => !rule.assigned_user || rule.assigned_user.trim() === "");
+      } else {
+        filtered = filtered.filter(rule => rule.assigned_user === filters.assigned_user);
+      }
+    }
+
     setFilteredRules(filtered);
   };
 
@@ -85,6 +107,7 @@ export default function RulesPage() {
       'Tactic': rule.tactic,
       'Status': rule.status,
       'Severity': rule.severity,
+      'Rule Type': rule.rule_type,
       'Created': new Date(rule.created_date).toLocaleDateString(),
       'Updated': new Date(rule.updated_date).toLocaleDateString()
     }));
@@ -117,17 +140,17 @@ export default function RulesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100">
-      <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200/60 sticky top-0 z-40">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200/60 dark:border-slate-700/60 sticky top-0 z-40">
         <div className="px-6 py-6">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-600 to-emerald-700 dark:from-emerald-500 dark:to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
                 <Database className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-slate-900">Detection Rules</h1>
-                <p className="text-slate-600 text-sm font-medium">Manage and monitor your XQL detection rules</p>
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Detection Rules</h1>
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">Manage and monitor your XQL detection rules</p>
               </div>
             </div>
 
@@ -136,13 +159,13 @@ export default function RulesPage() {
                 variant="outline"
                 onClick={exportToCSV}
                 disabled={filteredRules.length === 0}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
               >
                 <Download className="w-4 h-4" />
                 Export CSV
               </Button>
               <Button 
-                className="bg-emerald-600 hover:bg-emerald-700 flex items-center gap-2"
+                className="bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 flex items-center gap-2 shadow-lg"
                 onClick={() => setShowImportModal(true)}
               >
                 <Plus className="w-4 h-4" />
@@ -157,15 +180,15 @@ export default function RulesPage() {
         <div className="max-w-7xl mx-auto space-y-6">
           <RulesStats rules={rules} />
 
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm border border-slate-200/60 p-6">
+          <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-xl shadow-sm border border-slate-200/60 dark:border-slate-700/60 p-6">
             <div className="flex flex-col lg:flex-row gap-4 mb-6">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 w-4 h-4" />
                 <Input
                   placeholder="Search rules by name, ID, technique, or description..."
                   value={filters.search}
                   onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-                  className="pl-10 bg-white border-slate-200 focus:border-blue-300 focus:ring-blue-200"
+                  className="pl-10 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400"
                 />
               </div>
               
@@ -174,7 +197,7 @@ export default function RulesPage() {
                   value={filters.platform} 
                   onValueChange={(value) => setFilters(prev => ({ ...prev, platform: value }))}
                 >
-                  <SelectTrigger className="w-40 bg-white border-slate-200">
+                  <SelectTrigger className="w-40 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                     <SelectValue placeholder="Platform" />
                   </SelectTrigger>
                   <SelectContent>
@@ -194,7 +217,7 @@ export default function RulesPage() {
                   value={filters.status} 
                   onValueChange={(value) => setFilters(prev => ({ ...prev, status: value }))}
                 >
-                  <SelectTrigger className="w-32 bg-white border-slate-200">
+                  <SelectTrigger className="w-32 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                     <SelectValue placeholder="Status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -209,7 +232,7 @@ export default function RulesPage() {
                   value={filters.severity} 
                   onValueChange={(value) => setFilters(prev => ({ ...prev, severity: value }))}
                 >
-                  <SelectTrigger className="w-32 bg-white border-slate-200">
+                  <SelectTrigger className="w-32 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                     <SelectValue placeholder="Severity" />
                   </SelectTrigger>
                   <SelectContent>
@@ -218,6 +241,36 @@ export default function RulesPage() {
                     <SelectItem value="High">High</SelectItem>
                     <SelectItem value="Medium">Medium</SelectItem>
                     <SelectItem value="Low">Low</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select 
+                  value={filters.rule_type} 
+                  onValueChange={(value) => setFilters(prev => ({ ...prev, rule_type: value }))}
+                >
+                  <SelectTrigger className="w-32 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
+                    <SelectValue placeholder="Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Types</SelectItem>
+                    <SelectItem value="Product">Product</SelectItem>
+                    <SelectItem value="SOC">SOC</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select 
+                  value={filters.assigned_user} 
+                  onValueChange={(value) => setFilters(prev => ({ ...prev, assigned_user: value }))}
+                >
+                  <SelectTrigger className="w-32 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
+                    <SelectValue placeholder="Assigned User" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Users</SelectItem>
+                    <SelectItem value="unassigned">Unassigned</SelectItem>
+                    {TEAM_MEMBERS.map(member => (
+                      <SelectItem key={member} value={member}>{member}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config({ path: './config.env' });
+const { MongoClient } = require('mongodb');
 
 // Import the MitreTechnique model
 const MitreTechnique = require('./models/MitreTechnique');
@@ -13,7 +14,11 @@ const PLATFORM_MAPPING = new Map([
   ['linux', 'Linux'],
   ['cloud', ['AWS', 'Azure', 'GCP', 'Oracle']], // Cloud expands to multiple platforms
   ['containers', 'Containers'],
-  ['officesuite', 'Office Suite']
+  ['officesuite', 'Office Suite'],
+  ['identity_provider', 'Identity Provider'],
+  ['saas', 'SaaS'],
+  ['iaas', 'IaaS'],
+  ['network_devices', 'Network Devices']
 ]);
 
 async function importPlatformData(platform) {
@@ -122,6 +127,73 @@ async function importPlatformData(platform) {
   }
 }
 
+async function importAllPlatforms() {
+    console.log('🚀 Starting comprehensive platform import (excluding AI)...');
+    
+    const client = new MongoClient(process.env.MONGODB_URI || 'mongodb://localhost:27017/mitre-shield');
+    await client.connect();
+    const db = client.db('mitre-shield');
+    const collection = db.collection('mitretechniques');
+    
+    let totalImported = 0;
+    let totalWithDescriptions = 0;
+    
+    for (const [platformKey, dbPlatform] of Object.entries(PLATFORM_MAPPING)) {
+        const filename = `../mitreshire_${platformKey}_techniques.json`;
+        
+        console.log(`\n📁 Processing ${platformKey}...`);
+        
+        try {
+            // Check if file exists
+            if (!fs.existsSync(filename)) {
+                console.log(`⚠️ File not found: ${filename}`);
+                continue;
+            }
+            
+            // Load data
+            const rawData = JSON.parse(fs.readFileSync(filename, 'utf8'));
+            console.log(`📊 Loaded ${rawData.length} techniques from ${filename}`);
+            
+            // Transform data to add extraction_platform
+            const transformedData = rawData.map(tech => ({
+                ...tech,
+                extraction_platform: dbPlatform
+            }));
+            
+            // Delete existing platform data
+            const deleteResult = await collection.deleteMany({extraction_platform: dbPlatform});
+            console.log(`🗑️ Deleted ${deleteResult.deletedCount} existing ${platformKey} techniques`);
+            
+            // Import new data
+            if (transformedData.length > 0) {
+                const insertResult = await collection.insertMany(transformedData);
+                console.log(`✅ Imported ${insertResult.insertedCount} ${platformKey} techniques`);
+                
+                // Count descriptions
+                const withDesc = transformedData.filter(t => t.description && t.description.trim() !== '').length;
+                console.log(`📝 ${withDesc}/${insertResult.insertedCount} techniques have descriptions`);
+                
+                totalImported += insertResult.insertedCount;
+                totalWithDescriptions += withDesc;
+            }
+            
+        } catch (error) {
+            console.log(`❌ Error processing ${platformKey}:`, error.message);
+        }
+    }
+    
+    console.log(`\n🎉 IMPORT COMPLETE!`);
+    console.log(`📊 Total imported: ${totalImported} techniques`);
+    console.log(`📝 Total with descriptions: ${totalWithDescriptions} techniques`);
+    console.log(`💯 Description coverage: ${Math.round(totalWithDescriptions/totalImported*100)}%`);
+    
+    // Verify AI platform is still intact
+    const aiCount = await collection.countDocuments({extraction_platform: 'ai'});
+    console.log(`🤖 AI platform verified: ${aiCount} techniques preserved`);
+    
+    await client.close();
+}
+
 async function main() {
   try {
     // Connect to MongoDB
@@ -214,4 +286,6 @@ async function main() {
 
 console.log(`🚀 Starting comprehensive MITRE data import for ALL platforms...`);
 console.log(`📋 Platforms: Windows, Linux, macOS, Cloud (AWS/Azure/GCP/Oracle), Containers, Office Suite`);
-main(); 
+main();
+
+importAllPlatforms().catch(console.error); 

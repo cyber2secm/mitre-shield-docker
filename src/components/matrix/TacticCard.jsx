@@ -67,12 +67,12 @@ export default function TacticCard({ tactic, stats, onClick, isLoading }) {
           </div>
           <div className="flex items-center gap-2">
             <Target className="w-4 h-4 text-slate-500 flex-shrink-0" />
-            <Badge variant="outline" className="text-xs bg-white/80 border-slate-300">
+            <div className="inline-flex items-center px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-medium rounded-full shadow-sm border border-slate-200 dark:border-slate-600">
               {stats.parentTechniqueCount || stats.techniqueCount} techniques
               {stats.subTechniqueCount > 0 && (
-                <span className="text-slate-500 ml-1">({stats.subTechniqueCount} sub)</span>
+                <span className="text-slate-600 dark:text-slate-400 ml-1 font-normal">({stats.subTechniqueCount} sub)</span>
               )}
-            </Badge>
+            </div>
           </div>
         </CardHeader>
         

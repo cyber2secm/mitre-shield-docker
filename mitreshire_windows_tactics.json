@@ -1,6 +1,6 @@
 {
   "platform": "Windows",
-  "extraction_date": "2025-07-02T00:32:10.302725",
+  "extraction_date": "2025-07-02T13:02:37.235618",
   "tactics": [
     {
       "name": "Initial Access",
@@ -55,6 +55,7 @@
     "total_tactics": 12,
     "total_techniques": 202,
     "total_subtechniques": 403,
-    "total_items": 605
+    "total_items": 605,
+    "techniques_with_descriptions": 605
   }
 }

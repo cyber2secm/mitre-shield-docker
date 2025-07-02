@@ -4,6 +4,7 @@ MITRE ATT&CK Matrix Extractor for MitreShiled
 Extracts tactics, techniques, and SUB-TECHNIQUES from official MITRE ATT&CK matrix pages
 Adjusted for MitreShiled data schema and tactic card requirements
 Supports multiple platforms: Windows, macOS, Linux, etc.
+Enhanced with description extraction capability
 """
 
 import requests
@@ -13,6 +14,7 @@ import re
 import sys
 from datetime import datetime
 import time
+import random
 
 # MitreShiled tactic mapping (exact names used in the application)
 MITRE_SHIELD_TACTICS = {
@@ -46,6 +48,86 @@ PLATFORM_MAPPING = {
     "iaas": "IaaS",
     "network_devices": "Network Devices"
 }
+
+def fetch_technique_description(technique_id, max_retries=3):
+    """Fetch technique description from individual technique page"""
+    if '.' in technique_id:
+        # Sub-technique URL format
+        base_id, sub_id = technique_id.split('.')
+        url = f"https://attack.mitre.org/techniques/{base_id}/{sub_id}/"
+    else:
+        # Parent technique URL format
+        url = f"https://attack.mitre.org/techniques/{technique_id}/"
+    
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    
+    for attempt in range(max_retries):
+        try:
+            # Add random delay to be respectful to the server
+            time.sleep(random.uniform(0.5, 1.5))
+            
+            response = requests.get(url, headers=headers, timeout=30)
+            response.raise_for_status()
+            
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Find the description section
+            description = ""
+            
+            # Try multiple selectors to find the description
+            description_selectors = [
+                '.description-body',
+                '.technique-description',
+                '[data-description]',
+                '.card-data p'
+            ]
+            
+            for selector in description_selectors:
+                desc_element = soup.select_one(selector)
+                if desc_element:
+                    # Get text content and clean it up
+                    description = desc_element.get_text(strip=True)
+                    break
+            
+            # If no specific selector works, try to find description in card-data
+            if not description:
+                card_data = soup.find('div', class_='card-data')
+                if card_data and hasattr(card_data, 'find_all'):
+                    # Look for the first substantial paragraph
+                    paragraphs = card_data.find_all('p')
+                    for p in paragraphs:
+                        if hasattr(p, 'get_text'):
+                            text = p.get_text(strip=True)
+                            if len(text) > 50:  # Only consider substantial paragraphs
+                                description = text
+                                break
+            
+            # Clean up the description
+            if description:
+                # Remove extra whitespace and normalize
+                description = re.sub(r'\s+', ' ', description)
+                description = description.strip()
+                
+                # Remove citation markers like (Citation: something)
+                description = re.sub(r'\(Citation:[^)]+\)', '', description)
+                description = re.sub(r'\s+', ' ', description).strip()
+            
+            return description if description else ""
+            
+        except requests.RequestException as e:
+            print(f"⚠️ Attempt {attempt + 1}/{max_retries} failed for {technique_id}: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(random.uniform(2, 5))  # Longer delay between retries
+            else:
+                print(f"❌ Failed to fetch description for {technique_id} after {max_retries} attempts")
+                return ""
+        except Exception as e:
+            print(f"❌ Error parsing description for {technique_id}: {e}")
+            return ""
+    
+    return ""
 
 def fetch_matrix_page(platform="windows"):
     """Fetch the MITRE ATT&CK Matrix webpage for specified platform"""
@@ -112,11 +194,13 @@ def get_platform_list(platform):
     else:
         return [PLATFORM_MAPPING.get(platform.lower(), platform.title())]
 
-def parse_matrix_data(html_content, platform="windows"):
+def parse_matrix_data(html_content, platform="windows", fetch_descriptions=False):
     """Parse the HTML content to extract tactics and techniques for MitreShiled schema"""
     soup = BeautifulSoup(html_content, 'html.parser')
     
     print(f"🔍 Parsing {platform.upper()} matrix data for MitreShiled...")
+    if fetch_descriptions:
+        print("📖 Description fetching enabled - this will take longer but provide full technique descriptions")
     
     # Find the main matrix table
     matrix_table = soup.find('table', class_='matrix side')
@@ -217,8 +301,14 @@ def parse_matrix_data(html_content, platform="windows"):
     # Get platform list for techniques
     technique_platforms = get_platform_list(platform)
     
+    # Track unique techniques for description fetching
+    unique_techniques = set()
+    description_cache = {}
+    
     # Process each tactic
     all_techniques = []
+    total_techniques_processed = 0
+    
     for tactic_idx, tactic in enumerate(tactics_data):
         if tactic_idx >= len(tactic_cells):
             print(f"⚠️ No tactic cell for tactic {tactic['name']}")
@@ -243,13 +333,16 @@ def parse_matrix_data(html_content, platform="windows"):
             # Clean up technique name
             clean_name = re.sub(r'\s*\(\d+\)\s*$', '', name)
             
+            # Track unique techniques for description fetching
+            unique_techniques.add(tech_id)
+            
             if '.' not in tech_id:
                 # Parent technique - create MitreShiled document
                 if tech_id not in techniques_dict:
                     technique_doc = {
                         'technique_id': tech_id,
                         'name': clean_name,
-                        'description': '',  # Will be populated later if needed
+                        'description': '',  # Will be populated if fetch_descriptions is enabled
                         'tactic': tactic['name'],  # Primary tactic
                         'tactics': [tactic['name']],  # Array of all applicable tactics
                         'platforms': technique_platforms.copy(),
@@ -258,7 +351,7 @@ def parse_matrix_data(html_content, platform="windows"):
                         'parent_technique': '',
                         'parent_technique_id': '',
                         'mitre_version': '1.0',
-                        'sync_source': 'mitre_extractor',
+                        'sync_source': 'mitre_extractor_enhanced' if fetch_descriptions else 'mitre_extractor',
                         'last_updated': datetime.now().isoformat(),
                         'subtechniques': []
                     }
@@ -273,6 +366,7 @@ def parse_matrix_data(html_content, platform="windows"):
                 
                 # Ensure parent exists
                 if parent_id not in techniques_dict:
+                    unique_techniques.add(parent_id)
                     parent_doc = {
                         'technique_id': parent_id,
                         'name': f"Parent of {tech_id}",
@@ -285,7 +379,7 @@ def parse_matrix_data(html_content, platform="windows"):
                         'parent_technique': '',
                         'parent_technique_id': '',
                         'mitre_version': '1.0',
-                        'sync_source': 'mitre_extractor',
+                        'sync_source': 'mitre_extractor_enhanced' if fetch_descriptions else 'mitre_extractor',
                         'last_updated': datetime.now().isoformat(),
                         'subtechniques': []
                     }
@@ -304,7 +398,7 @@ def parse_matrix_data(html_content, platform="windows"):
                     'parent_technique': techniques_dict[parent_id]['name'],
                     'parent_technique_id': parent_id,
                     'mitre_version': '1.0',
-                    'sync_source': 'mitre_extractor',
+                    'sync_source': 'mitre_extractor_enhanced' if fetch_descriptions else 'mitre_extractor',
                     'last_updated': datetime.now().isoformat()
                 }
                 
@@ -316,7 +410,7 @@ def parse_matrix_data(html_content, platform="windows"):
                 
                 # Add as separate document
                 techniques_dict[tech_id] = sub_technique_doc
-        
+
         # Process sub-technique cells that might be in adjacent columns
         next_tactic_index = tactic_cells[tactic_idx + 1][0] if tactic_idx + 1 < len(tactic_cells) else len(technique_cells)
         
@@ -340,6 +434,10 @@ def parse_matrix_data(html_content, platform="windows"):
                     parent_id = tech_id.split('.')[0]
                     clean_name = re.sub(r'\s*\(\d+\)\s*$', '', name)
                     
+                    # Track unique techniques
+                    unique_techniques.add(tech_id)
+                    unique_techniques.add(parent_id)
+                    
                     # Ensure parent exists
                     if parent_id not in techniques_dict:
                         parent_doc = {
@@ -354,7 +452,7 @@ def parse_matrix_data(html_content, platform="windows"):
                             'parent_technique': '',
                             'parent_technique_id': '',
                             'mitre_version': '1.0',
-                            'sync_source': 'mitre_extractor',
+                            'sync_source': 'mitre_extractor_enhanced' if fetch_descriptions else 'mitre_extractor',
                             'last_updated': datetime.now().isoformat(),
                             'subtechniques': []
                         }
@@ -374,7 +472,7 @@ def parse_matrix_data(html_content, platform="windows"):
                             'parent_technique': techniques_dict[parent_id]['name'],
                             'parent_technique_id': parent_id,
                             'mitre_version': '1.0',
-                            'sync_source': 'mitre_extractor',
+                            'sync_source': 'mitre_extractor_enhanced' if fetch_descriptions else 'mitre_extractor',
                             'last_updated': datetime.now().isoformat()
                         }
                         techniques_dict[tech_id] = sub_technique_doc
@@ -404,6 +502,29 @@ def parse_matrix_data(html_content, platform="windows"):
             else:
                 print(f"  ⚠️ Technique count mismatch: found {len(parent_techniques)}, expected {expected_counts[tactic_idx]}")
     
+    # Fetch descriptions if enabled
+    if fetch_descriptions and unique_techniques:
+        print(f"\n📖 Fetching descriptions for {len(unique_techniques)} unique techniques...")
+        print("⏳ This may take several minutes to be respectful to MITRE's servers...")
+        
+        for i, tech_id in enumerate(unique_techniques):
+            print(f"📖 Fetching description {i+1}/{len(unique_techniques)}: {tech_id}")
+            description = fetch_technique_description(tech_id)
+            if description:
+                description_cache[tech_id] = description
+                print(f"  ✅ Got description ({len(description)} chars)")
+            else:
+                print(f"  ⚠️ No description found")
+        
+        # Apply descriptions to all techniques
+        print("🔄 Applying descriptions to technique records...")
+        for technique in all_techniques:
+            tech_id = technique['technique_id']
+            if tech_id in description_cache:
+                technique['description'] = description_cache[tech_id]
+                
+        print(f"✅ Applied descriptions to {len([t for t in all_techniques if t['description']])} techniques")
+    
     return {
         'platform': PLATFORM_MAPPING.get(platform.lower(), platform.title()),
         'extraction_date': datetime.now().isoformat(),
@@ -413,7 +534,8 @@ def parse_matrix_data(html_content, platform="windows"):
             'total_tactics': len(tactics_data),
             'total_techniques': len([t for t in all_techniques if not t['is_subtechnique']]),
             'total_subtechniques': len([t for t in all_techniques if t['is_subtechnique']]),
-            'total_items': len(all_techniques)
+            'total_items': len(all_techniques),
+            'techniques_with_descriptions': len([t for t in all_techniques if t['description']]) if fetch_descriptions else 0
         }
     }
 
@@ -494,20 +616,24 @@ def print_summary(data):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python3 mitre_data_extractor.py <platform> [format]")
+        print("Usage: python3 mitre_data_extractor.py <platform> [format] [--descriptions]")
         print("Platforms: windows, macos, linux, cloud, containers, officesuite, identity_provider, saas, iaas, network_devices")
         print("Format: mitreshire (default) | complete")
+        print("Options: --descriptions (fetch individual technique descriptions - takes longer)")
         print("\nExample:")
         print("  python3 mitre_data_extractor.py windows")
         print("  python3 mitre_data_extractor.py cloud mitreshire")
-        print("  python3 mitre_data_extractor.py officesuite")
+        print("  python3 mitre_data_extractor.py windows mitreshire --descriptions")
         sys.exit(1)
     
     platform = sys.argv[1].lower()
-    format_type = sys.argv[2] if len(sys.argv) > 2 else "mitreshire"
+    format_type = sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith('--') else "mitreshire"
+    fetch_descriptions = '--descriptions' in sys.argv
     
     print(f"🚀 Starting MITRE ATT&CK {platform.upper()} matrix extraction for MitreShiled...")
     print(f"📋 Output format: {format_type}")
+    if fetch_descriptions:
+        print("📖 Description fetching enabled")
     
     # Fetch the matrix page
     html_content = fetch_matrix_page(platform)
@@ -516,7 +642,7 @@ def main():
         sys.exit(1)
     
     # Parse the matrix data
-    matrix_data = parse_matrix_data(html_content, platform)
+    matrix_data = parse_matrix_data(html_content, platform, fetch_descriptions)
     if not matrix_data:
         print("❌ Failed to parse matrix data")
         sys.exit(1)

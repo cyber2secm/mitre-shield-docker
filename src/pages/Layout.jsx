@@ -5,6 +5,7 @@ import { Shield, Database, Settings, BarChart3, ListChecks, Clock } from "lucide
 import { DetectionRule, MitreTechnique } from "@/api/entities";
 import PlatformIcon from "@/components/PlatformIcon";
 import { useAuth } from "@/contexts/AuthContext";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import {
   Sidebar,
   SidebarContent,
@@ -175,23 +176,23 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 to-slate-100">
-        <Sidebar className="border-r border-slate-200/60 bg-white/95 backdrop-blur-sm shadow-sm">
-          <SidebarHeader className="border-b border-slate-200/60 p-6">
+      <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+        <Sidebar className="border-r border-slate-200/60 dark:border-slate-700/60 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-sm">
+          <SidebarHeader className="border-b border-slate-200/60 dark:border-slate-700/60 p-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 className="font-bold text-slate-900 text-lg">MITRE Shield</h2>
-                <p className="text-xs text-slate-500 font-medium">ATT&CK Rule Manager</p>
+                <h2 className="font-bold text-slate-900 dark:text-slate-100 text-lg">MITRE Shield</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">ATT&CK Rule Manager</p>
               </div>
             </div>
           </SidebarHeader>
           
           <SidebarContent className="p-4">
             <SidebarGroup>
-              <SidebarGroupLabel className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
+              <SidebarGroupLabel className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
                 Navigation
               </SidebarGroupLabel>
               <SidebarGroupContent>
@@ -200,17 +201,17 @@ export default function Layout({ children, currentPageName }) {
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton 
                         asChild 
-                        className={`w-full justify-start hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-lg p-4 min-h-[60px] ${
+                        className={`w-full justify-start hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200 rounded-lg p-4 min-h-[60px] ${
                           isCurrentPage(item.url)
-                            ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100' 
-                            : 'text-slate-700 hover:shadow-sm'
+                            ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 shadow-sm border border-blue-100 dark:border-blue-700' 
+                            : 'text-slate-700 dark:text-slate-300 hover:shadow-sm'
                         }`}
                       >
                         <Link to={item.url} className="flex items-center gap-3 w-full">
                           <item.icon className="w-5 h-5 flex-shrink-0" />
                           <div className="flex-1 text-left min-w-0">
                             <div className="font-semibold text-sm truncate leading-tight">{item.title}</div>
-                            <div className="text-xs text-slate-500 mt-1 truncate leading-tight">{item.description}</div>
+                            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">{item.description}</div>
                           </div>
                         </Link>
                       </SidebarMenuButton>
@@ -221,7 +222,7 @@ export default function Layout({ children, currentPageName }) {
             </SidebarGroup>
 
             <SidebarGroup className="mt-8">
-              <SidebarGroupLabel className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
+              <SidebarGroupLabel className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
                 Platforms
               </SidebarGroupLabel>
               <SidebarGroupContent>
@@ -237,17 +238,17 @@ export default function Layout({ children, currentPageName }) {
                         <SidebarMenuItem>
                           <SidebarMenuButton 
                             asChild 
-                            className={`w-full justify-start hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg p-3 min-h-[56px] ${
+                            className={`w-full justify-start hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:text-purple-700 dark:hover:text-purple-300 transition-all duration-200 rounded-lg p-3 min-h-[56px] ${
                               isActive && !currentCloudService
-                                ? 'bg-purple-50 text-purple-700 shadow-sm border border-purple-100' 
-                                : 'text-slate-700 hover:shadow-sm'
+                                ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 shadow-sm border border-purple-100 dark:border-purple-700' 
+                                : 'text-slate-700 dark:text-slate-300 hover:shadow-sm'
                             }`}
                           >
                             <Link to={item.url} className="flex items-center gap-3 w-full">
                               <PlatformIcon platform={item.platform} className="w-4 h-4 flex-shrink-0" />
                               <div className="flex-1 text-left min-w-0">
                                 <div className="font-medium text-sm truncate leading-tight">{item.title}</div>
-                                <div className="text-xs text-slate-500 mt-1 truncate leading-tight">{item.description}</div>
+                                <div className="text-xs text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">{item.description}</div>
                               </div>
                             </Link>
                           </SidebarMenuButton>
@@ -264,10 +265,10 @@ export default function Layout({ children, currentPageName }) {
                                 <SidebarMenuItem key={subItem.title}>
                                   <SidebarMenuButton 
                                     asChild 
-                                    className={`w-full justify-start hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-lg p-2 min-h-[44px] ${
+                                    className={`w-full justify-start hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200 rounded-lg p-2 min-h-[44px] ${
                                       isSubItemActive
-                                        ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100' 
-                                        : 'text-slate-600 hover:shadow-sm'
+                                        ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 shadow-sm border border-blue-100 dark:border-blue-700' 
+                                        : 'text-slate-600 dark:text-slate-400 hover:shadow-sm'
                                     }`}
                                   >
                                     <Link to={subItem.url} className="flex items-center gap-2 w-full">
@@ -276,7 +277,7 @@ export default function Layout({ children, currentPageName }) {
                                       </div>
                                       <div className="flex-1 text-left min-w-0">
                                         <div className="font-medium text-xs truncate leading-tight">{subItem.title}</div>
-                                        <div className="text-xs text-slate-400 mt-0.5 truncate leading-tight">{subItem.description}</div>
+                                        <div className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 truncate leading-tight">{subItem.description}</div>
                                       </div>
                                     </Link>
                                   </SidebarMenuButton>
@@ -293,40 +294,41 @@ export default function Layout({ children, currentPageName }) {
             </SidebarGroup>
 
             <SidebarGroup className="mt-8">
-              <SidebarGroupLabel className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
+              <SidebarGroupLabel className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
                 Quick Stats
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-3 text-sm p-3 rounded-lg bg-emerald-50 border border-emerald-100">
+                  <div className="flex items-center gap-3 text-sm p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-700">
                     <div className="w-2 h-2 bg-emerald-500 rounded-full flex-shrink-0"></div>
-                    <span className="text-emerald-700 font-medium flex-1">Active Rules</span>
-                    <span className="font-bold text-emerald-800">{stats.activeRules}</span>
+                    <span className="text-emerald-700 dark:text-emerald-300 font-medium flex-1">Active Rules</span>
+                    <span className="font-bold text-emerald-800 dark:text-emerald-200">{stats.activeRules}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm p-3 rounded-lg bg-amber-50 border border-amber-100">
+                  <div className="flex items-center gap-3 text-sm p-3 rounded-lg bg-amber-50 dark:bg-amber-900/30 border border-amber-100 dark:border-amber-700">
                     <div className="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0"></div>
-                    <span className="text-amber-700 font-medium flex-1">Testing</span>
-                    <span className="font-bold text-amber-800">{stats.testingRules}</span>
+                    <span className="text-amber-700 dark:text-amber-300 font-medium flex-1">Testing</span>
+                    <span className="font-bold text-amber-800 dark:text-amber-200">{stats.testingRules}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm p-3 rounded-lg bg-slate-50 border border-slate-100">
+                  <div className="flex items-center gap-3 text-sm p-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-600">
                     <div className="w-2 h-2 bg-slate-400 rounded-full flex-shrink-0"></div>
-                    <span className="text-slate-700 font-medium flex-1">Coverage</span>
-                    <span className="font-bold text-slate-800">{stats.coverage}%</span>
+                    <span className="text-slate-700 dark:text-slate-300 font-medium flex-1">Coverage</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-200">{stats.coverage}%</span>
                   </div>
                 </div>
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
 
-          <SidebarFooter className="border-t border-slate-200/60 p-4">
+          <SidebarFooter className="border-t border-slate-200/60 dark:border-slate-700/60 p-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-9 h-9 bg-gradient-to-br from-slate-600 to-slate-700 dark:from-slate-500 dark:to-slate-600 rounded-full flex items-center justify-center flex-shrink-0">
                 <span className="text-white font-semibold text-sm">SA</span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-slate-900 text-sm truncate">Security Analyst</p>
-                <p className="text-xs text-slate-500 truncate">Threat Detection Team</p>
+                <p className="font-semibold text-slate-900 dark:text-slate-100 text-sm truncate">Security Analyst</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">Threat Detection Team</p>
               </div>
+              <ThemeToggle />
               {/* Temporarily hidden for development */}
               {/* <button
                 className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200 flex-shrink-0"
@@ -346,10 +348,11 @@ export default function Layout({ children, currentPageName }) {
         </Sidebar>
 
         <main className="flex-1 flex flex-col min-w-0">
-          <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200/60 px-6 py-4 lg:hidden">
+          <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200/60 dark:border-slate-700/60 px-6 py-4 lg:hidden">
             <div className="flex items-center gap-4">
-              <SidebarTrigger className="hover:bg-slate-100 p-2 rounded-lg transition-colors duration-200" />
-              <h1 className="text-xl font-bold text-slate-900">MITRE Shield</h1>
+              <SidebarTrigger className="hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-lg transition-colors duration-200" />
+              <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex-1">MITRE Shield</h1>
+              <ThemeToggle />
             </div>
           </header>
 

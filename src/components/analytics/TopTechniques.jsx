@@ -26,13 +26,13 @@ export default function TopTechniques({ rules, isLoading }) {
   const maxCount = topTechniques[0]?.count || 1;
 
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border-slate-200">
+    <Card className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-slate-200 dark:border-slate-700">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-slate-900 dark:text-slate-100">
           <Target className="w-5 h-5" />
           Top Techniques by Rule Count
         </CardTitle>
-        <Badge variant="outline" className="w-fit">
+        <Badge variant="outline" className="w-fit border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
           <TrendingUp className="w-3 h-3 mr-1" />
           Most covered techniques
         </Badge>
@@ -51,7 +51,7 @@ export default function TopTechniques({ rules, isLoading }) {
         ) : (
           <div className="space-y-3">
             {topTechniques.length === 0 ? (
-              <div className="text-center py-8 text-slate-500">
+              <div className="text-center py-8 text-slate-500 dark:text-slate-400">
                 <Target className="w-12 h-12 mx-auto mb-4 opacity-50" />
                 <p className="text-sm">No techniques with rules found</p>
               </div>
@@ -64,25 +64,25 @@ export default function TopTechniques({ rules, isLoading }) {
                   <div key={technique.id} className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <Badge variant="outline" className="bg-slate-50 text-slate-700 font-mono text-xs">
+                        <Badge variant="outline" className="bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-mono text-xs">
                           {technique.id}
                         </Badge>
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-slate-800">
+                          <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
                             {technique.count} rules
                           </span>
                           {activeRules > 0 && (
-                            <Badge className="bg-emerald-100 text-emerald-700 text-xs">
+                            <Badge className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs">
                               {activeRules} active
                             </Badge>
                           )}
                         </div>
                       </div>
-                      <div className="text-xs text-slate-500">
+                      <div className="text-xs text-slate-500 dark:text-slate-400">
                         #{index + 1}
                       </div>
                     </div>
-                    <div className="w-full bg-slate-200 rounded-full h-2">
+                    <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                       <div
                         className="h-2 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 transition-all duration-500"
                         style={{ width: `${percentage}%` }}

@@ -31,6 +31,12 @@ const DetectionRuleSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  rule_type: {
+    type: String,
+    required: true,
+    enum: ['Product', 'SOC'],
+    trim: true
+  },
   status: {
     type: String,
     enum: ['Active', 'Testing', 'Inactive'],
@@ -76,5 +82,6 @@ DetectionRuleSchema.index({ technique_id: 1 });
 DetectionRuleSchema.index({ platform: 1 });
 DetectionRuleSchema.index({ status: 1 });
 DetectionRuleSchema.index({ tactic: 1 });
+DetectionRuleSchema.index({ rule_type: 1 });
 
 module.exports = mongoose.model('DetectionRule', DetectionRuleSchema); 

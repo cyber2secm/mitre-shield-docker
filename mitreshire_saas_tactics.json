@@ -1,6 +1,6 @@
 {
   "platform": "SaaS",
-  "extraction_date": "2025-07-02T11:15:03.238274",
+  "extraction_date": "2025-07-02T12:52:23.476652",
   "tactics": [
     {
       "name": "Initial Access",
@@ -51,6 +51,7 @@
     "total_tactics": 11,
     "total_techniques": 44,
     "total_subtechniques": 39,
-    "total_items": 83
+    "total_items": 83,
+    "techniques_with_descriptions": 83
   }
 }

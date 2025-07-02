@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
       platform,
       status,
       priority,
+      rule_type,
       assigned_to
     } = req.query;
 
@@ -24,6 +25,7 @@ router.get('/', async (req, res) => {
     if (platform && platform !== 'all') filter.platform = platform;
     if (status && status !== 'all') filter.status = status;
     if (priority && priority !== 'all') filter.priority = priority;
+    if (rule_type && rule_type !== 'all') filter.rule_type = rule_type;
     if (assigned_to && assigned_to !== 'all') filter.assigned_to = assigned_to;
 
     // Build sort object
@@ -255,6 +257,7 @@ router.post('/:id/promote', async (req, res) => {
       technique_id: futureRule.technique_id,
       platform: futureRule.platform,
       tactic: futureRule.tactic,
+      rule_type: futureRule.rule_type || 'SOC', // Map rule_type, default to SOC if not set
       xql_query,
       status,
       severity: futureRule.priority, // Map priority to severity

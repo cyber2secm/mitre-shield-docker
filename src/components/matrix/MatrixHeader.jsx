@@ -78,26 +78,26 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
   // The custom CloudProviderIcon component also now uses PlatformIcon
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200/60 sticky top-0 z-40">
+    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200/60 dark:border-slate-700/60 sticky top-0 z-40">
       <div className="px-6 py-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-slate-100 border border-slate-200 rounded-xl flex items-center justify-center shadow-lg p-2">
+              <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-center shadow-lg p-2">
                 {/* Use the new PlatformIcon component for the main header icon */}
                 {/* The "All Platforms" view uses the Shield icon as per the outline, otherwise PlatformIcon */}
                 {/* The conditional now uses the 'platform' prop and checks for 'all' */}
                 {platform && platform !== "all" ? (
                   <PlatformIcon platform={platform} className="w-full h-full object-contain" />
                 ) : (
-                  <Shield className="w-7 h-7 text-slate-500" />
+                  <Shield className="w-7 h-7 text-slate-500 dark:text-slate-400" />
                 )}
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-slate-900">
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   {currentPlatform === "All Platforms" ? "MITRE ATT&CK Matrix" : `${currentPlatform} - MITRE ATT&CK Matrix`}
                 </h1>
-                <p className="text-slate-600 text-sm font-medium">
+                <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">
                   {currentPlatform === "All Platforms" 
                     ? "Comprehensive threat detection coverage across all platforms" 
                     : currentPlatform === "Cloud"
@@ -111,7 +111,7 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
 
           <div className="flex items-center gap-3">
             <motion.div 
-              className="bg-blue-50 text-blue-700 border border-blue-200 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
+              className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1 }}
@@ -123,7 +123,7 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
               </div>
             </motion.div>
             <motion.div 
-              className="bg-purple-50 text-purple-700 border border-purple-200 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
+              className="bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
@@ -135,7 +135,7 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
               </div>
             </motion.div>
             <motion.div 
-              className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
+              className="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3 }}
@@ -151,12 +151,12 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
 
         <div className="mt-6 flex flex-col sm:flex-row gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 w-4 h-4" />
             <Input
               placeholder="Search techniques, IDs, or descriptions..."
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-              className="pl-10 bg-white/90 border-slate-200 focus:border-blue-300 focus:ring-blue-200"
+              className="pl-10 bg-white/90 dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400"
             />
           </div>
 
@@ -167,25 +167,25 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
                 <Button
                   variant="outline"
                   onClick={() => setIsCloudDropdownOpen(!isCloudDropdownOpen)}
-                  className="w-56 bg-white/90 border-slate-200 justify-start"
+                  className="w-56 bg-white/90 dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 justify-start"
                 >
-                  <Cloud className="w-4 h-4 mr-2 text-slate-400" />
+                  <Cloud className="w-4 h-4 mr-2 text-slate-400 dark:text-slate-500" />
                   <span className="flex-1 text-left truncate">{getCurrentCloudOption().label}</span>
                   <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${isCloudDropdownOpen ? 'rotate-180' : ''}`} />
                 </Button>
                 
                 {isCloudDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-1 w-72 bg-white border border-slate-200 rounded-md shadow-lg z-50">
+                  <div className="absolute top-full left-0 mt-1 w-72 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-lg z-50">
                     {cloudOptions.map((option) => (
                       <button
                         key={option.value}
                         onClick={() => handleCloudOptionClick(option)}
-                        className={`w-full px-3 py-2 text-left hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-b-0 ${
-                          getCurrentCloudOption().value === option.value ? 'bg-blue-50 text-blue-700' : 'text-slate-700'
+                        className={`w-full px-3 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors border-b border-slate-100 dark:border-slate-600 last:border-b-0 ${
+                          getCurrentCloudOption().value === option.value ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-300'
                         }`}
                       >
                         <div className="font-medium">{option.label}</div>
-                        <div className="text-xs text-slate-500 mt-1">{option.description}</div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">{option.description}</div>
                       </button>
                     ))}
                   </div>
@@ -199,8 +199,8 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
                 value={filters.cloudProvider || "all"} 
                 onValueChange={(value) => setFilters(prev => ({ ...prev, cloudProvider: value }))}
               >
-                <SelectTrigger className="w-48 bg-white/90 border-slate-200">
-                  <Cloud className="w-4 h-4 mr-2 text-slate-400" />
+                <SelectTrigger className="w-48 bg-white/90 dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
+                  <Cloud className="w-4 h-4 mr-2 text-slate-400 dark:text-slate-500" />
                   <SelectValue placeholder="Cloud Provider" />
                 </SelectTrigger>
                 <SelectContent>
@@ -237,8 +237,8 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
               value={filters.status} 
               onValueChange={(value) => setFilters(prev => ({ ...prev, status: value }))}
             >
-              <SelectTrigger className="w-48 bg-white/90 border-slate-200">
-                <Filter className="w-4 h-4 mr-2 text-slate-400" />
+              <SelectTrigger className="w-48 bg-white/90 dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
+                <Filter className="w-4 h-4 mr-2 text-slate-400 dark:text-slate-500" />
                 <SelectValue placeholder="All Statuses" />
               </SelectTrigger>
               <SelectContent>

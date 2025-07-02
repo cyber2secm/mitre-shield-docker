@@ -26,35 +26,35 @@ export default function RuleStatusChart({ rules, isLoading }) {
   const statusConfig = {
     Active: { 
       color: "bg-emerald-500", 
-      lightColor: "bg-emerald-50", 
-      textColor: "text-emerald-700",
-      borderColor: "border-emerald-200",
+      lightColor: "bg-emerald-50 dark:bg-emerald-900/30", 
+      textColor: "text-emerald-700 dark:text-emerald-300",
+      borderColor: "border-emerald-200 dark:border-emerald-700",
       icon: CheckCircle
     },
     Testing: { 
       color: "bg-amber-500", 
-      lightColor: "bg-amber-50", 
-      textColor: "text-amber-700",
-      borderColor: "border-amber-200",
+      lightColor: "bg-amber-50 dark:bg-amber-900/30", 
+      textColor: "text-amber-700 dark:text-amber-300",
+      borderColor: "border-amber-200 dark:border-amber-700",
       icon: AlertTriangle
     },
     Inactive: { 
       color: "bg-slate-400", 
-      lightColor: "bg-slate-50", 
-      textColor: "text-slate-700",
-      borderColor: "border-slate-200",
+      lightColor: "bg-slate-50 dark:bg-slate-800", 
+      textColor: "text-slate-700 dark:text-slate-300",
+      borderColor: "border-slate-200 dark:border-slate-600",
       icon: XCircle
     }
   };
 
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border-slate-200">
+    <Card className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-slate-200 dark:border-slate-700">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-slate-900 dark:text-slate-100">
           <Activity className="w-5 h-5" />
           Rule Status Distribution
         </CardTitle>
-        <Badge variant="outline" className="w-fit">
+        <Badge variant="outline" className="w-fit border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300">
           {totalRules} total rules
         </Badge>
       </CardHeader>
@@ -152,8 +152,8 @@ export default function RuleStatusChart({ rules, isLoading }) {
                     transition={{ delay: 0.8 }}
                     className="text-center"
                   >
-                    <div className="text-2xl font-bold text-slate-900">{totalRules}</div>
-                    <div className="text-xs text-slate-500 font-medium">Total Rules</div>
+                    <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{totalRules}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Rules</div>
                   </motion.div>
                 </div>
               </div>
@@ -179,13 +179,13 @@ export default function RuleStatusChart({ rules, isLoading }) {
                         <IconComponent className={`w-5 h-5 ${config.textColor}`} />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-slate-900">{status} Rules</h4>
-                        <p className="text-sm text-slate-600">{count} of {totalRules} rules</p>
+                        <h4 className="font-semibold text-slate-900 dark:text-slate-100">{status} Rules</h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">{count} of {totalRules} rules</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className={`text-2xl font-bold ${config.textColor}`}>{count}</div>
-                      <div className="text-sm text-slate-500">{percentage}%</div>
+                      <div className="text-sm text-slate-500 dark:text-slate-400">{percentage}%</div>
                     </div>
                   </motion.div>
                 );
