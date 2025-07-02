@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 import { Target, Shield, ChevronRight, Activity, CheckCircle, TestTube } from "lucide-react";
 
-export default function TacticCard({ tactic, stats, onClick, isLoading }) {
+const TacticCard = React.memo(function TacticCard({ tactic, stats, onClick, isLoading }) {
   const getTacticColor = (tactic) => {
     const colors = {
       // Traditional MITRE ATT&CK Tactics
@@ -105,4 +105,6 @@ export default function TacticCard({ tactic, stats, onClick, isLoading }) {
       </Card>
     </motion.div>
   );
-}
+});
+
+export default TacticCard;

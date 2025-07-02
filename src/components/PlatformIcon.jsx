@@ -20,7 +20,7 @@ const iconMap = {
   AI: 'brain-icon'
 };
 
-export default function PlatformIcon({ platform, className }) {
+export default function PlatformIcon({ platform, className, variant = 'default' }) {
   // Special handling for platforms using Lucide icons
   if (platform === 'AI') {
     return <Brain className={`${className} text-purple-600`} />;
@@ -31,5 +31,13 @@ export default function PlatformIcon({ platform, className }) {
   
   const src = iconMap[platform];
   if (!src) return null;
-  return <img src={src} alt={`${platform} icon`} className={className} />;
+  
+  // Special styling for macOS based on variant
+  const macOSClasses = platform === 'macOS' && variant === 'analytics'
+    ? className // Black in analytics only
+    : platform === 'macOS'
+    ? `${className} dark:filter dark:brightness-0 dark:invert` // White in dark mode for default, sidebar, and matrix
+    : className; // Default behavior for other platforms
+  
+  return <img src={src} alt={`${platform} icon`} className={macOSClasses} />;
 }

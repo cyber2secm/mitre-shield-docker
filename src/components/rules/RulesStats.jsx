@@ -76,7 +76,7 @@ export default function RulesStats({ rules }) {
           key={stat.title}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
+          transition={{ duration: 0.3 }}
         >
           <Card className={`relative overflow-hidden border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-32`}>
             <div className={`absolute top-0 right-0 w-24 h-24 transform translate-x-6 -translate-y-6 ${stat.color} rounded-full opacity-10`} />

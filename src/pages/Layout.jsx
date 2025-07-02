@@ -245,7 +245,7 @@ export default function Layout({ children, currentPageName }) {
                             }`}
                           >
                             <Link to={item.url} className="flex items-center gap-3 w-full">
-                              <PlatformIcon platform={item.platform} className="w-4 h-4 flex-shrink-0" />
+                              <PlatformIcon platform={item.platform} className="w-4 h-4 flex-shrink-0" variant="sidebar" />
                               <div className="flex-1 text-left min-w-0">
                                 <div className="font-medium text-sm truncate leading-tight">{item.title}</div>
                                 <div className="text-xs text-slate-500 dark:text-slate-400 mt-1 truncate leading-tight">{item.description}</div>

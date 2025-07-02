@@ -138,8 +138,8 @@ export default function TechniqueModal({ technique, rules, onClose, onRuleUpdate
 
             <div className="overflow-y-auto flex-1 px-8 pb-8">
               <TabsContent value="overview" className="space-y-8 mt-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <div className="space-y-4">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div className="lg:col-span-2 space-y-4">
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                       <Settings className="w-5 h-5 text-slate-500 dark:text-slate-400" />
                       Description
@@ -147,10 +147,10 @@ export default function TechniqueModal({ technique, rules, onClose, onRuleUpdate
                     <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
                       <ExpandableText 
                         text={technique.description || "No description available."}
-                        maxLines={3}
+                        maxLines={6}
                         showMoreText="Show more"
                         showLessText="Show less"
-                        className="text-slate-700 dark:text-slate-300 leading-relaxed"
+                        className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm"
                       />
                     </div>
                   </div>
@@ -160,20 +160,27 @@ export default function TechniqueModal({ technique, rules, onClose, onRuleUpdate
                       <Target className="w-5 h-5 text-slate-500 dark:text-slate-400" />
                       Platforms
                     </h3>
-                    <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
-                      <div className="flex flex-wrap gap-3">
+                    <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 min-h-[200px] flex flex-col">
+                      <div className="flex flex-wrap gap-2 flex-1 content-start">
                         {technique.platforms?.map((platform) => {
                           return (
                             <Badge 
                               key={platform}
                               variant="outline" 
-                              className="bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 px-3 py-2 font-medium hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors"
+                              className="bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 px-3 py-2.5 font-medium hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors text-sm"
                             >
                               <PlatformIcon platform={platform} className="w-4 h-4 mr-2" />
                               {platform}
                             </Badge>
                           );
                         })}
+                      </div>
+                      
+                      {/* Platform count summary */}
+                      <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-600">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                          platform{(technique.platforms?.length || 0) !== 1 ? 's' : ''} supported
+                        </p>
                       </div>
                     </div>
                   </div>

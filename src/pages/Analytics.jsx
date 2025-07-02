@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import CoverageHeatmap from "../components/analytics/CoverageHeatmap";
 import PlatformDistribution from "../components/analytics/PlatformDistribution";
 import RuleStatusChart from "../components/analytics/RuleStatusChart";
+import RuleTeamDistribution from "../components/analytics/RuleTeamDistribution";
 import TopTechniques from "../components/analytics/TopTechniques";
 import MitreSyncStatus from "../components/analytics/MitreSyncStatus";
 
@@ -122,9 +123,14 @@ export default function AnalyticsPage() {
             />
           </div>
 
-          {/* Rule Status Chart gets its own row */}
-          <div className="grid grid-cols-1 gap-8">
+          {/* Rule Status Chart and Team Distribution side by side */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <RuleStatusChart 
+              rules={filteredRules} 
+              isLoading={isLoading}
+              onDataUpdate={loadData}
+            />
+            <RuleTeamDistribution 
               rules={filteredRules} 
               isLoading={isLoading}
               onDataUpdate={loadData}

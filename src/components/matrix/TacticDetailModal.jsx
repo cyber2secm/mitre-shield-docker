@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { DetectionRule, FutureRule, MitreTechnique } from "@/api/entities";
 import {
   Dialog,
@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Target, ArrowLeft, Filter, Trash2, X } from "lucide-react";
+import { Plus, Target, Filter, Trash2, X } from "lucide-react";
 
 import TechniqueCard from "./TechniqueCard";
 import TechniqueModal from "./TechniqueModal";
@@ -22,7 +22,8 @@ export default function TacticDetailModal({
   onRuleUpdate,
   currentPlatform,
   currentCloudProvider,
-  currentCloudService
+  currentCloudService,
+  isLoading = false
 }) {
   const [selectedTechnique, setSelectedTechnique] = useState(null);
   const [startRuleEditor, setStartRuleEditor] = useState(false);
@@ -114,76 +115,85 @@ export default function TacticDetailModal({
     await onRuleUpdate();
   };
 
-  const getRuleCountForTechnique = (techniqueId) => {
-    let filteredRules = rules.filter(rule =>
-      rule.technique_id === techniqueId &&
-      rule.tactic === tactic
-    );
-
-    if (currentPlatform === "Cloud") {
-      filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
-
-      if (currentCloudProvider && currentCloudProvider !== "all") {
-        filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
-      }
-    } else if (currentPlatform !== "all") {
-      filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
-    }
-
-    return filteredRules.length;
-  };
-
-  const getTechniqueRules = (techniqueId) => {
-    let filteredRules = rules.filter(rule =>
-      rule.technique_id === techniqueId &&
-      rule.tactic === tactic
-    );
-
-    if (currentPlatform === "Cloud") {
-      filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
-
-      if (currentCloudProvider && currentCloudProvider !== "all") {
-        filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
-      }
-    } else if (currentPlatform !== "all") {
-      filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
-    }
-
-    return filteredRules;
-  };
-
-  const getTacticRulesCount = () => {
-    let tacticTechniques = techniques.filter(t => t.tactic === tactic);
-
-    if (currentPlatform === "Cloud") {
-      tacticTechniques = tacticTechniques.filter(t =>
-        t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
+  // Memoized rule calculations for better performance
+  const ruleCalculations = useMemo(() => {
+    const getRuleCountForTechnique = (techniqueId) => {
+      let filteredRules = rules.filter(rule =>
+        rule.technique_id === techniqueId &&
+        rule.tactic === tactic
       );
-    } else if (currentPlatform !== "all") {
-      tacticTechniques = tacticTechniques.filter(t =>
-        t.platforms?.includes(currentPlatform)
-      );
-    }
 
-    const techniqueIds = tacticTechniques.map(t => t.technique_id);
+      if (currentPlatform === "Cloud") {
+        filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
 
-    let filteredRules = rules.filter(rule =>
-      rule.tactic === tactic &&
-      techniqueIds.includes(rule.technique_id)
-    );
-
-    if (currentPlatform === "Cloud") {
-      filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
-
-      if (currentCloudProvider && currentCloudProvider !== "all") {
-        filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
+        if (currentCloudProvider && currentCloudProvider !== "all") {
+          filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
+        }
+      } else if (currentPlatform !== "all") {
+        filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
       }
-    } else if (currentPlatform !== "all") {
-      filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
-    }
 
-    return filteredRules.length;
-  };
+      return filteredRules.length;
+    };
+
+    const getTechniqueRules = (techniqueId) => {
+      let filteredRules = rules.filter(rule =>
+        rule.technique_id === techniqueId &&
+        rule.tactic === tactic
+      );
+
+      if (currentPlatform === "Cloud") {
+        filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
+
+        if (currentCloudProvider && currentCloudProvider !== "all") {
+          filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
+        }
+      } else if (currentPlatform !== "all") {
+        filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
+      }
+
+      return filteredRules;
+    };
+
+    const getTacticRulesCount = () => {
+      let tacticTechniques = techniques.filter(t => t.tactic === tactic);
+
+      if (currentPlatform === "Cloud") {
+        tacticTechniques = tacticTechniques.filter(t =>
+          t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
+        );
+      } else if (currentPlatform !== "all") {
+        tacticTechniques = tacticTechniques.filter(t =>
+          t.platforms?.includes(currentPlatform)
+        );
+      }
+
+      const techniqueIds = tacticTechniques.map(t => t.technique_id);
+
+      let filteredRules = rules.filter(rule =>
+        rule.tactic === tactic &&
+        techniqueIds.includes(rule.technique_id)
+      );
+
+      if (currentPlatform === "Cloud") {
+        filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
+
+        if (currentCloudProvider && currentCloudProvider !== "all") {
+          filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
+        }
+      } else if (currentPlatform !== "all") {
+        filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
+      }
+
+      return filteredRules.length;
+    };
+
+    return {
+      getRuleCountForTechnique,
+      getTechniqueRules,
+      getTacticRulesCount
+    };
+  }, [rules, tactic, techniques, currentPlatform, currentCloudProvider]);
 
   const getTacticColor = (tactic) => {
     const colors = {
@@ -210,9 +220,12 @@ export default function TacticDetailModal({
     return colors[tactic] || "from-slate-600 to-slate-700";
   };
   
-  const filteredTechniques = filterByRules
-    ? techniques.filter(t => getRuleCountForTechnique(t.technique_id) > 0)
-    : techniques;
+  // Memoized filtered techniques for better performance
+  const filteredTechniques = useMemo(() => {
+    return filterByRules
+      ? techniques.filter(t => ruleCalculations.getRuleCountForTechnique(t.technique_id) > 0)
+      : techniques;
+  }, [filterByRules, techniques, ruleCalculations]);
 
   if (!tactic) return null;
 
@@ -245,7 +258,7 @@ export default function TacticDetailModal({
                       title={filterByRules ? "Click to show all techniques" : "Click to show only techniques with rules"}
                     >
                       {filterByRules && <Filter className="w-3 h-3 mr-1.5" />}
-                      {getTacticRulesCount()} detection rules
+                      {ruleCalculations.getTacticRulesCount()} detection rules
                     </Badge>
                   </div>
                 </div>
@@ -260,15 +273,6 @@ export default function TacticDetailModal({
                   <Plus className="w-4 h-4 mr-2" />
                   Add Technique
                 </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onClose}
-                  className="bg-white/80 backdrop-blur-sm text-slate-700 border-slate-300 hover:bg-slate-50 hover:border-slate-400 transition-all shadow-sm rounded-lg"
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Tactics
-                </Button>
                 <Button 
                   onClick={onClose} 
                   variant="outline"
@@ -281,7 +285,7 @@ export default function TacticDetailModal({
             </div>
           </DialogHeader>
 
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto p-6 bg-white dark:bg-slate-900">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {filteredTechniques.map((technique) => {
                 console.log('Rendering technique card:', technique.name, 'with onDelete:', !!handleDeleteTechnique);
@@ -289,19 +293,20 @@ export default function TacticDetailModal({
                   <TechniqueCard
                     key={technique.technique_id}
                     technique={technique}
-                    ruleCount={getRuleCountForTechnique(technique.technique_id)}
+                    ruleCount={ruleCalculations.getRuleCountForTechnique(technique.technique_id)}
                     onClick={() => setSelectedTechnique(technique)}
                     selectedPlatform={currentPlatform}
                     onNewRule={handleNewRuleForTechnique}
                     onEdit={handleEditTechnique}
                     onDelete={handleDeleteTechnique}
                     isDeleting={deletingTechniqueIds.has(technique._id || technique.id)}
+                    isLoading={isLoading}
                   />
                 );
               })}
             </div>
 
-            {filteredTechniques.length === 0 && (
+            {filteredTechniques.length === 0 && !isLoading && (
               <div className="text-center py-16 text-slate-500 dark:text-slate-400">
                 <Target className="w-16 h-16 mx-auto mb-4 opacity-50" />
                 <h3 className="text-xl font-semibold mb-2">No Techniques Found</h3>
@@ -334,7 +339,7 @@ export default function TacticDetailModal({
 
       <TechniqueModal
         technique={selectedTechnique}
-        rules={selectedTechnique ? getTechniqueRules(selectedTechnique.technique_id) : []}
+        rules={selectedTechnique ? ruleCalculations.getTechniqueRules(selectedTechnique.technique_id) : []}
         onClose={handleCloseTechniqueModal}
         onRuleUpdate={onRuleUpdate}
         startWithRuleEditor={startRuleEditor}

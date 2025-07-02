@@ -1,6 +1,6 @@
 {
   "platform": "Containers",
-  "extraction_date": "2025-07-02T00:32:37.354771",
+  "extraction_date": "2025-07-02T12:32:06.217349",
   "tactics": [
     {
       "name": "Initial Access",
@@ -43,6 +43,7 @@
     "total_tactics": 9,
     "total_techniques": 39,
     "total_subtechniques": 29,
-    "total_items": 68
+    "total_items": 68,
+    "techniques_with_descriptions": 68
   }
 }

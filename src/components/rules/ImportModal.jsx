@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,12 +11,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Upload, FileText, CheckCircle, AlertCircle, Download, FileSpreadsheet, HelpCircle, Eye, Shield, X } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Upload, FileText, CheckCircle, AlertCircle, Download, FileSpreadsheet, HelpCircle, Eye, Shield, X, Loader2, AlertTriangle } from "lucide-react";
 import { ExtractDataFromUploadedFile, UploadFile } from "@/api/integrations";
 import { validateRules } from "@/utils/ruleValidation";
 import ValidationResultsModal from "./ValidationResultsModal";
 import { motion } from "framer-motion";
+import { Progress } from "@/components/ui/progress";
 
 // Sample template data
 const SAMPLE_RULES = [
@@ -59,7 +60,83 @@ const FIELD_DESCRIPTIONS = {
   platform: "Target platform: Windows, macOS, Linux, AWS, Azure, GCP, Oracle, Containers"
 };
 
+// Duplicate Rules Dialog Component
+const DuplicateRulesDialog = ({ isOpen, onClose, duplicateIds, details, onSkipDuplicates, onUpdateExisting }) => {
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-amber-700 dark:text-amber-300">
+            <AlertTriangle className="w-5 h-5" />
+            Duplicate Rule IDs Found
+          </DialogTitle>
+          <DialogDescription>
+            Some rules you're trying to import already exist in the database.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-4">
+          <Alert className="border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20">
+            <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+            <AlertTitle className="text-amber-800 dark:text-amber-300">Import Summary</AlertTitle>
+            <AlertDescription className="text-amber-700 dark:text-amber-400">
+              <div className="mt-2 space-y-1">
+                <div>Total rules in file: <strong>{details.total}</strong></div>
+                <div>Existing rules: <strong>{details.duplicates}</strong></div>
+                <div>New rules: <strong>{details.new}</strong></div>
+              </div>
+            </AlertDescription>
+          </Alert>
+
+          <div>
+            <h4 className="font-medium text-slate-900 dark:text-slate-100 mb-2">
+              Duplicate Rule IDs ({duplicateIds.length}):
+            </h4>
+            <div className="max-h-32 overflow-y-auto custom-scrollbar bg-slate-50 dark:bg-slate-800 rounded-lg p-3 border border-slate-200 dark:border-slate-700">
+              <div className="flex flex-wrap gap-2">
+                {duplicateIds.map((id, index) => (
+                  <Badge key={index} variant="outline" className="font-mono text-xs bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700">
+                    {id}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="text-sm text-slate-600 dark:text-slate-400">
+            <p><strong>Options:</strong></p>
+            <ul className="mt-1 space-y-1 list-disc list-inside">
+              <li><strong>Skip duplicates:</strong> Import only the {details.new} new rules</li>
+              <li><strong>Update existing:</strong> Overwrite existing rules with new data and import new ones</li>
+            </ul>
+          </div>
+        </div>
+
+        <DialogFooter className="gap-3">
+          <Button variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={onSkipDuplicates}
+            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+          >
+            Skip Duplicates ({details.new} new)
+          </Button>
+          <Button 
+            onClick={onUpdateExisting}
+            className="bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-600"
+          >
+            Update Existing ({details.total} total)
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 export default function ImportModal({ isOpen, onClose, onImport }) {
+  const fileRef = useRef(null);
   const [file, setFile] = useState(null);
   const [isParsing, setIsParsing] = useState(false);
   const [parsedRules, setParsedRules] = useState([]);
@@ -69,6 +146,12 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
   const [importResult, setImportResult] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
   const [activeTab, setActiveTab] = useState("upload");
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadStatus, setUploadStatus] = useState({ type: null, message: null });
+  const [showValidationResults, setShowValidationResults] = useState(false);
+  const [duplicateInfo, setDuplicateInfo] = useState(null);
+  const [showDuplicateDialog, setShowDuplicateDialog] = useState(false);
 
   const downloadTemplate = (format) => {
     const headers = Object.keys(FIELD_DESCRIPTIONS);
@@ -225,10 +308,11 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
       const validation = validateRules(rules);
       setValidationResults(validation);
       
+      // Always show preview when rules are parsed successfully
+      setShowPreview(true);
+      
       if (validation.invalid.length > 0 || validation.warnings.length > 0) {
         setShowValidationModal(true);
-      } else {
-        setShowPreview(true);
       }
     } catch (e) {
       setError(e.message);
@@ -278,309 +362,333 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
     setImportResult(null);
     setShowPreview(false);
     setActiveTab("upload");
+    setDuplicateInfo(null);
+    setShowDuplicateDialog(false);
+    setIsUploading(false);
+    setUploadStatus({ type: null, message: null });
+    setUploadProgress(0);
+    setShowValidationResults(false);
+    if (fileRef.current) {
+      fileRef.current.value = '';
+    }
     onClose();
   };
 
+  const handleImport = async (allowUpdate = false) => {
+    if (!file) {
+      setError("Please select a file first.");
+      return;
+    }
+
+    setIsUploading(true);
+    setError(null);
+    setUploadStatus({ type: null, message: null });
+
+    try {
+      let rules = parsedRules;
+      
+      // If not parsed yet, parse the file first
+      if (rules.length === 0) {
+        rules = await parseFileWithIntegration(file);
+        setParsedRules(rules);
+        
+        // Perform validation
+        const validation = validateRules(rules);
+        setValidationResults(validation);
+        
+        // Always show preview when rules are parsed successfully
+        setShowPreview(true);
+        
+        if (validation && (validation.invalid.length > 0 || validation.warnings.length > 0)) {
+          setShowValidationResults(true);
+          setIsUploading(false);
+          return;
+        }
+      }
+      
+      // Import the rules
+      const result = await onImport(rules, allowUpdate);
+      console.log('Import result:', result); // Debug log
+      
+      if (result.success) {
+        setUploadStatus({ type: 'success', message: result.message });
+        setTimeout(() => {
+          handleClose();
+        }, 2000);
+      } else {
+        // Check if it's a duplicate error
+        if (result.error && result.error.includes('Duplicate rule IDs') && result.duplicateIds) {
+          console.log('Showing duplicate dialog:', result.duplicateIds); // Debug log
+          setDuplicateInfo({
+            duplicateIds: result.duplicateIds,
+            details: result.details
+          });
+          setShowDuplicateDialog(true);
+        } else {
+          console.log('Showing error status:', result.message); // Debug log
+          setUploadStatus({ type: 'error', message: result.message });
+        }
+      }
+    } catch (e) {
+      setError(e.message);
+      setUploadStatus({ type: 'error', message: e.message });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleSkipDuplicates = async () => {
+    setShowDuplicateDialog(false);
+    // Filter out duplicates and import only new rules
+    const newRules = parsedRules.filter(rule => !duplicateInfo.duplicateIds.includes(rule.rule_id));
+    
+    if (newRules.length === 0) {
+      setUploadStatus({ 
+        type: 'error', 
+        message: 'All rules in the file already exist. No new rules to import.' 
+      });
+      // Close modal after showing message briefly
+      setTimeout(() => {
+        handleClose();
+      }, 3000);
+      return;
+    }
+    
+    setIsUploading(true);
+    try {
+      const result = await onImport(newRules, false);
+      if (result.success) {
+        setUploadStatus({ type: 'success', message: result.message });
+        setTimeout(() => {
+          handleClose();
+        }, 2000);
+      } else {
+        setUploadStatus({ type: 'error', message: result.message });
+      }
+    } catch (e) {
+      setError(e.message);
+      setUploadStatus({ type: 'error', message: e.message });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleUpdateExisting = async () => {
+    setShowDuplicateDialog(false);
+    setUploadStatus({ type: null, message: null }); // Clear any previous status
+    await handleImport(true); // Allow updates
+  };
+
+  // Ensure proper scroll behavior and state reset when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      // Reset any scroll positions when modal opens
+      document.body.style.overflow = 'hidden';
+      
+      // Reset all state when modal opens fresh
+      setFile(null);
+      setParsedRules([]);
+      setValidationResults(null);
+      setShowValidationModal(false);
+      setError(null);
+      setImportResult(null);
+      setShowPreview(false);
+      setActiveTab("upload");
+      setDuplicateInfo(null);
+      setShowDuplicateDialog(false);
+      setIsUploading(false);
+      setUploadStatus({ type: null, message: null });
+      setUploadProgress(0);
+      setShowValidationResults(false);
+      if (fileRef.current) {
+        fileRef.current.value = '';
+      }
+      
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isOpen]);
+
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
-        {/* Modern Header */}
-        <DialogHeader className="bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 dark:from-blue-600 dark:via-blue-700 dark:to-indigo-700 -mx-6 -mt-6 px-8 py-6 text-white">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-              <Upload className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <DialogTitle className="text-2xl font-bold text-white mb-2">
-                Import Detection Rules
-              </DialogTitle>
-              <DialogDescription className="text-blue-100 text-base">
-                Upload CSV or Excel files with detection rules.
-              </DialogDescription>
-            </div>
-          </div>
-        </DialogHeader>
+      <DialogContent className="max-w-5xl max-h-[95vh] overflow-hidden">
+        <div className="flex flex-col h-full min-h-0">
+          <DialogHeader className="flex-shrink-0 pb-4">
+            <DialogTitle className="text-xl font-semibold text-slate-900 dark:text-slate-100">Import Detection Rules</DialogTitle>
+            <DialogDescription className="text-slate-600 dark:text-slate-400">
+              Upload a CSV or Excel file containing detection rules. Supported formats: .csv, .xlsx
+            </DialogDescription>
+          </DialogHeader>
 
-        {importResult ? (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center justify-center text-center p-12 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-2xl mx-6 my-6"
-          >
-            {importResult.success ? (
-              <>
-                <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-600 rounded-full flex items-center justify-center mb-6 shadow-lg">
-                  <CheckCircle className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Import Successful!</h3>
-                <p className="text-slate-600 dark:text-slate-400 text-lg">{importResult.message}</p>
-              </>
-            ) : (
-              <>
-                <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-rose-600 rounded-full flex items-center justify-center mb-6 shadow-lg">
-                  <AlertCircle className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Import Failed</h3>
-                <p className="text-slate-600 dark:text-slate-400 text-lg">{importResult.message}</p>
-              </>
-            )}
-          </motion.div>
-        ) : (
-          <div className="flex-1 overflow-hidden px-6 py-6">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
-              <TabsList className="grid w-full grid-cols-3 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-                <TabsTrigger value="upload" className="data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:shadow-sm rounded-lg font-medium">
-                  Upload File
-                </TabsTrigger>
-                <TabsTrigger value="template" className="data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:shadow-sm rounded-lg font-medium">
-                  Download Template
-                </TabsTrigger>
-                <TabsTrigger value="help" className="data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:shadow-sm rounded-lg font-medium">
-                  Field Guide
-                </TabsTrigger>
-              </TabsList>
-              
-              <div className="flex-1 overflow-y-auto mt-6">
-                <TabsContent value="upload" className="space-y-6 mt-0">
-                  <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
-                      <FileText className="w-5 h-5 text-blue-600" />
-                      Select File
-                    </h3>
-                    <Input
-                      id="file-upload"
-                      type="file"
-                      accept=".csv,.xlsx"
-                      onChange={handleFileChange}
-                      className="bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 focus:border-blue-500 dark:focus:border-blue-400"
-                    />
-                  </div>
-                  
-                  {file && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-700"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-800 rounded-lg flex items-center justify-center">
-                          <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                        </div>
-                        <div>
-                          <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">{file.name}</span>
-                          <Badge variant="outline" className="ml-2 bg-white/50 dark:bg-slate-800/50 border-blue-300 dark:border-blue-600 text-blue-700 dark:text-blue-300">
-                            {file.name.endsWith('.xlsx') ? 'Excel' : 'CSV'}
-                          </Badge>
-                        </div>
-                      </div>
-                      <Button 
-                        onClick={handleParse} 
-                        disabled={isParsing}
-                        className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium"
-                      >
-                        {isParsing ? "Parsing..." : "Parse File"}
-                      </Button>
-                    </motion.div>
-                  )}
-                  
-                  {error && (
-                    <Alert variant="destructive" className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertDescription className="text-red-800 dark:text-red-200">{error}</AlertDescription>
-                    </Alert>
-                  )}
-                  
-                  {parsedRules.length > 0 && validationResults && (
-                    <div className="space-y-4">
-                      {validationResults.invalid.length === 0 ? (
-                        <Alert className="bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800">
-                          <CheckCircle className="h-4 w-4 text-emerald-600" />
-                          <AlertDescription className="text-emerald-800 dark:text-emerald-200">
-                            Successfully parsed and validated <strong>{parsedRules.length}</strong> rules.
-                            {validationResults.warnings.length > 0 && (
-                              <span className="text-amber-600 dark:text-amber-400 ml-2">
-                                ({validationResults.warnings.length} with warnings)
-                              </span>
-                            )}
-                            <Button 
-                              variant="link" 
-                              size="sm" 
-                              onClick={() => setShowPreview(!showPreview)}
-                              className="ml-2 p-0 h-auto text-emerald-700 dark:text-emerald-300 hover:text-emerald-800"
-                            >
-                              <Eye className="w-3 h-3 mr-1" />
-                              {showPreview ? 'Hide' : 'Show'} Preview
-                            </Button>
-                          </AlertDescription>
-                        </Alert>
-                      ) : (
-                        <Alert variant="destructive" className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
-                          <AlertCircle className="h-4 w-4" />
-                          <AlertDescription className="text-red-800 dark:text-red-200">
-                            Parsed {parsedRules.length} rules with validation issues:
-                            <div className="mt-2 space-y-1">
-                              <div className="text-emerald-600 dark:text-emerald-400">✅ {validationResults.valid.length} valid</div>
-                              <div className="text-amber-600 dark:text-amber-400">⚠️ {validationResults.warnings.length} with warnings</div>
-                              <div className="text-red-600 dark:text-red-400">❌ {validationResults.invalid.length} invalid</div>
-                            </div>
-                            <Button 
-                              variant="link" 
-                              size="sm" 
-                              onClick={() => setShowValidationModal(true)}
-                              className="ml-2 p-0 h-auto text-blue-600 dark:text-blue-400 hover:text-blue-700"
-                            >
-                              <Shield className="w-3 h-3 mr-1" />
-                              View Validation Details
-                            </Button>
-                          </AlertDescription>
-                        </Alert>
-                      )}
-                      
-                      {showPreview && (
-                        <motion.div 
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"
-                        >
-                          <div className="p-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
-                            <h4 className="font-semibold text-slate-900 dark:text-slate-100">Rules Preview</h4>
-                          </div>
-                          <div className="max-h-64 overflow-y-auto p-4 space-y-3">
-                            {parsedRules.slice(0, 5).map((rule, index) => {
-                              const validatedRule = validationResults.valid.find(r => r.rule_id === rule.rule_id) ||
-                                                   validationResults.warnings.find(r => r.rule_id === rule.rule_id) ||
-                                                   validationResults.invalid.find(r => r.rule_id === rule.rule_id);
-                              
-                              return (
-                                <div key={index} className="flex gap-3 text-sm p-3 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
-                                  <Badge variant="outline" className="font-mono text-xs bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-300">
-                                    {rule.rule_id}
-                                  </Badge>
-                                  <span className="flex-1 truncate text-slate-900 dark:text-slate-100">{rule.name}</span>
-                                  <Badge variant="secondary" className="text-xs bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
-                                    {rule.platform}
-                                  </Badge>
-                                  {validatedRule?.errors?.length > 0 && (
-                                    <Badge variant="destructive" className="text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">Error</Badge>
-                                  )}
-                                  {validatedRule?.warnings?.length > 0 && validatedRule?.errors?.length === 0 && (
-                                    <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20">Warning</Badge>
-                                  )}
-                                </div>
-                              );
-                            })}
-                            {parsedRules.length > 5 && (
-                              <div className="text-center text-sm text-slate-500 dark:text-slate-400 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                                ... and {parsedRules.length - 5} more rules
-                              </div>
-                            )}
-                          </div>
-                        </motion.div>
-                      )}
-                    </div>
-                  )}
-                </TabsContent>
-
-                <TabsContent value="template" className="space-y-6 mt-0">
-                  <div className="text-center bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-2xl p-8 border border-emerald-200 dark:border-emerald-800">
-                    <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                      <FileSpreadsheet className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3">Download Import Template</h3>
-                    <p className="text-slate-600 dark:text-slate-400 text-base mb-8 max-w-md mx-auto">
-                      Get started with our pre-formatted templates that include sample data and proper column headers.
-                    </p>
-                    
-                    <div className="flex justify-center gap-4">
-                      <Button 
-                        onClick={() => downloadTemplate('csv')}
-                        className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-medium shadow-lg"
-                        size="lg"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        Download CSV Template
-                      </Button>
-                      <Button 
-                        onClick={() => downloadTemplate('excel')}
-                        variant="outline"
-                        size="lg"
-                        className="border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        Download Excel Template
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <Alert className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
-                    <HelpCircle className="h-4 w-4 text-blue-600" />
-                    <AlertDescription className="text-blue-800 dark:text-blue-200">
-                      Templates include sample detection rules with the simplified field structure. 
-                      <strong> Required:</strong> rule_id, name, tactic, technique_id, xql_query, severity, rule_type, platform. 
-                      <strong> Optional:</strong> description, user.
-                    </AlertDescription>
-                  </Alert>
-                </TabsContent>
-
-                <TabsContent value="help" className="space-y-6 mt-0">
-                  <div className="bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-                    <div className="p-6 border-b border-slate-200 dark:border-slate-700">
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                        <HelpCircle className="w-5 h-5 text-blue-600" />
-                        Field Descriptions
-                      </h3>
-                    </div>
-                    <div className="max-h-80 overflow-y-auto p-6 space-y-4">
-                      {Object.entries(FIELD_DESCRIPTIONS).map(([field, description]) => (
-                        <div key={field} className="flex gap-4 p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 hover:shadow-sm transition-shadow">
-                          <Badge variant="outline" className="font-mono text-xs min-w-fit bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-300">
-                            {field}
-                          </Badge>
-                          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{description}</p>
-                        </div>
-                      ))}
-                      
-                      {/* Summary Alert inside scrollable area */}
-                      <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-                        <div className="flex items-start gap-3">
-                          <HelpCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                          <div className="text-blue-800 dark:text-blue-200 space-y-2">
-                            <div><strong>Required fields:</strong> rule_id, name, tactic, technique_id, xql_query, severity, rule_type, platform</div>
-                            <div><strong>Optional fields:</strong> description, user</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </TabsContent>
+          <div className="flex-1 space-y-4 overflow-y-auto custom-scrollbar pr-2">
+            {/* File Upload Section */}
+            <div className="px-1">
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Select File
+              </label>
+              <div className="relative">
+                <input
+                  type="file"
+                  ref={fileRef}
+                  onChange={handleFileChange}
+                  accept=".csv,.xlsx,.xls"
+                  className="block w-full text-sm text-slate-500 dark:text-slate-400
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-lg file:border-0
+                            file:text-sm file:font-medium
+                            file:bg-blue-50 file:text-blue-700
+                            dark:file:bg-blue-900/50 dark:file:text-blue-300
+                            hover:file:bg-blue-100 dark:hover:file:bg-blue-900/70
+                            file:transition-colors file:cursor-pointer
+                            cursor-pointer
+                            border-2 border-slate-200 dark:border-slate-700 rounded-lg
+                            bg-white dark:bg-slate-800 px-3 py-2
+                            focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                            focus:outline-none transition-all duration-200"
+                />
               </div>
-            </Tabs>
-          </div>
-        )}
+              {uploadStatus.type === 'error' && (
+                <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+                  {uploadStatus.message}
+                </p>
+              )}
+            </div>
 
-        {!importResult && parsedRules.length > 0 && validationResults && validationResults.invalid.length === 0 && (
-          <DialogFooter className="border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 -mx-6 -mb-6 px-8 py-4">
-            <div className="flex justify-end items-center w-full">
-              <Button 
-                onClick={() => handleConfirmImport()}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium shadow-lg"
+            {/* Download Template Section */}
+            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+              <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100 mb-2">Need a template?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                Download our CSV template with all required fields and example data.
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => downloadTemplate()}
+                className="flex items-center gap-2"
               >
-                <Upload className="w-4 h-4 mr-2" />
-                Import {parsedRules.length} Rules
+                <FileText className="w-4 h-4" />
+                Download CSV Template
               </Button>
             </div>
-          </DialogFooter>
-        )}
 
-        {showValidationModal && (
-          <ValidationResultsModal
-            isOpen={showValidationModal}
-            onClose={handleValidationClose}
-            validationResults={validationResults}
-            onProceedWithValid={handleProceedWithValid}
-            onFixAndRetry={handleFixAndRetry}
+            {/* Progress Section */}
+            {isUploading && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Processing...</span>
+                  <span className="text-sm text-slate-500 dark:text-slate-400">{uploadProgress}%</span>
+                </div>
+                <Progress value={uploadProgress} className="w-full" />
+              </div>
+            )}
+
+            {/* Success/Error Messages */}
+            {uploadStatus.type === 'success' && (
+              <Alert className="border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20">
+                <CheckCircle className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                <AlertTitle className="text-emerald-800 dark:text-emerald-300">Upload Successful</AlertTitle>
+                <AlertDescription className="text-emerald-700 dark:text-emerald-400">
+                  {uploadStatus.message}
+                </AlertDescription>
+              </Alert>
+            )}
+
+            {/* Rules Preview */}
+            {parsedRules.length > 0 && (
+              <div className="space-y-3 flex-shrink-0">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                    Rules Preview ({parsedRules.length} rules)
+                  </h3>
+                </div>
+                
+                <div className="border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/50 overflow-hidden">
+                  <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
+                    <div className="p-4 space-y-3">
+                      {parsedRules.map((rule, index) => (
+                        <div key={index} className="bg-white dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-600 shadow-sm">
+                          <div className="flex items-start justify-between">
+                            <div className="space-y-2 flex-1">
+                              <div className="flex items-center gap-3 flex-wrap">
+                                <h4 className="font-medium text-slate-900 dark:text-slate-100">{rule.name}</h4>
+                                <Badge variant="outline" className="text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                                  {rule.technique_id}
+                                </Badge>
+                              </div>
+                              
+                              {rule.description && (
+                                <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                                  {rule.description}
+                                </p>
+                              )}
+                              
+                              <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 flex-wrap">
+                                <span>Type: <span className="font-medium text-slate-700 dark:text-slate-300">{rule.rule_type}</span></span>
+                                <span>Platform: <span className="font-medium text-slate-700 dark:text-slate-300">{rule.platform}</span></span>
+                                <span>Tactic: <span className="font-medium text-slate-700 dark:text-slate-300">{rule.tactic}</span></span>
+                                <span>Severity: <span className="font-medium text-slate-700 dark:text-slate-300">{rule.severity}</span></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Error Display */}
+            {error && (
+              <Alert variant="destructive" className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription className="text-red-800 dark:text-red-200">{error}</AlertDescription>
+              </Alert>
+            )}
+
+            {/* Validation Results */}
+            {validationResults && (
+              <ValidationResultsModal
+                isOpen={showValidationResults}
+                onClose={() => setShowValidationResults(false)}
+                validationResults={validationResults}
+              />
+            )}
+          </div>
+
+          <DialogFooter className="flex-shrink-0 pt-4 gap-3">
+            <Button variant="outline" onClick={handleClose} disabled={isUploading}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={() => handleImport()} 
+              disabled={!file || isUploading}
+              className="bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
+            >
+              {isUploading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Importing...
+                </>
+              ) : (
+                <>
+                  <Upload className="w-4 h-4 mr-2" />
+                  Import Rules
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+
+          <DuplicateRulesDialog
+            isOpen={showDuplicateDialog}
+            onClose={() => setShowDuplicateDialog(false)}
+            duplicateIds={duplicateInfo?.duplicateIds || []}
+            details={duplicateInfo?.details || {}}
+            onSkipDuplicates={handleSkipDuplicates}
+            onUpdateExisting={handleUpdateExisting}
           />
-        )}
+        </div>
       </DialogContent>
     </Dialog>
   );

@@ -174,8 +174,7 @@ export default function CoverageHeatmap({ rules, techniques, isLoading, selected
                       initial={{ opacity: 0, y: 20, scale: 0.9 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ 
-                        delay: index * 0.1, 
-                        duration: 0.5,
+                        duration: 0.4,
                         type: "spring",
                         stiffness: 100
                       }}
@@ -229,7 +228,7 @@ export default function CoverageHeatmap({ rules, techniques, isLoading, selected
                                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                                 initial={{ strokeDasharray: "0, 100" }}
                                 animate={{ strokeDasharray: `${tacticCoverage.percentage}, 100` }}
-                                transition={{ duration: 1.5, delay: index * 0.1, ease: "easeOut" }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
                               />
                             </svg>
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -237,7 +236,7 @@ export default function CoverageHeatmap({ rules, techniques, isLoading, selected
                                 className={`font-bold ${colors.text} text-[10px]`}
                                 initial={{ opacity: 0, scale: 0.5 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: index * 0.1 + 0.5 }}
+                                transition={{ delay: 0.4 }}
                               >
                                 {tacticCoverage.percentage}%
                               </motion.span>
@@ -251,7 +250,7 @@ export default function CoverageHeatmap({ rules, techniques, isLoading, selected
                             <motion.div
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: index * 0.1 + 0.7 }}
+                              transition={{ delay: 0.6 }}
                             >
                               <Badge 
                                 className={`px-1.5 py-0.5 bg-${level.color}-100 dark:bg-${level.color}-900/30 text-${level.color}-700 dark:text-${level.color}-300 border-${level.color}-200 dark:border-${level.color}-700 whitespace-nowrap text-[9px]`}

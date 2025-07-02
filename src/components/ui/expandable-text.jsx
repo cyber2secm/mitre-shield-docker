@@ -16,20 +16,23 @@ const ExpandableText = ({
   }
 
   return (
-    <div className="space-y-2">
-      <p 
-        className={`text-slate-600 text-sm leading-relaxed transition-all duration-200 ${className} ${
-          !isExpanded ? 'line-clamp-2' : ''
+    <div className="space-y-3">
+      <div 
+        className={`text-slate-600 dark:text-slate-300 text-sm leading-relaxed transition-all duration-200 ${className} ${
+          !isExpanded ? 'line-clamp-4' : ''
         }`}
         style={{
-          display: '-webkit-box',
-          WebkitLineClamp: !isExpanded ? maxLines : 'none',
+          display: !isExpanded ? '-webkit-box' : 'block',
+          WebkitLineClamp: !isExpanded ? maxLines : 'unset',
           WebkitBoxOrient: 'vertical',
-          overflow: !isExpanded ? 'hidden' : 'visible'
+          overflow: !isExpanded ? 'hidden' : 'visible',
+          wordWrap: 'break-word',
+          wordBreak: 'break-word',
+          whiteSpace: 'pre-wrap'
         }}
       >
         {text}
-      </p>
+      </div>
       
       {/* Only show the button if text is long enough to be truncated */}
       {text.length > 100 && (

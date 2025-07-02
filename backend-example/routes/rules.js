@@ -234,7 +234,7 @@ router.delete('/:id', async (req, res) => {
 // @access  Private
 router.post('/bulk', async (req, res) => {
   try {
-    const { items } = req.body;
+    const { items, allowUpdate = false } = req.body;
 
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({
@@ -243,35 +243,121 @@ router.post('/bulk', async (req, res) => {
       });
     }
 
-    // Add user info to each rule
-    const rulesData = items.map(item => ({
-      ...item,
-      // created_by: req.user.id,
-      // updated_by: req.user.id
-    }));
+    // Check for existing rule IDs
+    const ruleIds = items.map(item => item.rule_id);
+    const existingRules = await DetectionRule.find({ rule_id: { $in: ruleIds } });
+    const existingRuleIds = existingRules.map(rule => rule.rule_id);
+    
+    if (existingRuleIds.length > 0 && !allowUpdate) {
+      return res.status(400).json({
+        success: false,
+        error: 'Duplicate rule IDs found',
+        duplicateIds: existingRuleIds,
+        details: {
+          total: items.length,
+          duplicates: existingRuleIds.length,
+          new: items.length - existingRuleIds.length
+        }
+      });
+    }
 
-    const rules = await DetectionRule.insertMany(rulesData);
+    let result;
+    
+    if (allowUpdate && existingRuleIds.length > 0) {
+      // Handle updates and new inserts separately
+      const updates = [];
+      const inserts = [];
+      
+      items.forEach(item => {
+        if (existingRuleIds.includes(item.rule_id)) {
+          updates.push(item);
+        } else {
+          inserts.push(item);
+        }
+      });
+      
+      // Update existing rules
+      const updatePromises = updates.map(item => 
+        DetectionRule.findOneAndUpdate(
+          { rule_id: item.rule_id },
+          { ...item },
+          { new: true, runValidators: true }
+        )
+      );
+      
+      const updatedRules = await Promise.all(updatePromises);
+      
+      // Insert new rules
+      let insertedRules = [];
+      if (inserts.length > 0) {
+        insertedRules = await DetectionRule.insertMany(inserts);
+      }
+      
+      const allRules = [...updatedRules, ...insertedRules];
+      
+      // Transform for frontend compatibility
+      const transformedRules = allRules.map(rule => ({
+        ...rule.toObject(),
+        id: rule._id,
+        created_date: rule.createdAt,
+        updated_date: rule.updatedAt
+      }));
 
-    // Transform for frontend compatibility
-    const transformedRules = rules.map(rule => ({
-      ...rule.toObject(),
-      id: rule._id,
-      created_date: rule.createdAt,
-      updated_date: rule.updatedAt
-    }));
+      result = {
+        success: true,
+        message: `${updatedRules.length} rules updated, ${insertedRules.length} rules created`,
+        data: transformedRules,
+        stats: {
+          updated: updatedRules.length,
+          created: insertedRules.length,
+          total: allRules.length
+        }
+      };
+    } else {
+      // Insert all new rules (no duplicates)
+      const rulesData = items.map(item => ({
+        ...item,
+        // created_by: req.user.id,
+        // updated_by: req.user.id
+      }));
 
-    res.status(201).json({
-      success: true,
-      message: `${rules.length} rules created successfully`,
-      data: transformedRules
-    });
+      const rules = await DetectionRule.insertMany(rulesData);
+
+      // Transform for frontend compatibility
+      const transformedRules = rules.map(rule => ({
+        ...rule.toObject(),
+        id: rule._id,
+        created_date: rule.createdAt,
+        updated_date: rule.updatedAt
+      }));
+
+      result = {
+        success: true,
+        message: `${rules.length} rules created successfully`,
+        data: transformedRules,
+        stats: {
+          created: rules.length,
+          total: rules.length
+        }
+      };
+    }
+
+    res.status(201).json(result);
   } catch (error) {
-    console.error(error.message);
+    console.error('Bulk import error:', error);
     
     if (error.code === 11000) {
       return res.status(400).json({
         success: false,
         error: 'One or more rule IDs already exist'
+      });
+    }
+    
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({
+        success: false,
+        error: errors.join(', ')
       });
     }
     

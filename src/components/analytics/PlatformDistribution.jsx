@@ -92,7 +92,7 @@ export default function PlatformDistribution({ rules, isLoading }) {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className={`w-8 h-8 rounded-full ${colors.bg} flex items-center justify-center p-1`}>
-                  <PlatformIcon platform={platform} className="w-full h-full object-contain" />
+                  <PlatformIcon platform={platform} className="w-full h-full object-contain" variant="analytics" />
                 </div>
                 <div>
                   <h4 className="font-medium text-slate-800 dark:text-slate-200">{platform}</h4>

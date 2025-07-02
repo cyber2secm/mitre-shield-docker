@@ -2,7 +2,7 @@
   {
     "technique_id": "T1190",
     "name": "Exploit Public-Facing Application",
-    "description": "",
+    "description": "Adversaries may attempt to exploit a weakness in an Internet-facing host or system to initially access a network. The weakness in the system can be a software bug, a temporary glitch, or a misconfiguration.Exploited applications are often websites/web servers, but can also include databases (like SQL), standard services (like SMB or SSH), network device administration and management protocols (like SNMP and Smart Install), and any other system with Internet-accessible open sockets.[1][2][3][4][5]On ESXi infrastructure, adversaries may exploit exposed OpenSLP services; they may alternatively exploit exposed VMware vCenter servers.[6][7]Depending on the flaw being exploited, this may also involveExploitation for Defense EvasionorExploitation for Client Execution.If an application is hosted on cloud-based infrastructure and/or is containerized, then exploiting it may lead to compromise of the underlying instance or container. This can allow an adversary a path to access the cloud or container APIs (e.g., via theCloud Instance Metadata API), exploit container host access viaEscape to Host, or take advantage of weak identity and access management policies.Adversaries may also exploit edge network infrastructure and related appliances, specifically targeting devices that do not support robust host-based defenses.[8][9]For websites and databases, the OWASP top 10 and CWE top 25 highlight the most common web-based vulnerabilities.[10][11]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -15,14 +15,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353161",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.839834",
     "subtechniques": []
   },
   {
     "technique_id": "T1133",
     "name": "External Remote Services",
-    "description": "",
+    "description": "Adversaries may leverage external-facing remote services to initially access and/or persist within a network. Remote services such as VPNs, Citrix, and other access mechanisms allow users to connect to internal enterprise network resources from external locations. There are often remote service gateways that manage connections and credential authentication for these services. Services such asWindows Remote ManagementandVNCcan also be used externally.[1]Access toValid Accountsto use the service is often a requirement, which could be obtained through credential pharming or by obtaining the credentials from users after compromising the enterprise network.[2]Access to remote services may be used as a redundant or persistent access mechanism during an operation.Access may also be gained through an exposed service that doesn’t require authentication. In containerized environments, this may include an exposed Docker API, Kubernetes API server, kubelet, or web application such as the Kubernetes dashboard.[3][4]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -35,14 +35,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353176",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.839850",
     "subtechniques": []
   },
   {
     "technique_id": "T1078",
     "name": "Valid Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access, network devices, and remote desktop.[1]Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools in conjunction with the legitimate access those credentials provide to make it harder to detect their presence.In some cases, adversaries may abuse inactive accounts: for example, those belonging to individuals who are no longer part of an organization. Using these accounts may allow the adversary to evade detection, as the original account user will not be present to identify any anomalous activity taking place on their account.[2]The overlap of permissions for local, domain, and cloud accounts across a network of systems is of concern because the adversary may be able to pivot across accounts and systems to reach a high level of access (i.e., domain or enterprise administrator) to bypass access controls set within the enterprise.[3]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -55,8 +55,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353184",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.839858",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -71,7 +71,7 @@
   {
     "technique_id": "T1078.001",
     "name": "Default Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a default account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Default accounts are those that are built-into an OS, such as the Guest or Administrator accounts on Windows systems. Default accounts also include default factory/provider set accounts on other types of systems, software, or devices, including the root user account in AWS, the root user account in ESXi, and the default service account in Kubernetes.[1][2][3]Default accounts are not limited to client machines; rather, they also include accounts that are preset for equipment such as network devices and computer applications, whether they are internal, open source, or commercial. Appliances that come preset with a username and password combination pose a serious threat to organizations that do not change it post installation, as they are easy targets for an adversary. Similarly, adversaries may also utilize publicly disclosed or stolenPrivate Keysor credential materials to legitimately connect to remote environments viaRemote Services.[4]Default accounts may be created on a system after initial setup by connecting or integrating it with another application. For example, when an ESXi server is connected to a vCenter server, a default privileged account calledvpxuseris created on the ESXi server. If a threat actor is able to compromise this account’s credentials (for example, viaExploitation for Credential Accesson the vCenter host), they will then have access to the ESXi server.[5][6]",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -84,13 +84,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353190"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.839864"
   },
   {
     "technique_id": "T1078.003",
     "name": "Local Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a local account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Local accounts are those configured by an organization for use by users, remote support, services, or for administration on a single system or service.Local Accounts may also be abused to elevate privileges and harvest credentials throughOS Credential Dumping. Password reuse may allow the abuse of local accounts across a set of machines on a network for the purposes of Privilege Escalation and Lateral Movement.",
     "tactic": "Initial Access",
     "tactics": [
       "Initial Access"
@@ -103,13 +103,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353196"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.839871"
   },
   {
     "technique_id": "T1609",
     "name": "Container Administration Command",
-    "description": "",
+    "description": "Adversaries may abuse a container administration service to execute commands within a container. A container administration service such as the Docker daemon, the Kubernetes API server, or the kubelet may allow remote management of containers within an environment.[1][2][3]In Docker, adversaries may specify an entrypoint during container deployment that executes a script or command, or they may use a command such asdocker execto execute a command within a running container.[4][5]In Kubernetes, if an adversary has sufficient permissions, they may gain remote execution in a container in the cluster via interaction with the Kubernetes API server, the kubelet, or by running a command such askubectl exec.[6]",
     "tactic": "Execution",
     "tactics": [
       "Execution"
@@ -122,14 +122,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353348",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840029",
     "subtechniques": []
   },
   {
     "technique_id": "T1610",
     "name": "Deploy Container",
-    "description": "",
+    "description": "Adversaries may deploy a container into an environment to facilitate execution or evade defenses. In some cases, adversaries may deploy a new container to execute processes associated with a particular image or deployment, such as processes that execute or download malware. In others, an adversary may deploy a new container configured without network rules, user limitations, etc. to bypass existing defenses within the environment. In Kubernetes environments, an adversary may attempt to deploy a privileged or vulnerable container into a specific node in order toEscape to Hostand access other containers running on the node.[1]Containers can be deployed by various means, such as via Docker'screateandstartAPIs or via a web application such as the Kubernetes dashboard or Kubeflow.[2][3][4]In Kubernetes environments, containers may be deployed through workloads such as ReplicaSets or DaemonSets, which can allow containers to be deployed across multiple nodes.[5]Adversaries may deploy containers based on retrieved or built malicious images or from benign images that download and execute malicious payloads at runtime.[6]",
     "tactic": "Execution",
     "tactics": [
       "Execution"
@@ -142,14 +142,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353353",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840034",
     "subtechniques": []
   },
   {
     "technique_id": "T1053",
     "name": "Scheduled Task/Job",
-    "description": "",
+    "description": "Adversaries may abuse task scheduling functionality to facilitate initial or recurring execution of malicious code. Utilities exist within all major operating systems to schedule programs or scripts to be executed at a specified date and time. A task can also be scheduled on a remote system, provided the proper authentication is met (ex: RPC and file and printer sharing in Windows environments). Scheduling a task on a remote system typically may require being a member of an admin or otherwise privileged group on the remote system.[1]Adversaries may use task scheduling to execute programs at system startup or on a scheduled basis for persistence. These mechanisms can also be abused to run a process under the context of a specified account (such as one with elevated permissions/privileges). Similar toSystem Binary Proxy Execution, adversaries have also abused task scheduling to potentially mask one-time execution under a trusted system process.[2]",
     "tactic": "Execution",
     "tactics": [
       "Execution"
@@ -162,8 +162,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353358",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840039",
     "subtechniques": [
       {
         "id": "T1053.007",
@@ -174,7 +174,7 @@
   {
     "technique_id": "T1053.007",
     "name": "Container Orchestration Job",
-    "description": "",
+    "description": "Adversaries may abuse task scheduling functionality provided by container orchestration tools such as Kubernetes to schedule deployment of containers configured to execute malicious code. Container orchestration jobs run these automated tasks at a specific date and time, similar to cron jobs on a Linux system. Deployments of this type can also be configured to maintain a quantity of containers over time, automating the process of maintaining persistence within a cluster.In Kubernetes, a CronJob may be used to schedule a Job that runs one or more containers to perform specific tasks.[1][2]An adversary therefore may utilize a CronJob to schedule deployment of a Job that executes malicious code in various nodes within a cluster.[3]",
     "tactic": "Execution",
     "tactics": [
       "Execution"
@@ -187,13 +187,13 @@
     "parent_technique": "Scheduled Task/Job",
     "parent_technique_id": "T1053",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353363"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840044"
   },
   {
     "technique_id": "T1204",
     "name": "User Execution",
-    "description": "",
+    "description": "An adversary may rely upon specific actions by a user in order to gain execution. Users may be subjected to social engineering to get them to execute malicious code by, for example, opening a malicious document file or link. These user actions will typically be observed as follow-on behavior from forms ofPhishing.WhileUser Executionfrequently occurs shortly after Initial Access it may occur at other phases of an intrusion, such as when an adversary places a file in a shared directory or on a user's desktop hoping that a user will click on it. This activity may also be seen shortly afterInternal Spearphishing.Adversaries may also deceive users into performing actions such as:EnablingRemote Access Tools, allowing direct control of the system to the adversaryRunning malicious JavaScript in their browser, allowing adversaries toSteal Web Session Cookies[1][2]Downloading and executing malware forUser ExecutionCoerceing users to copy, paste, and execute malicious code manually[3][4]For example, tech support scams can be facilitated throughPhishing, vishing, or various forms of user interaction. Adversaries can use a combination of these methods, such as spoofing and promoting toll-free numbers or call centers that are used to direct victims to malicious websites, to deliver and execute payloads containing malware orRemote Access Tools.[5]",
     "tactic": "Execution",
     "tactics": [
       "Execution"
@@ -206,8 +206,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353368",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840048",
     "subtechniques": [
       {
         "id": "T1204.003",
@@ -218,7 +218,7 @@
   {
     "technique_id": "T1204.003",
     "name": "Malicious Image",
-    "description": "",
+    "description": "Adversaries may rely on a user running a malicious image to facilitate execution. Amazon Web Services (AWS) Amazon Machine Images (AMIs), Google Cloud Platform (GCP) Images, and Azure Images as well as popular container runtimes such as Docker can be backdoored. Backdoored images may be uploaded to a public repository viaUpload Malware, and users may then download and deploy an instance or container from the image without realizing the image is malicious, thus bypassing techniques that specifically achieve Initial Access. This can lead to the execution of malicious code, such as code that executes cryptocurrency mining, in the instance or container.[1]Adversaries may also name images a certain way to increase the chance of users mistakenly deploying an instance or container from the image (ex:Match Legitimate Resource Name or Location).[2]",
     "tactic": "Execution",
     "tactics": [
       "Execution"
@@ -231,13 +231,13 @@
     "parent_technique": "User Execution",
     "parent_technique_id": "T1204",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353372"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840053"
   },
   {
     "technique_id": "T1098",
     "name": "Account Manipulation",
-    "description": "",
+    "description": "Adversaries may manipulate accounts to maintain and/or elevate access to victim systems. Account manipulation may consist of any action that preserves or modifies adversary access to a compromised account, such as modifying credentials or permission groups.[1]These actions could also include account activity designed to subvert security policies, such as performing iterative password updates to bypass password duration policies and preserve the life of compromised credentials.In order to create or manipulate accounts, the adversary must already have sufficient permissions on systems or the domain. However, account manipulation may also lead to privilege escalation where modifications grant access to additional roles, permissions, or higher-privilegedValid Accounts.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -250,8 +250,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353583",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840267",
     "subtechniques": [
       {
         "id": "T1098.006",
@@ -262,7 +262,7 @@
   {
     "technique_id": "T1098.006",
     "name": "Additional Container Cluster Roles",
-    "description": "",
+    "description": "An adversary may add additional roles or permissions to an adversary-controlled user or service account to maintain persistent access to a container orchestration system. For example, an adversary with sufficient permissions may create a RoleBinding or a ClusterRoleBinding to bind a Role or ClusterRole to a Kubernetes account.[1][2]Where attribute-based access control (ABAC) is in use, an adversary with sufficient permissions may modify a Kubernetes ABAC policy to give the target account additional permissions.[3]This account modification may immediately followCreate Accountor other malicious account activity. Adversaries may also modify existingValid Accountsthat they have compromised.Note that where container orchestration systems are deployed in cloud environments, as with Google Kubernetes Engine, Amazon Elastic Kubernetes Service, and Azure Kubernetes Service, cloud-based role-based access control (RBAC) assignments or ABAC policies can often be used in place of or in addition to local permission assignments.[4][5][6]In these cases, this technique may be used in conjunction withAdditional Cloud Roles.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -275,13 +275,13 @@
     "parent_technique": "Account Manipulation",
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353588"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840272"
   },
   {
     "technique_id": "T1136",
     "name": "Create Account",
-    "description": "",
+    "description": "Adversaries may create an account to maintain access to victim systems.[1]With a sufficient level of access, creating such accounts may be used to establish secondary credentialed access that do not require persistent remote access tools to be deployed on the system.Accounts may be created on the local system or within a domain or cloud tenant. In cloud environments, adversaries may create accounts that only have access to specific services, which can reduce the chance of detection.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -294,8 +294,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353593",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840276",
     "subtechniques": [
       {
         "id": "T1136.001",
@@ -306,7 +306,7 @@
   {
     "technique_id": "T1136.001",
     "name": "Local Account",
-    "description": "",
+    "description": "Adversaries may create a local account to maintain access to victim systems. Local accounts are those configured by an organization for use by users, remote support, services, or for administration on a single system or service.For example, with a sufficient level of access, the Windowsnet user /addcommand can be used to create a local account. In Linux, theuseraddcommand can be used, while on macOS systems, thedscl -createcommand can be used. Local accounts may also be added to network devices, often via commonNetwork Device CLIcommands such asusername, to ESXi servers viaesxcli system account add, or to Kubernetes clusters using thekubectlutility.[1][2]Such accounts may be used to establish secondary credentialed access that do not require persistent remote access tools to be deployed on the system.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -319,13 +319,13 @@
     "parent_technique": "Create Account",
     "parent_technique_id": "T1136",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353596"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840280"
   },
   {
     "technique_id": "T1543",
     "name": "Create or Modify System Process",
-    "description": "",
+    "description": "Adversaries may create or modify system-level processes to repeatedly execute malicious payloads as part of persistence. When operating systems boot up, they can start processes that perform background system functions. On Windows and Linux, these system processes are referred to as services.[1]On macOS, launchd processes known asLaunch DaemonandLaunch Agentare run to finish system initialization and load user specific parameters.[2]Adversaries may install new services, daemons, or agents that can be configured to execute at startup or a repeatable interval in order to establish persistence. Similarly, adversaries may modify existing services, daemons, or agents to achieve the same effect.Services, daemons, or agents may be created with administrator privileges but executed under root/SYSTEM privileges. Adversaries may leverage this functionality to create or modify system processes in order to escalate privileges.[3]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -338,8 +338,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353601",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840285",
     "subtechniques": [
       {
         "id": "T1543.005",
@@ -350,7 +350,7 @@
   {
     "technique_id": "T1543.005",
     "name": "Container Service",
-    "description": "",
+    "description": "Adversaries may create or modify container or container cluster management tools that run as daemons, agents, or services on individual hosts. These include software for creating and managing individual containers, such as Docker and Podman, as well as container cluster node-level agents such as kubelet. By modifying these services, an adversary may be able to achieve persistence or escalate their privileges on a host.For example, by using thedocker runorpodman runcommand with therestart=alwaysdirective, a container can be configured to persistently restart on the host.[1]A user with access to the (rootful) docker command may also be able to escalate their privileges on the host.[2]In Kubernetes environments, DaemonSets allow an adversary to persistentlyDeploy Containers on all nodes, including ones added later to the cluster.[3][4]Pods can also be deployed to specific nodes using thenodeSelectorornodeNamefields in the pod spec.[5][6]Note that containers can also be configured to run asSystemd Services.[7][8]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -363,13 +363,13 @@
     "parent_technique": "Create or Modify System Process",
     "parent_technique_id": "T1543",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353604"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840289"
   },
   {
     "technique_id": "T1133",
     "name": "External Remote Services",
-    "description": "",
+    "description": "Adversaries may leverage external-facing remote services to initially access and/or persist within a network. Remote services such as VPNs, Citrix, and other access mechanisms allow users to connect to internal enterprise network resources from external locations. There are often remote service gateways that manage connections and credential authentication for these services. Services such asWindows Remote ManagementandVNCcan also be used externally.[1]Access toValid Accountsto use the service is often a requirement, which could be obtained through credential pharming or by obtaining the credentials from users after compromising the enterprise network.[2]Access to remote services may be used as a redundant or persistent access mechanism during an operation.Access may also be gained through an exposed service that doesn’t require authentication. In containerized environments, this may include an exposed Docker API, Kubernetes API server, kubelet, or web application such as the Kubernetes dashboard.[3][4]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -382,14 +382,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353608",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840293",
     "subtechniques": []
   },
   {
     "technique_id": "T1525",
     "name": "Implant Internal Image",
-    "description": "",
+    "description": "Adversaries may implant cloud or container images with malicious code to establish persistence after gaining access to an environment. Amazon Web Services (AWS) Amazon Machine Images (AMIs), Google Cloud Platform (GCP) Images, and Azure Images as well as popular container runtimes such as Docker can be implanted or backdoored. UnlikeUpload Malware, this technique focuses on adversaries implanting an image in a registry within a victim’s environment. Depending on how the infrastructure is provisioned, this could provide persistent access if the infrastructure provisioning tool is instructed to always use the latest image.[1]A tool has been developed to facilitate planting backdoors in cloud container images.[2]If an adversary has access to a compromised AWS instance, and permissions to list the available container images, they may implant a backdoor such as aWeb Shell.[1]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -402,14 +402,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353612",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840297",
     "subtechniques": []
   },
   {
     "technique_id": "T1053",
     "name": "Scheduled Task/Job",
-    "description": "",
+    "description": "Adversaries may abuse task scheduling functionality to facilitate initial or recurring execution of malicious code. Utilities exist within all major operating systems to schedule programs or scripts to be executed at a specified date and time. A task can also be scheduled on a remote system, provided the proper authentication is met (ex: RPC and file and printer sharing in Windows environments). Scheduling a task on a remote system typically may require being a member of an admin or otherwise privileged group on the remote system.[1]Adversaries may use task scheduling to execute programs at system startup or on a scheduled basis for persistence. These mechanisms can also be abused to run a process under the context of a specified account (such as one with elevated permissions/privileges). Similar toSystem Binary Proxy Execution, adversaries have also abused task scheduling to potentially mask one-time execution under a trusted system process.[2]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -422,8 +422,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353616",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840301",
     "subtechniques": [
       {
         "id": "T1053.007",
@@ -434,7 +434,7 @@
   {
     "technique_id": "T1053.007",
     "name": "Container Orchestration Job",
-    "description": "",
+    "description": "Adversaries may abuse task scheduling functionality provided by container orchestration tools such as Kubernetes to schedule deployment of containers configured to execute malicious code. Container orchestration jobs run these automated tasks at a specific date and time, similar to cron jobs on a Linux system. Deployments of this type can also be configured to maintain a quantity of containers over time, automating the process of maintaining persistence within a cluster.In Kubernetes, a CronJob may be used to schedule a Job that runs one or more containers to perform specific tasks.[1][2]An adversary therefore may utilize a CronJob to schedule deployment of a Job that executes malicious code in various nodes within a cluster.[3]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -447,13 +447,13 @@
     "parent_technique": "Scheduled Task/Job",
     "parent_technique_id": "T1053",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353621"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840305"
   },
   {
     "technique_id": "T1078",
     "name": "Valid Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access, network devices, and remote desktop.[1]Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools in conjunction with the legitimate access those credentials provide to make it harder to detect their presence.In some cases, adversaries may abuse inactive accounts: for example, those belonging to individuals who are no longer part of an organization. Using these accounts may allow the adversary to evade detection, as the original account user will not be present to identify any anomalous activity taking place on their account.[2]The overlap of permissions for local, domain, and cloud accounts across a network of systems is of concern because the adversary may be able to pivot across accounts and systems to reach a high level of access (i.e., domain or enterprise administrator) to bypass access controls set within the enterprise.[3]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -466,8 +466,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353625",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840309",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -482,7 +482,7 @@
   {
     "technique_id": "T1078.001",
     "name": "Default Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a default account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Default accounts are those that are built-into an OS, such as the Guest or Administrator accounts on Windows systems. Default accounts also include default factory/provider set accounts on other types of systems, software, or devices, including the root user account in AWS, the root user account in ESXi, and the default service account in Kubernetes.[1][2][3]Default accounts are not limited to client machines; rather, they also include accounts that are preset for equipment such as network devices and computer applications, whether they are internal, open source, or commercial. Appliances that come preset with a username and password combination pose a serious threat to organizations that do not change it post installation, as they are easy targets for an adversary. Similarly, adversaries may also utilize publicly disclosed or stolenPrivate Keysor credential materials to legitimately connect to remote environments viaRemote Services.[4]Default accounts may be created on a system after initial setup by connecting or integrating it with another application. For example, when an ESXi server is connected to a vCenter server, a default privileged account calledvpxuseris created on the ESXi server. If a threat actor is able to compromise this account’s credentials (for example, viaExploitation for Credential Accesson the vCenter host), they will then have access to the ESXi server.[5][6]",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -495,13 +495,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353629"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840313"
   },
   {
     "technique_id": "T1078.003",
     "name": "Local Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a local account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Local accounts are those configured by an organization for use by users, remote support, services, or for administration on a single system or service.Local Accounts may also be abused to elevate privileges and harvest credentials throughOS Credential Dumping. Password reuse may allow the abuse of local accounts across a set of machines on a network for the purposes of Privilege Escalation and Lateral Movement.",
     "tactic": "Persistence",
     "tactics": [
       "Persistence"
@@ -514,13 +514,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353632"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840317"
   },
   {
     "technique_id": "T1098",
     "name": "Account Manipulation",
-    "description": "",
+    "description": "Adversaries may manipulate accounts to maintain and/or elevate access to victim systems. Account manipulation may consist of any action that preserves or modifies adversary access to a compromised account, such as modifying credentials or permission groups.[1]These actions could also include account activity designed to subvert security policies, such as performing iterative password updates to bypass password duration policies and preserve the life of compromised credentials.In order to create or manipulate accounts, the adversary must already have sufficient permissions on systems or the domain. However, account manipulation may also lead to privilege escalation where modifications grant access to additional roles, permissions, or higher-privilegedValid Accounts.",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -533,8 +533,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353894",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840582",
     "subtechniques": [
       {
         "id": "T1098.006",
@@ -545,7 +545,7 @@
   {
     "technique_id": "T1098.006",
     "name": "Additional Container Cluster Roles",
-    "description": "",
+    "description": "An adversary may add additional roles or permissions to an adversary-controlled user or service account to maintain persistent access to a container orchestration system. For example, an adversary with sufficient permissions may create a RoleBinding or a ClusterRoleBinding to bind a Role or ClusterRole to a Kubernetes account.[1][2]Where attribute-based access control (ABAC) is in use, an adversary with sufficient permissions may modify a Kubernetes ABAC policy to give the target account additional permissions.[3]This account modification may immediately followCreate Accountor other malicious account activity. Adversaries may also modify existingValid Accountsthat they have compromised.Note that where container orchestration systems are deployed in cloud environments, as with Google Kubernetes Engine, Amazon Elastic Kubernetes Service, and Azure Kubernetes Service, cloud-based role-based access control (RBAC) assignments or ABAC policies can often be used in place of or in addition to local permission assignments.[4][5][6]In these cases, this technique may be used in conjunction withAdditional Cloud Roles.",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -558,13 +558,13 @@
     "parent_technique": "Account Manipulation",
     "parent_technique_id": "T1098",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353899"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840587"
   },
   {
     "technique_id": "T1543",
     "name": "Create or Modify System Process",
-    "description": "",
+    "description": "Adversaries may create or modify system-level processes to repeatedly execute malicious payloads as part of persistence. When operating systems boot up, they can start processes that perform background system functions. On Windows and Linux, these system processes are referred to as services.[1]On macOS, launchd processes known asLaunch DaemonandLaunch Agentare run to finish system initialization and load user specific parameters.[2]Adversaries may install new services, daemons, or agents that can be configured to execute at startup or a repeatable interval in order to establish persistence. Similarly, adversaries may modify existing services, daemons, or agents to achieve the same effect.Services, daemons, or agents may be created with administrator privileges but executed under root/SYSTEM privileges. Adversaries may leverage this functionality to create or modify system processes in order to escalate privileges.[3]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -577,8 +577,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353903",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840592",
     "subtechniques": [
       {
         "id": "T1543.005",
@@ -589,7 +589,7 @@
   {
     "technique_id": "T1543.005",
     "name": "Container Service",
-    "description": "",
+    "description": "Adversaries may create or modify container or container cluster management tools that run as daemons, agents, or services on individual hosts. These include software for creating and managing individual containers, such as Docker and Podman, as well as container cluster node-level agents such as kubelet. By modifying these services, an adversary may be able to achieve persistence or escalate their privileges on a host.For example, by using thedocker runorpodman runcommand with therestart=alwaysdirective, a container can be configured to persistently restart on the host.[1]A user with access to the (rootful) docker command may also be able to escalate their privileges on the host.[2]In Kubernetes environments, DaemonSets allow an adversary to persistentlyDeploy Containers on all nodes, including ones added later to the cluster.[3][4]Pods can also be deployed to specific nodes using thenodeSelectorornodeNamefields in the pod spec.[5][6]Note that containers can also be configured to run asSystemd Services.[7][8]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -602,13 +602,13 @@
     "parent_technique": "Create or Modify System Process",
     "parent_technique_id": "T1543",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353907"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840596"
   },
   {
     "technique_id": "T1611",
     "name": "Escape to Host",
-    "description": "",
+    "description": "Adversaries may break out of a container or virtualized environment to gain access to the underlying host. This can allow an adversary access to other containerized or virtualized resources from the host level or to the host itself. In principle, containerized / virtualized resources should provide a clear separation of application functionality and be isolated from the host environment.[1]There are multiple ways an adversary may escape from a container to a host environment. Examples include creating a container configured to mount the host’s filesystem using the bind parameter, which allows the adversary to drop payloads and execute control utilities such as cron on the host; utilizing a privileged container to run commands or load a malicious kernel module on the underlying host; or abusing system calls such asunshareandkeyctlto escalate privileges and steal secrets.[2][3][4][5][6][7]Additionally, an adversary may be able to exploit a compromised container with a mounted container management socket, such asdocker.sock, to break out of the container via aContainer Administration Command.[5]Adversaries may also escape viaExploitation for Privilege Escalation, such as exploiting vulnerabilities in global symbolic links in order to access the root directory of a host machine.[8]In ESXi environments, an adversary may exploit a vulnerability in order to escape from a virtual machine into the hypervisor.[9]Gaining access to the host may provide the adversary with the opportunity to achieve follow-on objectives, such as establishing persistence, moving laterally within the environment, accessing other containers or virtual machines running on the host, or setting up a command and control channel on the host.",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -621,14 +621,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353911",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840600",
     "subtechniques": []
   },
   {
     "technique_id": "T1068",
     "name": "Exploitation for Privilege Escalation",
-    "description": "",
+    "description": "Adversaries may exploit software vulnerabilities in an attempt to elevate privileges. Exploitation of a software vulnerability occurs when an adversary takes advantage of a programming error in a program, service, or within the operating system software or kernel itself to execute adversary-controlled code. Security constructs such as permission levels will often hinder access to information and use of certain techniques, so adversaries will likely need to perform privilege escalation to include use of software exploitation to circumvent those restrictions.When initially gaining access to a system, an adversary may be operating within a lower privileged process which will prevent them from accessing certain resources on the system. Vulnerabilities may exist, usually in operating system components and software commonly running at higher permissions, that can be exploited to gain higher levels of access on the system. This could enable someone to move from unprivileged or user level permissions to SYSTEM or root permissions depending on the component that is vulnerable. This could also enable an adversary to move from a virtualized environment, such as within a virtual machine or container, onto the underlying host. This may be a necessary step for an adversary compromising an endpoint system that has been properly configured and limits other privilege escalation methods.Adversaries may bring a signed vulnerable driver onto a compromised machine so that they can exploit the vulnerability to execute code in kernel mode. This process is sometimes referred to as Bring Your Own Vulnerable Driver (BYOVD).[1][2]Adversaries may include the vulnerable driver with files delivered during Initial Access or download it to a compromised system viaIngress Tool TransferorLateral Tool Transfer.",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -641,14 +641,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353914",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840604",
     "subtechniques": []
   },
   {
     "technique_id": "T1053",
     "name": "Scheduled Task/Job",
-    "description": "",
+    "description": "Adversaries may abuse task scheduling functionality to facilitate initial or recurring execution of malicious code. Utilities exist within all major operating systems to schedule programs or scripts to be executed at a specified date and time. A task can also be scheduled on a remote system, provided the proper authentication is met (ex: RPC and file and printer sharing in Windows environments). Scheduling a task on a remote system typically may require being a member of an admin or otherwise privileged group on the remote system.[1]Adversaries may use task scheduling to execute programs at system startup or on a scheduled basis for persistence. These mechanisms can also be abused to run a process under the context of a specified account (such as one with elevated permissions/privileges). Similar toSystem Binary Proxy Execution, adversaries have also abused task scheduling to potentially mask one-time execution under a trusted system process.[2]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -661,8 +661,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353918",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840608",
     "subtechniques": [
       {
         "id": "T1053.007",
@@ -673,7 +673,7 @@
   {
     "technique_id": "T1053.007",
     "name": "Container Orchestration Job",
-    "description": "",
+    "description": "Adversaries may abuse task scheduling functionality provided by container orchestration tools such as Kubernetes to schedule deployment of containers configured to execute malicious code. Container orchestration jobs run these automated tasks at a specific date and time, similar to cron jobs on a Linux system. Deployments of this type can also be configured to maintain a quantity of containers over time, automating the process of maintaining persistence within a cluster.In Kubernetes, a CronJob may be used to schedule a Job that runs one or more containers to perform specific tasks.[1][2]An adversary therefore may utilize a CronJob to schedule deployment of a Job that executes malicious code in various nodes within a cluster.[3]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -686,13 +686,13 @@
     "parent_technique": "Scheduled Task/Job",
     "parent_technique_id": "T1053",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353922"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840612"
   },
   {
     "technique_id": "T1078",
     "name": "Valid Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access, network devices, and remote desktop.[1]Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools in conjunction with the legitimate access those credentials provide to make it harder to detect their presence.In some cases, adversaries may abuse inactive accounts: for example, those belonging to individuals who are no longer part of an organization. Using these accounts may allow the adversary to evade detection, as the original account user will not be present to identify any anomalous activity taking place on their account.[2]The overlap of permissions for local, domain, and cloud accounts across a network of systems is of concern because the adversary may be able to pivot across accounts and systems to reach a high level of access (i.e., domain or enterprise administrator) to bypass access controls set within the enterprise.[3]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -705,8 +705,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353926",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840616",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -721,7 +721,7 @@
   {
     "technique_id": "T1078.001",
     "name": "Default Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a default account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Default accounts are those that are built-into an OS, such as the Guest or Administrator accounts on Windows systems. Default accounts also include default factory/provider set accounts on other types of systems, software, or devices, including the root user account in AWS, the root user account in ESXi, and the default service account in Kubernetes.[1][2][3]Default accounts are not limited to client machines; rather, they also include accounts that are preset for equipment such as network devices and computer applications, whether they are internal, open source, or commercial. Appliances that come preset with a username and password combination pose a serious threat to organizations that do not change it post installation, as they are easy targets for an adversary. Similarly, adversaries may also utilize publicly disclosed or stolenPrivate Keysor credential materials to legitimately connect to remote environments viaRemote Services.[4]Default accounts may be created on a system after initial setup by connecting or integrating it with another application. For example, when an ESXi server is connected to a vCenter server, a default privileged account calledvpxuseris created on the ESXi server. If a threat actor is able to compromise this account’s credentials (for example, viaExploitation for Credential Accesson the vCenter host), they will then have access to the ESXi server.[5][6]",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -734,13 +734,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353930"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840619"
   },
   {
     "technique_id": "T1078.003",
     "name": "Local Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a local account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Local accounts are those configured by an organization for use by users, remote support, services, or for administration on a single system or service.Local Accounts may also be abused to elevate privileges and harvest credentials throughOS Credential Dumping. Password reuse may allow the abuse of local accounts across a set of machines on a network for the purposes of Privilege Escalation and Lateral Movement.",
     "tactic": "Privilege Escalation",
     "tactics": [
       "Privilege Escalation"
@@ -753,13 +753,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.353934"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840623"
   },
   {
     "technique_id": "T1612",
     "name": "Build Image on Host",
-    "description": "",
+    "description": "Adversaries may build a container image directly on a host to bypass defenses that monitor for the retrieval of malicious images from a public registry. A remotebuildrequest may be sent to the Docker API that includes a Dockerfile that pulls a vanilla base image, such as alpine, from a public or local registry and then builds a custom image upon it.[1]An adversary may take advantage of thatbuildAPI to build a custom image on the host that includes malware downloaded from their C2 server, and then they may utilizeDeploy Containerusing that custom image.[2][3]If the base image is pulled from a public registry, defenses will likely not detect the image as malicious since it’s a vanilla image. If the base image already resides in a local registry, the pull may be considered even less suspicious since the image is already in the environment.",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -772,14 +772,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354150",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840844",
     "subtechniques": []
   },
   {
     "technique_id": "T1610",
     "name": "Deploy Container",
-    "description": "",
+    "description": "Adversaries may deploy a container into an environment to facilitate execution or evade defenses. In some cases, adversaries may deploy a new container to execute processes associated with a particular image or deployment, such as processes that execute or download malware. In others, an adversary may deploy a new container configured without network rules, user limitations, etc. to bypass existing defenses within the environment. In Kubernetes environments, an adversary may attempt to deploy a privileged or vulnerable container into a specific node in order toEscape to Hostand access other containers running on the node.[1]Containers can be deployed by various means, such as via Docker'screateandstartAPIs or via a web application such as the Kubernetes dashboard or Kubeflow.[2][3][4]In Kubernetes environments, containers may be deployed through workloads such as ReplicaSets or DaemonSets, which can allow containers to be deployed across multiple nodes.[5]Adversaries may deploy containers based on retrieved or built malicious images or from benign images that download and execute malicious payloads at runtime.[6]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -792,14 +792,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354154",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840848",
     "subtechniques": []
   },
   {
     "technique_id": "T1562",
     "name": "Impair Defenses",
-    "description": "",
+    "description": "Adversaries may maliciously modify components of a victim environment in order to hinder or disable defensive mechanisms. This not only involves impairing preventative defenses, such as firewalls and anti-virus, but also detection capabilities that defenders can use to audit activity and identify malicious behavior. This may also span both native defenses as well as supplemental capabilities installed by users and administrators.Adversaries may also impair routine operations that contribute to defensive hygiene, such as blocking users from logging out, preventing a system from shutting down, or disabling or modifying the update process. Adversaries could also target event aggregation and analysis mechanisms, or otherwise disrupt these procedures by altering other system components. These restrictions can further enable malicious operations as well as the continued propagation of incidents.[1][2]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -812,8 +812,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354158",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840852",
     "subtechniques": [
       {
         "id": "T1562.001",
@@ -824,7 +824,7 @@
   {
     "technique_id": "T1562.001",
     "name": "Disable or Modify Tools",
-    "description": "",
+    "description": "Adversaries may modify and/or disable security tools to avoid possible detection of their malware/tools and activities. This may take many forms, such as killing security software processes or services, modifying / deleting Registry keys or configuration files so that tools do not operate properly, or other methods to interfere with security tools scanning or reporting information. Adversaries may also disable updates to prevent the latest security patches from reaching tools on victim systems.[1]Adversaries may also tamper with artifacts deployed and utilized by security tools. Security tools may make dynamic changes to system components in order to maintain visibility into specific events. For example, security products may load their own modules and/or modify those loaded by processes to facilitate data collection. Similar toIndicator Blocking, adversaries may unhook or otherwise modify these features added by tools (especially those that exist in userland or are otherwise potentially accessible to adversaries) to avoid detection.[2][3]Alternatively, they may add new directories to an endpoint detection and response (EDR) tool’s exclusion list, enabling them to hide malicious files viaFile/Path Exclusions.[4][5]Adversaries may also focus on specific applications such as Sysmon. For example, the \"Start\" and \"Enable\" values inHKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\WMI\\Autologger\\EventLog-Microsoft-Windows-Sysmon-Operationalmay be modified to tamper with and potentially disable Sysmon logging.[6]On network devices, adversaries may attempt to skip digital signature verification checks by altering startup configuration files and effectively disabling firmware verification that typically occurs at boot.[7][8]In cloud environments, tools disabled by adversaries may include cloud monitoring agents that report back to services such as AWS CloudWatch or Google Cloud Monitor.Furthermore, although defensive tools may have anti-tampering mechanisms, adversaries may abuse tools such as legitimate rootkit removal kits to impair and/or disable these tools.[9][10][11][12]For example, adversaries have used tools such as GMER to find and shut down hidden processes and antivirus software on infected systems.[11]Additionally, adversaries may exploit legitimate drivers from anti-virus software to gain access to kernel space (i.e.Exploitation for Privilege Escalation), which may lead to bypassing anti-tampering features.[13]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -837,13 +837,13 @@
     "parent_technique": "Impair Defenses",
     "parent_technique_id": "T1562",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354164"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840856"
   },
   {
     "technique_id": "T1070",
     "name": "Indicator Removal",
-    "description": "",
+    "description": "Adversaries may delete or modify artifacts generated within systems to remove evidence of their presence or hinder defenses. Various artifacts may be created by an adversary or something that can be attributed to an adversary’s actions. Typically these artifacts are used as defensive indicators related to monitored events, such as strings from downloaded files, logs that are generated from user actions, and other data analyzed by defenders. Location, format, and type of artifact (such as command or login history) are often specific to each platform.Removal of these indicators may interfere with event collection, reporting, or other processes used to detect intrusion activity. This may compromise the integrity of security solutions by causing notable events to go unreported. This activity may also impede forensic analysis and incident response, due to lack of sufficient data to determine what occurred.",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -856,14 +856,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354168",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840859",
     "subtechniques": []
   },
   {
     "technique_id": "T1036",
     "name": "Masquerading",
-    "description": "",
+    "description": "Adversaries may attempt to manipulate features of their artifacts to make them appear legitimate or benign to users and/or security tools. Masquerading occurs when the name or location of an object, legitimate or malicious, is manipulated or abused for the sake of evading defenses and observation. This may include manipulating file metadata, tricking users into misidentifying the file type, and giving legitimate task or service names.Renaming abusable system utilities to evade security monitoring is also a form ofMasquerading.[1]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -876,8 +876,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354172",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840863",
     "subtechniques": [
       {
         "id": "T1036.005",
@@ -892,7 +892,7 @@
   {
     "technique_id": "T1036.005",
     "name": "Match Legitimate Resource Name or Location",
-    "description": "",
+    "description": "Adversaries may match or approximate the name or location of legitimate files, Registry keys, or other resources when naming/placing them. This is done for the sake of evading defenses and observation.This may be done by placing an executable in a commonly trusted directory (ex: under System32) or giving it the name of a legitimate, trusted program (ex:svchost.exe). Alternatively, a Windows Registry key may be given a close approximation to a key used by a legitimate program. In containerized environments, a threat actor may create a resource in a trusted namespace or one that matches the naming convention of a container pod or cluster.[1]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -905,13 +905,13 @@
     "parent_technique": "Masquerading",
     "parent_technique_id": "T1036",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354176"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840868"
   },
   {
     "technique_id": "T1036.010",
     "name": "Masquerade Account Name",
-    "description": "",
+    "description": "Adversaries may match or approximate the names of legitimate accounts to make newly created ones appear benign. This will typically occur duringCreate Account, although accounts may also be renamed at a later date. This may also coincide withAccount Access Removalif the actor first deletes an account before re-creating one with the same name.[1]Often, adversaries will attempt to masquerade as service accounts, such as those associated with legitimate software, data backups, or container cluster management.[2][3]They may also give accounts generic, trustworthy names, such as \"admin\", \"help\", or \"root.\"[4]Sometimes adversaries may model account names off of those already existing in the system, as a follow-on behavior toAccount Discovery.Note that this is distinct fromImpersonation, which describes impersonating specific trusted individuals or organizations, rather than user or service account names.",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -924,13 +924,13 @@
     "parent_technique": "Masquerading",
     "parent_technique_id": "T1036",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354180"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840871"
   },
   {
     "technique_id": "T1550",
     "name": "Use Alternate Authentication Material",
-    "description": "",
+    "description": "Adversaries may use alternate authentication material, such as password hashes, Kerberos tickets, and application access tokens, in order to move laterally within an environment and bypass normal system access controls.Authentication processes generally require a valid identity (e.g., username) along with one or more authentication factors (e.g., password, pin, physical smart card, token generator, etc.). Alternate authentication material is legitimately generated by systems after a user or application successfully authenticates by providing a valid identity and the required authentication factor(s). Alternate authentication material may also be generated during the identity creation process.[1][2]Caching alternate authentication material allows the system to verify an identity has successfully authenticated without asking the user to reenter authentication factor(s). Because the alternate authentication must be maintained by the system—either in memory or on disk—it may be at risk of being stolen throughCredential Accesstechniques. By stealing alternate authentication material, adversaries are able to bypass system access controls and authenticate to systems without knowing the plaintext password or any additional authentication factors.",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -943,8 +943,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354184",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840876",
     "subtechniques": [
       {
         "id": "T1550.001",
@@ -955,7 +955,7 @@
   {
     "technique_id": "T1550.001",
     "name": "Application Access Token",
-    "description": "",
+    "description": "Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used in lieu of login credentials.Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used to access resources in cloud, container-based applications, and software-as-a-service (SaaS).[1]OAuth is one commonly implemented framework that issues tokens to users for access to systems. These frameworks are used collaboratively to verify the user and determine what actions the user is allowed to perform. Once identity is established, the token allows actions to be authorized, without passing the actual credentials of the user. Therefore, compromise of the token can grant the adversary access to resources of other sites through a malicious application.[2]For example, with a cloud-based email service, once an OAuth access token is granted to a malicious application, it can potentially gain long-term access to features of the user account if a \"refresh\" token enabling background access is awarded.[3]With an OAuth access token an adversary can use the user-granted REST API to perform functions such as email searching and contact enumeration.[4]Compromised access tokens may be used as an initial step in compromising other services. For example, if a token grants access to a victim’s primary email, the adversary may be able to extend access to all other services which the target subscribes by triggering forgotten password routines. In AWS and GCP environments, adversaries can trigger a request for a short-lived access token with the privileges of another user account.[5][6]The adversary can then use this token to request data or perform actions the original account could not. If permissions for this feature are misconfigured – for example, by allowing all users to request a token for a particular account - an adversary may be able to gain initial access to a Cloud Account or escalate their privileges.[7]Direct API access through a token negates the effectiveness of a second authentication factor and may be immune to intuitive countermeasures like changing passwords. For example, in AWS environments, an adversary who compromises a user’s AWS API credentials may be able to use thests:GetFederationTokenAPI call to create a federated user session, which will have the same permissions as the original user but may persist even if the original user credentials are deactivated.[8]Additionally, access abuse over an API channel can be difficult to detect even from the service provider end, as the access can still align well with a legitimate workflow.",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -968,13 +968,13 @@
     "parent_technique": "Use Alternate Authentication Material",
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354188"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840880"
   },
   {
     "technique_id": "T1078",
     "name": "Valid Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access, network devices, and remote desktop.[1]Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools in conjunction with the legitimate access those credentials provide to make it harder to detect their presence.In some cases, adversaries may abuse inactive accounts: for example, those belonging to individuals who are no longer part of an organization. Using these accounts may allow the adversary to evade detection, as the original account user will not be present to identify any anomalous activity taking place on their account.[2]The overlap of permissions for local, domain, and cloud accounts across a network of systems is of concern because the adversary may be able to pivot across accounts and systems to reach a high level of access (i.e., domain or enterprise administrator) to bypass access controls set within the enterprise.[3]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -987,8 +987,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354192",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840885",
     "subtechniques": [
       {
         "id": "T1078.001",
@@ -1003,7 +1003,7 @@
   {
     "technique_id": "T1078.001",
     "name": "Default Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a default account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Default accounts are those that are built-into an OS, such as the Guest or Administrator accounts on Windows systems. Default accounts also include default factory/provider set accounts on other types of systems, software, or devices, including the root user account in AWS, the root user account in ESXi, and the default service account in Kubernetes.[1][2][3]Default accounts are not limited to client machines; rather, they also include accounts that are preset for equipment such as network devices and computer applications, whether they are internal, open source, or commercial. Appliances that come preset with a username and password combination pose a serious threat to organizations that do not change it post installation, as they are easy targets for an adversary. Similarly, adversaries may also utilize publicly disclosed or stolenPrivate Keysor credential materials to legitimately connect to remote environments viaRemote Services.[4]Default accounts may be created on a system after initial setup by connecting or integrating it with another application. For example, when an ESXi server is connected to a vCenter server, a default privileged account calledvpxuseris created on the ESXi server. If a threat actor is able to compromise this account’s credentials (for example, viaExploitation for Credential Accesson the vCenter host), they will then have access to the ESXi server.[5][6]",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -1016,13 +1016,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354196"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840890"
   },
   {
     "technique_id": "T1078.003",
     "name": "Local Accounts",
-    "description": "",
+    "description": "Adversaries may obtain and abuse credentials of a local account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Local accounts are those configured by an organization for use by users, remote support, services, or for administration on a single system or service.Local Accounts may also be abused to elevate privileges and harvest credentials throughOS Credential Dumping. Password reuse may allow the abuse of local accounts across a set of machines on a network for the purposes of Privilege Escalation and Lateral Movement.",
     "tactic": "Defense Evasion",
     "tactics": [
       "Defense Evasion"
@@ -1035,13 +1035,13 @@
     "parent_technique": "Valid Accounts",
     "parent_technique_id": "T1078",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354200"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.840894"
   },
   {
     "technique_id": "T1110",
     "name": "Brute Force",
-    "description": "",
+    "description": "Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained.[1]Without knowledge of the password for an account or set of accounts, an adversary may systematically guess the password using a repetitive or iterative mechanism.[2]Brute forcing passwords can take place via interaction with a service that will check the validity of those credentials or offline against previously acquired credential data, such as password hashes.Brute forcing credentials may take place at various points during a breach. For example, adversaries may attempt to brute force access toValid Accountswithin a victim environment leveraging knowledge gathered from other post-compromise behaviors such asOS Credential Dumping,Account Discovery, orPassword Policy Discovery. Adversaries may also combine brute forcing activity with behaviors such asExternal Remote Servicesas part of Initial Access.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1054,8 +1054,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354373",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841073",
     "subtechniques": [
       {
         "id": "T1110.001",
@@ -1074,7 +1074,7 @@
   {
     "technique_id": "T1110.001",
     "name": "Password Guessing",
-    "description": "",
+    "description": "Adversaries with no prior knowledge of legitimate credentials within the system or environment may guess passwords to attempt access to accounts. Without knowledge of the password for an account, an adversary may opt to systematically guess the password using a repetitive or iterative mechanism. An adversary may guess login credentials without prior knowledge of system or environment passwords during an operation by using a list of common passwords. Password guessing may or may not take into account the target's policies on password complexity or use policies that may lock accounts out after a number of failed attempts.Guessing passwords can be a risky option because it could cause numerous authentication failures and account lockouts, depending on the organization's login failure policies.[1]Typically, management services over commonly used ports are used when guessing passwords. Commonly targeted services include the following:SSH (22/TCP)Telnet (23/TCP)FTP (21/TCP)NetBIOS / SMB / Samba (139/TCP & 445/TCP)LDAP (389/TCP)Kerberos (88/TCP)RDP / Terminal Services (3389/TCP)HTTP/HTTP Management Services (80/TCP & 443/TCP)MSSQL (1433/TCP)Oracle (1521/TCP)MySQL (3306/TCP)VNC (5900/TCP)SNMP (161/UDP and 162/TCP/UDP)In addition to management services, adversaries may \"target single sign-on (SSO) and cloud-based applications utilizing federated authentication protocols,\" as well as externally facing email applications, such as Office 365.[2]. Further, adversaries may abuse network device interfaces (such aswlanAPI) to brute force accessible wifi-router(s) via wireless authentication protocols.[3]In default environments, LDAP and Kerberos connection attempts are less likely to trigger events over SMB, which creates Windows \"logon failure\" event ID 4625.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1087,13 +1087,13 @@
     "parent_technique": "Brute Force",
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354378"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841077"
   },
   {
     "technique_id": "T1110.003",
     "name": "Password Spraying",
-    "description": "",
+    "description": "Adversaries may use a single or small list of commonly used passwords against many different accounts to attempt to acquire valid account credentials. Password spraying uses one password (e.g. 'Password01'), or a small list of commonly used passwords, that may match the complexity policy of the domain. Logins are attempted with that password against many different accounts on a network to avoid account lockouts that would normally occur when brute forcing a single account with many passwords.[1]Typically, management services over commonly used ports are used when password spraying. Commonly targeted services include the following:SSH (22/TCP)Telnet (23/TCP)FTP (21/TCP)NetBIOS / SMB / Samba (139/TCP & 445/TCP)LDAP (389/TCP)Kerberos (88/TCP)RDP / Terminal Services (3389/TCP)HTTP/HTTP Management Services (80/TCP & 443/TCP)MSSQL (1433/TCP)Oracle (1521/TCP)MySQL (3306/TCP)VNC (5900/TCP)In addition to management services, adversaries may \"target single sign-on (SSO) and cloud-based applications utilizing federated authentication protocols,\" as well as externally facing email applications, such as Office 365.[2]In default environments, LDAP and Kerberos connection attempts are less likely to trigger events over SMB, which creates Windows \"logon failure\" event ID 4625.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1106,13 +1106,13 @@
     "parent_technique": "Brute Force",
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354381"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841081"
   },
   {
     "technique_id": "T1110.004",
     "name": "Credential Stuffing",
-    "description": "",
+    "description": "Adversaries may use credentials obtained from breach dumps of unrelated accounts to gain access to target accounts through credential overlap. Occasionally, large numbers of username and password pairs are dumped online when a website or service is compromised and the user account credentials accessed. The information may be useful to an adversary attempting to compromise accounts by taking advantage of the tendency for users to use the same passwords across personal and business accounts.Credential stuffing is a risky option because it could cause numerous authentication failures and account lockouts, depending on the organization's login failure policies.Typically, management services over commonly used ports are used when stuffing credentials. Commonly targeted services include the following:SSH (22/TCP)Telnet (23/TCP)FTP (21/TCP)NetBIOS / SMB / Samba (139/TCP & 445/TCP)LDAP (389/TCP)Kerberos (88/TCP)RDP / Terminal Services (3389/TCP)HTTP/HTTP Management Services (80/TCP & 443/TCP)MSSQL (1433/TCP)Oracle (1521/TCP)MySQL (3306/TCP)VNC (5900/TCP)In addition to management services, adversaries may \"target single sign-on (SSO) and cloud-based applications utilizing federated authentication protocols,\" as well as externally facing email applications, such as Office 365.[1]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1125,13 +1125,13 @@
     "parent_technique": "Brute Force",
     "parent_technique_id": "T1110",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354385"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841087"
   },
   {
     "technique_id": "T1528",
     "name": "Steal Application Access Token",
-    "description": "",
+    "description": "Adversaries can steal application access tokens as a means of acquiring credentials to access remote systems and resources.Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used as a way to access resources in cloud and container-based applications and software-as-a-service (SaaS).[1]Adversaries who steal account API tokens in cloud and containerized environments may be able to access data and perform actions with the permissions of these accounts, which can lead to privilege escalation and further compromise of the environment.For example, in Kubernetes environments, processes running inside a container may communicate with the Kubernetes API server using service account tokens. If a container is compromised, an adversary may be able to steal the container’s token and thereby gain access to Kubernetes API commands.[2]Similarly, instances within continuous-development / continuous-integration (CI/CD) pipelines will often use API tokens to authenticate to other services for testing and deployment.[3]If these pipelines are compromised, adversaries may be able to steal these tokens and leverage their privileges.In Azure, an adversary who compromises a resource with an attached Managed Identity, such as an Azure VM, can request short-lived tokens through the Azure Instance Metadata Service (IMDS). These tokens can then facilitate unauthorized actions or further access to other Azure services, bypassing typical credential-based authentication.[4][5]Token theft can also occur through social engineering, in which case user action may be required to grant access. OAuth is one commonly implemented framework that issues tokens to users for access to systems. An application desiring access to cloud-based services or protected APIs can gain entry using OAuth 2.0 through a variety of authorization protocols. An example commonly-used sequence is Microsoft's Authorization Code Grant flow.[6][7]An OAuth access token enables a third-party application to interact with resources containing user data in the ways requested by the application without obtaining user credentials.Adversaries can leverage OAuth authorization by constructing a malicious application designed to be granted access to resources with the target user's OAuth token.[8][9]The adversary will need to complete registration of their application with the authorization server, for example Microsoft Identity Platform using Azure Portal, the Visual Studio IDE, the command-line interface, PowerShell, or REST API calls.[10]Then, they can send aSpearphishing Linkto the target user to entice them to grant access to the application. Once the OAuth access token is granted, the application can gain potentially long-term access to features of the user account throughApplication Access Token.[11]Application access tokens may function within a limited lifetime, limiting how long an adversary can utilize the stolen token. However, in some cases, adversaries can also steal application refresh tokens[12], allowing them to obtain new access tokens without prompting the user.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1144,14 +1144,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354389",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841090",
     "subtechniques": []
   },
   {
     "technique_id": "T1552",
     "name": "Unsecured Credentials",
-    "description": "",
+    "description": "Adversaries may search compromised systems to find and obtain insecurely stored credentials. These credentials can be stored and/or misplaced in many locations on a system, including plaintext files (e.g.Bash History), operating system or application-specific repositories (e.g.Credentials in Registry), or other specialized files/artifacts (e.g.Private Keys).[1]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1164,8 +1164,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354393",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841095",
     "subtechniques": [
       {
         "id": "T1552.001",
@@ -1180,7 +1180,7 @@
   {
     "technique_id": "T1552.001",
     "name": "Credentials In Files",
-    "description": "",
+    "description": "Adversaries may search local file systems and remote file shares for files containing insecurely stored credentials. These can be files created by users to store their own credentials, shared credential stores for a group of individuals, configuration files containing passwords for a system or service, or source code/binary files containing embedded passwords.It is possible to extract passwords from backups or saved virtual machines throughOS Credential Dumping.[1]Passwords may also be obtained from Group Policy Preferences stored on the Windows Domain Controller.[2]In cloud and/or containerized environments, authenticated user and service account credentials are often stored in local configuration and credential files.[3]They may also be found as parameters to deployment commands in container logs.[4]In some cases, these files can be copied and reused on another machine or the contents can be read and then used to authenticate without needing to copy any files.[5]",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1193,13 +1193,13 @@
     "parent_technique": "Unsecured Credentials",
     "parent_technique_id": "T1552",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354396"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841099"
   },
   {
     "technique_id": "T1552.007",
     "name": "Container API",
-    "description": "",
+    "description": "Adversaries may gather credentials via APIs within a containers environment. APIs in these environments, such as the Docker API and Kubernetes APIs, allow a user to remotely manage their container resources and cluster components.[1][2]An adversary may access the Docker API to collect logs that contain credentials to cloud, container, and various other resources in the environment.[3]An adversary with sufficient permissions, such as via a pod's service account, may also use the Kubernetes API to retrieve credentials from the Kubernetes API server. These credentials may include those needed for Docker API authentication or secrets from Kubernetes cluster components.",
     "tactic": "Credential Access",
     "tactics": [
       "Credential Access"
@@ -1212,13 +1212,13 @@
     "parent_technique": "Unsecured Credentials",
     "parent_technique_id": "T1552",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354400"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841102"
   },
   {
     "technique_id": "T1613",
     "name": "Container and Resource Discovery",
-    "description": "",
+    "description": "Adversaries may attempt to discover containers and other resources that are available within a containers environment. Other resources may include images, deployments, pods, nodes, and other information such as the status of a cluster.These resources can be viewed within web applications such as the Kubernetes dashboard or can be queried via the Docker and Kubernetes APIs.[1][2]In Docker, logs may leak information about the environment, such as the environment’s configuration, which services are available, and what cloud provider the victim may be utilizing. The discovery of these resources may inform an adversary’s next steps in the environment, such as how to perform lateral movement and which methods to utilize for execution.",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1231,14 +1231,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354504",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841208",
     "subtechniques": []
   },
   {
     "technique_id": "T1046",
     "name": "Network Service Discovery",
-    "description": "",
+    "description": "Adversaries may attempt to get a listing of services running on remote hosts and local network infrastructure devices, including those that may be vulnerable to remote software exploitation. Common methods to acquire this information include port, vulnerability, and/or wordlist scans using tools that are brought onto a system.[1]Within cloud environments, adversaries may attempt to discover services running on other cloud hosts. Additionally, if the cloud environment is connected to a on-premises environment, adversaries may be able to identify services running on non-cloud systems as well.Within macOS environments, adversaries may use the native Bonjour application to discover services running on other macOS hosts within a network. The Bonjour mDNSResponder daemon automatically registers and advertises a host’s registered services on the network. For example, adversaries can use a mDNS query (such asdns-sd -B _ssh._tcp .) to find other systems broadcasting the ssh service.[2][3]",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1251,14 +1251,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354508",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841212",
     "subtechniques": []
   },
   {
     "technique_id": "T1069",
     "name": "Permission Groups Discovery",
-    "description": "",
+    "description": "Adversaries may attempt to discover group and permission settings. This information can help adversaries determine which user accounts and groups are available, the membership of users in particular groups, and which users and groups have elevated permissions.Adversaries may attempt to discover group permission settings in many different ways. This data may provide the adversary with information about the compromised environment that can be used in follow-on activity and targeting.[1]",
     "tactic": "Discovery",
     "tactics": [
       "Discovery"
@@ -1271,14 +1271,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354512",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841216",
     "subtechniques": []
   },
   {
     "technique_id": "T1550",
     "name": "Use Alternate Authentication Material",
-    "description": "",
+    "description": "Adversaries may use alternate authentication material, such as password hashes, Kerberos tickets, and application access tokens, in order to move laterally within an environment and bypass normal system access controls.Authentication processes generally require a valid identity (e.g., username) along with one or more authentication factors (e.g., password, pin, physical smart card, token generator, etc.). Alternate authentication material is legitimately generated by systems after a user or application successfully authenticates by providing a valid identity and the required authentication factor(s). Alternate authentication material may also be generated during the identity creation process.[1][2]Caching alternate authentication material allows the system to verify an identity has successfully authenticated without asking the user to reenter authentication factor(s). Because the alternate authentication must be maintained by the system—either in memory or on disk—it may be at risk of being stolen throughCredential Accesstechniques. By stealing alternate authentication material, adversaries are able to bypass system access controls and authenticate to systems without knowing the plaintext password or any additional authentication factors.",
     "tactic": "Lateral Movement",
     "tactics": [
       "Lateral Movement"
@@ -1291,8 +1291,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354580",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841285",
     "subtechniques": [
       {
         "id": "T1550.001",
@@ -1303,7 +1303,7 @@
   {
     "technique_id": "T1550.001",
     "name": "Application Access Token",
-    "description": "",
+    "description": "Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used in lieu of login credentials.Application access tokens are used to make authorized API requests on behalf of a user or service and are commonly used to access resources in cloud, container-based applications, and software-as-a-service (SaaS).[1]OAuth is one commonly implemented framework that issues tokens to users for access to systems. These frameworks are used collaboratively to verify the user and determine what actions the user is allowed to perform. Once identity is established, the token allows actions to be authorized, without passing the actual credentials of the user. Therefore, compromise of the token can grant the adversary access to resources of other sites through a malicious application.[2]For example, with a cloud-based email service, once an OAuth access token is granted to a malicious application, it can potentially gain long-term access to features of the user account if a \"refresh\" token enabling background access is awarded.[3]With an OAuth access token an adversary can use the user-granted REST API to perform functions such as email searching and contact enumeration.[4]Compromised access tokens may be used as an initial step in compromising other services. For example, if a token grants access to a victim’s primary email, the adversary may be able to extend access to all other services which the target subscribes by triggering forgotten password routines. In AWS and GCP environments, adversaries can trigger a request for a short-lived access token with the privileges of another user account.[5][6]The adversary can then use this token to request data or perform actions the original account could not. If permissions for this feature are misconfigured – for example, by allowing all users to request a token for a particular account - an adversary may be able to gain initial access to a Cloud Account or escalate their privileges.[7]Direct API access through a token negates the effectiveness of a second authentication factor and may be immune to intuitive countermeasures like changing passwords. For example, in AWS environments, an adversary who compromises a user’s AWS API credentials may be able to use thests:GetFederationTokenAPI call to create a federated user session, which will have the same permissions as the original user but may persist even if the original user credentials are deactivated.[8]Additionally, access abuse over an API channel can be difficult to detect even from the service provider end, as the access can still align well with a legitimate workflow.",
     "tactic": "Lateral Movement",
     "tactics": [
       "Lateral Movement"
@@ -1316,13 +1316,13 @@
     "parent_technique": "Use Alternate Authentication Material",
     "parent_technique_id": "T1550",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354585"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841290"
   },
   {
     "technique_id": "T1485",
     "name": "Data Destruction",
-    "description": "",
+    "description": "Adversaries may destroy data and files on specific systems or in large numbers on a network to interrupt availability to systems, services, and network resources. Data destruction is likely to render stored data irrecoverable by forensic techniques through overwriting files or data on local and remote drives.[1][2][3][4][5][6]Common operating system file deletion commands such asdelandrmoften only remove pointers to files without wiping the contents of the files themselves, making the files recoverable by proper forensic methodology. This behavior is distinct fromDisk Content WipeandDisk Structure Wipebecause individual files are destroyed rather than sections of a storage disk or the disk's logical structure.Adversaries may attempt to overwrite files and directories with randomly generated data to make it irrecoverable.[4][5]In some cases politically oriented image files have been used to overwrite data.[2][3][4]To maximize impact on the target organization in operations where network-wide availability interruption is the goal, malware designed for destroying data may have worm-like features to propagate across a network by leveraging additional techniques likeValid Accounts,OS Credential Dumping, andSMB/Windows Admin Shares.[1][2][3][4][6].In cloud environments, adversaries may leverage access to delete cloud storage objects, machine images, database instances, and other infrastructure crucial to operations to damage an organization or their customers.[7][8]Similarly, they may delete virtual machines from on-prem virtualized environments.",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1335,14 +1335,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354689",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841394",
     "subtechniques": []
   },
   {
     "technique_id": "T1499",
     "name": "Endpoint Denial of Service",
-    "description": "",
+    "description": "Adversaries may perform Endpoint Denial of Service (DoS) attacks to degrade or block the availability of services to users. Endpoint DoS can be performed by exhausting the system resources those services are hosted on or exploiting the system to cause a persistent crash condition. Example services include websites, email services, DNS, and web-based applications. Adversaries have been observed conducting DoS attacks for political purposes[1]and to support other malicious activities, including distraction[2], hacktivism, and extortion.[3]An Endpoint DoS denies the availability of a service without saturating the network used to provide access to the service. Adversaries can target various layers of the application stack that is hosted on the system used to provide the service. These layers include the Operating Systems (OS), server applications such as web servers, DNS servers, databases, and the (typically web-based) applications that sit on top of them. Attacking each layer requires different techniques that take advantage of bottlenecks that are unique to the respective components. A DoS attack may be generated by a single system or multiple systems spread across the internet, which is commonly referred to as a distributed DoS (DDoS).To perform DoS attacks against endpoint resources, several aspects apply to multiple methods, including IP address spoofing and botnets.Adversaries may use the original IP address of an attacking system, or spoof the source IP address to make the attack traffic more difficult to trace back to the attacking system or to enable reflection. This can increase the difficulty defenders have in defending against the attack by reducing or eliminating the effectiveness of filtering by the source address on network defense devices.Botnets are commonly used to conduct DDoS attacks against networks and services. Large botnets can generate a significant amount of traffic from systems spread across the global internet. Adversaries may have the resources to build out and control their own botnet infrastructure or may rent time on an existing botnet to conduct an attack. In some of the worst cases for DDoS, so many systems are used to generate requests that each one only needs to send out a small amount of traffic to produce enough volume to exhaust the target's resources. In such circumstances, distinguishing DDoS traffic from legitimate clients becomes exceedingly difficult. Botnets have been used in some of the most high-profile DDoS attacks, such as the 2012 series of incidents that targeted major US banks.[4]In cases where traffic manipulation is used, there may be points in the global network (such as high traffic gateway routers) where packets can be altered and cause legitimate clients to execute code that directs network packets toward a target in high volume. This type of capability was previously used for the purposes of web censorship where client HTTP traffic was modified to include a reference to JavaScript that generated the DDoS code to overwhelm target web servers.[5]For attacks attempting to saturate the providing network, seeNetwork Denial of Service.",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1355,14 +1355,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354693",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841398",
     "subtechniques": []
   },
   {
     "technique_id": "T1490",
     "name": "Inhibit System Recovery",
-    "description": "",
+    "description": "Adversaries may delete or remove built-in data and turn off services designed to aid in the recovery of a corrupted system to prevent recovery.[1][2]This may deny access to available backups and recovery options.Operating systems may contain features that can help fix corrupted systems, such as a backup catalog, volume shadow copies, and automatic repair features. Adversaries may disable or delete system recovery features to augment the effects ofData DestructionandData Encrypted for Impact.[1][2]Furthermore, adversaries may disable recovery notifications, then corrupt backups.[3]A number of native Windows utilities have been used by adversaries to disable or delete system recovery features:vssadmin.execan be used to delete all volume shadow copies on a system -vssadmin.exe delete shadows /all /quietWindows Management Instrumentationcan be used to delete volume shadow copies -wmic shadowcopy deletewbadmin.execan be used to delete the Windows Backup Catalog -wbadmin.exe delete catalog -quietbcdedit.execan be used to disable automatic Windows recovery features by modifying boot configuration data -bcdedit.exe /set {default} bootstatuspolicy ignoreallfailures & bcdedit /set {default} recoveryenabled noREAgentC.execan be used to disable Windows Recovery Environment (WinRE) repair/recovery options of an infected systemdiskshadow.execan be used to delete all volume shadow copies on a system -diskshadow delete shadows all[4][5]On network devices, adversaries may leverageDisk Wipeto delete backup firmware images and reformat the file system, thenSystem Shutdown/Rebootto reload the device. Together this activity may leave network devices completely inoperable and inhibit recovery operations.On ESXi servers, adversaries may delete or encrypt snapshots of virtual machines to supportData Encrypted for Impact, preventing them from being leveraged as backups (e.g., viavim-cmd vmsvc/snapshot.removeall).[6]Adversaries may also delete \"online\" backups that are connected to their network – whether via network storage media or through folders that sync to cloud services.[7]In cloud environments, adversaries may disable versioning and backup policies and delete snapshots, database backups, machine images, and prior versions of objects designed to be used in disaster recovery scenarios.[8][9]",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1375,14 +1375,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354696",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841402",
     "subtechniques": []
   },
   {
     "technique_id": "T1498",
     "name": "Network Denial of Service",
-    "description": "",
+    "description": "Adversaries may perform Network Denial of Service (DoS) attacks to degrade or block the availability of targeted resources to users. Network DoS can be performed by exhausting the network bandwidth services rely on. Example resources include specific websites, email services, DNS, and web-based applications. Adversaries have been observed conducting network DoS attacks for political purposes[1]and to support other malicious activities, including distraction[2], hacktivism, and extortion.[3]A Network DoS will occur when the bandwidth capacity of the network connection to a system is exhausted due to the volume of malicious traffic directed at the resource or the network connections and network devices the resource relies on. For example, an adversary may send 10Gbps of traffic to a server that is hosted by a network with a 1Gbps connection to the internet. This traffic can be generated by a single system or multiple systems spread across the internet, which is commonly referred to as a distributed DoS (DDoS).To perform Network DoS attacks several aspects apply to multiple methods, including IP address spoofing, and botnets.Adversaries may use the original IP address of an attacking system, or spoof the source IP address to make the attack traffic more difficult to trace back to the attacking system or to enable reflection. This can increase the difficulty defenders have in defending against the attack by reducing or eliminating the effectiveness of filtering by the source address on network defense devices.For DoS attacks targeting the hosting system directly, seeEndpoint Denial of Service.",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1395,14 +1395,14 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354700",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841405",
     "subtechniques": []
   },
   {
     "technique_id": "T1496",
     "name": "Resource Hijacking",
-    "description": "",
+    "description": "Adversaries may leverage the resources of co-opted systems to complete resource-intensive tasks, which may impact system and/or hosted service availability.Resource hijacking may take a number of different forms. For example, adversaries may:Leverage compute resources in order to mine cryptocurrencySell network bandwidth to proxy networksGenerate SMS traffic for profitAbuse cloud-based messaging services to send large quantities of spam messagesIn some cases, adversaries may leverage multiple types of Resource Hijacking at once.[1]",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1415,8 +1415,8 @@
     "parent_technique": "",
     "parent_technique_id": "",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354704",
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841410",
     "subtechniques": [
       {
         "id": "T1496.001",
@@ -1431,7 +1431,7 @@
   {
     "technique_id": "T1496.001",
     "name": "Compute Hijacking",
-    "description": "",
+    "description": "Adversaries may leverage the compute resources of co-opted systems to complete resource-intensive tasks, which may impact system and/or hosted service availability.One common purpose forCompute Hijackingis to validate transactions of cryptocurrency networks and earn virtual currency. Adversaries may consume enough system resources to negatively impact and/or cause affected machines to become unresponsive.[1]Servers and cloud-based systems are common targets because of the high potential for available resources, but user endpoint systems may also be compromised and used forCompute Hijackingand cryptocurrency mining.[2]Containerized environments may also be targeted due to the ease of deployment via exposed APIs and the potential for scaling mining activities by deploying or compromising multiple containers within an environment or cluster.[3][4]Additionally, some cryptocurrency mining malware identify then kill off processes for competing malware to ensure it’s not competing for resources.[5]",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1444,13 +1444,13 @@
     "parent_technique": "Resource Hijacking",
     "parent_technique_id": "T1496",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354710"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841413"
   },
   {
     "technique_id": "T1496.002",
     "name": "Bandwidth Hijacking",
-    "description": "",
+    "description": "Adversaries may leverage the network bandwidth resources of co-opted systems to complete resource-intensive tasks, which may impact system and/or hosted service availability.Adversaries may also use malware that leverages a system's network bandwidth as part of a botnet in order to facilitateNetwork Denial of Servicecampaigns and/or to seed malicious torrents.[1]Alternatively, they may engage in proxyjacking by selling use of the victims' network bandwidth and IP address to proxyware services.[2]Finally, they may engage in internet-wide scanning in order to identify additional targets for compromise.[3]In addition to incurring potential financial costs or availability disruptions, this technique may cause reputational damage if a victim’s bandwidth is used for illegal activities.[2]",
     "tactic": "Impact",
     "tactics": [
       "Impact"
@@ -1463,7 +1463,7 @@
     "parent_technique": "Resource Hijacking",
     "parent_technique_id": "T1496",
     "mitre_version": "1.0",
-    "sync_source": "mitre_extractor",
-    "last_updated": "2025-07-02T00:32:37.354714"
+    "sync_source": "mitre_extractor_enhanced",
+    "last_updated": "2025-07-02T12:31:01.841417"
   }
 ]

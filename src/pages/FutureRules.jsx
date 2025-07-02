@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Filter, Plus, Clock, Calendar, User, Rocket } from "lucide-react";
+import { Search, Filter, Plus, Clock, Calendar, User, Rocket, CheckCircle, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 
 import FutureRulesTable from "../components/future-rules/FutureRulesTable";
 import FutureRulesStats from "../components/future-rules/FutureRulesStats";
@@ -24,6 +25,7 @@ const TEAM_MEMBERS = [
 ];
 
 export default function FutureRulesPage() {
+  const { toast } = useToast();
   const [futureRules, setFutureRules] = useState([]);
   const [filteredRules, setFilteredRules] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -159,7 +161,12 @@ export default function FutureRulesPage() {
       await loadFutureRules();
       
       // Show success message
-      alert(`Successfully promoted "${promotingRule.name}" to detection rule!`);
+      toast({
+        title: "Rule Promoted Successfully! 🎉",
+        description: `"${promotingRule.name}" has been promoted to detection rule`,
+        variant: "default",
+        className: "border-green-200 bg-green-50 text-green-900 dark:border-green-800 dark:bg-green-950 dark:text-green-100"
+      });
     } catch (error) {
       console.error("Failed to promote rule:", error);
       console.error("Error details:", error);
@@ -170,7 +177,12 @@ export default function FutureRulesPage() {
         errorMessage = `The Rule ID "${newRuleData.rule_id}" is already in use. Please choose a different Rule ID.`;
       }
       
-      alert(`Failed to promote rule: ${errorMessage}`);
+      toast({
+        title: "Failed to Promote Rule",
+        description: errorMessage,
+        variant: "destructive",
+        className: "border-red-200 bg-red-50 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-100"
+      });
     }
   };
 

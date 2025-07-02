@@ -39,8 +39,11 @@ class BaseEntity {
     return apiClient.get(`${this.endpoint}/${id}`);
   }
 
-  async bulkCreate(dataArray) {
-    return apiClient.post(`${this.endpoint}/bulk`, { items: dataArray });
+  async bulkCreate(dataArray, allowUpdate = false) {
+    return apiClient.post(`${this.endpoint}/bulk`, { 
+      items: dataArray, 
+      allowUpdate 
+    });
   }
 }
 

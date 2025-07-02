@@ -1,0 +1,57 @@
+{
+  "platform": "SaaS",
+  "extraction_date": "2025-07-02T12:52:23.476652",
+  "tactics": [
+    {
+      "name": "Initial Access",
+      "technique_count": 3
+    },
+    {
+      "name": "Execution",
+      "technique_count": 2
+    },
+    {
+      "name": "Persistence",
+      "technique_count": 6
+    },
+    {
+      "name": "Privilege Escalation",
+      "technique_count": 3
+    },
+    {
+      "name": "Defense Evasion",
+      "technique_count": 5
+    },
+    {
+      "name": "Credential Access",
+      "technique_count": 7
+    },
+    {
+      "name": "Discovery",
+      "technique_count": 5
+    },
+    {
+      "name": "Lateral Movement",
+      "technique_count": 4
+    },
+    {
+      "name": "Collection",
+      "technique_count": 3
+    },
+    {
+      "name": "Exfiltration",
+      "technique_count": 3
+    },
+    {
+      "name": "Impact",
+      "technique_count": 3
+    }
+  ],
+  "summary": {
+    "total_tactics": 11,
+    "total_techniques": 44,
+    "total_subtechniques": 39,
+    "total_items": 83,
+    "techniques_with_descriptions": 83
+  }
+}

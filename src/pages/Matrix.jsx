@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { DetectionRule, MitreTechnique } from "@/api/entities";
 import { Badge } from "@/components/ui/badge";
@@ -66,6 +66,7 @@ export default function MatrixPage() {
     cloudProvider: "all"
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [isTechniqueLoading, setIsTechniqueLoading] = useState(false);
 
   // Add state for platform-specific data
   const [platformTechniques, setPlatformTechniques] = useState([]);
@@ -100,8 +101,8 @@ export default function MatrixPage() {
     loadData();
   }, []);
 
-  // Filter data when platform or cloudProvider changes
-  useEffect(() => {
+  // Filter data when platform or cloudProvider changes - memoized for performance
+  const filteredData = useMemo(() => {
     let filteredTechniques = [];
     let filteredRules = [];
 
@@ -125,12 +126,17 @@ export default function MatrixPage() {
       filteredRules = rules.filter(r => r.platform === filters.platform);
     }
 
-    setPlatformTechniques(filteredTechniques);
-    setPlatformRules(filteredRules);
+    return { filteredTechniques, filteredRules };
   }, [techniques, rules, filters.platform, filters.cloudProvider]);
 
-  // Calculate technique breakdown
-  const getTechniqueBreakdown = () => {
+  // Update platform data when filtered data changes
+  useEffect(() => {
+    setPlatformTechniques(filteredData.filteredTechniques);
+    setPlatformRules(filteredData.filteredRules);
+  }, [filteredData]);
+
+  // Calculate technique breakdown - memoized for performance
+  const techniqueBreakdown = useMemo(() => {
     const parentTechniques = platformTechniques.filter(t => !t.is_subtechnique);
     const subTechniques = platformTechniques.filter(t => t.is_subtechnique);
     
@@ -139,7 +145,7 @@ export default function MatrixPage() {
       subCount: subTechniques.length,
       totalCount: platformTechniques.length
     };
-  };
+  }, [platformTechniques]);
 
   const loadData = async () => {
     setIsLoading(true);
@@ -174,66 +180,78 @@ export default function MatrixPage() {
     setIsLoading(false);
   };
 
-  const getTacticStats = (tactic) => {
-    // Get all techniques for the tactic for the current platform
-    let platformTechniques = techniques.filter(t => t.tactic === tactic);
+  // Memoized tactic stats calculation for better performance
+  const getTacticStats = useMemo(() => {
+    const statsCache = new Map();
     
-    if (filters.platform === "Cloud") {
-      // For Cloud platform, include techniques that support AWS, Azure, GCP, or Oracle
-      platformTechniques = platformTechniques.filter(t => 
-        t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
-      );
-    } else if (filters.platform !== "all") {
-      platformTechniques = platformTechniques.filter(t => t.platforms?.includes(filters.platform));
-    }
-
-    // Separate parent techniques and sub-techniques for accurate counting
-    const parentTechniques = platformTechniques.filter(t => !t.is_subtechnique);
-    const subTechniques = platformTechniques.filter(t => t.is_subtechnique);
-    
-    // Calculate rule counts - Apply cloud provider filter if on Cloud platform
-    let filteredRules = rules.filter(rule => 
-      platformTechniques.some(tech => tech.technique_id === rule.technique_id) &&
-      rule.tactic === tactic
-    );
-    
-    if (filters.platform === "Cloud") {
-      filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
-      
-      // Apply cloud provider filter if specified
-      if (filters.cloudProvider && filters.cloudProvider !== "all") {
-        filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
+    return (tactic) => {
+      if (statsCache.has(tactic)) {
+        return statsCache.get(tactic);
       }
-    } else if (filters.platform !== "all") {
-      filteredRules = filteredRules.filter(r => r.platform === filters.platform);
-    }
-    
-    const activeRules = filteredRules.filter(rule => rule.status === "Active");
-    const testingRules = filteredRules.filter(rule => rule.status === "Testing");
 
-    // Apply search filter only for the techniques to be displayed/counted
-    let searchedTechniques = [...platformTechniques];
-    if (filters.search) {
-      const searchTerm = filters.search.toLowerCase();
-      searchedTechniques = searchedTechniques.filter(t => 
-        t.name.toLowerCase().includes(searchTerm) ||
-        t.technique_id.toLowerCase().includes(searchTerm)
+      // Get all techniques for the tactic for the current platform
+      let platformTechniques = techniques.filter(t => t.tactic === tactic);
+      
+      if (filters.platform === "Cloud") {
+        // For Cloud platform, include techniques that support AWS, Azure, GCP, or Oracle
+        platformTechniques = platformTechniques.filter(t => 
+          t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
+        );
+      } else if (filters.platform !== "all") {
+        platformTechniques = platformTechniques.filter(t => t.platforms?.includes(filters.platform));
+      }
+
+      // Separate parent techniques and sub-techniques for accurate counting
+      const parentTechniques = platformTechniques.filter(t => !t.is_subtechnique);
+      const subTechniques = platformTechniques.filter(t => t.is_subtechnique);
+      
+      // Calculate rule counts - Apply cloud provider filter if on Cloud platform
+      let filteredRules = rules.filter(rule => 
+        platformTechniques.some(tech => tech.technique_id === rule.technique_id) &&
+        rule.tactic === tactic
       );
-    }
-    
-    return {
-      // Display parent technique count (main number shown on cards)
-      techniqueCount: parentTechniques.length,
-      // Additional breakdown for detailed view
-      parentTechniqueCount: parentTechniques.length,
-      subTechniqueCount: subTechniques.length,
-      totalTechniqueCount: platformTechniques.length,
-      ruleCount: filteredRules.length,
-      activeRules: activeRules.length,
-      testingRules: testingRules.length,
-      techniques: searchedTechniques,
+      
+      if (filters.platform === "Cloud") {
+        filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
+        
+        // Apply cloud provider filter if specified
+        if (filters.cloudProvider && filters.cloudProvider !== "all") {
+          filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
+        }
+      } else if (filters.platform !== "all") {
+        filteredRules = filteredRules.filter(r => r.platform === filters.platform);
+      }
+      
+      const activeRules = filteredRules.filter(rule => rule.status === "Active");
+      const testingRules = filteredRules.filter(rule => rule.status === "Testing");
+
+      // Apply search filter only for the techniques to be displayed/counted
+      let searchedTechniques = [...platformTechniques];
+      if (filters.search) {
+        const searchTerm = filters.search.toLowerCase();
+        searchedTechniques = searchedTechniques.filter(t => 
+          t.name.toLowerCase().includes(searchTerm) ||
+          t.technique_id.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      const stats = {
+        // Display parent technique count (main number shown on cards)
+        techniqueCount: parentTechniques.length,
+        // Additional breakdown for detailed view
+        parentTechniqueCount: parentTechniques.length,
+        subTechniqueCount: subTechniques.length,
+        totalTechniqueCount: platformTechniques.length,
+        ruleCount: filteredRules.length,
+        activeRules: activeRules.length,
+        testingRules: testingRules.length,
+        techniques: searchedTechniques,
+      };
+
+      statsCache.set(tactic, stats);
+      return stats;
     };
-  };
+  }, [techniques, rules, filters.platform, filters.cloudProvider, filters.search]);
 
   const getCurrentPlatformName = () => {
     if (filters.platform === "all") return "All Platforms"; 
@@ -249,8 +267,8 @@ export default function MatrixPage() {
     return filters.platform;
   };
 
-  const getFilteredTactics = () => {
-    // Filter tactics based on search and status filters
+  // Memoized filtered tactics for better performance
+  const filteredTactics = useMemo(() => {
     return tactics.filter(tactic => {
       // Apply search filter to tactic name
       if (filters.search) {
@@ -280,7 +298,7 @@ export default function MatrixPage() {
       const stats = getTacticStats(tactic);
       return stats.techniqueCount > 0;
     });
-  };
+  }, [tactics, filters.search, filters.status, getTacticStats]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
@@ -288,7 +306,7 @@ export default function MatrixPage() {
         filters={filters}
         setFilters={setFilters}
         totalRules={platformRules.length}
-        techniqueBreakdown={getTechniqueBreakdown()}
+        techniqueBreakdown={techniqueBreakdown}
         platform={filters.platform}
         currentPlatform={getCurrentPlatformName()}
         isCloudPlatform={["Cloud", "Office Suite", "Identity Provider", "SaaS", "IaaS"].includes(filters.platform)}
@@ -298,17 +316,20 @@ export default function MatrixPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <AnimatePresence>
-              {getFilteredTactics().map((tactic, index) => (
+              {filteredTactics.map((tactic, index) => (
                 <motion.div
                   key={tactic}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ duration: 0.3 }}
                 >
                   <TacticCard
                     tactic={tactic}
                     stats={getTacticStats(tactic)}
-                    onClick={() => setSelectedTactic(tactic)}
+                    onClick={() => {
+                      setSelectedTactic(tactic);
+                      setIsTechniqueLoading(false);
+                    }}
                     isLoading={isLoading}
                   />
                 </motion.div>
@@ -316,7 +337,7 @@ export default function MatrixPage() {
             </AnimatePresence>
           </div>
 
-          {getFilteredTactics().length === 0 && !isLoading && (
+          {filteredTactics.length === 0 && !isLoading && (
             <div className="text-center py-16 text-slate-500 dark:text-slate-400">
               <Target className="w-16 h-16 mx-auto mb-4 opacity-50" />
               <h3 className="text-xl font-semibold mb-2">No Tactics Found</h3>
@@ -336,6 +357,7 @@ export default function MatrixPage() {
         onRuleUpdate={loadData}
         currentPlatform={filters.platform}
         currentCloudProvider={filters.cloudProvider}
+        isLoading={isTechniqueLoading}
       />
     </div>
   );

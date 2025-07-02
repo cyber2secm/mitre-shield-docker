@@ -128,13 +128,42 @@ export default function RulesPage() {
     document.body.removeChild(link);
   };
 
-  const handleImport = async (newRules) => {
+  const handleImport = async (newRules, allowUpdate = false) => {
     try {
-      await DetectionRule.bulkCreate(newRules);
+      const result = await DetectionRule.bulkCreate(newRules, allowUpdate);
       await loadRules(); // Refresh the list
-      return { success: true, message: `${newRules.length} rules imported successfully!` };
+      
+      if (result.stats) {
+        // Backend provided detailed stats
+        let message = '';
+        if (result.stats.created > 0 && result.stats.updated > 0) {
+          message = `${result.stats.updated} rules updated, ${result.stats.created} rules created`;
+        } else if (result.stats.created > 0) {
+          message = `${result.stats.created} rules created successfully`;
+        } else if (result.stats.updated > 0) {
+          message = `${result.stats.updated} rules updated successfully`;
+        }
+        return { success: true, message };
+      } else {
+        return { success: true, message: `${newRules.length} rules imported successfully!` };
+      }
     } catch (error) {
       console.error("Failed to import rules:", error);
+      
+      // Check if the error response contains duplicate information
+      if (error.response?.data) {
+        const errorData = error.response.data;
+        if (errorData.duplicateIds || errorData.error === 'Duplicate rule IDs found') {
+          return {
+            success: false,
+            error: errorData.error,
+            duplicateIds: errorData.duplicateIds,
+            details: errorData.details,
+            message: `Import failed: ${errorData.error}`
+          };
+        }
+      }
+      
       return { success: false, message: `Import failed: ${error.message}` };
     }
   };

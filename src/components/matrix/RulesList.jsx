@@ -96,7 +96,7 @@ export default function RulesList({ rules, onEdit, onRuleUpdate }) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.2, delay: index * 0.1 }}
+                  transition={{ duration: 0.3 }}
                   className="mb-6"
                 >
                   <Card className="border-slate-200/50 dark:border-slate-700/50 hover:shadow-lg transition-all duration-300 bg-white dark:bg-slate-800 overflow-hidden group hover:border-slate-300 dark:hover:border-slate-600">

@@ -1,0 +1,60 @@
+{
+  "platform": "Network Devices",
+  "extraction_date": "2025-07-02T11:26:18.533095",
+  "tactics": [
+    {
+      "name": "Initial Access",
+      "technique_count": 3
+    },
+    {
+      "name": "Execution",
+      "technique_count": 2
+    },
+    {
+      "name": "Persistence",
+      "technique_count": 10
+    },
+    {
+      "name": "Privilege Escalation",
+      "technique_count": 4
+    },
+    {
+      "name": "Defense Evasion",
+      "technique_count": 11
+    },
+    {
+      "name": "Credential Access",
+      "technique_count": 6
+    },
+    {
+      "name": "Discovery",
+      "technique_count": 11
+    },
+    {
+      "name": "Lateral Movement",
+      "technique_count": 1
+    },
+    {
+      "name": "Collection",
+      "technique_count": 4
+    },
+    {
+      "name": "Command and Control",
+      "technique_count": 7
+    },
+    {
+      "name": "Exfiltration",
+      "technique_count": 2
+    },
+    {
+      "name": "Impact",
+      "technique_count": 4
+    }
+  ],
+  "summary": {
+    "total_tactics": 12,
+    "total_techniques": 65,
+    "total_subtechniques": 66,
+    "total_items": 131
+  }
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
 import { Shield, Plus, Trash2, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PlatformIcon from "@/components/PlatformIcon";
@@ -11,7 +12,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export default function TechniqueCard({ 
+const TechniqueCard = React.memo(function TechniqueCard({ 
   technique, 
   ruleCount, 
   onClick, 
@@ -19,8 +20,42 @@ export default function TechniqueCard({
   onDelete,
   onNewRule,
   onEdit,
-  isDeleting
+  isDeleting,
+  isLoading
 }) {
+  // Loading skeleton
+  if (isLoading) {
+    return (
+      <Card className="border-slate-200/60 dark:border-slate-700 bg-white dark:bg-slate-800 backdrop-blur-sm animate-pulse">
+        <CardContent className="p-4 h-full flex flex-col">
+          <div className="flex items-start justify-between mb-3">
+            <div className="flex-1 min-w-0 pr-2">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="h-6 w-16 bg-slate-200 dark:bg-slate-600 rounded-full animate-pulse"></div>
+                <div className="h-4 w-8 bg-slate-200 dark:bg-slate-600 rounded-full animate-pulse"></div>
+              </div>
+              <div className="h-4 w-full bg-slate-200 dark:bg-slate-600 rounded mb-1 animate-pulse"></div>
+              <div className="h-4 w-3/4 bg-slate-200 dark:bg-slate-600 rounded animate-pulse"></div>
+            </div>
+            <div className="flex items-center gap-1 ml-2">
+              <div className="w-8 h-8 bg-slate-200 dark:bg-slate-600 rounded animate-pulse"></div>
+              <div className="w-8 h-8 bg-slate-200 dark:bg-slate-600 rounded animate-pulse"></div>
+              <div className="w-8 h-8 bg-slate-200 dark:bg-slate-600 rounded animate-pulse"></div>
+            </div>
+          </div>
+          
+          <div className="mt-auto pt-3">
+            <div className="flex flex-wrap gap-1">
+              <div className="h-6 w-16 bg-slate-200 dark:bg-slate-600 rounded-full animate-pulse"></div>
+              <div className="h-6 w-20 bg-slate-200 dark:bg-slate-600 rounded-full animate-pulse"></div>
+              <div className="h-6 w-12 bg-slate-200 dark:bg-slate-600 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   const getRelevantPlatforms = () => {
     if (selectedPlatform === "all") {
       return technique.platforms || [];
@@ -185,4 +220,6 @@ export default function TechniqueCard({
       </Card>
     </TooltipProvider>
   );
-}
+});
+
+export default TechniqueCard;

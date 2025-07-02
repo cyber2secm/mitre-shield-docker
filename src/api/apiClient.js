@@ -53,7 +53,15 @@ class ApiClient {
     };
 
     if (data && ['POST', 'PUT', 'PATCH'].includes(method)) {
-      config.body = JSON.stringify(data);
+      try {
+        config.body = JSON.stringify(data);
+      } catch (error) {
+        if (error.message.includes('circular structure')) {
+          console.error('❌ Circular reference detected in request data:', data);
+          throw new Error('Invalid data: Contains circular references or non-serializable objects');
+        }
+        throw error;
+      }
     }
 
     try {
@@ -64,8 +72,18 @@ class ApiClient {
       clearTimeout(timeoutId);
       
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch (e) {
+          // Fallback to text if JSON parsing fails
+          const errorText = await response.text();
+          errorData = { message: errorText };
+        }
+        
+        const error = new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
+        error.response = { status: response.status, data: errorData };
+        throw error;
       }
 
       if (responseType === 'stream') {
