@@ -126,31 +126,6 @@ export default function TacticDetailModal({
       if (currentCloudProvider && currentCloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
       }
-
-      // Apply cloud service filter if specified
-      if (currentCloudService && currentCloudService !== "all") {
-        filteredRules = filteredRules.filter(r => {
-          switch (currentCloudService) {
-            case 'Office Suite':
-              // For Office Suite, check if rule has Office Suite platform or contains office-related keywords
-              return r.platform === 'Office Suite' || 
-                     r.name?.toLowerCase().includes('office') || 
-                     r.name?.toLowerCase().includes('365') || 
-                     r.name?.toLowerCase().includes('sharepoint');
-            case 'Identity Provider':
-              const ruleName = r.name?.toLowerCase() || '';
-              return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
-            case 'SaaS':
-              const saasRuleName = r.name?.toLowerCase() || '';
-              return saasRuleName.includes('saas') || saasRuleName.includes('application');
-            case 'IaaS':
-              const iaasRuleName = r.name?.toLowerCase() || '';
-              return iaasRuleName.includes('iaas') || iaasRuleName.includes('infrastructure') || iaasRuleName.includes('compute');
-            default:
-              return true;
-          }
-        });
-      }
     } else if (currentPlatform !== "all") {
       filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
     }
@@ -169,31 +144,6 @@ export default function TacticDetailModal({
 
       if (currentCloudProvider && currentCloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
-      }
-
-      // Apply cloud service filter if specified
-      if (currentCloudService && currentCloudService !== "all") {
-        filteredRules = filteredRules.filter(r => {
-          switch (currentCloudService) {
-            case 'Office Suite':
-              // For Office Suite, check if rule has Office Suite platform or contains office-related keywords
-              return r.platform === 'Office Suite' || 
-                     r.name?.toLowerCase().includes('office') || 
-                     r.name?.toLowerCase().includes('365') || 
-                     r.name?.toLowerCase().includes('sharepoint');
-            case 'Identity Provider':
-              const ruleName = r.name?.toLowerCase() || '';
-              return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
-            case 'SaaS':
-              const saasRuleName = r.name?.toLowerCase() || '';
-              return saasRuleName.includes('saas') || saasRuleName.includes('application');
-            case 'IaaS':
-              const iaasRuleName = r.name?.toLowerCase() || '';
-              return iaasRuleName.includes('iaas') || iaasRuleName.includes('infrastructure') || iaasRuleName.includes('compute');
-            default:
-              return true;
-          }
-        });
       }
     } else if (currentPlatform !== "all") {
       filteredRules = filteredRules.filter(r => r.platform === currentPlatform);
@@ -227,31 +177,6 @@ export default function TacticDetailModal({
 
       if (currentCloudProvider && currentCloudProvider !== "all") {
         filteredRules = filteredRules.filter(r => r.platform === currentCloudProvider);
-      }
-
-      // Apply cloud service filter if specified
-      if (currentCloudService && currentCloudService !== "all") {
-        filteredRules = filteredRules.filter(r => {
-          switch (currentCloudService) {
-            case 'Office Suite':
-              // For Office Suite, check if rule has Office Suite platform or contains office-related keywords
-              return r.platform === 'Office Suite' || 
-                     r.name?.toLowerCase().includes('office') || 
-                     r.name?.toLowerCase().includes('365') || 
-                     r.name?.toLowerCase().includes('sharepoint');
-            case 'Identity Provider':
-              const ruleName = r.name?.toLowerCase() || '';
-              return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
-            case 'SaaS':
-              const saasRuleName = r.name?.toLowerCase() || '';
-              return saasRuleName.includes('saas') || saasRuleName.includes('application');
-            case 'IaaS':
-              const iaasRuleName = r.name?.toLowerCase() || '';
-              return iaasRuleName.includes('iaas') || iaasRuleName.includes('infrastructure') || iaasRuleName.includes('compute');
-            default:
-              return true;
-          }
-        });
       }
     } else if (currentPlatform !== "all") {
       filteredRules = filteredRules.filter(r => r.platform === currentPlatform);

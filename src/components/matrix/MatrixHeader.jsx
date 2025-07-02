@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Filter, Shield, Target, Activity, Cloud } from "lucide-react";
+import { Search, Filter, Shield, Target, Activity, Cloud, ChevronDown, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 import PlatformIcon from "@/components/PlatformIcon"; // New import for custom PlatformIcon component
 
@@ -13,7 +13,67 @@ const CloudProviderIcon = ({ provider }) => {
   return <PlatformIcon platform={provider} className="w-4 h-4 mr-2" />;
 };
 
-export default function MatrixHeader({ platform, filters, setFilters, totalRules, totalTechniques, currentPlatform, isCloudPlatform }) {
+export default function MatrixHeader({ platform, filters, setFilters, totalRules, techniqueBreakdown, currentPlatform, isCloudPlatform }) {
+  const [isCloudDropdownOpen, setIsCloudDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsCloudDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Keep dropdown open when switching between cloud services
+  useEffect(() => {
+    if (["Office Suite", "Identity Provider", "SaaS", "IaaS"].includes(filters.platform)) {
+      setIsCloudDropdownOpen(true);
+    }
+  }, [filters.platform]);
+
+  const cloudOptions = [
+    { value: "cloud", label: "Cloud Infrastructure", description: "AWS, Azure, GCP, Oracle" },
+    { value: "office_suite", label: "Office Suite", description: "Microsoft 365, SharePoint, Teams" },
+    { value: "identity_provider", label: "Identity Provider", description: "Authentication & SSO services" },
+    { value: "saas", label: "SaaS", description: "Software as a Service platforms" },
+    { value: "iaas", label: "IaaS", description: "Infrastructure as a Service" }
+  ];
+
+  const getCurrentCloudOption = () => {
+    if (filters.platform === "Cloud") return cloudOptions[0];
+    if (filters.platform === "Office Suite") return cloudOptions[1];
+    if (filters.platform === "Identity Provider") return cloudOptions[2];
+    if (filters.platform === "SaaS") return cloudOptions[3];
+    if (filters.platform === "IaaS") return cloudOptions[4];
+    return cloudOptions[0];
+  };
+
+  const handleCloudOptionClick = (option) => {
+    if (option.value === "cloud") {
+      setFilters(prev => ({ ...prev, platform: "Cloud" }));
+      setIsCloudDropdownOpen(false); // Close when selecting Cloud Infrastructure
+    } else {
+      // For cloud services, update platform and explicitly keep dropdown open
+      if (option.value === "office_suite") {
+        setFilters(prev => ({ ...prev, platform: "Office Suite" }));
+      } else if (option.value === "identity_provider") {
+        setFilters(prev => ({ ...prev, platform: "Identity Provider" }));
+      } else if (option.value === "saas") {
+        setFilters(prev => ({ ...prev, platform: "SaaS" }));
+      } else if (option.value === "iaas") {
+        setFilters(prev => ({ ...prev, platform: "IaaS" }));
+      }
+      // Don't change the dropdown state - it will stay open
+    }
+  };
+
   // PLATFORM_ICONS is no longer needed as PlatformIcon component handles icon selection
   // The custom CloudProviderIcon component also now uses PlatformIcon
 
@@ -50,20 +110,42 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="bg-blue-50 text-blue-700 border border-blue-200 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3">
+            <motion.div 
+              className="bg-blue-50 text-blue-700 border border-blue-200 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1 }}
+            >
               <Target className="w-6 h-6 flex-shrink-0" />
               <div className="flex flex-col items-start leading-tight">
-                <span className="font-bold text-xl">{totalTechniques}</span>
+                <span className="font-bold text-xl">{techniqueBreakdown.parentCount}</span>
                 <span className="text-xs font-medium">Techniques</span>
               </div>
-            </div>
-            <div className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3">
+            </motion.div>
+            <motion.div 
+              className="bg-purple-50 text-purple-700 border border-purple-200 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Layers className="w-6 h-6 flex-shrink-0" />
+              <div className="flex flex-col items-start leading-tight">
+                <span className="font-bold text-xl">{techniqueBreakdown.subCount}</span>
+                <span className="text-xs font-medium">Sub-techniques</span>
+              </div>
+            </motion.div>
+            <motion.div 
+              className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 }}
+            >
               <Activity className="w-6 h-6 flex-shrink-0" />
               <div className="flex flex-col items-start leading-tight">
                 <span className="font-bold text-xl">{totalRules}</span>
                 <span className="text-xs font-medium">Rules</span>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -79,56 +161,40 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
           </div>
 
           <div className="flex gap-4">
-            {/* Cloud Service Categories - Only show when viewing Cloud platform */}
+            {/* Cloud Service Categories - Custom dropdown that stays open */}
             {isCloudPlatform && (
-              <Select 
-                value={filters.cloudService || "all"} 
-                onValueChange={(value) => setFilters(prev => ({ ...prev, cloudService: value }))}
-              >
-                <SelectTrigger className="w-56 bg-white/90 border-slate-200">
+              <div className="relative" ref={dropdownRef}>
+                <Button
+                  variant="outline"
+                  onClick={() => setIsCloudDropdownOpen(!isCloudDropdownOpen)}
+                  className="w-56 bg-white/90 border-slate-200 justify-start"
+                >
                   <Cloud className="w-4 h-4 mr-2 text-slate-400" />
-                  <SelectValue placeholder="Cloud Service" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Services</SelectItem>
-                  <SelectItem value="Office Suite">
-                    <div className="flex items-center">
-                      <div className="w-4 h-4 mr-2 bg-blue-500 rounded-sm flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">O</span>
-                      </div>
-                      Office Suite
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="Identity Provider">
-                    <div className="flex items-center">
-                      <div className="w-4 h-4 mr-2 bg-green-500 rounded-sm flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">I</span>
-                      </div>
-                      Identity Provider
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="SaaS">
-                    <div className="flex items-center">
-                      <div className="w-4 h-4 mr-2 bg-purple-500 rounded-sm flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">S</span>
-                      </div>
-                      SaaS
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="IaaS">
-                    <div className="flex items-center">
-                      <div className="w-4 h-4 mr-2 bg-orange-500 rounded-sm flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">I</span>
-                      </div>
-                      IaaS
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+                  <span className="flex-1 text-left truncate">{getCurrentCloudOption().label}</span>
+                  <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${isCloudDropdownOpen ? 'rotate-180' : ''}`} />
+                </Button>
+                
+                {isCloudDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-72 bg-white border border-slate-200 rounded-md shadow-lg z-50">
+                    {cloudOptions.map((option) => (
+                      <button
+                        key={option.value}
+                        onClick={() => handleCloudOptionClick(option)}
+                        className={`w-full px-3 py-2 text-left hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-b-0 ${
+                          getCurrentCloudOption().value === option.value ? 'bg-blue-50 text-blue-700' : 'text-slate-700'
+                        }`}
+                      >
+                        <div className="font-medium">{option.label}</div>
+                        <div className="text-xs text-slate-500 mt-1">{option.description}</div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
 
-            {/* Cloud Provider Filter - Only show when viewing Cloud platform */}
-            {isCloudPlatform && (
+            {/* Cloud Provider Filter - Only show when viewing core Cloud platform */}
+            {filters.platform === "Cloud" && (
               <Select 
                 value={filters.cloudProvider || "all"} 
                 onValueChange={(value) => setFilters(prev => ({ ...prev, cloudProvider: value }))}

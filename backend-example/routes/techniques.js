@@ -20,7 +20,31 @@ router.get('/', async (req, res) => {
     // Build filter object
     const filter = {};
     if (tactic && tactic !== 'all') filter.tactic = tactic;
-    if (platform && platform !== 'all') filter.platforms = { $in: [platform] };
+    
+    // Use extraction_platform instead of platforms for consistent filtering
+    if (platform && platform !== 'all') {
+      // Map platform names to extraction_platform values
+      const platformMapping = {
+        'Windows': 'windows',
+        'Linux': 'linux',
+        'macOS': 'macos',
+        'Cloud': 'cloud',
+        'Network Devices': 'network_devices',
+        'Containers': 'containers',
+        'Office Suite': 'officesuite',
+        'Identity Provider': 'identity_provider',
+        'SaaS': 'saas',
+        'IaaS': 'iaas'
+      };
+      
+      const extractionPlatform = platformMapping[platform];
+      if (extractionPlatform) {
+        filter.extraction_platform = extractionPlatform;
+      } else {
+        // Fallback to old behavior for unknown platforms
+        filter.platforms = { $in: [platform] };
+      }
+    }
 
     // Build sort object
     const sortObj = {};

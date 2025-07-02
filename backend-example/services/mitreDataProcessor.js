@@ -27,10 +27,11 @@ class MitreDataProcessor {
       'Deep Learning': ['AI'],
       
       // Network and infrastructure
-      'Network': ['Network'],
+      'Network': ['Network Devices'],
+      'Network Devices': ['Network Devices'],
       'IaaS': ['AWS', 'Azure', 'GCP'],
       'SaaS': ['Azure', 'AWS', 'GCP'],
-      'PRE': ['Network']
+      'PRE': ['Network Devices']
     };
 
     // AI/ML specific techniques that should be tagged with AI platform
@@ -493,8 +494,12 @@ class MitreDataProcessor {
                   { case: { $eq: ['$_id', 'linux'] }, then: 'Linux' },
                   { case: { $eq: ['$_id', 'macos'] }, then: 'macOS' },
                   { case: { $eq: ['$_id', 'cloud'] }, then: 'Cloud' },
+                  { case: { $eq: ['$_id', 'network_devices'] }, then: 'Network Devices' },
                   { case: { $eq: ['$_id', 'containers'] }, then: 'Containers' },
-                  { case: { $eq: ['$_id', 'officesuite'] }, then: 'Office Suite' }
+                  { case: { $eq: ['$_id', 'officesuite'] }, then: 'Office Suite' },
+                  { case: { $eq: ['$_id', 'identity_provider'] }, then: 'Identity Provider' },
+                  { case: { $eq: ['$_id', 'saas'] }, then: 'SaaS' },
+                  { case: { $eq: ['$_id', 'iaas'] }, then: 'IaaS' }
                 ],
                 default: '$_id'
               }

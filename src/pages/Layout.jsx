@@ -64,41 +64,13 @@ const platformItems = [
     title: "Cloud",
     platform: "Cloud",
     url: createPageUrl("Matrix?platform=Cloud"),
-    description: "Cloud-specific techniques (AWS, Azure, GCP)",
-    subItems: [
-      {
-        title: "Office Suite",
-        platform: "Cloud",
-        url: createPageUrl("Matrix?platform=Cloud&cloudService=Office%20Suite"),
-        description: "Microsoft 365, SharePoint, Teams",
-        icon: "O",
-        iconColor: "bg-blue-500"
-      },
-      {
-        title: "Identity Provider", 
-        platform: "Cloud",
-        url: createPageUrl("Matrix?platform=Cloud&cloudService=Identity%20Provider"),
-        description: "Authentication & SSO services",
-        icon: "I",
-        iconColor: "bg-green-500"
-      },
-      {
-        title: "SaaS",
-        platform: "Cloud", 
-        url: createPageUrl("Matrix?platform=Cloud&cloudService=SaaS"),
-        description: "Software as a Service platforms",
-        icon: "S",
-        iconColor: "bg-purple-500"
-      },
-      {
-        title: "IaaS",
-        platform: "Cloud",
-        url: createPageUrl("Matrix?platform=Cloud&cloudService=IaaS"),
-        description: "Infrastructure as a Service",
-        icon: "I",
-        iconColor: "bg-orange-500"
-      }
-    ]
+    description: "Cloud-specific techniques (AWS, Azure, GCP, Oracle)"
+  },
+  {
+    title: "Network Devices",
+    platform: "Network Devices",
+    url: createPageUrl("Matrix?platform=Network Devices"),
+    description: "Network infrastructure and device-specific techniques"
   },
   {
     title: "Containers",

@@ -63,8 +63,7 @@ export default function MatrixPage() {
     platform: "all",
     search: "",
     status: "all",
-    cloudProvider: "all",
-    cloudService: "all"
+    cloudProvider: "all"
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -79,23 +78,20 @@ export default function MatrixPage() {
     const urlParams = new URLSearchParams(location.search);
     const platformParam = urlParams.get('platform');
     const cloudProviderParam = urlParams.get('cloudProvider');
-    const cloudServiceParam = urlParams.get('cloudService');
 
     // Default to 'Windows' if no platform is specified or if 'all' is explicitly used
     if (!platformParam || platformParam === 'all') {
       setFilters(prev => ({ 
         ...prev, 
         platform: 'Windows',
-        cloudProvider: "all",
-        cloudService: "all"
+        cloudProvider: "all"
       }));
     } else {
       setFilters(prev => ({ 
         ...prev, 
         platform: platformParam,
         // Reset cloud filters when switching to non-Cloud platforms
-        cloudProvider: platformParam === "Cloud" ? (cloudProviderParam || "all") : "all",
-        cloudService: platformParam === "Cloud" ? (cloudServiceParam || "all") : "all"
+        cloudProvider: platformParam === "Cloud" ? (cloudProviderParam || "all") : "all"
       }));
     }
   }, [location.search]);
@@ -110,79 +106,40 @@ export default function MatrixPage() {
     let filteredRules = [];
 
     if (filters.platform === "Cloud") {
-      // Handle Office Suite as a special case
-      if (filters.cloudService === "Office Suite") {
-        // For Office Suite, filter directly by Office Suite platform
-        filteredTechniques = techniques.filter(t => 
-          t.platforms?.includes('Office Suite')
-        );
-        filteredRules = rules.filter(r => r.platform === 'Office Suite' || 
-          ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
-      } else {
-        // For other cloud services, include techniques that support AWS, Azure, GCP, or Oracle
-        filteredTechniques = techniques.filter(t => 
-          t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
-        );
-        filteredRules = rules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
-        
-        // Apply cloud provider filter if specified
-        if (filters.cloudProvider && filters.cloudProvider !== "all") {
-          filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
-        }
-
-        // Apply cloud service filter if specified (for non-Office Suite services)
-        if (filters.cloudService && filters.cloudService !== "all") {
-          // Filter techniques based on cloud service platform
-          filteredTechniques = filteredTechniques.filter(t => {
-            switch (filters.cloudService) {
-              case 'Identity Provider':
-                // For now, use keyword matching until we have more specific platform data
-                const techName = t.name?.toLowerCase() || '';
-                return techName.includes('identity') || techName.includes('authentication') || techName.includes('sso') ||
-                       techName.includes('saml') || techName.includes('oauth') || techName.includes('active directory');
-              case 'SaaS':
-                const saasName = t.name?.toLowerCase() || '';
-                return saasName.includes('saas') || saasName.includes('application') || saasName.includes('software service');
-              case 'IaaS':
-                const iaasName = t.name?.toLowerCase() || '';
-                return iaasName.includes('iaas') || iaasName.includes('infrastructure') || iaasName.includes('compute') ||
-                       iaasName.includes('storage') || iaasName.includes('network') || iaasName.includes('instance');
-              default:
-                return true;
-            }
-          });
-          
-          // Filter rules similarly if needed
-          filteredRules = filteredRules.filter(r => {
-            const ruleName = r.name?.toLowerCase() || '';
-            
-            switch (filters.cloudService) {
-              case 'Identity Provider':
-                return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
-              case 'SaaS':
-                const saasRuleName = r.name?.toLowerCase() || '';
-                return saasRuleName.includes('saas') || saasRuleName.includes('application');
-              case 'IaaS':
-                const iaasRuleName = r.name?.toLowerCase() || '';
-                return iaasRuleName.includes('iaas') || iaasRuleName.includes('infrastructure') || iaasRuleName.includes('compute');
-              default:
-                return true;
-            }
-          });
-        }
+      // For Cloud platform, include techniques that support AWS, Azure, GCP, or Oracle
+      filteredTechniques = techniques.filter(t => 
+        t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
+      );
+      filteredRules = rules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
+      
+      // Apply cloud provider filter if specified
+      if (filters.cloudProvider && filters.cloudProvider !== "all") {
+        filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
       }
     } else if (filters.platform === "all") {
       filteredTechniques = techniques;
       filteredRules = rules;
     } else {
-      // Specific platform like "Windows", "Linux", "Containers" etc.
+      // Specific platform like "Windows", "Linux", "Office Suite", "Identity Provider", etc.
       filteredTechniques = techniques.filter(t => t.platforms?.includes(filters.platform));
       filteredRules = rules.filter(r => r.platform === filters.platform);
     }
 
     setPlatformTechniques(filteredTechniques);
     setPlatformRules(filteredRules);
-  }, [techniques, rules, filters.platform, filters.cloudProvider, filters.cloudService]);
+  }, [techniques, rules, filters.platform, filters.cloudProvider]);
+
+  // Calculate technique breakdown
+  const getTechniqueBreakdown = () => {
+    const parentTechniques = platformTechniques.filter(t => !t.is_subtechnique);
+    const subTechniques = platformTechniques.filter(t => t.is_subtechnique);
+    
+    return {
+      parentCount: parentTechniques.length,
+      subCount: subTechniques.length,
+      totalCount: platformTechniques.length
+    };
+  };
 
   const loadData = async () => {
     setIsLoading(true);
@@ -222,39 +179,10 @@ export default function MatrixPage() {
     let platformTechniques = techniques.filter(t => t.tactic === tactic);
     
     if (filters.platform === "Cloud") {
-      // Handle Office Suite as a special case
-      if (filters.cloudService === "Office Suite") {
-        // For Office Suite, filter directly by Office Suite platform
-        platformTechniques = platformTechniques.filter(t => 
-          t.platforms?.includes('Office Suite')
-        );
-      } else {
-        // For other cloud services, include techniques that support AWS, Azure, GCP, or Oracle
-        platformTechniques = platformTechniques.filter(t => 
-          t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
-        );
-
-        // Apply cloud service filter if specified (for non-Office Suite services)
-        if (filters.cloudService && filters.cloudService !== "all") {
-          platformTechniques = platformTechniques.filter(t => {
-            switch (filters.cloudService) {
-              case 'Identity Provider':
-                const techName = t.name?.toLowerCase() || '';
-                return techName.includes('identity') || techName.includes('authentication') || techName.includes('sso') ||
-                       techName.includes('saml') || techName.includes('oauth') || techName.includes('active directory');
-              case 'SaaS':
-                const saasName = t.name?.toLowerCase() || '';
-                return saasName.includes('saas') || saasName.includes('application') || saasName.includes('software service');
-              case 'IaaS':
-                const iaasName = t.name?.toLowerCase() || '';
-                return iaasName.includes('iaas') || iaasName.includes('infrastructure') || iaasName.includes('compute') ||
-                       iaasName.includes('storage') || iaasName.includes('network') || iaasName.includes('instance');
-              default:
-                return true;
-            }
-          });
-        }
-      }
+      // For Cloud platform, include techniques that support AWS, Azure, GCP, or Oracle
+      platformTechniques = platformTechniques.filter(t => 
+        t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
+      );
     } else if (filters.platform !== "all") {
       platformTechniques = platformTechniques.filter(t => t.platforms?.includes(filters.platform));
     }
@@ -270,37 +198,11 @@ export default function MatrixPage() {
     );
     
     if (filters.platform === "Cloud") {
-      if (filters.cloudService === "Office Suite") {
-        // For Office Suite, include rules with Office Suite platform or cloud platforms
-        filteredRules = filteredRules.filter(r => 
-          r.platform === 'Office Suite' || 
-          ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform)
-        );
-      } else {
-        filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
-        
-        // Apply cloud provider filter if specified
-        if (filters.cloudProvider && filters.cloudProvider !== "all") {
-          filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
-        }
-
-        // Apply cloud service filter if specified
-        if (filters.cloudService && filters.cloudService !== "all") {
-          filteredRules = filteredRules.filter(r => {
-            const ruleName = r.name?.toLowerCase() || '';
-            
-            switch (filters.cloudService) {
-              case 'Identity Provider':
-                return ruleName.includes('identity') || ruleName.includes('authentication') || ruleName.includes('sso');
-              case 'SaaS':
-                return ruleName.includes('saas') || ruleName.includes('application');
-              case 'IaaS':
-                return ruleName.includes('iaas') || ruleName.includes('infrastructure') || ruleName.includes('compute');
-              default:
-                return true;
-            }
-          });
-        }
+      filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
+      
+      // Apply cloud provider filter if specified
+      if (filters.cloudProvider && filters.cloudProvider !== "all") {
+        filteredRules = filteredRules.filter(r => r.platform === filters.cloudProvider);
       }
     } else if (filters.platform !== "all") {
       filteredRules = filteredRules.filter(r => r.platform === filters.platform);
@@ -338,12 +240,8 @@ export default function MatrixPage() {
     if (filters.platform === "Cloud") {
       let name = "Cloud";
       
-      if (filters.cloudService && filters.cloudService !== "all") {
-        name += ` (${filters.cloudService})`;
-      }
-      
       if (filters.cloudProvider && filters.cloudProvider !== "all") {
-        name += filters.cloudService !== "all" ? ` - ${filters.cloudProvider}` : ` (${filters.cloudProvider})`;
+        name += ` (${filters.cloudProvider})`;
       }
       
       return name;
@@ -390,10 +288,10 @@ export default function MatrixPage() {
         filters={filters}
         setFilters={setFilters}
         totalRules={platformRules.length}
-        totalTechniques={platformTechniques.length}
+        techniqueBreakdown={getTechniqueBreakdown()}
         platform={filters.platform}
         currentPlatform={getCurrentPlatformName()}
-        isCloudPlatform={filters.platform === "Cloud"}
+        isCloudPlatform={["Cloud", "Office Suite", "Identity Provider", "SaaS", "IaaS"].includes(filters.platform)}
       />
 
       <div className="p-6">
@@ -438,7 +336,6 @@ export default function MatrixPage() {
         onRuleUpdate={loadData}
         currentPlatform={filters.platform}
         currentCloudProvider={filters.cloudProvider}
-        currentCloudService={filters.cloudService}
       />
     </div>
   );
