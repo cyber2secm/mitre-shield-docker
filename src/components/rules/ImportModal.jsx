@@ -44,6 +44,42 @@ const SAMPLE_RULES = [
     description: "Detects potential credential dumping using Mimikatz or similar tools",
     user: "security-team",
     platform: "Windows"
+  },
+  {
+    rule_id: "RULE-003",
+    name: "Suspicious Network Connection",
+    tactic: "Command and Control",
+    technique_id: "T1071.001",
+    xql_query: "dataset = xdr_data | filter action_network_connection_direction = \"OUTGOING\" and action_remote_port in (443, 80, 8080) and action_remote_ip not in (\"10.0.0.0/8\", \"192.168.0.0/16\", \"172.16.0.0/12\")",
+    severity: "Medium",
+    rule_type: "SOC",
+    description: "Detects suspicious outbound network connections to external IPs",
+    user: "analyst",
+    platform: "Linux"
+  },
+  {
+    rule_id: "RULE-004",
+    name: "AWS CloudTrail Logging Disabled",
+    tactic: "Defense Evasion",
+    technique_id: "T1562.008",
+    xql_query: "dataset = xdr_data | filter action_name = \"StopLogging\" and action_source = \"cloudtrail.amazonaws.com\"",
+    severity: "High",
+    rule_type: "Product",
+    description: "Detects when AWS CloudTrail logging is disabled which may indicate evasion attempts",
+    user: "cloud-security",
+    platform: "AWS"
+  },
+  {
+    rule_id: "RULE-005",
+    name: "Container Escape Attempt",
+    tactic: "Privilege Escalation",
+    technique_id: "T1611",
+    xql_query: "dataset = xdr_data | filter action_process_command_line contains \"docker\" and (action_process_command_line contains \"--privileged\" or action_process_command_line contains \"--cap-add=SYS_ADMIN\")",
+    severity: "High",
+    rule_type: "SOC",
+    description: "Detects potential container escape attempts using privileged containers",
+    user: "devops-team",
+    platform: "Containers"
   }
 ];
 
@@ -153,7 +189,7 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
   const [duplicateInfo, setDuplicateInfo] = useState(null);
   const [showDuplicateDialog, setShowDuplicateDialog] = useState(false);
 
-  const downloadTemplate = (format) => {
+  const downloadTemplate = (format = 'csv') => {
     const headers = Object.keys(FIELD_DESCRIPTIONS);
     
     if (format === 'csv') {
@@ -170,11 +206,14 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     } else if (format === 'excel') {
       // For Excel, we'll create a more detailed CSV that can be opened in Excel
       const csvContent = [
         '# Detection Rules Import Template',
         '# Please follow the format below. Remove these comment lines before importing.',
+        '# Field descriptions:',
+        ...Object.entries(FIELD_DESCRIPTIONS).map(([field, desc]) => `# ${field}: ${desc}`),
         '',
         headers.join(','),
         ...SAMPLE_RULES.map(rule => headers.map(header => JSON.stringify(rule[header] || '')).join(','))
@@ -188,6 +227,7 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     }
   };
 
@@ -559,17 +599,28 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
             <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
               <h3 className="text-sm font-medium text-slate-900 dark:text-slate-100 mb-2">Need a template?</h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
-                Download our CSV template with all required fields and example data.
+                Download our template with all required fields and example data. Choose your preferred format:
               </p>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => downloadTemplate()}
-                className="flex items-center gap-2"
-              >
-                <FileText className="w-4 h-4" />
-                Download CSV Template
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => downloadTemplate('csv')}
+                  className="flex items-center gap-2"
+                >
+                  <FileText className="w-4 h-4" />
+                  CSV Template
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => downloadTemplate('excel')}
+                  className="flex items-center gap-2"
+                >
+                  <FileSpreadsheet className="w-4 h-4" />
+                  Excel Template
+                </Button>
+              </div>
             </div>
 
             {/* Progress Section */}
