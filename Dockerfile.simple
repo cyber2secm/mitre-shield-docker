@@ -1,3 +1,7 @@
+# This is a symbolic link to the complete version
+# Use Dockerfile.complete for full functionality with backend and database
+# Use this file only for frontend-only deployment
+
 # Build frontend
 FROM node:18-alpine as frontend-build
 WORKDIR /app

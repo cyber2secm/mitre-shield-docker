@@ -1,0 +1,241 @@
+# Build frontend
+FROM node:18-alpine as frontend-build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Production container with backend + frontend
+FROM node:18-bullseye-slim
+
+# Install required packages including MongoDB
+RUN apt-get update && apt-get install -y \
+    nginx \
+    supervisor \
+    curl \
+    gnupg \
+    wget \
+    gettext-base \
+    ca-certificates \
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://pgp.mongodb.com/server-7.0.asc | gpg -o /etc/apt/keyrings/mongodb-server-7.0.gpg --dearmor \
+    && echo "deb [ arch=amd64,arm64 signed-by=/etc/apt/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list \
+    && apt-get update \
+    && apt-get install -y mongodb-org \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create necessary directories
+RUN mkdir -p /var/log/nginx /var/cache/nginx /etc/nginx/conf.d /run/nginx \
+    /var/log/supervisor /data/db /app/uploads \
+    && chown -R mongodb:mongodb /data/db
+
+# Setup backend
+WORKDIR /app
+COPY backend-example/package*.json ./
+RUN npm ci --only=production
+COPY backend-example/ ./
+
+# Copy frontend build
+COPY --from=frontend-build /app/dist /usr/share/nginx/html
+
+# Copy database backup and scripts
+COPY database-backup/ ./database-backup/
+COPY scripts/ ./scripts/
+RUN chmod +x ./scripts/*.sh
+
+# Create nginx config template
+RUN echo 'events {\n\
+    worker_connections 1024;\n\
+}\n\
+\n\
+http {\n\
+    include /etc/nginx/mime.types;\n\
+    default_type application/octet-stream;\n\
+    \n\
+    server {\n\
+        listen ${PORT};\n\
+        server_name localhost;\n\
+        \n\
+        # API requests go to backend\n\
+        location /api {\n\
+            proxy_pass http://localhost:3000;\n\
+            proxy_set_header Host $host;\n\
+            proxy_set_header X-Real-IP $remote_addr;\n\
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
+            proxy_set_header X-Forwarded-Proto $scheme;\n\
+            proxy_connect_timeout 30s;\n\
+            proxy_send_timeout 30s;\n\
+            proxy_read_timeout 30s;\n\
+        }\n\
+        \n\
+        # Serve uploaded files\n\
+        location /uploads {\n\
+            alias /app/uploads;\n\
+        }\n\
+        \n\
+        # Frontend static files\n\
+        location / {\n\
+            root /usr/share/nginx/html;\n\
+            index index.html;\n\
+            try_files $uri $uri/ /index.html;\n\
+        }\n\
+    }\n\
+}' > /etc/nginx/nginx.conf.template
+
+# Create enhanced restore script for Cloud Run
+RUN echo '#!/bin/bash\n\
+set -e\n\
+\n\
+echo "🔧 Starting database restoration check..."\n\
+\n\
+# Wait for MongoDB to be ready with timeout\n\
+TIMEOUT=60\n\
+COUNTER=0\n\
+until mongosh --host localhost --eval "print(\"MongoDB is ready\")" > /dev/null 2>&1; do\n\
+    echo "⏳ Waiting for MongoDB to be ready... ($COUNTER/$TIMEOUT)"\n\
+    sleep 2\n\
+    COUNTER=$((COUNTER + 2))\n\
+    if [ $COUNTER -gt $TIMEOUT ]; then\n\
+        echo "❌ MongoDB failed to start within $TIMEOUT seconds"\n\
+        exit 1\n\
+    fi\n\
+done\n\
+\n\
+echo "✅ MongoDB is ready!"\n\
+\n\
+# Check if database has data\n\
+TECHNIQUE_COUNT=$(mongosh --host localhost --quiet --eval "db.mitretechniques.countDocuments()" mitre-shield 2>/dev/null || echo "0")\n\
+\n\
+if [ "$TECHNIQUE_COUNT" -eq 0 ] || [ "$TECHNIQUE_COUNT" = "0" ]; then\n\
+    echo "📊 Database is empty. Restoring from backup..."\n\
+    if [ -d "./database-backup/mitre-shield" ]; then\n\
+        mongorestore --host localhost --db mitre-shield ./database-backup/mitre-shield/ --quiet\n\
+        echo "✅ Database restoration completed!"\n\
+        # Verify restoration\n\
+        NEW_COUNT=$(mongosh --host localhost --quiet --eval "db.mitretechniques.countDocuments()" mitre-shield 2>/dev/null || echo "0")\n\
+        echo "📈 Restored $NEW_COUNT MITRE techniques"\n\
+    else\n\
+        echo "⚠️ No backup data found at ./database-backup/mitre-shield"\n\
+    fi\n\
+else\n\
+    echo "✅ Database already contains $TECHNIQUE_COUNT techniques. Skipping restoration."\n\
+fi\n\
+\n\
+echo "🎯 Database setup completed!"' > /app/restore-db-enhanced.sh && chmod +x /app/restore-db-enhanced.sh
+
+# Create supervisor configuration
+RUN echo '[supervisord]\n\
+nodaemon=true\n\
+user=root\n\
+logfile=/var/log/supervisor/supervisord.log\n\
+pidfile=/var/run/supervisord.pid\n\
+logfile_maxbytes=50MB\n\
+logfile_backups=3\n\
+\n\
+[program:mongodb]\n\
+command=mongod --dbpath /data/db --bind_ip_all --logpath /var/log/mongodb.log --fork\n\
+stdout_logfile=/var/log/mongodb.log\n\
+stderr_logfile=/var/log/mongodb.log\n\
+autorestart=true\n\
+priority=10\n\
+startsecs=5\n\
+user=mongodb\n\
+\n\
+[program:db-restore]\n\
+command=/app/restore-db-enhanced.sh\n\
+directory=/app\n\
+stdout_logfile=/var/log/db-restore.log\n\
+stderr_logfile=/var/log/db-restore.log\n\
+autorestart=false\n\
+autostart=false\n\
+priority=20\n\
+startsecs=0\n\
+\n\
+[program:backend]\n\
+command=npm start\n\
+directory=/app\n\
+stdout_logfile=/var/log/backend.log\n\
+stderr_logfile=/var/log/backend.log\n\
+autorestart=true\n\
+autostart=false\n\
+priority=30\n\
+environment=NODE_ENV=production,PORT=3000,MONGODB_URI=mongodb://localhost:27017/mitre-shield\n\
+\n\
+[program:nginx]\n\
+command=nginx -g "daemon off;"\n\
+stdout_logfile=/var/log/nginx/access.log\n\
+stderr_logfile=/var/log/nginx/error.log\n\
+autorestart=true\n\
+autostart=false\n\
+priority=40' > /etc/supervisord.conf
+
+# Create startup script
+RUN echo '#!/bin/bash\n\
+set -e\n\
+\n\
+# Set default port\n\
+export PORT=${PORT:-8080}\n\
+\n\
+echo "🚀 === MITRE Shield Complete Startup ==="\n\
+echo "📍 PORT: $PORT"\n\
+echo "🌍 NODE_ENV: ${NODE_ENV:-production}"\n\
+echo "🗄️ MONGODB_URI: ${MONGODB_URI:-mongodb://localhost:27017/mitre-shield}"\n\
+\n\
+# Ensure proper permissions\n\
+chown -R mongodb:mongodb /data/db\n\
+\n\
+# Generate nginx config with correct port\n\
+echo "🔧 Generating nginx configuration..."\n\
+envsubst < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf\n\
+nginx -t\n\
+\n\
+# Start MongoDB as mongodb user\n\
+echo "🗄️ Starting MongoDB..."\n\
+su mongodb -s /bin/bash -c "mongod --dbpath /data/db --bind_ip_all --logpath /var/log/mongodb.log --fork"\n\
+\n\
+# Wait for MongoDB to be ready\n\
+echo "⏳ Waiting for MongoDB to be ready..."\n\
+for i in {1..30}; do\n\
+    if mongosh --host localhost --eval "print(\"MongoDB is ready\")" >/dev/null 2>&1; then\n\
+        echo "✅ MongoDB is ready!"\n\
+        break\n\
+    fi\n\
+    echo "Waiting... attempt $i/30"\n\
+    sleep 2\n\
+done\n\
+\n\
+# Run database restoration\n\
+echo "📊 Running database restoration..."\n\
+/app/restore-db-enhanced.sh\n\
+\n\
+# Start backend\n\
+echo "🔧 Starting backend..."\n\
+cd /app\n\
+npm start &\n\
+BACKEND_PID=$!\n\
+\n\
+# Wait for backend to be ready\n\
+echo "⏳ Waiting for backend to be ready..."\n\
+for i in {1..20}; do\n\
+    if curl -s http://localhost:3000/api/health >/dev/null 2>&1; then\n\
+        echo "✅ Backend is ready!"\n\
+        break\n\
+    fi\n\
+    echo "Waiting for backend... attempt $i/20"\n\
+    sleep 3\n\
+done\n\
+\n\
+# Start nginx\n\
+echo "🌐 Starting nginx..."\n\
+exec nginx -g "daemon off;"' > /usr/local/bin/start-complete.sh && chmod +x /usr/local/bin/start-complete.sh
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=15s --start-period=120s --retries=3 \
+  CMD curl -f http://localhost:${PORT:-8080}/api/health || exit 1
+
+# Expose port
+EXPOSE 8080
+
+# Start everything
+CMD ["/usr/local/bin/start-complete.sh"] 
