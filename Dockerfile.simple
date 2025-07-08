@@ -7,36 +7,60 @@ COPY . .
 RUN npm run build
 
 # Production container
-FROM node:18-alpine
+FROM nginx:alpine
 
-# Install dependencies
-RUN apk add --no-cache nginx
-
-# Setup nginx
-RUN mkdir -p /var/log/nginx && \
-    mkdir -p /var/cache/nginx && \
-    mkdir -p /etc/nginx/conf.d
-
-# Copy nginx config
-COPY nginx-simple.conf /etc/nginx/nginx.conf
-
-# Setup app
-WORKDIR /app
-COPY backend-example/package*.json ./
-RUN npm ci --only=production
-
-# Copy backend
-COPY backend-example/ ./
+# Install gettext for envsubst
+RUN apk add --no-cache gettext
 
 # Copy frontend build
 COPY --from=frontend-build /app/dist /usr/share/nginx/html
 
+# Create nginx config template
+RUN echo 'events {\n\
+    worker_connections 1024;\n\
+}\n\
+\n\
+http {\n\
+    include /etc/nginx/mime.types;\n\
+    default_type application/octet-stream;\n\
+    \n\
+    server {\n\
+        listen ${PORT};\n\
+        server_name localhost;\n\
+        \n\
+        location /api {\n\
+            return 503 "Backend service is being configured. Please check back soon!";\n\
+        }\n\
+        \n\
+        location / {\n\
+            root /usr/share/nginx/html;\n\
+            index index.html;\n\
+            try_files $uri $uri/ /index.html;\n\
+        }\n\
+    }\n\
+}' > /etc/nginx/nginx.conf.template
+
 # Create startup script
 RUN echo '#!/bin/sh\n\
-nginx -g "daemon on;"\n\
-exec npm start' > start.sh && chmod +x start.sh
+set -e\n\
+\n\
+# Set default port if not provided\n\
+export PORT=${PORT:-8080}\n\
+\n\
+echo "=== MITRE Shield Frontend ==="\n\
+echo "PORT: $PORT"\n\
+echo "Starting frontend on port $PORT"\n\
+\n\
+# Generate nginx config with correct port\n\
+envsubst < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf\n\
+\n\
+# Test nginx config\n\
+nginx -t\n\
+\n\
+echo "Starting nginx..."\n\
+exec nginx -g "daemon off;"' > /usr/local/bin/start.sh && chmod +x /usr/local/bin/start.sh
 
 # Expose port
 EXPOSE 8080
 
-CMD ["./start.sh"] 
+CMD ["/usr/local/bin/start.sh"] 
