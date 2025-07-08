@@ -1,7 +1,7 @@
 // API Client for custom backend
 class ApiClient {
   constructor() {
-    this.baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+    this.baseURL = import.meta.env.VITE_API_BASE_URL || '/api';
     this.token = localStorage.getItem('auth_token');
     this.defaultTimeout = 30000; // 30 seconds default
     this.longTimeout = 600000; // 10 minutes for heavy operations

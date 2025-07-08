@@ -179,14 +179,17 @@ export default function Layout({ children, currentPageName }) {
       <div className="min-h-screen flex w-full bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <Sidebar className="border-r border-slate-200/60 dark:border-slate-700/60 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-sm">
           <SidebarHeader className="border-b border-slate-200/60 dark:border-slate-700/60 p-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Shield className="w-6 h-6 text-white" />
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h2 className="font-bold text-slate-900 dark:text-slate-100 text-lg">MITRE Shield</h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">ATT&CK Rule Manager</p>
+                </div>
               </div>
-              <div>
-                <h2 className="font-bold text-slate-900 dark:text-slate-100 text-lg">MITRE Shield</h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">ATT&CK Rule Manager</p>
-              </div>
+              <ThemeToggle />
             </div>
           </SidebarHeader>
           
@@ -319,10 +322,13 @@ export default function Layout({ children, currentPageName }) {
             </SidebarGroup>
           </SidebarContent>
 
-          <SidebarFooter className="border-t border-slate-200/60 dark:border-slate-700/60 p-4">
-            <div className="flex items-center justify-between w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors duration-200">
-              <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Dashboard v1.0.0</span>
-              <ThemeToggle />
+          <SidebarFooter className="border-t border-slate-200/60 dark:border-slate-700/60 p-2">
+            <div className="w-full rounded-lg overflow-hidden">
+              <img 
+                src="/icons/Gradient Icon Map Navigation App Logo (2).png" 
+                alt="Dashboard Logo" 
+                className="w-full h-16 object-cover"
+              />
             </div>
           </SidebarFooter>
         </Sidebar>
