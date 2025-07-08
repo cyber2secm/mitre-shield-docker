@@ -242,39 +242,10 @@ let server;
 
 const startServer = async () => {
   try {
-    // Try to connect to database (won't exit on failure in production)
-    const dbConnected = await dbConnectWithRetry();
+    // Initialize with database not connected
+    global.DATABASE_CONNECTED = false;
     
-    if (!dbConnected && process.env.NODE_ENV === 'production') {
-      console.log('⚠️ Starting server with limited functionality (no database)');
-      
-      // Add a global flag to indicate database status
-      global.DATABASE_CONNECTED = false;
-      
-      // Add mock data endpoints when database is not available
-      const { getMockData } = require('./config/database');
-      const mockData = getMockData();
-      
-      app.get('/api/techniques', (req, res) => {
-        res.json({
-          success: true,
-          data: mockData.techniques,
-          message: 'Limited data - database not available'
-        });
-      });
-      
-      app.get('/api/rules', (req, res) => {
-        res.json({
-          success: true,
-          data: mockData.rules,
-          message: 'Limited data - database not available'
-        });
-      });
-    } else {
-      global.DATABASE_CONNECTED = true;
-    }
-    
-    // Start HTTP server
+    // Start HTTP server immediately
     server = app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
@@ -298,15 +269,26 @@ const startServer = async () => {
       }
     });
     
-    // Start scheduler service after server is running (only if database is connected)
-    if (global.DATABASE_CONNECTED) {
-      try {
-        const scheduler = require('./services/scheduler');
-        scheduler.start();
-      } catch (err) {
-        console.error('⚠️ Scheduler service failed to start:', err.message);
+    // Try to connect to database in the background (non-blocking)
+    dbConnectWithRetry().then((dbConnected) => {
+      if (dbConnected) {
+        global.DATABASE_CONNECTED = true;
+        console.log('✅ Database connected - switching to full functionality');
+        
+        // Start scheduler service after database is connected
+        try {
+          const scheduler = require('./services/scheduler');
+          scheduler.start();
+        } catch (err) {
+          console.error('⚠️ Scheduler service failed to start:', err.message);
+        }
+      } else {
+        console.log('⚠️ Database connection failed - continuing with limited functionality');
       }
-    }
+    }).catch((err) => {
+      console.error('❌ Database connection error:', err.message);
+      console.log('⚠️ Continuing with limited functionality');
+    });
     
   } catch (err) {
     console.error('❌ Failed to start server:', err);

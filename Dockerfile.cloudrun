@@ -58,7 +58,7 @@ http {\n\
         # Health check endpoint\n\
         location /health {\n\
             access_log off;\n\
-            return 200 "healthy\\n";\n\
+            return 200 "healthy";\n\
             add_header Content-Type text/plain;\n\
         }\n\
         \n\
@@ -66,13 +66,10 @@ http {\n\
         location /api/ {\n\
             proxy_pass http://127.0.0.1:3000;\n\
             proxy_http_version 1.1;\n\
-            proxy_set_header Upgrade $http_upgrade;\n\
-            proxy_set_header Connection "upgrade";\n\
             proxy_set_header Host $host;\n\
             proxy_set_header X-Real-IP $remote_addr;\n\
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
             proxy_set_header X-Forwarded-Proto $scheme;\n\
-            proxy_cache_bypass $http_upgrade;\n\
             proxy_connect_timeout 30s;\n\
             proxy_send_timeout 30s;\n\
             proxy_read_timeout 30s;\n\
@@ -106,17 +103,17 @@ echo "PORT: $PORT"\n\
 echo "NODE_ENV: $NODE_ENV"\n\
 echo "Starting services..."\n\
 \n\
-# Generate nginx config\n\
-envsubst < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf\n\
+# Generate nginx config (as root) - only substitute PORT variable\n\
+envsubst '"'"'$PORT'"'"' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf\n\
 nginx -t\n\
 \n\
-# Create log files\n\
+# Create log files with proper permissions\n\
 touch /var/log/nginx/access.log /var/log/nginx/error.log\n\
+chown appuser:appuser /var/log/nginx/access.log /var/log/nginx/error.log\n\
 \n\
-# Start backend in background\n\
+# Start backend as appuser in background on port 3000\n\
 echo "Starting backend on port 3000..."\n\
-cd /app\n\
-npm start &\n\
+su appuser -c "cd /app && PORT=3000 npm start" &\n\
 BACKEND_PID=$!\n\
 \n\
 # Wait for backend to be ready\n\
@@ -133,20 +130,19 @@ for i in {1..30}; do\n\
     sleep 2\n\
 done\n\
 \n\
-# Start nginx in foreground\n\
+# Start nginx in foreground (as root for port binding)\n\
 echo "Starting nginx on port $PORT..."\n\
 exec nginx -g "daemon off;"' > /usr/local/bin/start-app.sh \
     && chmod +x /usr/local/bin/start-app.sh
 
-# Set proper permissions
-RUN chown -R appuser:appuser /app /usr/share/nginx/html /var/log/nginx
+# Set proper permissions for app files
+RUN chown -R appuser:appuser /app /usr/share/nginx/html
 
-# Switch to non-root user
-USER appuser
+# Keep as root user for nginx to bind to port 8080
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD curl -f http://localhost:${PORT:-8080}/health || exit 1
+    CMD curl -f http://localhost:8080/health || exit 1
 
 # Expose port
 EXPOSE 8080

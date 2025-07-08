@@ -9,6 +9,19 @@ const router = express.Router();
 // @access  Private
 router.get('/', async (req, res) => {
   try {
+    // Check if database is connected
+    if (!global.DATABASE_CONNECTED) {
+      // Return mock data when database is not available
+      const { getMockData } = require('../config/database');
+      const mockData = getMockData();
+      
+      return res.json({
+        success: true,
+        data: mockData.techniques,
+        message: 'Limited data - database not available'
+      });
+    }
+
     const {
       limit = 10000,
       sort = 'createdAt',

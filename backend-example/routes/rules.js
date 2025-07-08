@@ -9,26 +9,39 @@ const router = express.Router();
 // @access  Private
 router.get('/', async (req, res) => {
   try {
-      const {
-    limit = 1000,
-    sort = 'createdAt',
-    order = 'desc',
-    platform,
-    status,
-    tactic,
-    severity,
-    rule_type,
-    assigned_user
-  } = req.query;
+    // Check if database is connected
+    if (!global.DATABASE_CONNECTED) {
+      // Return mock data when database is not available
+      const { getMockData } = require('../config/database');
+      const mockData = getMockData();
+      
+      return res.json({
+        success: true,
+        data: mockData.rules,
+        message: 'Limited data - database not available'
+      });
+    }
 
-  // Build filter object
-  const filter = {};
-  if (platform && platform !== 'all') filter.platform = platform;
-  if (status && status !== 'all') filter.status = status;
-  if (tactic && tactic !== 'all') filter.tactic = tactic;
-  if (severity && severity !== 'all') filter.severity = severity;
-  if (rule_type && rule_type !== 'all') filter.rule_type = rule_type;
-  if (assigned_user && assigned_user !== 'all') filter.assigned_user = assigned_user;
+    const {
+      limit = 1000,
+      sort = 'createdAt',
+      order = 'desc',
+      platform,
+      status,
+      tactic,
+      severity,
+      rule_type,
+      assigned_user
+    } = req.query;
+
+    // Build filter object
+    const filter = {};
+    if (platform && platform !== 'all') filter.platform = platform;
+    if (status && status !== 'all') filter.status = status;
+    if (tactic && tactic !== 'all') filter.tactic = tactic;
+    if (severity && severity !== 'all') filter.severity = severity;
+    if (rule_type && rule_type !== 'all') filter.rule_type = rule_type;
+    if (assigned_user && assigned_user !== 'all') filter.assigned_user = assigned_user;
 
     // Build sort object
     const sortObj = {};

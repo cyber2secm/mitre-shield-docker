@@ -31,6 +31,11 @@ const connectWithRetry = async (maxRetries = 5) => {
   const config = getDatabaseConfig();
   let retries = 0;
   
+  // Reduce retries for production/Cloud Run to fail faster
+  if (process.env.NODE_ENV === 'production') {
+    maxRetries = 3;
+  }
+  
   console.log(`🔌 Attempting to connect to database...`);
   console.log(`📍 URI: ${config.uri.replace(/\/\/.*@/, '//***@')}`); // Hide credentials
   
@@ -55,8 +60,9 @@ const connectWithRetry = async (maxRetries = 5) => {
         }
       }
       
-      // Wait before retrying (exponential backoff)
-      const delay = Math.pow(2, retries) * 1000;
+      // Wait before retrying (exponential backoff, shorter in production)
+      const baseDelay = process.env.NODE_ENV === 'production' ? 1000 : 2000;
+      const delay = Math.pow(2, retries) * baseDelay;
       console.log(`⏳ Retrying MongoDB connection in ${delay}ms...`);
       await new Promise(resolve => setTimeout(resolve, delay));
     }
