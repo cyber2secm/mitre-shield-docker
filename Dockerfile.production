@@ -1,0 +1,67 @@
+# Multi-stage build for production deployment
+FROM node:18-alpine as frontend-build
+
+# Build frontend
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Production stage
+FROM node:18-alpine
+
+# Install MongoDB and other required tools
+RUN apk add --no-cache mongodb mongodb-tools bash
+
+# Create app directory
+WORKDIR /app
+
+# Copy backend files
+COPY backend-example/package*.json ./
+RUN npm ci --only=production
+
+COPY backend-example/ ./
+RUN mkdir -p uploads
+
+# Copy frontend build to backend's static directory
+COPY --from=frontend-build /app/dist ./public
+
+# Copy database backup and scripts
+COPY database-backup/ ./database-backup/
+COPY scripts/ ./scripts/
+RUN chmod +x ./scripts/*.sh
+
+# Create data directory for MongoDB
+RUN mkdir -p /data/db
+
+# Update backend to serve static files (if needed)
+RUN echo 'const express = require("express");\n\
+const path = require("path");\n\
+const app = express();\n\
+\n\
+// Serve static files from public directory\n\
+app.use(express.static("public"));\n\
+\n\
+// All other routes should serve the index.html\n\
+app.get("*", (req, res) => {\n\
+  res.sendFile(path.join(__dirname, "public", "index.html"));\n\
+});\n\
+\n\
+module.exports = app;' > ./static-server.js
+
+# Create startup script
+RUN echo '#!/bin/bash\n\
+echo "Starting MongoDB..."\n\
+mongod --fork --logpath /var/log/mongodb.log --dbpath /data/db --bind_ip_all\n\
+echo "Waiting for MongoDB to start..."\n\
+sleep 5\n\
+echo "Running database restore script..."\n\
+./scripts/restore-db.sh\n\
+echo "Starting backend server..."\n\
+npm start' > ./start-production.sh && chmod +x ./start-production.sh
+
+# Expose port
+EXPOSE 3000
+
+CMD ["./start-production.sh"] 

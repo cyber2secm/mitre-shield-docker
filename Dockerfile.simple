@@ -1,0 +1,42 @@
+# Build frontend
+FROM node:18-alpine as frontend-build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Production container
+FROM node:18-alpine
+
+# Install dependencies
+RUN apk add --no-cache nginx
+
+# Setup nginx
+RUN mkdir -p /var/log/nginx && \
+    mkdir -p /var/cache/nginx && \
+    mkdir -p /etc/nginx/conf.d
+
+# Copy nginx config
+COPY nginx-simple.conf /etc/nginx/nginx.conf
+
+# Setup app
+WORKDIR /app
+COPY backend-example/package*.json ./
+RUN npm ci --only=production
+
+# Copy backend
+COPY backend-example/ ./
+
+# Copy frontend build
+COPY --from=frontend-build /app/dist /usr/share/nginx/html
+
+# Create startup script
+RUN echo '#!/bin/sh\n\
+nginx -g "daemon on;"\n\
+exec npm start' > start.sh && chmod +x start.sh
+
+# Expose port
+EXPOSE 8080
+
+CMD ["./start.sh"] 
