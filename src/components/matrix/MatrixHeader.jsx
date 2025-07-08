@@ -109,9 +109,9 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
             <motion.div 
-              className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
+              className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3 flex-shrink-0 min-w-[120px]"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1 }}
@@ -123,7 +123,7 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
               </div>
             </motion.div>
             <motion.div 
-              className="bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
+              className="bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3 flex-shrink-0 min-w-[120px]"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
@@ -135,7 +135,7 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
               </div>
             </motion.div>
             <motion.div 
-              className="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3"
+              className="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 px-4 py-2 rounded-xl shadow-sm flex items-center gap-3 flex-shrink-0 min-w-[120px]"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3 }}
@@ -153,7 +153,7 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 w-4 h-4" />
             <Input
-              placeholder="Search techniques, IDs, or descriptions..."
+              placeholder="Search techniques, rules, IDs, names, or descriptions..."
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
               className="pl-10 bg-white/90 dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400"

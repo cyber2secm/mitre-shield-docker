@@ -11,7 +11,6 @@ import PlatformDistribution from "../components/analytics/PlatformDistribution";
 import RuleStatusChart from "../components/analytics/RuleStatusChart";
 import RuleTeamDistribution from "../components/analytics/RuleTeamDistribution";
 import TopTechniques from "../components/analytics/TopTechniques";
-import MitreSyncStatus from "../components/analytics/MitreSyncStatus";
 
 export default function AnalyticsPage() {
   const [rules, setRules] = useState([]);
@@ -135,17 +134,6 @@ export default function AnalyticsPage() {
               isLoading={isLoading}
               onDataUpdate={loadData}
             />
-          </div>
-
-          {/* MITRE Sync Status moved to the end */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-1">
-              <MitreSyncStatus onDataUpdate={loadData} />
-            </div>
-            {/* Optional: Add some spacing or other components here if needed */}
-            <div className="lg:col-span-2">
-              {/* This space could be used for additional components in the future */}
-            </div>
           </div>
         </div>
       </div>

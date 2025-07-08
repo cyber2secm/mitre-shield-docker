@@ -157,6 +157,28 @@ export default function MatrixPage() {
       setTechniques(techniqueData);
       setRules(ruleData);
       
+      // Debug: Log rules that might not be showing correctly
+      const testRule = ruleData.find(r => r.name.toLowerCase().includes('test') || r.rule_id?.toLowerCase().includes('test'));
+      if (testRule) {
+        console.log('🔍 Found TEST rule:', testRule);
+        
+        // Check if technique exists
+        const matchingTechnique = techniqueData.find(t => t.technique_id === testRule.technique_id);
+        console.log('🎯 Matching technique found:', matchingTechnique ? 'YES' : 'NO', matchingTechnique);
+        
+        // Check if technique supports cloud platforms
+        if (matchingTechnique) {
+          const supportsCloud = matchingTechnique.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p));
+          console.log('☁️ Technique supports cloud:', supportsCloud, 'Platforms:', matchingTechnique.platforms);
+        }
+        
+        // Check if rule's tactic matches technique's tactic
+        if (matchingTechnique) {
+          const tacticMatch = testRule.tactic === matchingTechnique.tactic;
+          console.log('🎯 Tactic match:', tacticMatch, `Rule: "${testRule.tactic}" vs Technique: "${matchingTechnique.tactic}"`);
+        }
+      }
+      
       // Extract unique tactics from techniques and sort them
       const uniqueTactics = [...new Set(techniqueData.map(t => t.tactic).filter(Boolean))];
       const sortedTactics = uniqueTactics.sort((a, b) => {
@@ -224,27 +246,64 @@ export default function MatrixPage() {
       
       const activeRules = filteredRules.filter(rule => rule.status === "Active");
       const testingRules = filteredRules.filter(rule => rule.status === "Testing");
-
-      // Apply search filter only for the techniques to be displayed/counted
+      
+      // Apply search filter to both techniques AND rules
       let searchedTechniques = [...platformTechniques];
+      let searchedRules = [...filteredRules];
+      
       if (filters.search) {
         const searchTerm = filters.search.toLowerCase();
+        
+        // Search techniques
         searchedTechniques = searchedTechniques.filter(t => 
           t.name.toLowerCase().includes(searchTerm) ||
           t.technique_id.toLowerCase().includes(searchTerm)
         );
-      }
-      
-      const stats = {
+        
+        // Search rules by name and rule_id
+        searchedRules = searchedRules.filter(r => 
+          r.name.toLowerCase().includes(searchTerm) ||
+          r.rule_id?.toLowerCase().includes(searchTerm) ||
+          r.technique_id.toLowerCase().includes(searchTerm)
+        );
+        
+        // Debug: Log search results for TEST rule
+        if (searchTerm.includes('test')) {
+          console.log('🔍 Search results for "' + searchTerm + '":');
+          console.log('📋 Matching rules:', searchedRules.filter(r => 
+            r.name.toLowerCase().includes(searchTerm) || 
+            r.rule_id?.toLowerCase().includes(searchTerm)
+          ));
+          console.log('🎯 Matching techniques:', searchedTechniques.filter(t => 
+            t.name.toLowerCase().includes(searchTerm) || 
+            t.technique_id.toLowerCase().includes(searchTerm)
+          ));
+        }
+        
+        // Include techniques that have matching rules
+        const rulesWithMatchingTechniques = searchedRules.map(r => r.technique_id);
+        const additionalTechniques = platformTechniques.filter(t => 
+          rulesWithMatchingTechniques.includes(t.technique_id) && 
+          !searchedTechniques.some(st => st.technique_id === t.technique_id)
+        );
+                 searchedTechniques = [...searchedTechniques, ...additionalTechniques];
+        }
+        
+        // Use searched rules for display counts when search is active
+        const displayActiveRules = filters.search ? searchedRules.filter(rule => rule.status === "Active") : activeRules;
+        const displayTestingRules = filters.search ? searchedRules.filter(rule => rule.status === "Testing") : testingRules;
+        const displayRuleCount = filters.search ? searchedRules.length : filteredRules.length;
+        
+        const stats = {
         // Display parent technique count (main number shown on cards)
         techniqueCount: parentTechniques.length,
         // Additional breakdown for detailed view
         parentTechniqueCount: parentTechniques.length,
         subTechniqueCount: subTechniques.length,
         totalTechniqueCount: platformTechniques.length,
-        ruleCount: filteredRules.length,
-        activeRules: activeRules.length,
-        testingRules: testingRules.length,
+        ruleCount: displayRuleCount,
+        activeRules: displayActiveRules.length,
+        testingRules: displayTestingRules.length,
         techniques: searchedTechniques,
       };
 

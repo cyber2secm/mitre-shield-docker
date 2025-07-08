@@ -147,7 +147,16 @@ export default function FutureRulesPage() {
         xql_query: newRuleData.xql_query,
         status: newRuleData.status || 'Testing',
         false_positive_rate: newRuleData.false_positive_rate || 'Medium',
-        tags: newRuleData.tags || []
+        tags: newRuleData.tags || [],
+        // Include all the essential fields from the future rule
+        name: newRuleData.name,
+        description: newRuleData.description,
+        technique_id: newRuleData.technique_id,
+        platform: newRuleData.platform,
+        tactic: newRuleData.tactic,
+        severity: newRuleData.severity,
+        rule_type: newRuleData.rule_type,
+        assigned_user: newRuleData.assigned_user
       };
       console.log('Promoting rule with data:', promotionData);
       
@@ -160,13 +169,18 @@ export default function FutureRulesPage() {
       setPromotingRule(null);
       await loadFutureRules();
       
-      // Show success message
-      toast({
+      // Show success message with auto-dismiss after 1 second
+      const successToast = toast({
         title: "Rule Promoted Successfully! 🎉",
         description: `"${promotingRule.name}" has been promoted to detection rule`,
         variant: "default",
         className: "border-green-200 bg-green-50 text-green-900 dark:border-green-800 dark:bg-green-950 dark:text-green-100"
       });
+      
+      // Auto-dismiss after 1 second (now with quick removal)
+      setTimeout(() => {
+        successToast.dismiss();
+      }, 1000);
     } catch (error) {
       console.error("Failed to promote rule:", error);
       console.error("Error details:", error);

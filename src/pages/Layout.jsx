@@ -320,29 +320,9 @@ export default function Layout({ children, currentPageName }) {
           </SidebarContent>
 
           <SidebarFooter className="border-t border-slate-200/60 dark:border-slate-700/60 p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-slate-600 to-slate-700 dark:from-slate-500 dark:to-slate-600 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-semibold text-sm">SA</span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-slate-900 dark:text-slate-100 text-sm truncate">Security Analyst</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">Threat Detection Team</p>
-              </div>
+            <div className="flex items-center justify-between w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors duration-200">
+              <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Dashboard v1.0.0</span>
               <ThemeToggle />
-              {/* Temporarily hidden for development */}
-              {/* <button
-                className="p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200 flex-shrink-0"
-                title="Sign Out"
-                onClick={() => {
-                  if (window.confirm('Are you sure you want to sign out?')) {
-                    logout();
-                  }
-                }}
-              >
-                <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-              </button> */}
             </div>
           </SidebarFooter>
         </Sidebar>

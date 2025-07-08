@@ -129,7 +129,7 @@ export default function RulesTable({ rules, isLoading, onRuleUpdate }) {
         isOpen={!!ruleToDelete}
         onClose={() => setRuleToDelete(null)}
         onConfirm={handleConfirmDelete}
-        title="Are you absolutely sure?"
+        title="Are you sure?"
         description="This action cannot be undone. This will permanently delete the detection rule and all associated data."
       />
       
