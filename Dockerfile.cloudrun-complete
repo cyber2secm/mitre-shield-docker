@@ -36,7 +36,7 @@ RUN apt-get update && apt-get install -y \
 
 # Create app user and directories
 RUN groupadd -r appuser && useradd -r -g appuser appuser \
-    && mkdir -p /app /var/log/nginx /usr/share/nginx/html /data/db /var/log/mongodb \
+    && mkdir -p /app /app/uploads /var/log/nginx /usr/share/nginx/html /data/db /var/log/mongodb \
     && chown -R appuser:appuser /app \
     && chown -R mongodb:mongodb /data/db /var/log/mongodb
 
@@ -82,6 +82,13 @@ http {\n\
             proxy_connect_timeout 30s;\n\
             proxy_send_timeout 30s;\n\
             proxy_read_timeout 30s;\n\
+        }\n\
+        \n\
+        # Serve uploaded files\n\
+        location /uploads/ {\n\
+            alias /app/uploads/;\n\
+            expires 1d;\n\
+            add_header Cache-Control \"public\";\n\
         }\n\
         \n\
         # Frontend static files\n\

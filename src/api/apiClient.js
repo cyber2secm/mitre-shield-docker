@@ -21,9 +21,10 @@ class ApiClient {
       'Content-Type': 'application/json',
     };
     
-    if (this.token) {
-      headers.Authorization = `Bearer ${this.token}`;
-    }
+    // Skip auth headers since backend routes are not protected
+    // if (this.token) {
+    //   headers.Authorization = `Bearer ${this.token}`;
+    // }
     
     return headers;
   }
@@ -228,9 +229,10 @@ class ApiClient {
     });
 
     const headers = {};
-    if (this.token) {
-      headers.Authorization = `Bearer ${this.token}`;
-    }
+    // Skip auth headers since backend routes are not protected
+    // if (this.token) {
+    //   headers.Authorization = `Bearer ${this.token}`;
+    // }
 
     const response = await fetch(`${this.baseURL}${endpoint}`, {
       method: 'POST',

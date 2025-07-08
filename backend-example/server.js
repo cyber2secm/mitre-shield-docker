@@ -40,11 +40,17 @@ const corsOptions = {
       return callback(null, true);
     }
     
+    // Allow Cloud Run domains
+    if (origin.match(/^https:\/\/.*\.run\.app$/)) {
+      return callback(null, true);
+    }
+    
     // Add your production domains here
     const allowedOrigins = [
       'http://localhost:3000',
       'http://localhost:5173',
       'http://localhost:5174',
+      'https://mitre-shield-docker-227820463872.me-west1.run.app',
       'https://your-production-domain.com'
     ];
     
@@ -276,12 +282,12 @@ const startServer = async () => {
         console.log('✅ Database connected - switching to full functionality');
         
         // Start scheduler service after database is connected
-        try {
-          const scheduler = require('./services/scheduler');
-          scheduler.start();
-        } catch (err) {
-          console.error('⚠️ Scheduler service failed to start:', err.message);
-        }
+    try {
+      const scheduler = require('./services/scheduler');
+      scheduler.start();
+    } catch (err) {
+      console.error('⚠️ Scheduler service failed to start:', err.message);
+    }
       } else {
         console.log('⚠️ Database connection failed - continuing with limited functionality');
       }

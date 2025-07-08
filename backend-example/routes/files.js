@@ -6,9 +6,18 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, '../uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('📁 Created uploads directory:', uploadsDir);
+}
+
 // Configure multer for file uploads with preserved extensions
 const storage = multer.diskStorage({
-  destination: 'uploads/',
+  destination: function (req, file, cb) {
+    cb(null, uploadsDir);
+  },
   filename: function (req, file, cb) {
     // Generate unique filename while preserving extension
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -55,18 +64,30 @@ router.post('/upload', upload.single('file'), async (req, res) => {
       size: req.file.size
     };
 
+    // Generate dynamic URL based on request
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+    const host = req.headers['x-forwarded-host'] || req.headers.host || 'localhost:3000';
+    const baseUrl = `${protocol}://${host}`;
+
+    console.log('📤 File uploaded successfully:', {
+      filename: req.file.filename,
+      originalname: req.file.originalname,
+      size: req.file.size,
+      baseUrl: baseUrl
+    });
+
     res.json({
       success: true,
-      file_url: `http://localhost:3000/uploads/${req.file.filename}`,
+      file_url: `${baseUrl}/uploads/${req.file.filename}`,
       filename: req.file.originalname,
       size: req.file.size,
       type: path.extname(req.file.originalname).toLowerCase()
     });
   } catch (error) {
-    console.error(error.message);
+    console.error('❌ Upload error:', error);
     res.status(500).json({
       success: false,
-      error: 'Server error'
+      error: 'Server error during file upload'
     });
   }
 });
