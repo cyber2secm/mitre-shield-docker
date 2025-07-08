@@ -1,0 +1,155 @@
+# MITRE Shield - Cloud Run Optimized Dockerfile
+# This version is specifically designed for Google Cloud Run deployment
+
+# Build frontend
+FROM node:18-alpine AS frontend-build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+RUN npm run build
+
+# Backend stage  
+FROM node:18-alpine AS backend-build
+WORKDIR /app
+COPY backend-example/package*.json ./
+RUN npm ci --only=production
+
+# Production stage - optimized for Cloud Run
+FROM node:18-slim
+
+# Install required system packages
+RUN apt-get update && apt-get install -y \
+    nginx \
+    curl \
+    gettext-base \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create app user and directories
+RUN groupadd -r appuser && useradd -r -g appuser appuser \
+    && mkdir -p /app /var/log/nginx /usr/share/nginx/html \
+    && chown -R appuser:appuser /app
+
+# Setup application
+WORKDIR /app
+COPY --from=backend-build /app/node_modules ./node_modules
+COPY backend-example/ ./
+COPY --from=frontend-build /app/dist /usr/share/nginx/html
+
+# Copy database backup for future use
+COPY database-backup/ ./database-backup/
+
+# Create nginx configuration template
+RUN echo 'events {\n\
+    worker_connections 1024;\n\
+}\n\
+\n\
+http {\n\
+    include /etc/nginx/mime.types;\n\
+    default_type application/octet-stream;\n\
+    access_log off;\n\
+    error_log /var/log/nginx/error.log warn;\n\
+    \n\
+    server {\n\
+        listen ${PORT} default_server;\n\
+        server_name _;\n\
+        \n\
+        # Health check endpoint\n\
+        location /health {\n\
+            access_log off;\n\
+            return 200 "healthy\\n";\n\
+            add_header Content-Type text/plain;\n\
+        }\n\
+        \n\
+        # API proxy to backend\n\
+        location /api/ {\n\
+            proxy_pass http://127.0.0.1:3000;\n\
+            proxy_http_version 1.1;\n\
+            proxy_set_header Upgrade $http_upgrade;\n\
+            proxy_set_header Connection "upgrade";\n\
+            proxy_set_header Host $host;\n\
+            proxy_set_header X-Real-IP $remote_addr;\n\
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
+            proxy_set_header X-Forwarded-Proto $scheme;\n\
+            proxy_cache_bypass $http_upgrade;\n\
+            proxy_connect_timeout 30s;\n\
+            proxy_send_timeout 30s;\n\
+            proxy_read_timeout 30s;\n\
+        }\n\
+        \n\
+        # Frontend static files\n\
+        location / {\n\
+            root /usr/share/nginx/html;\n\
+            index index.html;\n\
+            try_files $uri $uri/ /index.html;\n\
+            \n\
+            # Cache static assets\n\
+            location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {\n\
+                expires 1y;\n\
+                add_header Cache-Control "public, immutable";\n\
+            }\n\
+        }\n\
+    }\n\
+}' > /etc/nginx/nginx.conf.template
+
+# Create startup script optimized for Cloud Run
+RUN echo '#!/bin/bash\n\
+set -e\n\
+\n\
+# Configuration\n\
+export PORT=${PORT:-8080}\n\
+export NODE_ENV=${NODE_ENV:-production}\n\
+\n\
+echo "=== MITRE Shield Cloud Run Startup ==="\n\
+echo "PORT: $PORT"\n\
+echo "NODE_ENV: $NODE_ENV"\n\
+echo "Starting services..."\n\
+\n\
+# Generate nginx config\n\
+envsubst < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf\n\
+nginx -t\n\
+\n\
+# Create log files\n\
+touch /var/log/nginx/access.log /var/log/nginx/error.log\n\
+\n\
+# Start backend in background\n\
+echo "Starting backend on port 3000..."\n\
+cd /app\n\
+npm start &\n\
+BACKEND_PID=$!\n\
+\n\
+# Wait for backend to be ready\n\
+echo "Waiting for backend to be ready..."\n\
+for i in {1..30}; do\n\
+    if curl -s http://localhost:3000/api/health >/dev/null 2>&1; then\n\
+        echo "✅ Backend is ready!"\n\
+        break\n\
+    fi\n\
+    if [ $i -eq 30 ]; then\n\
+        echo "❌ Backend failed to start within 60 seconds"\n\
+        exit 1\n\
+    fi\n\
+    sleep 2\n\
+done\n\
+\n\
+# Start nginx in foreground\n\
+echo "Starting nginx on port $PORT..."\n\
+exec nginx -g "daemon off;"' > /usr/local/bin/start-app.sh \
+    && chmod +x /usr/local/bin/start-app.sh
+
+# Set proper permissions
+RUN chown -R appuser:appuser /app /usr/share/nginx/html /var/log/nginx
+
+# Switch to non-root user
+USER appuser
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:${PORT:-8080}/health || exit 1
+
+# Expose port
+EXPOSE 8080
+
+# Start the application
+CMD ["/usr/local/bin/start-app.sh"] 

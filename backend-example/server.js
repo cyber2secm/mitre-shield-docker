@@ -118,7 +118,8 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     memory: process.memoryUsage(),
-    pid: process.pid
+    pid: process.pid,
+    database: global.DATABASE_CONNECTED ? 'connected' : 'not available'
   });
 });
 
@@ -174,32 +175,8 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-// Enhanced MongoDB connection with retry logic
-const connectWithRetry = async () => {
-  const maxRetries = 5;
-  let retries = 0;
-  
-  while (retries < maxRetries) {
-    try {
-      await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mitre-shield', mongooseOptions);
-      console.log('✅ MongoDB connected successfully');
-      break;
-    } catch (err) {
-      retries++;
-      console.error(`❌ MongoDB connection attempt ${retries} failed:`, err.message);
-      
-      if (retries >= maxRetries) {
-        console.error('❌ Max MongoDB connection retries reached. Exiting...');
-        process.exit(1);
-      }
-      
-      // Wait before retrying (exponential backoff)
-      const delay = Math.pow(2, retries) * 1000;
-      console.log(`⏳ Retrying MongoDB connection in ${delay}ms...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
-    }
-  }
-};
+// Import database configuration
+const { connectWithRetry: dbConnectWithRetry } = require('./config/database');
 
 // Enhanced graceful shutdown
 const gracefulShutdown = async (signal) => {
@@ -265,13 +242,43 @@ let server;
 
 const startServer = async () => {
   try {
-    // Connect to MongoDB first
-    await connectWithRetry();
+    // Try to connect to database (won't exit on failure in production)
+    const dbConnected = await dbConnectWithRetry();
+    
+    if (!dbConnected && process.env.NODE_ENV === 'production') {
+      console.log('⚠️ Starting server with limited functionality (no database)');
+      
+      // Add a global flag to indicate database status
+      global.DATABASE_CONNECTED = false;
+      
+      // Add mock data endpoints when database is not available
+      const { getMockData } = require('./config/database');
+      const mockData = getMockData();
+      
+      app.get('/api/techniques', (req, res) => {
+        res.json({
+          success: true,
+          data: mockData.techniques,
+          message: 'Limited data - database not available'
+        });
+      });
+      
+      app.get('/api/rules', (req, res) => {
+        res.json({
+          success: true,
+          data: mockData.rules,
+          message: 'Limited data - database not available'
+        });
+      });
+    } else {
+      global.DATABASE_CONNECTED = true;
+    }
     
     // Start HTTP server
     server = app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`🗄️ Database: ${global.DATABASE_CONNECTED ? 'Connected' : 'Not available'}`);
       console.log(`📊 Process ID: ${process.pid}`);
       
       // Log memory usage periodically in development
@@ -291,12 +298,14 @@ const startServer = async () => {
       }
     });
     
-    // Start scheduler service after server is running
-    try {
-      const scheduler = require('./services/scheduler');
-      scheduler.start();
-    } catch (err) {
-      console.error('⚠️ Scheduler service failed to start:', err.message);
+    // Start scheduler service after server is running (only if database is connected)
+    if (global.DATABASE_CONNECTED) {
+      try {
+        const scheduler = require('./services/scheduler');
+        scheduler.start();
+      } catch (err) {
+        console.error('⚠️ Scheduler service failed to start:', err.message);
+      }
     }
     
   } catch (err) {
