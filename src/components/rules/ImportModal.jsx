@@ -271,6 +271,50 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
           rule.platform = platformMap[p] || rule.platform;
         }
 
+        // Handle severity: normalize case
+        if (rule.severity && typeof rule.severity === 'string') {
+          const s = rule.severity.toLowerCase();
+          const severityMap = {
+              'critical': 'Critical',
+              'high': 'High',
+              'medium': 'Medium',
+              'low': 'Low'
+          };
+          rule.severity = severityMap[s] || rule.severity;
+        }
+
+        // Handle rule_type: normalize case
+        if (rule.rule_type && typeof rule.rule_type === 'string') {
+          const rt = rule.rule_type.toLowerCase();
+          const ruleTypeMap = {
+              'soc': 'SOC',
+              'product': 'Product'
+          };
+          rule.rule_type = ruleTypeMap[rt] || rule.rule_type;
+        }
+
+        // Handle tactic: normalize case to proper MITRE format
+        if (rule.tactic && typeof rule.tactic === 'string') {
+          const t = rule.tactic.toLowerCase();
+          const tacticMap = {
+              'reconnaissance': 'Reconnaissance',
+              'resource development': 'Resource Development',
+              'initial access': 'Initial Access',
+              'execution': 'Execution',
+              'persistence': 'Persistence',
+              'privilege escalation': 'Privilege Escalation',
+              'defense evasion': 'Defense Evasion',
+              'credential access': 'Credential Access',
+              'discovery': 'Discovery',
+              'lateral movement': 'Lateral Movement',
+              'collection': 'Collection',
+              'command and control': 'Command and Control',
+              'exfiltration': 'Exfiltration',
+              'impact': 'Impact'
+          };
+          rule.tactic = tacticMap[t] || rule.tactic;
+        }
+
         // Map template field names to backend field names
         if (rule.rule_name) {
           rule.name = rule.rule_name;
