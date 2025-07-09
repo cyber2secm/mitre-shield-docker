@@ -132,6 +132,17 @@ app.get('/api/health', (req, res) => {
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Serve CSV template download
+app.get('/api/download/template', (req, res) => {
+  const templatePath = path.join(__dirname, 'detection_rules_template.csv');
+  res.download(templatePath, 'detection_rules_template.csv', (err) => {
+    if (err) {
+      console.error('Error downloading template:', err);
+      res.status(500).json({ error: 'Failed to download template' });
+    }
+  });
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/rules', rulesRoutes);
