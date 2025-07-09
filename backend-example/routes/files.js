@@ -92,6 +92,50 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   }
 });
 
+// @route   DELETE /api/upload/:filename
+// @desc    Delete uploaded file (cleanup for failed imports)
+// @access  Private
+router.delete('/upload/:filename', async (req, res) => {
+  try {
+    const { filename } = req.params;
+    
+    // Validate filename (security check)
+    if (!filename || filename.includes('..') || filename.includes('/') || filename.includes('\\')) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid filename'
+      });
+    }
+
+    const filePath = path.join(__dirname, '../uploads', filename);
+
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({
+        success: false,
+        error: 'File not found'
+      });
+    }
+
+    // Delete the file
+    fs.unlinkSync(filePath);
+    
+    console.log('🗑️ Deleted upload file:', filename);
+
+    res.json({
+      success: true,
+      message: 'File deleted successfully'
+    });
+
+  } catch (error) {
+    console.error('❌ Delete file error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Server error during file deletion'
+    });
+  }
+});
+
 // Helper function to parse CSV content
 function parseCSV(content) {
   const lines = content.split('\n').map(line => line.trim()).filter(line => line);

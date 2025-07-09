@@ -44,7 +44,7 @@ const DetectionRuleSchema = new mongoose.Schema({
   },
   xql_query: {
     type: String,
-    required: true
+    required: false
   },
   tags: [{
     type: String,
@@ -63,6 +63,9 @@ const DetectionRuleSchema = new mongoose.Schema({
   assigned_user: {
     type: String,
     trim: true
+  },
+  creation_date: {
+    type: Date
   },
   created_by: {
     type: mongoose.Schema.Types.ObjectId,

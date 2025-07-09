@@ -1,0 +1,10 @@
+creation_time ,rule_name,platform,rule_id,description,severity,number_of_alerts,source,rule_type,tactic,technique_id,xql_query
+Feb 23rd 2023 13:12:05,_QA - DLL - Unsigned DLL Impersonate Signed DLL,XDR Data,325,test,LOW,"8,959",iscohen@paloaltonetworks.com,SOC,Defense Evasion,T1548,"//TLV-SOC - Suspicious DLL impersonation
+dataset = xdr_data
+|alter dll = lowercase(arrayindex(regextract(action_module_path,"".*\\(.*)""),0))
+|filter event_type = ENUM.LOAD_IMAGE
+|filter actor_process_command_line contains dll and actor_process_command_line contains ""rundll"" 
+|filter dll !~= "".tmp|.exe""
+|dedup dll, action_module_signature_status
+|comp list(to_string(action_module_signature_status)) as signatures, values(actor_process_command_line) as execution_path, values(action_module_sha256) as hash_sha256 by dll
+|filter signatures contains ""1"" and (signatures contains ""2"" or signatures contains ""3"" or signatures contains ""7"")"

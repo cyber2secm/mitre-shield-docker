@@ -1,4 +1,0 @@
-rule_id,name,tactic,technique_id,xql_query,severity,rule_type,description,user,platform,rule_type
-RULE-003,LaunchAgent Plist Creation in User Directory,Persistence,T1543.001,dataset = xdr_data | filter action_file_path = '/Users/*/Library/LaunchAgents/*.plist',Medium,SOC,"Detects creation of LaunchAgent property list files, often used for persistence on macOS.",secops,macOS,SOC
-RULE-004,Execution via Obfuscated JavaScript,Execution,T1059.007,dataset = xdr_data | filter file_name endswith '.js' and process_command_line contains 'eval(',High,SOC,"Detects obfuscated JavaScript code execution, which may indicate malicious scripting activity.",threatintel,Windows,Product
-RULE-005,Cloud Account Access via New Location,Initial Access,T1078.004,dataset = auth_logs | filter platform = 'Cloud' and new_geolocation_detected = true,High,Product,Detects access to cloud accounts from unfamiliar geographic locations.,cloudsec,Cloud,Product

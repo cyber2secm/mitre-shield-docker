@@ -106,6 +106,10 @@ export default function MatrixPage() {
     let filteredTechniques = [];
     let filteredRules = [];
 
+    console.log('🔍 Filtering data for platform:', filters.platform);
+    console.log('📊 Total rules before filtering:', rules.length);
+    console.log('📊 Total techniques before filtering:', techniques.length);
+
     if (filters.platform === "Cloud") {
       // For Cloud platform, include techniques that support AWS, Azure, GCP, or Oracle
       filteredTechniques = techniques.filter(t => 
@@ -121,10 +125,65 @@ export default function MatrixPage() {
       filteredTechniques = techniques;
       filteredRules = rules;
     } else {
-      // Specific platform like "Windows", "Linux", "Office Suite", "Identity Provider", etc.
+      // Specific platform like "Windows", "Linux", "macOS", "Office Suite", "Identity Provider", etc.
+      console.log('🎯 Filtering for specific platform:', filters.platform);
+      
       filteredTechniques = techniques.filter(t => t.platforms?.includes(filters.platform));
+      console.log('📋 Techniques supporting platform:', filteredTechniques.length);
+      
       filteredRules = rules.filter(r => r.platform === filters.platform);
+      console.log('📋 Rules for platform:', filteredRules.length);
+      
+      // Debug: Log XDR rules for this platform
+      const xdrRulesForPlatform = filteredRules.filter(r => 
+        r.rule_id?.includes('-macos') || 
+        r.rule_id?.includes('-linux') || 
+        r.rule_id?.includes('-windows') ||
+        r.description?.includes('XDR')
+      );
+      
+      if (xdrRulesForPlatform.length > 0) {
+        console.log('🚀 XDR Rules for platform', filters.platform + ':', xdrRulesForPlatform.length);
+        xdrRulesForPlatform.forEach(rule => {
+          console.log('📋 XDR Rule for platform:', {
+            rule_id: rule.rule_id,
+            name: rule.name,
+            platform: rule.platform,
+            technique_id: rule.technique_id,
+            tactic: rule.tactic,
+            status: rule.status
+          });
+        });
+      }
+      
+      // Debug: Check for any rules that might be excluded
+      const excludedRules = rules.filter(r => r.platform !== filters.platform);
+      const excludedXdrRules = excludedRules.filter(r => 
+        r.rule_id?.includes('-macos') || 
+        r.rule_id?.includes('-linux') || 
+        r.rule_id?.includes('-windows') ||
+        r.description?.includes('XDR')
+      );
+      
+      if (excludedXdrRules.length > 0) {
+        console.log('❌ XDR Rules excluded from platform', filters.platform + ':', excludedXdrRules.length);
+        excludedXdrRules.forEach(rule => {
+          console.log('❌ Excluded XDR Rule:', {
+            rule_id: rule.rule_id,
+            name: rule.name,
+            platform: rule.platform,
+            technique_id: rule.technique_id,
+            status: rule.status
+          });
+        });
+      }
     }
+
+    console.log('✅ Final filtered results:', {
+      techniques: filteredTechniques.length,
+      rules: filteredRules.length,
+      platform: filters.platform
+    });
 
     return { filteredTechniques, filteredRules };
   }, [techniques, rules, filters.platform, filters.cloudProvider]);
@@ -157,27 +216,69 @@ export default function MatrixPage() {
       setTechniques(techniqueData);
       setRules(ruleData);
       
-      // Debug: Log rules that might not be showing correctly
-      const testRule = ruleData.find(r => r.name.toLowerCase().includes('test') || r.rule_id?.toLowerCase().includes('test'));
-      if (testRule) {
-        console.log('🔍 Found TEST rule:', testRule);
-        
-        // Check if technique exists
-        const matchingTechnique = techniqueData.find(t => t.technique_id === testRule.technique_id);
-        console.log('🎯 Matching technique found:', matchingTechnique ? 'YES' : 'NO', matchingTechnique);
-        
-        // Check if technique supports cloud platforms
-        if (matchingTechnique) {
-          const supportsCloud = matchingTechnique.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p));
-          console.log('☁️ Technique supports cloud:', supportsCloud, 'Platforms:', matchingTechnique.platforms);
-        }
-        
-        // Check if rule's tactic matches technique's tactic
-        if (matchingTechnique) {
-          const tacticMatch = testRule.tactic === matchingTechnique.tactic;
-          console.log('🎯 Tactic match:', tacticMatch, `Rule: "${testRule.tactic}" vs Technique: "${matchingTechnique.tactic}"`);
-        }
+      // Debug: Log XDR rules and platform filtering
+      const xdrRules = ruleData.filter(r => 
+        r.rule_id?.includes('-macos') || 
+        r.rule_id?.includes('-linux') || 
+        r.rule_id?.includes('-windows') ||
+        r.description?.includes('XDR')
+      );
+      
+      if (xdrRules.length > 0) {
+        console.log('🚀 XDR Rules Found:', xdrRules.length);
+        xdrRules.forEach(rule => {
+          console.log('📋 XDR Rule:', {
+            rule_id: rule.rule_id,
+            name: rule.name,
+            platform: rule.platform,
+            technique_id: rule.technique_id,
+            tactic: rule.tactic,
+            status: rule.status
+          });
+          
+          // Check if technique exists for this rule
+          const matchingTechnique = techniqueData.find(t => t.technique_id === rule.technique_id);
+          console.log('🎯 Matching technique:', matchingTechnique ? 'YES' : 'NO', 
+            matchingTechnique ? {
+              technique_id: matchingTechnique.technique_id,
+              name: matchingTechnique.name,
+              tactic: matchingTechnique.tactic,
+              platforms: matchingTechnique.platforms
+            } : 'NOT FOUND');
+            
+          if (matchingTechnique) {
+            // Check if technique supports the rule's platform
+            const supportsPlatform = matchingTechnique.platforms?.includes(rule.platform);
+            console.log('🌐 Platform support:', supportsPlatform ? 'YES' : 'NO', 
+              `Rule platform: ${rule.platform}, Technique platforms: ${matchingTechnique.platforms?.join(', ') || 'none'}`);
+            
+            // Check if tactics match
+            const tacticMatch = rule.tactic === matchingTechnique.tactic;
+            console.log('🎯 Tactic match:', tacticMatch ? 'YES' : 'NO', 
+              `Rule tactic: "${rule.tactic}", Technique tactic: "${matchingTechnique.tactic}"`);
+          }
+        });
       }
+      
+      // Debug: Check platform counts
+      const platformCounts = {};
+      ruleData.forEach(rule => {
+        if (!platformCounts[rule.platform]) {
+          platformCounts[rule.platform] = 0;
+        }
+        platformCounts[rule.platform]++;
+      });
+      console.log('📊 Rules by platform:', platformCounts);
+      
+      // Debug: Check active rules by platform
+      const activeRulesByPlatform = {};
+      ruleData.filter(r => r.status === 'Active').forEach(rule => {
+        if (!activeRulesByPlatform[rule.platform]) {
+          activeRulesByPlatform[rule.platform] = 0;
+        }
+        activeRulesByPlatform[rule.platform]++;
+      });
+      console.log('🟢 Active rules by platform:', activeRulesByPlatform);
       
       // Extract unique tactics from techniques and sort them
       const uniqueTactics = [...new Set(techniqueData.map(t => t.tactic).filter(Boolean))];
@@ -247,6 +348,49 @@ export default function MatrixPage() {
       const activeRules = filteredRules.filter(rule => rule.status === "Active");
       const testingRules = filteredRules.filter(rule => rule.status === "Testing");
       
+      // Debug: Log XDR rules for this tactic/platform combination
+      const xdrRulesForTactic = filteredRules.filter(r => 
+        r.rule_id?.includes('-macos') || 
+        r.rule_id?.includes('-linux') || 
+        r.rule_id?.includes('-windows') ||
+        r.description?.includes('XDR')
+      );
+      
+      if (xdrRulesForTactic.length > 0) {
+        console.log(`🎯 XDR Rules for tactic "${tactic}" on platform "${filters.platform}":`, xdrRulesForTactic.length);
+        xdrRulesForTactic.forEach(rule => {
+          console.log('📋 XDR Rule in tactic:', {
+            rule_id: rule.rule_id,
+            name: rule.name,
+            platform: rule.platform,
+            technique_id: rule.technique_id,
+            tactic: rule.tactic,
+            status: rule.status
+          });
+          
+          // Check if technique exists and supports platform
+          const matchingTechnique = platformTechniques.find(t => t.technique_id === rule.technique_id);
+          if (matchingTechnique) {
+            console.log('✅ Technique match found:', matchingTechnique.name);
+          } else {
+            console.log('❌ No matching technique found for:', rule.technique_id);
+            // Look for the technique in all techniques (not just platform-filtered)
+            const anyTechnique = techniques.find(t => t.technique_id === rule.technique_id);
+            if (anyTechnique) {
+              console.log('⚠️  Technique exists but not for this platform:', {
+                technique_id: anyTechnique.technique_id,
+                name: anyTechnique.name,
+                tactic: anyTechnique.tactic,
+                platforms: anyTechnique.platforms,
+                current_platform: filters.platform
+              });
+            } else {
+              console.log('❌ Technique does not exist at all:', rule.technique_id);
+            }
+          }
+        });
+      }
+      
       // Apply search filter to both techniques AND rules
       let searchedTechniques = [...platformTechniques];
       let searchedRules = [...filteredRules];
@@ -267,34 +411,21 @@ export default function MatrixPage() {
           r.technique_id.toLowerCase().includes(searchTerm)
         );
         
-        // Debug: Log search results for TEST rule
-        if (searchTerm.includes('test')) {
-          console.log('🔍 Search results for "' + searchTerm + '":');
-          console.log('📋 Matching rules:', searchedRules.filter(r => 
-            r.name.toLowerCase().includes(searchTerm) || 
-            r.rule_id?.toLowerCase().includes(searchTerm)
-          ));
-          console.log('🎯 Matching techniques:', searchedTechniques.filter(t => 
-            t.name.toLowerCase().includes(searchTerm) || 
-            t.technique_id.toLowerCase().includes(searchTerm)
-          ));
-        }
-        
         // Include techniques that have matching rules
         const rulesWithMatchingTechniques = searchedRules.map(r => r.technique_id);
         const additionalTechniques = platformTechniques.filter(t => 
           rulesWithMatchingTechniques.includes(t.technique_id) && 
           !searchedTechniques.some(st => st.technique_id === t.technique_id)
         );
-                 searchedTechniques = [...searchedTechniques, ...additionalTechniques];
-        }
-        
-        // Use searched rules for display counts when search is active
-        const displayActiveRules = filters.search ? searchedRules.filter(rule => rule.status === "Active") : activeRules;
-        const displayTestingRules = filters.search ? searchedRules.filter(rule => rule.status === "Testing") : testingRules;
-        const displayRuleCount = filters.search ? searchedRules.length : filteredRules.length;
-        
-        const stats = {
+        searchedTechniques = [...searchedTechniques, ...additionalTechniques];
+      }
+      
+      // Use searched rules for display counts when search is active
+      const displayActiveRules = filters.search ? searchedRules.filter(rule => rule.status === "Active") : activeRules;
+      const displayTestingRules = filters.search ? searchedRules.filter(rule => rule.status === "Testing") : testingRules;
+      const displayRuleCount = filters.search ? searchedRules.length : filteredRules.length;
+      
+      const stats = {
         // Display parent technique count (main number shown on cards)
         techniqueCount: parentTechniques.length,
         // Additional breakdown for detailed view

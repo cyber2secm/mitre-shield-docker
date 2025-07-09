@@ -6,6 +6,7 @@ import { DetectionRule, MitreTechnique } from "@/api/entities";
 import PlatformIcon from "@/components/PlatformIcon";
 import { useAuth } from "@/contexts/AuthContext";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/contexts/ThemeContext";
 import {
   Sidebar,
   SidebarContent,
@@ -91,7 +92,8 @@ export default function Layout({ children, currentPageName }) {
   const location = useLocation();
   const urlParams = new URLSearchParams(location.search);
   const currentPlatform = urlParams.get('platform') || 'all';
-  const { logout } = useAuth(); 
+  const { logout } = useAuth();
+  const { isDarkMode } = useTheme(); 
   
   const [stats, setStats] = useState({
     activeRules: 0,
@@ -322,12 +324,21 @@ export default function Layout({ children, currentPageName }) {
             </SidebarGroup>
           </SidebarContent>
 
-          <SidebarFooter className="border-t border-slate-200/60 dark:border-slate-700/60 p-2">
-            <div className="w-full rounded-lg overflow-hidden">
+          <SidebarFooter className="border-t border-slate-200/60 dark:border-slate-700/60 p-2 h-20">
+            <div className="w-full h-full cursor-pointer group flex items-center justify-center">
               <img 
-                src="/icons/Gradient Icon Map Navigation App Logo (2).png" 
-                alt="Dashboard Logo" 
-                className="w-full h-16 object-cover"
+                src={isDarkMode ? 
+                  "/icons/Gradient Icon Map Navigation App Logo (1).png" :
+                  "/icons/Gradient Icon Map Navigation App Logo (2).png"
+                } 
+                alt="INFOSEC Dashboard Logo" 
+                className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-300 ${
+                  isDarkMode ? 'object-[center_43%]' : 'object-center'
+                }`}
+                style={{ 
+                  filter: 'contrast(1.1) saturate(1.1)',
+                  imageRendering: 'crisp-edges'
+                }}
               />
             </div>
           </SidebarFooter>

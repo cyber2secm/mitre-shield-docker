@@ -58,7 +58,7 @@ router.get('/', async (req, res) => {
     const transformedRules = rules.map(rule => ({
       ...rule,
       id: rule._id,
-      created_date: rule.createdAt,
+      created_date: rule.creation_date || rule.createdAt,  // Prioritize custom creation_date
       updated_date: rule.updatedAt
     }));
 
@@ -90,7 +90,7 @@ router.get('/:id', async (req, res) => {
     const transformedRule = {
       ...rule.toObject(),
       id: rule._id,
-      created_date: rule.createdAt,
+      created_date: rule.creation_date || rule.createdAt,  // Prioritize custom creation_date
       updated_date: rule.updatedAt
     };
 
@@ -128,7 +128,7 @@ router.post('/', async (req, res) => {
     const transformedRule = {
       ...rule.toObject(),
       id: rule._id,
-      created_date: rule.createdAt,
+      created_date: rule.creation_date || rule.createdAt,  // Prioritize custom creation_date
       updated_date: rule.updatedAt
     };
 
@@ -185,7 +185,7 @@ router.put('/:id', async (req, res) => {
     const transformedRule = {
       ...rule.toObject(),
       id: rule._id,
-      created_date: rule.createdAt,
+      created_date: rule.creation_date || rule.createdAt,  // Prioritize custom creation_date
       updated_date: rule.updatedAt
     };
 
@@ -256,6 +256,40 @@ router.post('/bulk', async (req, res) => {
       });
     }
 
+    console.log('📥 Bulk import received:', items.length, 'items');
+    
+    // Debug: Log creation_date fields and convert ISO strings to Date objects
+    items.forEach((item, index) => {
+      console.log(`📋 Processing item ${index}:`, {
+        rule_id: item.rule_id,
+        creation_date: item.creation_date,
+        creation_date_type: typeof item.creation_date
+      });
+      
+      // Handle creation_date field - convert ISO string to Date object if needed
+      if (item.creation_date) {
+        if (typeof item.creation_date === 'string') {
+          // Try to parse the ISO string back to a Date object
+          try {
+            const dateObj = new Date(item.creation_date);
+            if (!isNaN(dateObj.getTime())) {
+              item.creation_date = dateObj;
+              console.log(`✅ Item ${index}: Converted ISO string to Date object:`, item.creation_date);
+            } else {
+              console.warn(`⚠️ Item ${index}: Invalid ISO date string, using current time`);
+              item.creation_date = new Date();
+            }
+          } catch (e) {
+            console.error(`❌ Item ${index}: Failed to parse date string:`, e.message);
+            item.creation_date = new Date();
+          }
+        }
+        console.log(`📅 Item ${index}: Final creation_date = ${item.creation_date}, rule_id = ${item.rule_id}`);
+      } else {
+        console.log(`⚠️  Item ${index}: NO creation_date, rule_id = ${item.rule_id}`);
+      }
+    });
+
     // Check for existing rule IDs
     const ruleIds = items.map(item => item.rule_id);
     const existingRules = await DetectionRule.find({ rule_id: { $in: ruleIds } });
@@ -303,18 +337,31 @@ router.post('/bulk', async (req, res) => {
       // Insert new rules
       let insertedRules = [];
       if (inserts.length > 0) {
+        console.log('🔄 Inserting new rules:', inserts.length);
         insertedRules = await DetectionRule.insertMany(inserts);
+        console.log('✅ Successfully inserted rules');
       }
       
       const allRules = [...updatedRules, ...insertedRules];
       
       // Transform for frontend compatibility
-      const transformedRules = allRules.map(rule => ({
-        ...rule.toObject(),
-        id: rule._id,
-        created_date: rule.createdAt,
-        updated_date: rule.updatedAt
-      }));
+      const transformedRules = allRules.map(rule => {
+        const transformed = {
+          ...rule.toObject(),
+          id: rule._id,
+          created_date: rule.creation_date || rule.createdAt,  // Prioritize custom creation_date
+          updated_date: rule.updatedAt
+        };
+        
+        // Debug logging
+        console.log(`🔄 Transforming rule ${rule.rule_id}:`, {
+          creation_date: rule.creation_date,
+          createdAt: rule.createdAt,
+          final_created_date: transformed.created_date
+        });
+        
+        return transformed;
+      });
 
       result = {
         success: true,
@@ -334,15 +381,28 @@ router.post('/bulk', async (req, res) => {
         // updated_by: req.user.id
       }));
 
+      console.log('🔄 Inserting all new rules:', rulesData.length);
       const rules = await DetectionRule.insertMany(rulesData);
+      console.log('✅ Successfully inserted all rules');
 
       // Transform for frontend compatibility
-      const transformedRules = rules.map(rule => ({
-        ...rule.toObject(),
-        id: rule._id,
-        created_date: rule.createdAt,
-        updated_date: rule.updatedAt
-      }));
+      const transformedRules = rules.map(rule => {
+        const transformed = {
+          ...rule.toObject(),
+          id: rule._id,
+          created_date: rule.creation_date || rule.createdAt,  // Prioritize custom creation_date
+          updated_date: rule.updatedAt
+        };
+        
+        // Debug logging
+        console.log(`🔄 Transforming rule ${rule.rule_id}:`, {
+          creation_date: rule.creation_date,
+          createdAt: rule.createdAt,
+          final_created_date: transformed.created_date
+        });
+        
+        return transformed;
+      });
 
       result = {
         success: true,

@@ -156,7 +156,7 @@ export default function RulesTable({ rules, isLoading, onRuleUpdate }) {
               <TableHead className="font-semibold text-slate-900 dark:text-slate-100">Status</TableHead>
               <TableHead className="font-semibold text-slate-900 dark:text-slate-100">Severity</TableHead>
               <TableHead className="font-semibold text-slate-900 dark:text-slate-100">Assigned</TableHead>
-              <TableHead className="font-semibold text-slate-900 dark:text-slate-100">Updated</TableHead>
+              <TableHead className="font-semibold text-slate-900 dark:text-slate-100">Creation</TableHead>
               <TableHead className="font-semibold text-slate-900 dark:text-slate-100">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -210,7 +210,9 @@ export default function RulesTable({ rules, isLoading, onRuleUpdate }) {
                   )}
                 </TableCell>
                 <TableCell className="text-slate-600 dark:text-slate-400 text-sm">
-                  {format(new Date(rule.updated_date), "MMM d, yyyy")}
+                  {rule.creation_date ? format(new Date(rule.creation_date), "MMM d, yyyy") :
+                   rule.created_date ? format(new Date(rule.created_date), "MMM d, yyyy") :
+                   rule.updated_date ? format(new Date(rule.updated_date), "MMM d, yyyy") : 'N/A'}
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">

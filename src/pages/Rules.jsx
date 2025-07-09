@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { DetectionRule } from "@/api/entities";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,15 +10,6 @@ import { motion } from "framer-motion";
 import RulesTable from "../components/rules/RulesTable";
 import RulesStats from "../components/rules/RulesStats";
 import ImportModal from "../components/rules/ImportModal";
-
-const TEAM_MEMBERS = [
-  "Isaac Krzywanowski",
-  "Leeroy Perera", 
-  "Alexey Didusenko",
-  "Chava Connack",
-  "Adir Amar",
-  "Maria Prusskov"
-];
 
 export default function RulesPage() {
   const [rules, setRules] = useState([]);
@@ -34,6 +25,19 @@ export default function RulesPage() {
     rule_type: "all",
     assigned_user: "all"
   });
+
+  // Extract unique users from rules dynamically
+  const availableUsers = useMemo(() => {
+    const users = new Set();
+    
+    rules.forEach(rule => {
+      if (rule.assigned_user && rule.assigned_user.trim() !== '') {
+        users.add(rule.assigned_user.trim());
+      }
+    });
+    
+    return Array.from(users).sort();
+  }, [rules]);
 
   useEffect(() => {
     loadRules();
@@ -108,7 +112,9 @@ export default function RulesPage() {
       'Status': rule.status,
       'Severity': rule.severity,
       'Rule Type': rule.rule_type,
-      'Created': new Date(rule.created_date).toLocaleDateString(),
+      'Creation': rule.creation_date ? new Date(rule.creation_date).toLocaleDateString() :
+                  rule.created_date ? new Date(rule.created_date).toLocaleDateString() :
+                  rule.updated_date ? new Date(rule.updated_date).toLocaleDateString() : 'N/A',
       'Updated': new Date(rule.updated_date).toLocaleDateString()
     }));
 
@@ -297,8 +303,8 @@ export default function RulesPage() {
                   <SelectContent>
                     <SelectItem value="all">All Users</SelectItem>
                     <SelectItem value="unassigned">Unassigned</SelectItem>
-                    {TEAM_MEMBERS.map(member => (
-                      <SelectItem key={member} value={member}>{member}</SelectItem>
+                    {availableUsers.map(user => (
+                      <SelectItem key={user} value={user}>{user}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>

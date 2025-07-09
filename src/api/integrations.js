@@ -7,6 +7,11 @@ export const Core = {
     return apiClient.uploadFile('/upload', file);
   },
 
+  // Delete uploaded file (cleanup for failed imports)
+  DeleteFile: async ({ filename }) => {
+    return apiClient.delete(`/upload/${filename}`);
+  },
+
   // Data extraction from uploaded files (CSV/Excel parsing)
   ExtractDataFromUploadedFile: async ({ file_url, json_schema }) => {
     return apiClient.post('/extract-data', {
@@ -44,6 +49,7 @@ export const Core = {
 
 // Export individual functions for compatibility with existing code
 export const UploadFile = Core.UploadFile;
+export const DeleteFile = Core.DeleteFile;
 export const ExtractDataFromUploadedFile = Core.ExtractDataFromUploadedFile;
 export const InvokeLLM = Core.InvokeLLM;
 export const SendEmail = Core.SendEmail;

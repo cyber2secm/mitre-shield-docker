@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Upload, FileText, CheckCircle, AlertCircle, Download, HelpCircle, Eye, Shield, X, Loader2, AlertTriangle } from "lucide-react";
-import { ExtractDataFromUploadedFile, UploadFile } from "@/api/integrations";
+import { ExtractDataFromUploadedFile, UploadFile, DeleteFile } from "@/api/integrations";
 import { validateRules } from "@/utils/ruleValidation";
 import ValidationResultsModal from "./ValidationResultsModal";
 import { motion } from "framer-motion";
@@ -22,64 +22,88 @@ import { Progress } from "@/components/ui/progress";
 // Sample template data
 const SAMPLE_RULES = [
   {
-    rule_id: "RULE-001",
-    name: "Suspicious PowerShell Execution",
-    tactic: "Execution",
-    technique_id: "T1059.001",
-    xql_query: "dataset = xdr_data | filter action_process_image_name contains \"powershell.exe\" and action_process_command_line contains \"-ExecutionPolicy Bypass\"",
+    creation_time: "2024-01-15T10:30:00Z",
+    rule_name: "PowerShell Execution Policy Bypass",
+    rule_id: "SOC-2830",
+    description: "Detects attempts to bypass PowerShell execution policy using various techniques",
     severity: "High",
+    number_of_alerts: "142",
+    source: "secops",
     rule_type: "SOC",
-    description: "Detects PowerShell execution with bypassed execution policy which may indicate malicious activity",
-    user: "admin",
+    tactic: "Defense Evasion",
+    technique_id: "T1562.001",
+    xql_query: "dataset = xdr_data | filter action_process_image_name contains \"powershell.exe\" and action_process_command_line contains \"-ExecutionPolicy Bypass\"",
     platform: "Windows"
   },
   {
-    rule_id: "RULE-002", 
-    name: "Credential Dumping via Mimikatz",
+    creation_time: "2024-01-20T14:45:00Z",
+    rule_name: "Credential Dumping via Mimikatz",
+    rule_id: "SOC-2831",
+    description: "Detects credential dumping activities using Mimikatz or similar tools",
+    severity: "Critical",
+    number_of_alerts: "23",
+    source: "secops",
+    rule_type: "SOC",
     tactic: "Credential Access",
     technique_id: "T1003.001",
     xql_query: "dataset = xdr_data | filter action_process_image_name contains \"mimikatz\" or action_process_command_line contains \"sekurlsa::logonpasswords\"",
-    severity: "Critical",
-    rule_type: "Product",
-    description: "Detects potential credential dumping using Mimikatz or similar tools",
-    user: "security-team",
     platform: "Windows"
   },
   {
-    rule_id: "RULE-003",
-    name: "Suspicious Network Connection",
+    creation_time: "2024-01-25T09:15:00Z",
+    rule_name: "Suspicious Network Connections",
+    rule_id: "SOC-2832",
+    description: "Detects suspicious outbound network connections to known malicious IPs",
+    severity: "Medium",
+    number_of_alerts: "67",
+    source: "netsec",
+    rule_type: "SOC",
     tactic: "Command and Control",
     technique_id: "T1071.001",
     xql_query: "dataset = xdr_data | filter action_network_connection_direction = \"OUTGOING\" and action_remote_port in (443, 80, 8080) and action_remote_ip not in (\"10.0.0.0/8\", \"192.168.0.0/16\", \"172.16.0.0/12\")",
-    severity: "Medium",
-    rule_type: "SOC",
-    description: "Detects suspicious outbound network connections to external IPs",
-    user: "analyst",
-    platform: "Linux"
+    platform: "Windows"
   },
   {
-    rule_id: "RULE-004",
-    name: "AWS CloudTrail Logging Disabled",
+    creation_time: "2024-01-30T16:20:00Z",
+    rule_name: "AWS CloudTrail Logging Disabled",
+    rule_id: "SOC-2833",
+    description: "Detects when AWS CloudTrail logging is disabled, which could indicate an attempt to hide malicious activity",
+    severity: "High",
+    number_of_alerts: "12",
+    source: "cloudsec",
+    rule_type: "Product",
     tactic: "Defense Evasion",
     technique_id: "T1562.008",
     xql_query: "dataset = xdr_data | filter action_name = \"StopLogging\" and action_source = \"cloudtrail.amazonaws.com\"",
-    severity: "High",
-    rule_type: "Product",
-    description: "Detects when AWS CloudTrail logging is disabled which may indicate evasion attempts",
-    user: "cloud-security",
     platform: "AWS"
   },
   {
-    rule_id: "RULE-005",
-    name: "Container Escape Attempt",
+    creation_time: "2024-02-05T11:30:00Z",
+    rule_name: "Container Privilege Escalation",
+    rule_id: "SOC-2834",
+    description: "Detects attempts to escalate privileges in containerized environments",
+    severity: "High",
+    number_of_alerts: "8",
+    source: "devsec",
+    rule_type: "SOC",
     tactic: "Privilege Escalation",
     technique_id: "T1611",
     xql_query: "dataset = xdr_data | filter action_process_command_line contains \"docker\" and (action_process_command_line contains \"--privileged\" or action_process_command_line contains \"--cap-add=SYS_ADMIN\")",
-    severity: "High",
-    rule_type: "SOC",
-    description: "Detects potential container escape attempts using privileged containers",
-    user: "devops-team",
     platform: "Containers"
+  },
+  {
+    creation_time: "2024-02-10T08:45:00Z",
+    rule_name: "Cross-Platform Malicious Scripting",
+    rule_id: "SOC-2835",
+    description: "Detects malicious scripting across multiple platforms (will be duplicated for macOS, Linux, and Windows)",
+    severity: "High",
+    number_of_alerts: "34",
+    source: "secops",
+    rule_type: "SOC",
+    tactic: "Execution",
+    technique_id: "T1059",
+    xql_query: "dataset = xdr_data | filter action_process_command_line contains \"malicious\" or action_process_image_name contains \"suspicious\"",
+    platform: "XDR Data"
   }
 ];
 
@@ -174,10 +198,10 @@ const DuplicateRulesDialog = ({ isOpen, onClose, duplicateIds, details, onSkipDu
 };
 
 export default function ImportModal({ isOpen, onClose, onImport }) {
-  const fileRef = useRef(null);
   const [file, setFile] = useState(null);
-  const [isParsing, setIsParsing] = useState(false);
+  const [uploadedFileUrl, setUploadedFileUrl] = useState(null); // Track uploaded file for cleanup
   const [parsedRules, setParsedRules] = useState([]);
+  const [isParsing, setIsParsing] = useState(false);
   const [validationResults, setValidationResults] = useState(null);
   const [showValidationModal, setShowValidationModal] = useState(false);
   const [error, setError] = useState(null);
@@ -190,6 +214,7 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
   const [showValidationResults, setShowValidationResults] = useState(false);
   const [duplicateInfo, setDuplicateInfo] = useState(null);
   const [showDuplicateDialog, setShowDuplicateDialog] = useState(false);
+  const fileRef = useRef(null);
 
   const downloadTemplate = () => {
     // Use the backend endpoint to download the updated template
@@ -217,34 +242,37 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
 
   const parseFileWithIntegration = async (fileToParse) => {
     try {
-      const { file_url } = await UploadFile({ file: fileToParse });
+      console.log('🚀 Starting parseFileWithIntegration...');
       
+      const { file_url } = await UploadFile({ file: fileToParse });
+      console.log('📤 File uploaded, URL:', file_url);
+      
+      // Track the uploaded file URL for cleanup on failure
+      setUploadedFileUrl(file_url);
+
       const schema = {
-        type: "array",
-        items: {
-          type: "object",
-          properties: {
-            modification_time: { type: "string" },
-            rule_name: { type: "string" },
-            rule_id: { type: "string" },
-            description: { type: "string" },
-            severity: { type: "string" },
-            number_of_alerts: { type: "string" },
-            source: { type: "string" },
-            rule_type: { type: "string" },
-            tactic: { type: "string" },
-            technique_id: { type: "string" },
-            xql_query: { type: "string" },
-            platform: { type: "string" }
-          },
-          required: ["rule_name", "rule_id"]
-        }
+        creation_time: { type: "string" },
+        rule_name: { type: "string" },
+        rule_id: { type: "string" },
+        description: { type: "string" },
+        severity: { type: "string" },
+        number_of_alerts: { type: "string" },
+        source: { type: "string" },
+        rule_type: { type: "string" },
+        tactic: { type: "string" },
+        technique_id: { type: "string" },
+        xql_query: { type: "string" },
+        platform: { type: "string" }
       };
+
+      console.log('📋 Using schema:', schema);
 
       const result = await ExtractDataFromUploadedFile({
         file_url,
         json_schema: schema
       });
+
+      console.log('📥 ExtractDataFromUploadedFile result:', result);
 
       if (result.status === "error") {
         throw new Error(result.details || "Failed to parse file");
@@ -254,7 +282,19 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
         throw new Error("The parsed file did not return an array of rules. Please check the file format.");
       }
 
+      console.log('📊 Raw parsed data:', result.data.length, 'rules');
+      
+      // Debug: Log the first rule's raw data
+      if (result.data.length > 0) {
+        console.log('🔍 First rule raw data:', result.data[0]);
+        console.log('🔍 First rule creation_time:', result.data[0].creation_time);
+        console.log('🔍 First rule creation_time type:', typeof result.data[0].creation_time);
+      }
+
       const rules = result.data.map((rule, index) => {
+        console.log(`\n🔄 Processing rule ${index + 1}/${result.data.length}:`, rule.rule_id || rule.rule_name);
+        console.log('📋 Raw rule data:', rule);
+
         // Handle platform: normalize to match enum capitalization
         if (rule.platform && typeof rule.platform === 'string') {
           const p = rule.platform.toLowerCase();
@@ -326,13 +366,86 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
           delete rule.source;
         }
 
+        // Handle creation_time field
+        if (rule.creation_time) {
+          console.log('📅 Processing creation_time:', rule.creation_time, 'for rule:', rule.rule_id || rule.name);
+          console.log('📅 Type of creation_time:', typeof rule.creation_time);
+          
+          // Function to parse various date formats
+          const parseDate = (dateString) => {
+            if (!dateString || dateString.trim() === '') return null;
+            
+            console.log('🔍 Attempting to parse:', dateString);
+            
+            // Clean up ordinal indicators (1st, 2nd, 3rd, 4th, etc.)
+            const cleanDateString = dateString.replace(/(\d+)(st|nd|rd|th)/g, '$1');
+            console.log('🧹 Cleaned date string:', cleanDateString);
+            
+            // Try different parsing approaches
+            const parsers = [
+              // ISO format (2024-01-15T09:30:00Z)
+              () => new Date(cleanDateString),
+              // US format (Feb 23 2023 13:12:05)
+              () => new Date(cleanDateString),
+              // Try with Date.parse
+              () => new Date(Date.parse(cleanDateString)),
+              // Manual parsing for common formats
+              () => {
+                // Try parsing "Feb 23 2023 13:12:05" format
+                const match = cleanDateString.match(/(\w+)\s+(\d+)\s+(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})/);
+                if (match) {
+                  const [, month, day, year, hours, minutes, seconds] = match;
+                  const dateStr = `${month} ${day}, ${year} ${hours}:${minutes}:${seconds}`;
+                  console.log('🔧 Manual parsing attempt:', dateStr);
+                  return new Date(dateStr);
+                }
+                return null;
+              }
+            ];
+            
+            // Try each parser
+            for (let i = 0; i < parsers.length; i++) {
+              try {
+                const date = parsers[i]();
+                console.log(`🔍 Parser ${i + 1} result:`, date, 'Valid:', date && !isNaN(date.getTime()));
+                if (date && !isNaN(date.getTime())) {
+                  return date;
+                }
+              } catch (e) {
+                console.log(`❌ Parser ${i + 1} failed:`, e.message);
+              }
+            }
+            
+            return null;
+          };
+          
+          // Parse the date
+          const dateObj = parseDate(rule.creation_time);
+          
+          if (dateObj) {
+            rule.creation_date = dateObj;
+            console.log('✅ Converted to Date object:', rule.creation_date);
+            console.log('✅ Type of creation_date:', typeof rule.creation_date);
+            console.log('✅ Date ISO string:', rule.creation_date.toISOString());
+          } else {
+            console.warn('⚠️ Invalid date format:', rule.creation_time, '- using current time');
+            rule.creation_date = new Date();
+          }
+          delete rule.creation_time;
+          
+          // Final verification
+          console.log('🔍 Final rule.creation_date:', rule.creation_date);
+          console.log('🔍 Final rule object keys:', Object.keys(rule));
+        }
+
         // Set defaults for empty or missing fields
         rule.status = "Testing"; // Default status
         rule.description = rule.description || "";
         rule.assigned_user = rule.assigned_user || "admin";
         rule.tactic = rule.tactic || "Execution"; // Default tactic
         rule.technique_id = rule.technique_id || "T0000"; // Default technique
-        rule.xql_query = rule.xql_query || "// No query provided"; // Default query
+        // XQL query field - no default value, users can upload any query they want
+        rule.xql_query = rule.xql_query || ""; // Keep empty if not provided
         rule.severity = rule.severity || "Medium"; // Default severity
         rule.rule_type = rule.rule_type || "SOC"; // Default rule type
         rule.platform = rule.platform || "Windows"; // Default platform
@@ -348,9 +461,78 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
         return rule;
       });
 
-      return rules;
+      // Handle XDR data duplication for multiple platforms
+      const expandedRules = [];
+      
+      rules.forEach(rule => {
+        // Check if platform contains "xdr data" (case insensitive)
+        if (rule.platform && rule.platform.toLowerCase().includes('xdr data')) {
+          console.log('🚀 XDR Data detected for rule:', rule.rule_id, 'Original platform:', rule.platform);
+          console.log('🚀 Original creation_date:', rule.creation_date);
+          
+          // Create copies for macOS, Linux, and Windows
+          const platforms = ['macOS', 'Linux', 'Windows'];
+          
+          platforms.forEach((platform, platformIndex) => {
+            const duplicatedRule = {
+              ...rule,
+              platform: platform,
+              rule_id: `${rule.rule_id}-${platform.toLowerCase()}`, // Append platform to avoid duplicates
+              description: rule.description ? 
+                `${rule.description} (XDR - ${platform} Platform)` : 
+                `XDR Detection Rule for ${platform} Platform`
+            };
+            
+            console.log('📋 Created XDR rule for platform:', platform, {
+              rule_id: duplicatedRule.rule_id,
+              name: duplicatedRule.name,
+              platform: duplicatedRule.platform,
+              technique_id: duplicatedRule.technique_id,
+              tactic: duplicatedRule.tactic,
+              creation_date: duplicatedRule.creation_date,
+              creation_date_type: typeof duplicatedRule.creation_date
+            });
+            
+            expandedRules.push(duplicatedRule);
+          });
+        } else {
+          // Keep original rule if not XDR data
+          console.log('📋 Regular rule (not XDR):', rule.rule_id, 'creation_date:', rule.creation_date);
+          expandedRules.push(rule);
+        }
+      });
+
+      console.log('📊 Rules expansion summary:', {
+        original: rules.length,
+        expanded: expandedRules.length,
+        xdrRules: expandedRules.filter(r => r.rule_id?.includes('-macos') || r.rule_id?.includes('-linux') || r.rule_id?.includes('-windows')).length
+      });
+      
+      // Final validation - check all rules have proper creation_date
+      expandedRules.forEach((rule, index) => {
+        console.log(`🔍 Final rule ${index}:`, {
+          rule_id: rule.rule_id,
+          creation_date: rule.creation_date,
+          creation_date_type: typeof rule.creation_date,
+          has_creation_date: !!rule.creation_date
+        });
+      });
+
+      return expandedRules;
     } catch (error) {
       console.error("File parsing error:", error);
+      
+      // Clean up uploaded file on parsing failure
+      if (uploadedFileUrl) {
+        try {
+          const filename = uploadedFileUrl.split('/').pop();
+          await DeleteFile({ filename });
+          console.log('🗑️ Cleaned up failed upload file:', filename);
+        } catch (cleanupError) {
+          console.error('❌ Failed to cleanup upload file:', cleanupError);
+        }
+      }
+      
       throw new Error(`Failed to parse file: ${error.message}`);
     }
   };
@@ -419,7 +601,13 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
   };
 
   const handleClose = () => {
+    // Clean up uploaded file when closing modal
+    if (uploadedFileUrl) {
+      cleanupUploadedFile();
+    }
+    
     setFile(null);
+    setUploadedFileUrl(null);
     setParsedRules([]);
     setValidationResults(null);
     setShowValidationModal(false);
@@ -476,6 +664,8 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
       console.log('Import result:', result); // Debug log
       
       if (result.success) {
+        // Clear uploaded file tracking on success
+        setUploadedFileUrl(null);
         setUploadStatus({ type: 'success', message: result.message });
         setTimeout(() => {
           handleClose();
@@ -492,13 +682,33 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
         } else {
           console.log('Showing error status:', result.message); // Debug log
           setUploadStatus({ type: 'error', message: result.message });
+          
+          // Clean up uploaded file on import failure
+          await cleanupUploadedFile();
         }
       }
     } catch (e) {
       setError(e.message);
       setUploadStatus({ type: 'error', message: e.message });
+      
+      // Clean up uploaded file on import failure
+      await cleanupUploadedFile();
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  // Helper function to clean up uploaded files
+  const cleanupUploadedFile = async () => {
+    if (uploadedFileUrl) {
+      try {
+        const filename = uploadedFileUrl.split('/').pop();
+        await DeleteFile({ filename });
+        console.log('🗑️ Cleaned up failed import file:', filename);
+        setUploadedFileUrl(null);
+      } catch (cleanupError) {
+        console.error('❌ Failed to cleanup upload file:', cleanupError);
+      }
     }
   };
 
@@ -512,6 +722,8 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
         type: 'error', 
         message: 'All rules in the file already exist. No new rules to import.' 
       });
+      // Clean up uploaded file since no import happened
+      await cleanupUploadedFile();
       // Close modal after showing message briefly
       setTimeout(() => {
         handleClose();
@@ -523,16 +735,22 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
     try {
       const result = await onImport(newRules, false);
       if (result.success) {
+        // Clear uploaded file tracking on success
+        setUploadedFileUrl(null);
         setUploadStatus({ type: 'success', message: result.message });
         setTimeout(() => {
           handleClose();
         }, 2000);
       } else {
         setUploadStatus({ type: 'error', message: result.message });
+        // Clean up uploaded file on failure
+        await cleanupUploadedFile();
       }
     } catch (e) {
       setError(e.message);
       setUploadStatus({ type: 'error', message: e.message });
+      // Clean up uploaded file on failure
+      await cleanupUploadedFile();
     } finally {
       setIsUploading(false);
     }

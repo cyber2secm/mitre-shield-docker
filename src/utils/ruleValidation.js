@@ -62,17 +62,8 @@ export function validateRule(rule, index) {
     }
   }
 
-  if (!rule.xql_query || rule.xql_query.trim() === '') {
-    errors.push('XQL query is required');
-  } else {
-    // Basic XQL query validation
-    if (!rule.xql_query.toLowerCase().includes('dataset')) {
-      warnings.push('XQL query should typically start with a dataset declaration');
-    }
-    if (rule.xql_query.length < 20) {
-      warnings.push('XQL query seems too short - ensure it contains proper detection logic');
-    }
-  }
+  // XQL query validation completely removed - no validation whatsoever
+  // Users can upload any XQL query content (or empty)
 
   if (!rule.severity || rule.severity.trim() === '') {
     errors.push('Severity is required');
