@@ -108,6 +108,30 @@ export default function Layout({ children, currentPageName }) {
     return () => clearInterval(interval);
   }, []);
 
+  // Debug theme state changes
+  useEffect(() => {
+    console.log('Theme state changed:', { isDarkMode });
+    console.log('Current logo should be:', isDarkMode ? 'Logo (1) - Dark mode' : 'Logo (2) - Light mode');
+    
+    // Add logo accessibility test function to window for debugging
+    window.testLogos = async () => {
+      const logos = [
+        "/icons/Gradient Icon Map Navigation App Logo (1).png",
+        "/icons/Gradient Icon Map Navigation App Logo (2).png"
+      ];
+      
+      console.log('Testing logo accessibility...');
+      for (const logo of logos) {
+        try {
+          const response = await fetch(logo);
+          console.log(`${logo}: ${response.ok ? 'OK' : 'FAILED'} (${response.status})`);
+        } catch (error) {
+          console.log(`${logo}: ERROR - ${error.message}`);
+        }
+      }
+    };
+  }, [isDarkMode]);
+
   const loadStats = async () => {
     try {
       const [allRules, allTechniques] = await Promise.all([
@@ -338,6 +362,16 @@ export default function Layout({ children, currentPageName }) {
                 style={{ 
                   filter: 'contrast(1.1) saturate(1.1)',
                   imageRendering: 'crisp-edges'
+                }}
+                onLoad={() => {
+                  console.log('Logo loaded:', isDarkMode ? 'Dark mode (Logo 1)' : 'Light mode (Logo 2)');
+                  console.log('Theme state:', { isDarkMode });
+                }}
+                onError={(e) => {
+                  console.error('Logo failed to load:', e.target.src);
+                  console.log('Attempting to load both logos to test accessibility...');
+                  console.log('Dark mode logo URL:', "/icons/Gradient Icon Map Navigation App Logo (1).png");
+                  console.log('Light mode logo URL:', "/icons/Gradient Icon Map Navigation App Logo (2).png");
                 }}
               />
             </div>
