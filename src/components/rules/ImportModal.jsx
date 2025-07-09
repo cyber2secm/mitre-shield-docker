@@ -237,7 +237,7 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
             xql_query: { type: "string" },
             platform: { type: "string" }
           },
-          required: ["rule_name", "rule_id", "tactic", "technique_id", "xql_query", "severity", "rule_type", "platform"]
+          required: ["rule_name", "rule_id"]
         }
       };
 
@@ -326,16 +326,22 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
           delete rule.source;
         }
 
-        // Set defaults for optional fields
+        // Set defaults for empty or missing fields
         rule.status = "Testing"; // Default status
         rule.description = rule.description || "";
         rule.assigned_user = rule.assigned_user || "admin";
+        rule.tactic = rule.tactic || "Execution"; // Default tactic
+        rule.technique_id = rule.technique_id || "T0000"; // Default technique
+        rule.xql_query = rule.xql_query || "// No query provided"; // Default query
+        rule.severity = rule.severity || "Medium"; // Default severity
+        rule.rule_type = rule.rule_type || "SOC"; // Default rule type
+        rule.platform = rule.platform || "Windows"; // Default platform
 
-        // Validate required fields (using original template field names)
-        const requiredFields = ["rule_id", "name", "tactic", "technique_id", "xql_query", "severity", "rule_type", "platform"];
-        for (const field of requiredFields) {
-          if (!rule[field]) {
-            throw new Error(`Row ${index + 2}: Missing required field '${field}'`);
+        // Validate only the truly essential fields
+        const essentialFields = ["rule_id", "name"];
+        for (const field of essentialFields) {
+          if (!rule[field] || rule[field].trim() === "") {
+            throw new Error(`Row ${index + 2}: Missing essential field '${field}'. This field cannot be empty.`);
           }
         }
 
