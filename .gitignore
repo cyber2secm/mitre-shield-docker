@@ -77,4 +77,6 @@ package-lock.json
 !scripts/
 !database-backup/
 !README-DOCKER.md
-!DOCKER_SETUP.md 
+!DOCKER_SETUP.md # Test CSV files and uploads
+backend-example/uploads/*.csv
+test-*.csv
