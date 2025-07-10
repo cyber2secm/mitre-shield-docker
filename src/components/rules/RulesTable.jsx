@@ -28,7 +28,11 @@ const PLATFORM_COLORS = {
   Windows: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
   macOS: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
   Linux: "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300",
-  Cloud: "bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300",
+  AWS: "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300",
+  Azure: "bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300",
+  GCP: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
+  Oracle: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
+  Alibaba: "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300",
   Containers: "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
 };
 
@@ -37,7 +41,7 @@ const RULE_TYPE_COLORS = {
   SOC: "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700"
 };
 
-export default function RulesTable({ rules, isLoading, onRuleUpdate }) {
+export default function RulesTable({ rules, isLoading, onRuleUpdate, availableUsers }) {
   const [ruleToDelete, setRuleToDelete] = useState(null);
   const [editingRule, setEditingRule] = useState(null);
   const [showRuleEditor, setShowRuleEditor] = useState(false);
@@ -140,6 +144,7 @@ export default function RulesTable({ rules, isLoading, onRuleUpdate }) {
               rule={editingRule}
               onSave={handleRuleSaved}
               onCancel={() => setShowRuleEditor(false)}
+              availableUsers={availableUsers}
             />
           </DialogContent>
         </Dialog>

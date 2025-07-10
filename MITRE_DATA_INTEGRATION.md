@@ -33,7 +33,7 @@ curl http://localhost:3000/api/mitre/platforms/stats
 ## 📋 Features
 
 ### Enhanced Platform Support
-- **Traditional Platforms**: Windows, macOS, Linux, AWS, Azure, GCP, Oracle, Containers
+- **Traditional Platforms**: Windows, macOS, Linux, AWS, Azure, GCP, Oracle, Alibaba, Containers
 - **AI/ML Platform**: Specialized techniques for machine learning environments
 - **Smart Mapping**: Automatically maps MITRE platforms to your application's platform structure
 

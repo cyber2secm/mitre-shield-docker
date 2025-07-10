@@ -18,7 +18,7 @@ const FutureRuleSchema = new mongoose.Schema({
   platform: {
     type: String,
     required: true,
-    enum: ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Containers']
+    enum: ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba', 'Containers', 'Office Suite', 'Identity Provider', 'SaaS', 'IaaS']
   },
   tactic: {
     type: String,

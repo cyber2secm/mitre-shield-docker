@@ -336,7 +336,7 @@ Get overall statistics.
   name: String,
   description: String,
   technique_id: String,
-  platform: Enum ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Containers'],
+  platform: Enum ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba', 'Containers'],
   tactic: String,
   status: Enum ['Active', 'Testing', 'Inactive'],
   xql_query: String,

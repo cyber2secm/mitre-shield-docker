@@ -45,6 +45,8 @@ WORKDIR /app
 COPY --from=backend-build /app/node_modules ./node_modules
 COPY backend-example/ ./
 COPY --from=frontend-build /app/dist /usr/share/nginx/html
+# Ensure public assets (including logos) are copied to nginx html directory
+COPY --from=frontend-build /app/public /usr/share/nginx/html
 
 # Copy database backup
 COPY database-backup/ ./database-backup/

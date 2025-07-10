@@ -20,6 +20,8 @@ FROM nginx:alpine
 
 # Copy built assets from build stage
 COPY --from=build /app/dist /usr/share/nginx/html
+# Ensure public assets (including logos) are copied to nginx html directory
+COPY --from=build /app/public /usr/share/nginx/html
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf

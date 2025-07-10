@@ -453,7 +453,7 @@ class MitreSyncService {
       .map(platform => platformMap[platform] || platform)
       .filter((platform, index, arr) => arr.indexOf(platform) === index) // Remove duplicates
       .filter(platform => 
-        ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Containers', 'Cloud', 'Network', 'PRE', 'AI'].includes(platform)
+        ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba', 'Containers', 'Cloud', 'Network', 'PRE', 'AI'].includes(platform)
       );
   }
 

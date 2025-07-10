@@ -8,6 +8,8 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
+# Ensure public directory is available for copying
+RUN ls -la /app/dist/ && ls -la /app/public/
 
 # Backend stage  
 FROM node:18-alpine AS backend-build
@@ -36,6 +38,8 @@ WORKDIR /app
 COPY --from=backend-build /app/node_modules ./node_modules
 COPY backend-example/ ./
 COPY --from=frontend-build /app/dist /usr/share/nginx/html
+# Ensure public assets (including logos) are copied to nginx html directory
+COPY --from=frontend-build /app/public /usr/share/nginx/html
 
 # Copy database backup for future use
 COPY database-backup/ ./database-backup/

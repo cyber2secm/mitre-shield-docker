@@ -34,8 +34,11 @@ class GitHubMitreService {
       'Azure AD': 'Azure',
       'Office 365': 'Azure',
       'Google Workspace': 'GCP',
-      'IaaS': ['AWS', 'Azure', 'GCP'],
-      'SaaS': ['Azure', 'AWS', 'GCP'],
+      'Alibaba Cloud': 'Alibaba',
+      'Alibaba': 'Alibaba',
+      'Aliyun': 'Alibaba',
+      'IaaS': ['AWS', 'Azure', 'GCP', 'Alibaba'],
+      'SaaS': ['Azure', 'AWS', 'GCP', 'Alibaba'],
       'Containers': 'Containers',
       'Docker': 'Containers',
       'Kubernetes': 'Containers',
@@ -44,7 +47,7 @@ class GitHubMitreService {
     };
     
     // Your app's supported platforms
-    this.supportedPlatforms = ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Containers', 'AI'];
+    this.supportedPlatforms = ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba', 'Containers', 'AI'];
     
     // Tactic mapping from MITRE kill chain phases
     this.tacticMapping = {

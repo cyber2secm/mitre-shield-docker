@@ -10,16 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { Save, X, Plus, Trash2, Play, TestTube, User, Shield, Code, FileText, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 
-const TEAM_MEMBERS = [
-  "Isaac Krzywanowski",
-  "Leeroy Perera", 
-  "Alexey Didusenko",
-  "Chava Connack",
-  "Adir Amar",
-  "Maria Prusskov"
-];
-
-export default function RuleEditor({ rule, technique, onSave, onCancel, isPromotion = false }) {
+export default function RuleEditor({ rule, technique, onSave, onCancel, isPromotion = false, availableUsers = [] }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newTag, setNewTag] = useState("");
 
@@ -202,7 +193,7 @@ export default function RuleEditor({ rule, technique, onSave, onCancel, isPromot
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="unassigned">Unassigned</SelectItem>
-                    {TEAM_MEMBERS.map((member) => (
+                    {availableUsers.map((member) => (
                       <SelectItem key={member} value={member}>
                         {member}
                       </SelectItem>
@@ -227,7 +218,11 @@ export default function RuleEditor({ rule, technique, onSave, onCancel, isPromot
                     <SelectItem value="Windows">Windows</SelectItem>
                     <SelectItem value="macOS">macOS</SelectItem>
                     <SelectItem value="Linux">Linux</SelectItem>
-                    <SelectItem value="Cloud">Cloud</SelectItem>
+                    <SelectItem value="AWS">AWS</SelectItem>
+                    <SelectItem value="Azure">Azure</SelectItem>
+                    <SelectItem value="GCP">GCP</SelectItem>
+                    <SelectItem value="Oracle">Oracle</SelectItem>
+                    <SelectItem value="Alibaba">Alibaba</SelectItem>
                     <SelectItem value="Containers">Containers</SelectItem>
                     <SelectItem value="AI">AI</SelectItem>
                     <SelectItem value="Office Suite">Office Suite</SelectItem>

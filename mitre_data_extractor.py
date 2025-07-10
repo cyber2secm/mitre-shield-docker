@@ -178,7 +178,7 @@ def extract_technique_id(href):
 def get_platform_list(platform):
     """Get the appropriate platform list for MitreShiled schema"""
     if platform.lower() == "cloud":
-        return ["AWS", "Azure", "GCP", "Oracle"]
+        return ["AWS", "Azure", "GCP", "Oracle", "Alibaba"]
     elif platform.lower() == "containers":
         return ["Containers"]
     elif platform.lower() == "officesuite":

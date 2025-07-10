@@ -244,6 +244,7 @@ export default function RulesPage() {
                     <SelectItem value="Azure">Azure</SelectItem>
                     <SelectItem value="GCP">GCP</SelectItem>
                     <SelectItem value="Oracle">Oracle</SelectItem>
+                    <SelectItem value="Alibaba">Alibaba</SelectItem>
                     <SelectItem value="Containers">Containers</SelectItem>
                   </SelectContent>
                 </Select>
@@ -315,6 +316,7 @@ export default function RulesPage() {
               rules={filteredRules}
               isLoading={isLoading}
               onRuleUpdate={loadRules}
+              availableUsers={availableUsers}
             />
           </div>
         </div>
