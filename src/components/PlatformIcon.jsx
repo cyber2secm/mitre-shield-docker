@@ -20,6 +20,7 @@ const iconMap = {
   Azure: '/icons/icons8-azure-48.png',
   GCP: '/icons/icons8-google-cloud-48.png',
   Oracle: '/icons/icons8-oracle-48.png',
+  Alibaba: '/icons/alibabacloud-color.png',
   
   // Operating Systems - using actual uploaded filenames
   Windows: '/icons/icons8-windows-10-48.png',

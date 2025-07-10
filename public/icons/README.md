@@ -11,6 +11,7 @@ The following icon files are available and working:
 - `icons8-azure-48.png` - Microsoft Azure logo  
 - `icons8-google-cloud-48.png` - Google Cloud Platform logo
 - `icons8-oracle-48.png` - Oracle Cloud logo
+- `alibabacloud-color.png` - Alibaba Cloud logo
 
 ### Operating Systems ✅
 - `icons8-windows-10-48.png` - Windows logo
