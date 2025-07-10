@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { DetectionRule } from "@/api/entities";
+import { DetectionRule, MitreTechnique } from "@/api/entities";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +13,7 @@ import ImportModal from "../components/rules/ImportModal";
 
 export default function RulesPage() {
   const [rules, setRules] = useState([]);
+  const [techniques, setTechniques] = useState([]);
   const [filteredRules, setFilteredRules] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showImportModal, setShowImportModal] = useState(false);
@@ -47,13 +48,22 @@ export default function RulesPage() {
     applyFilters();
   }, [rules, filters]);
 
-  const loadRules = async () => {
+  const loadRules = async (triggerSidebarUpdate = false) => {
     setIsLoading(true);
     try {
-      const data = await DetectionRule.list("-updated_date");
-      setRules(data);
+      const [rulesData, techniquesData] = await Promise.all([
+        DetectionRule.list("-updated_date"),
+        MitreTechnique.list()
+      ]);
+      setRules(rulesData);
+      setTechniques(techniquesData);
+      
+      // Trigger sidebar stats update only when requested
+      if (triggerSidebarUpdate) {
+        window.dispatchEvent(new CustomEvent('rulesUpdated'));
+      }
     } catch (error) {
-      console.error("Failed to load rules:", error);
+      console.error("Failed to load rules and techniques:", error);
     }
     setIsLoading(false);
   };
@@ -137,7 +147,7 @@ export default function RulesPage() {
   const handleImport = async (newRules, allowUpdate = false) => {
     try {
       const result = await DetectionRule.bulkCreate(newRules, allowUpdate);
-      await loadRules(); // Refresh the list
+      await loadRules(true); // Refresh the list and trigger sidebar update
       
       if (result.stats) {
         // Backend provided detailed stats
@@ -213,7 +223,7 @@ export default function RulesPage() {
 
       <div className="p-6">
         <div className="max-w-7xl mx-auto space-y-6">
-          <RulesStats rules={rules} />
+          <RulesStats rules={rules} techniques={techniques} />
 
           <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-xl shadow-sm border border-slate-200/60 dark:border-slate-700/60 p-6">
             <div className="flex flex-col lg:flex-row gap-4 mb-6">
@@ -315,7 +325,7 @@ export default function RulesPage() {
             <RulesTable
               rules={filteredRules}
               isLoading={isLoading}
-              onRuleUpdate={loadRules}
+              onRuleUpdate={() => loadRules(true)}
               availableUsers={availableUsers}
             />
           </div>

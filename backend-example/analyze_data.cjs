@@ -62,6 +62,7 @@ async function analyzeDataDiscrepancy() {
       { name: 'Azure', count: await MitreTechnique.countDocuments({ platforms: 'Azure' }) },
       { name: 'GCP', count: await MitreTechnique.countDocuments({ platforms: 'GCP' }) },
       { name: 'Oracle', count: await MitreTechnique.countDocuments({ platforms: 'Oracle' }) },
+      { name: 'Alibaba', count: await MitreTechnique.countDocuments({ platforms: 'Alibaba' }) },
       { name: 'Containers', count: await MitreTechnique.countDocuments({ platforms: 'Containers' }) },
       { name: 'Office Suite', count: await MitreTechnique.countDocuments({ platforms: 'Office Suite' }) }
     ];
@@ -109,9 +110,9 @@ async function analyzeDataDiscrepancy() {
         else if (platform === 'linux') dbCount = await MitreTechnique.countDocuments({ platforms: 'Linux' });
         else if (platform === 'macos') dbCount = await MitreTechnique.countDocuments({ platforms: 'macOS' });
         else if (platform === 'cloud') {
-          // Cloud techniques should be split across AWS/Azure/GCP/Oracle
+          // Cloud techniques should be split across AWS/Azure/GCP/Oracle/Alibaba
           dbCount = await MitreTechnique.countDocuments({ 
-            platforms: { $in: ['AWS', 'Azure', 'GCP', 'Oracle'] } 
+            platforms: { $in: ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'] } 
           });
         }
         else if (platform === 'containers') dbCount = await MitreTechnique.countDocuments({ platforms: 'Containers' });

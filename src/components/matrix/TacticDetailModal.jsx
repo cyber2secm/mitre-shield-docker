@@ -160,7 +160,7 @@ export default function TacticDetailModal({
 
       if (currentPlatform === "Cloud") {
         tacticTechniques = tacticTechniques.filter(t =>
-          t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
+          t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'].includes(p))
         );
       } else if (currentPlatform !== "all") {
         tacticTechniques = tacticTechniques.filter(t =>

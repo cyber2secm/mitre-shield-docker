@@ -12,7 +12,7 @@ const PLATFORM_MAPPING = new Map([
   ['windows', 'Windows'],
   ['macos', 'macOS'],
   ['linux', 'Linux'],
-  ['cloud', ['AWS', 'Azure', 'GCP', 'Oracle']], // Cloud expands to multiple platforms
+  ['cloud', ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba']], // Cloud expands to multiple platforms
   ['containers', 'Containers'],
   ['officesuite', 'Office Suite'],
   ['identity_provider', 'Identity Provider'],
@@ -49,7 +49,7 @@ async function importPlatformData(platform) {
         
         // Handle cloud platform special case
         if (platform.toLowerCase() === 'cloud') {
-          technique.platforms = ['AWS', 'Azure', 'GCP', 'Oracle'];
+          technique.platforms = ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'];
         }
         
         const existingTechnique = await MitreTechnique.findOne({ 
@@ -247,6 +247,7 @@ async function main() {
       { name: 'Azure', count: await MitreTechnique.countDocuments({ platforms: 'Azure' }) },
       { name: 'GCP', count: await MitreTechnique.countDocuments({ platforms: 'GCP' }) },
       { name: 'Oracle', count: await MitreTechnique.countDocuments({ platforms: 'Oracle' }) },
+      { name: 'Alibaba', count: await MitreTechnique.countDocuments({ platforms: 'Alibaba' }) },
       { name: 'Containers', count: await MitreTechnique.countDocuments({ platforms: 'Containers' }) },
       { name: 'Office Suite', count: await MitreTechnique.countDocuments({ platforms: 'Office Suite' }) }
     ];
@@ -285,7 +286,7 @@ async function main() {
 }
 
 console.log(`🚀 Starting comprehensive MITRE data import for ALL platforms...`);
-console.log(`📋 Platforms: Windows, Linux, macOS, Cloud (AWS/Azure/GCP/Oracle), Containers, Office Suite`);
+console.log(`📋 Platforms: Windows, Linux, macOS, Cloud (AWS/Azure/GCP/Oracle/Alibaba), Containers, Office Suite`);
 main();
 
 importAllPlatforms().catch(console.error); 

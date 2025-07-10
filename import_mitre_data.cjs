@@ -41,7 +41,7 @@ async function importMitreData(platform = 'windows') {
     if (process.argv.includes('--clear')) {
       console.log(`🗑️ Clearing existing ${platform} techniques...`);
       const deleteResult = await MitreTechnique.deleteMany({ 
-        platforms: platform === 'cloud' ? { $in: ['AWS', 'Azure', 'GCP', 'Oracle'] } : platform
+        platforms: platform === 'cloud' ? { $in: ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'] } : platform
       });
       console.log(`🗑️ Removed ${deleteResult.deletedCount} existing techniques`);
     }
@@ -93,7 +93,7 @@ async function importMitreData(platform = 'windows') {
     // Verify import by counting techniques per tactic
     console.log('\n📊 Technique count per tactic:');
     const tactics = await MitreTechnique.aggregate([
-      { $match: { platforms: platform === 'cloud' ? { $in: ['AWS', 'Azure', 'GCP', 'Oracle'] } : platform } },
+      { $match: { platforms: platform === 'cloud' ? { $in: ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'] } : platform } },
       { $group: { _id: '$tactic', count: { $sum: 1 } } },
       { $sort: { _id: 1 } }
     ]);

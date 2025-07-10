@@ -39,7 +39,7 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
   }, [filters.platform]);
 
   const cloudOptions = [
-    { value: "cloud", label: "Cloud Infrastructure", description: "AWS, Azure, GCP, Oracle" },
+    { value: "cloud", label: "Cloud Infrastructure", description: "AWS, Azure, GCP, Oracle, Alibaba" },
     { value: "office_suite", label: "Office Suite", description: "Microsoft 365, SharePoint, Teams" },
     { value: "identity_provider", label: "Identity Provider", description: "Authentication & SSO services" },
     { value: "saas", label: "SaaS", description: "Software as a Service platforms" },
@@ -101,7 +101,7 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
                   {currentPlatform === "All Platforms" 
                     ? "Comprehensive threat detection coverage across all platforms" 
                     : currentPlatform === "Cloud"
-                    ? "Threat detection coverage for cloud environments (AWS, Azure, GCP, Oracle)"
+                    ? "Threat detection coverage for cloud environments (AWS, Azure, GCP, Oracle, Alibaba)"
                     : `Threat detection coverage for ${currentPlatform.toLowerCase()}` 
                   }
                 </p>
@@ -227,6 +227,12 @@ export default function MatrixHeader({ platform, filters, setFilters, totalRules
                     <div className="flex items-center">
                       <CloudProviderIcon provider="Oracle" />
                       Oracle
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="Alibaba">
+                    <div className="flex items-center">
+                      <CloudProviderIcon provider="Alibaba" />
+                      Alibaba
                     </div>
                   </SelectItem>
                 </SelectContent>

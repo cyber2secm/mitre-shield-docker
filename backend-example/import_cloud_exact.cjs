@@ -21,7 +21,7 @@ async function importCloudExact() {
         // Import each technique exactly once with all cloud platforms
         const cloudTechnique = {
           ...technique,
-          platforms: ['AWS', 'Azure', 'GCP', 'Oracle'], // Available on all cloud platforms
+          platforms: ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'], // Available on all cloud platforms
           extraction_platform: 'cloud', // Set as cloud extraction
           last_updated: new Date(),
           sync_source: 'exact_cloud_extractor'

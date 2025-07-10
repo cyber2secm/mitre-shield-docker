@@ -34,7 +34,7 @@ async function importRawExtractionData(platform) {
         
         // Handle cloud platform special case - expand to individual cloud providers
         if (platform.toLowerCase() === 'cloud') {
-          const cloudPlatforms = ['AWS', 'Azure', 'GCP', 'Oracle'];
+          const cloudPlatforms = ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'];
           for (const cloudPlatform of cloudPlatforms) {
             const cloudTechnique = {
               ...technique,

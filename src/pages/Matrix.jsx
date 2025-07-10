@@ -111,11 +111,11 @@ export default function MatrixPage() {
     console.log('📊 Total techniques before filtering:', techniques.length);
 
     if (filters.platform === "Cloud") {
-      // For Cloud platform, include techniques that support AWS, Azure, GCP, or Oracle
+      // For Cloud platform, include techniques that support AWS, Azure, GCP, Oracle, or Alibaba
       filteredTechniques = techniques.filter(t => 
-        t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
+        t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'].includes(p))
       );
-      filteredRules = rules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
+      filteredRules = rules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'].includes(r.platform));
       
       // Apply cloud provider filter if specified
       if (filters.cloudProvider && filters.cloudProvider !== "all") {
@@ -316,9 +316,9 @@ export default function MatrixPage() {
       let platformTechniques = techniques.filter(t => t.tactic === tactic);
       
       if (filters.platform === "Cloud") {
-        // For Cloud platform, include techniques that support AWS, Azure, GCP, or Oracle
+        // For Cloud platform, include techniques that support AWS, Azure, GCP, Oracle, or Alibaba
         platformTechniques = platformTechniques.filter(t => 
-          t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(p))
+          t.platforms?.some(p => ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'].includes(p))
         );
       } else if (filters.platform !== "all") {
         platformTechniques = platformTechniques.filter(t => t.platforms?.includes(filters.platform));
@@ -335,7 +335,7 @@ export default function MatrixPage() {
       );
       
       if (filters.platform === "Cloud") {
-        filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle'].includes(r.platform));
+        filteredRules = filteredRules.filter(r => ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'].includes(r.platform));
         
         // Apply cloud provider filter if specified
         if (filters.cloudProvider && filters.cloudProvider !== "all") {

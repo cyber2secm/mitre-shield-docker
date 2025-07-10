@@ -16,6 +16,7 @@ import CoverageGaps from "../components/dashboard/CoverageGaps";
 export default function DashboardPage() {
   const [rules, setRules] = useState([]);
   const [techniques, setTechniques] = useState([]);
+  const [analyticsData, setAnalyticsData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -25,16 +26,29 @@ export default function DashboardPage() {
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const [ruleData, techniqueData] = await Promise.all([
+      const [ruleData, techniqueData, analytics] = await Promise.all([
         DetectionRule.list("-updated_date"),
-        MitreTechnique.list()
+        MitreTechnique.list(),
+        fetchAnalytics()
       ]);
       setRules(ruleData);
       setTechniques(techniqueData);
+      setAnalyticsData(analytics);
     } catch (error) {
       console.error("Failed to load dashboard data:", error);
     }
     setIsLoading(false);
+  };
+
+  const fetchAnalytics = async () => {
+    try {
+      const response = await fetch('/api/analytics/stats');
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Failed to fetch analytics:', error);
+      return null;
+    }
   };
 
   const getDashboardMetrics = () => {
@@ -42,9 +56,8 @@ export default function DashboardPage() {
     const testingRules = rules.filter(r => r.status === "Testing");
     const highSeverityRules = rules.filter(r => r.severity === "Critical" || r.severity === "High");
     
-    // Coverage calculation
-    const coveredTechniques = new Set(activeRules.map(r => r.technique_id));
-    const coveragePercentage = techniques.length > 0 ? Math.round((coveredTechniques.size / techniques.length) * 100) : 0;
+    // Use coverage calculation from backend analytics API (same method as analytics.js)
+    const coveragePercentage = analyticsData?.coverage_percentage || 0;
     
     // Risk score calculation (0-100)
     const riskFactors = {
@@ -63,7 +76,7 @@ export default function DashboardPage() {
       coveragePercentage,
       riskScore,
       highSeverityRules: highSeverityRules.length,
-      coveredTechniques: coveredTechniques.size,
+      coveredTechniques: analyticsData?.total_techniques || 0,
       totalTechniques: techniques.length
     };
   };
@@ -89,33 +102,8 @@ export default function DashboardPage() {
       <div className="p-6">
         <div className="max-w-7xl mx-auto space-y-8">
           {/* Executive Summary Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-              <Card className="relative overflow-hidden border-slate-200 bg-white/90 backdrop-blur-sm">
-                <div className="absolute top-0 right-0 w-32 h-32 transform translate-x-8 -translate-y-8 bg-blue-500 rounded-full opacity-10" />
-                <CardHeader className="pb-3">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="text-sm font-medium text-slate-500">Detection Coverage</p>
-                      <CardTitle className="text-3xl font-bold mt-1 text-slate-900">
-                        {metrics.coveragePercentage}%
-                      </CardTitle>
-                    </div>
-                    <div className="p-3 rounded-xl bg-blue-50">
-                      <Shield className="w-5 h-5 text-blue-700" />
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <Progress value={metrics.coveragePercentage} className="h-2" />
-                  <p className="text-xs text-slate-500 mt-2">
-                    {metrics.coveredTechniques} of {metrics.totalTechniques} techniques covered
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <Card className="relative overflow-hidden border-slate-200 bg-white/90 backdrop-blur-sm">
                 <div className="absolute top-0 right-0 w-32 h-32 transform translate-x-8 -translate-y-8 bg-emerald-500 rounded-full opacity-10" />
                 <CardHeader className="pb-3">
@@ -141,7 +129,7 @@ export default function DashboardPage() {
               </Card>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <Card className="relative overflow-hidden border-slate-200 bg-white/90 backdrop-blur-sm">
                 <div className={`absolute top-0 right-0 w-32 h-32 transform translate-x-8 -translate-y-8 ${metrics.riskScore > 50 ? 'bg-red-500' : metrics.riskScore > 25 ? 'bg-amber-500' : 'bg-emerald-500'} rounded-full opacity-10`} />
                 <CardHeader className="pb-3">
@@ -165,7 +153,7 @@ export default function DashboardPage() {
               </Card>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
               <Card className="relative overflow-hidden border-slate-200 bg-white/90 backdrop-blur-sm">
                 <div className="absolute top-0 right-0 w-32 h-32 transform translate-x-8 -translate-y-8 bg-purple-500 rounded-full opacity-10" />
                 <CardHeader className="pb-3">

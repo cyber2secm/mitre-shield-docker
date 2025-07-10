@@ -44,7 +44,7 @@ async function importCloudIndependent() {
     
     // Verify final counts for all platforms
     const finalCloudCount = await MitreTechnique.countDocuments({ 
-      platforms: { $in: ['AWS', 'Azure', 'GCP', 'Oracle'] }
+      platforms: { $in: ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'] }
     });
     const finalContainersCount = await MitreTechnique.countDocuments({ platforms: 'Containers' });
     const finalWindowsCount = await MitreTechnique.countDocuments({ platforms: 'Windows' });
@@ -76,7 +76,7 @@ async function importCloudIndependent() {
     // Show Cloud tactic breakdown
     console.log('\n🔍 Cloud tactic breakdown:');
     const tactics = await MitreTechnique.aggregate([
-      { $match: { platforms: { $in: ['AWS', 'Azure', 'GCP', 'Oracle'] } } },
+      { $match: { platforms: { $in: ['AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba'] } } },
       { $group: { 
           _id: '$tactic', 
           parent_count: { $sum: { $cond: [{ $eq: ['$is_subtechnique', false] }, 1, 0] } },

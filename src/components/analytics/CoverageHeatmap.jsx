@@ -56,6 +56,21 @@ const TACTIC_COLORS = {
 };
 
 export default function CoverageHeatmap({ rules, techniques, isLoading, selectedPlatform }) {
+  const [analyticsData, setAnalyticsData] = React.useState(null);
+
+  React.useEffect(() => {
+    fetchAnalytics();
+  }, []);
+
+  const fetchAnalytics = async () => {
+    try {
+      const response = await fetch('/api/analytics/stats');
+      const data = await response.json();
+      setAnalyticsData(data);
+    } catch (error) {
+      console.error('Failed to fetch analytics:', error);
+    }
+  };
   const getCoverageByTactic = () => {
     const coverage = {};
     const activeRules = rules.filter(r => r.status === 'Active');
