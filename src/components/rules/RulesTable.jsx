@@ -208,7 +208,7 @@ export default function RulesTable({ rules, isLoading, onRuleUpdate, availableUs
                 <TableCell>
                   {rule.assigned_user ? (
                     <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                      {rule.assigned_user.split(' ')[0]}
+                      {rule.assigned_user.split('@')[0]}
                     </span>
                   ) : (
                     <span className="text-sm text-slate-400 dark:text-slate-500">Unassigned</span>

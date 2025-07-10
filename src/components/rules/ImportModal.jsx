@@ -259,6 +259,7 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
         number_of_alerts: { type: "string" },
         source: { type: "string" },
         rule_type: { type: "string" },
+        status: { type: "string" },
         tactic: { type: "string" },
         technique_id: { type: "string" },
         xql_query: { type: "string" },
@@ -296,19 +297,54 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
         console.log('📋 Raw rule data:', rule);
 
         // Handle platform: normalize to match enum capitalization
+        // Support both single platforms and comma-separated multi-platforms
         if (rule.platform && typeof rule.platform === 'string') {
-          const p = rule.platform.toLowerCase();
-          const platformMap = {
-              'windows': 'Windows',
-              'macos': 'macOS',
-              'linux': 'Linux',
-              'aws': 'AWS',
-              'azure': 'Azure',
-              'gcp': 'GCP',
-              'oracle': 'Oracle',
-              'containers': 'Containers'
-          };
-          rule.platform = platformMap[p] || rule.platform;
+          // Check if this is a comma-separated list of platforms
+          if (rule.platform.includes(',')) {
+            console.log('🔄 Multi-platform detected:', rule.platform);
+            // For multi-platform rules, normalize each platform individually
+            const platforms = rule.platform.split(',').map(p => p.trim());
+            const normalizedPlatforms = platforms.map(p => {
+              const pLower = p.toLowerCase();
+              const platformMap = {
+                'windows': 'Windows',
+                'macos': 'macOS',
+                'linux': 'Linux',
+                'aws': 'AWS',
+                'azure': 'Azure',
+                'gcp': 'GCP',
+                'oracle': 'Oracle',
+                'alibaba': 'Alibaba',
+                'containers': 'Containers',
+                'office suite': 'Office Suite',
+                'identity provider': 'Identity Provider',
+                'saas': 'SaaS',
+                'iaas': 'IaaS'
+              };
+              return platformMap[pLower] || p;
+            });
+            rule.platform = normalizedPlatforms.join(',');
+            console.log('✅ Normalized multi-platform:', rule.platform);
+          } else {
+            // Single platform normalization
+            const p = rule.platform.toLowerCase();
+            const platformMap = {
+                'windows': 'Windows',
+                'macos': 'macOS',
+                'linux': 'Linux',
+                'aws': 'AWS',
+                'azure': 'Azure',
+                'gcp': 'GCP',
+                'oracle': 'Oracle',
+                'alibaba': 'Alibaba',
+                'containers': 'Containers',
+                'office suite': 'Office Suite',
+                'identity provider': 'Identity Provider',
+                'saas': 'SaaS',
+                'iaas': 'IaaS'
+            };
+            rule.platform = platformMap[p] || rule.platform;
+          }
         }
 
         // Handle severity: normalize case
@@ -353,6 +389,17 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
               'impact': 'Impact'
           };
           rule.tactic = tacticMap[t] || rule.tactic;
+        }
+
+        // Handle status: normalize case
+        if (rule.status && typeof rule.status === 'string') {
+          const s = rule.status.toLowerCase();
+          const statusMap = {
+              'active': 'Active',
+              'testing': 'Testing',
+              'inactive': 'Inactive'
+          };
+          rule.status = statusMap[s] || rule.status;
         }
 
         // Map template field names to backend field names
@@ -439,7 +486,7 @@ export default function ImportModal({ isOpen, onClose, onImport }) {
         }
 
         // Set defaults for empty or missing fields
-        rule.status = "Testing"; // Default status
+        rule.status = rule.status || "Testing"; // Default status only if not provided
         rule.description = rule.description || "";
         rule.assigned_user = rule.assigned_user || "admin";
         rule.tactic = rule.tactic || "Execution"; // Default tactic

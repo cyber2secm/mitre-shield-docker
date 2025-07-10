@@ -66,7 +66,7 @@ const platformItems = [
     title: "Cloud",
     platform: "Cloud",
     url: createPageUrl("Matrix?platform=Cloud"),
-    description: "Cloud-specific techniques (AWS, Azure, GCP, Oracle)"
+    description: "Cloud-specific techniques (AWS, Azure, GCP, Oracle, Alibaba)"
   },
   {
     title: "Network Devices",
@@ -97,15 +97,34 @@ export default function Layout({ children, currentPageName }) {
   
   const [stats, setStats] = useState({
     activeRules: 0,
-    testingRules: 0,
-    coverage: 0
+    testingRules: 0
   });
 
   // Load stats on mount and refresh periodically
   useEffect(() => {
     loadStats();
-    const interval = setInterval(loadStats, 30000); // Refresh every 30 seconds
-    return () => clearInterval(interval);
+    
+    // Refresh every 5 seconds for more responsive updates
+    const interval = setInterval(loadStats, 5000);
+    
+    // Also refresh when window gains focus (after importing rules in another tab/window)
+    const handleFocus = () => {
+      loadStats();
+    };
+    
+    // Listen for custom events when rules are imported
+    const handleRulesUpdated = () => {
+      loadStats();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('rulesUpdated', handleRulesUpdated);
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('rulesUpdated', handleRulesUpdated);
+    };
   }, []);
 
   // Debug theme state changes
@@ -134,51 +153,22 @@ export default function Layout({ children, currentPageName }) {
 
   const loadStats = async () => {
     try {
-      const [allRules, allTechniques] = await Promise.all([
-        DetectionRule.list("-created_date", 10000), // Fetch up to 10,000 rules
-        MitreTechnique.list("-created_date", 10000) // Fetch up to 10,000 techniques
-      ]);
+      const allRules = await DetectionRule.list("-created_date", 10000); // Fetch up to 10,000 rules
 
       // Always calculate stats for ALL platforms, not filtered by current platform
       const activeRules = allRules.filter(r => r.status === 'Active');
       const testingRules = allRules.filter(r => r.status === 'Testing');
-      
-      // Calculate coverage based on unique techniques covered by active rules
-      const coveredTechniqueIds = new Set(
-        activeRules.map(r => r.technique_id)
-      );
-      
-      // Count how many techniques are actually covered
-      const coveredTechniquesCount = allTechniques.filter(t => 
-        coveredTechniqueIds.has(t.technique_id)
-      ).length;
-      
-      const coverage = allTechniques.length > 0 
-        ? Math.round((coveredTechniquesCount / allTechniques.length) * 100) 
-        : 0;
-
-      // Debug logging
-      console.log('Stats Debug:', {
-        totalRules: allRules.length,
-        totalTechniques: allTechniques.length,
-        activeRulesCount: activeRules.length,
-        testingRulesCount: testingRules.length,
-        coveredTechniquesCount: coveredTechniquesCount,
-        coverage: coverage
-      });
 
       setStats({
         activeRules: activeRules.length,
-        testingRules: testingRules.length,
-        coverage
+        testingRules: testingRules.length
       });
     } catch (error) {
       console.error('Failed to load stats:', error);
       // Set default values on error
       setStats({
         activeRules: 0,
-        testingRules: 0,
-        coverage: 0
+        testingRules: 0
       });
     }
   };
@@ -337,11 +327,6 @@ export default function Layout({ children, currentPageName }) {
                     <div className="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0"></div>
                     <span className="text-amber-700 dark:text-amber-300 font-medium flex-1">Testing</span>
                     <span className="font-bold text-amber-800 dark:text-amber-200">{stats.testingRules}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm p-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-600">
-                    <div className="w-2 h-2 bg-slate-400 rounded-full flex-shrink-0"></div>
-                    <span className="text-slate-700 dark:text-slate-300 font-medium flex-1">Coverage</span>
-                    <span className="font-bold text-slate-800 dark:text-slate-200">{stats.coverage}%</span>
                   </div>
                 </div>
               </SidebarGroupContent>

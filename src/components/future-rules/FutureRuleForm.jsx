@@ -11,16 +11,7 @@ import { format } from "date-fns";
 import { Calendar as CalendarIcon, Plus, X, User, Shield, Target, Settings, FileText, Save } from "lucide-react";
 import { motion } from "framer-motion";
 
-const TEAM_MEMBERS = [
-  "Isaac Krzywanowski",
-  "Leeroy Perera",
-  "Alexey Didusenko",
-  "Chava Connack",
-  "Adir Amar",
-  "Maria Prusskov"
-];
-
-export default function FutureRuleForm({ rule, onSubmit, onCancel }) {
+export default function FutureRuleForm({ rule, onSubmit, onCancel, availableUsers = [] }) {
   const getInitialState = () => (rule || {
     name: "",
     description: "",
@@ -121,7 +112,12 @@ export default function FutureRuleForm({ rule, onSubmit, onCancel }) {
                     <SelectItem value="Azure">Azure</SelectItem>
                     <SelectItem value="GCP">GCP</SelectItem>
                     <SelectItem value="Oracle">Oracle</SelectItem>
+                    <SelectItem value="Alibaba">Alibaba</SelectItem>
                     <SelectItem value="Containers">Containers</SelectItem>
+                    <SelectItem value="Office Suite">Office Suite</SelectItem>
+                    <SelectItem value="Identity Provider">Identity Provider</SelectItem>
+                    <SelectItem value="SaaS">SaaS</SelectItem>
+                    <SelectItem value="IaaS">IaaS</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -314,9 +310,9 @@ export default function FutureRuleForm({ rule, onSubmit, onCancel }) {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Unassigned">Unassigned</SelectItem>
-                    {TEAM_MEMBERS.map((member) => (
-                      <SelectItem key={member} value={member}>
-                        {member}
+                    {availableUsers.map((user) => (
+                      <SelectItem key={user} value={user}>
+                        {user.split('@')[0]}
                       </SelectItem>
                     ))}
                   </SelectContent>

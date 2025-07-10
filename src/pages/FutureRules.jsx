@@ -15,19 +15,11 @@ import FutureRulesStats from "../components/future-rules/FutureRulesStats";
 import FutureRuleForm from "../components/future-rules/FutureRuleForm";
 import RuleEditor from "../components/matrix/RuleEditor";
 
-const TEAM_MEMBERS = [
-  "Isaac Krzywanowski",
-  "Leeroy Perera", 
-  "Alexey Didusenko",
-  "Chava Connack",
-  "Adir Amar",
-  "Maria Prusskov"
-];
-
 export default function FutureRulesPage() {
   const { toast } = useToast();
   const [futureRules, setFutureRules] = useState([]);
   const [filteredRules, setFilteredRules] = useState([]);
+  const [availableUsers, setAvailableUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingRule, setEditingRule] = useState(null);
@@ -43,22 +35,49 @@ export default function FutureRulesPage() {
   });
 
   useEffect(() => {
-    loadFutureRules();
+    loadData();
   }, []);
 
   useEffect(() => {
     applyFilters();
   }, [futureRules, filters]);
 
-  const loadFutureRules = async () => {
+  const loadData = async () => {
     setIsLoading(true);
+    try {
+      // Load future rules
+      const futureRulesData = await FutureRule.list("-created_date");
+      setFutureRules(futureRulesData);
+
+      // Load detection rules to extract available users
+      const detectionRulesData = await DetectionRule.list();
+      const users = extractAvailableUsers(detectionRulesData);
+      setAvailableUsers(users);
+    } catch (error) {
+      console.error("Failed to load data:", error);
+    }
+    setIsLoading(false);
+  };
+
+  const loadFutureRules = async () => {
     try {
       const data = await FutureRule.list("-created_date");
       setFutureRules(data);
     } catch (error) {
       console.error("Failed to load future rules:", error);
     }
-    setIsLoading(false);
+  };
+
+  const extractAvailableUsers = (rules) => {
+    const userSet = new Set();
+    
+    rules.forEach(rule => {
+      if (rule.assigned_user && rule.assigned_user.trim() !== "" && rule.assigned_user !== "admin") {
+        userSet.add(rule.assigned_user);
+      }
+    });
+    
+    return Array.from(userSet).sort();
   };
 
   const applyFilters = () => {
@@ -280,6 +299,7 @@ export default function FutureRulesPage() {
                     <SelectItem value="Azure">Azure</SelectItem>
                     <SelectItem value="GCP">GCP</SelectItem>
                     <SelectItem value="Oracle">Oracle</SelectItem>
+                    <SelectItem value="Alibaba">Alibaba</SelectItem>
                     <SelectItem value="Containers">Containers</SelectItem>
                   </SelectContent>
                 </Select>
@@ -339,8 +359,10 @@ export default function FutureRulesPage() {
                   <SelectContent>
                     <SelectItem value="all">All Users</SelectItem>
                     <SelectItem value="unassigned">Unassigned</SelectItem>
-                    {TEAM_MEMBERS.map((member) => (
-                      <SelectItem key={member} value={member}>{member}</SelectItem>
+                    {availableUsers.map((user) => (
+                      <SelectItem key={user} value={user}>
+                        {user.split('@')[0]}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -356,6 +378,7 @@ export default function FutureRulesPage() {
                     setShowForm(false);
                     setEditingRule(null);
                   }}
+                  availableUsers={availableUsers}
                 />
               </div>
             )}
@@ -382,6 +405,7 @@ export default function FutureRulesPage() {
               onSave={handlePromoteSave}
               onCancel={() => setPromotingRule(null)}
               isPromotion={true}
+              availableUsers={availableUsers}
             />
           </DialogContent>
         </Dialog>

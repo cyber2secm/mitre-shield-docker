@@ -1,5 +1,5 @@
 // Validation utility for detection rules
-export const PLATFORMS = ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Containers'];
+export const PLATFORMS = ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba', 'Containers', 'Office Suite', 'Identity Provider', 'SaaS', 'IaaS'];
 export const SEVERITIES = ['Critical', 'High', 'Medium', 'Low'];
 export const RULE_TYPES = ['Product', 'SOC'];
 
@@ -20,22 +20,10 @@ export function validateRule(rule, index) {
   // Required field validation
   if (!rule.rule_id || rule.rule_id.trim() === '') {
     errors.push('Rule ID is required');
-  } else {
-    // Rule ID format validation
-    if (rule.rule_id.length < 3) {
-      warnings.push('Rule ID should be more descriptive (recommended: 5+ characters)');
-    }
-    if (!/^[A-Z0-9_-]+$/i.test(rule.rule_id)) {
-      warnings.push('Rule ID should only contain letters, numbers, hyphens, and underscores');
-    }
   }
 
   if (!rule.name || rule.name.trim() === '') {
     errors.push('Rule name is required');
-  } else {
-    if (rule.name.length < 5) {
-      warnings.push('Rule name should be more descriptive (recommended: 10+ characters)');
-    }
   }
 
   if (!rule.technique_id || rule.technique_id.trim() === '') {
@@ -49,8 +37,12 @@ export function validateRule(rule, index) {
   if (!rule.platform || rule.platform.trim() === '') {
     errors.push('Platform is required');
   } else {
-    if (!PLATFORMS.includes(rule.platform)) {
-      errors.push(`Platform must be one of: ${PLATFORMS.join(', ')}`);
+    // Support both single platforms and comma-separated multi-platforms
+    const platforms = rule.platform.split(',').map(p => p.trim());
+    const invalidPlatforms = platforms.filter(p => !PLATFORMS.includes(p));
+    
+    if (invalidPlatforms.length > 0) {
+      errors.push(`Platform must be one of: ${PLATFORMS.join(', ')}. Invalid platforms: ${invalidPlatforms.join(', ')}`);
     }
   }
 
@@ -81,10 +73,7 @@ export function validateRule(rule, index) {
     }
   }
 
-  // Optional field validation
-  if (rule.description && rule.description.length < 10) {
-    warnings.push('Description should be more detailed for better documentation');
-  }
+  // Optional field validation - no restrictions on description length
 
   // User assignment validation (optional)
   if (rule.user && rule.user.trim() === '') {

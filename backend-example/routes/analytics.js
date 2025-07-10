@@ -19,11 +19,20 @@ router.get('/stats', async (req, res) => {
     // Get technique statistics
     const totalTechniques = await MitreTechnique.countDocuments();
 
-    // Calculate coverage
-    const coveredTechniques = await DetectionRule.distinct('technique_id', { status: 'Active' });
+    // Calculate coverage - only count technique IDs that exist in both collections
+    const ruleTechniqueIds = await DetectionRule.distinct('technique_id', { status: 'Active' });
+    console.log('📊 Rule technique IDs from active rules:', ruleTechniqueIds.length, ruleTechniqueIds.slice(0, 5));
+    
+    // Find which rule technique IDs actually exist in the MITRE techniques database
+    const validCoveredTechniques = await MitreTechnique.find({ 
+      technique_id: { $in: ruleTechniqueIds } 
+    }).distinct('technique_id');
+    console.log('📊 Valid covered techniques:', validCoveredTechniques.length, validCoveredTechniques.slice(0, 5));
+    
     const coveragePercentage = totalTechniques > 0 
-      ? Math.round((coveredTechniques.length / totalTechniques) * 100) 
+      ? Math.round((validCoveredTechniques.length / totalTechniques) * 100) 
       : 0;
+    console.log('📊 Coverage calculation:', validCoveredTechniques.length, '/', totalTechniques, '=', coveragePercentage + '%');
 
     res.json({
       total_rules: totalRules,

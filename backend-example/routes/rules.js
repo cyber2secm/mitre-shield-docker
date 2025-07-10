@@ -258,8 +258,54 @@ router.post('/bulk', async (req, res) => {
 
     console.log('📥 Bulk import received:', items.length, 'items');
     
-    // Debug: Log creation_date fields and convert ISO strings to Date objects
+    // Process multi-platform rules - split rules with comma-separated platforms
+    const processedItems = [];
+    const validPlatforms = ['Windows', 'macOS', 'Linux', 'AWS', 'Azure', 'GCP', 'Oracle', 'Alibaba', 'Containers', 'Office Suite', 'Identity Provider', 'SaaS', 'IaaS'];
+    
     items.forEach((item, index) => {
+      const platforms = item.platform ? item.platform.split(',').map(p => p.trim()) : [''];
+      
+      // Validate all platforms first - if any are invalid, return error early
+      const invalidPlatforms = platforms.filter(p => p && !validPlatforms.includes(p));
+      if (invalidPlatforms.length > 0) {
+        console.warn(`⚠️ Invalid platforms found in rule ${item.rule_id || index}: ${invalidPlatforms.join(', ')}`);
+        console.warn(`✅ Valid platforms are: ${validPlatforms.join(', ')}`);
+        throw new Error(`Platform must be one of: ${validPlatforms.join(', ')}. Invalid platforms: ${invalidPlatforms.join(', ')}`);
+      }
+      
+      if (platforms.length > 1) {
+        console.log(`🔄 Splitting rule ${item.rule_id || index} into ${platforms.length} platform-specific rules:`, platforms);
+        
+        platforms.forEach((platform, platformIndex) => {
+          // All platforms are valid at this point
+          // Create a unique rule ID for each platform
+          const originalRuleId = item.rule_id || `RULE-${index}`;
+          const platformRuleId = platformIndex === 0 ? originalRuleId : `${originalRuleId}-${platform.toUpperCase()}`;
+          
+          const platformRule = {
+            ...item,
+            rule_id: platformRuleId,
+            platform: platform,
+            name: item.name ? `${item.name} (${platform})` : item.name
+          };
+          
+          processedItems.push(platformRule);
+          console.log(`✅ Created platform-specific rule: ${platformRuleId} for ${platform}`);
+        });
+      } else {
+        // Single platform rule - validate it's valid
+        const singlePlatform = platforms[0];
+        if (singlePlatform && !validPlatforms.includes(singlePlatform)) {
+          throw new Error(`Platform must be one of: ${validPlatforms.join(', ')}. Invalid platform: ${singlePlatform}`);
+        }
+        processedItems.push(item);
+      }
+    });
+    
+    console.log(`📊 After platform processing: ${items.length} original rules → ${processedItems.length} final rules`);
+    
+    // Debug: Log creation_date fields and convert ISO strings to Date objects
+    processedItems.forEach((item, index) => {
       console.log(`📋 Processing item ${index}:`, {
         rule_id: item.rule_id,
         creation_date: item.creation_date,
@@ -291,7 +337,7 @@ router.post('/bulk', async (req, res) => {
     });
 
     // Check for existing rule IDs
-    const ruleIds = items.map(item => item.rule_id);
+    const ruleIds = processedItems.map(item => item.rule_id);
     const existingRules = await DetectionRule.find({ rule_id: { $in: ruleIds } });
     const existingRuleIds = existingRules.map(rule => rule.rule_id);
     
@@ -301,9 +347,11 @@ router.post('/bulk', async (req, res) => {
         error: 'Duplicate rule IDs found',
         duplicateIds: existingRuleIds,
         details: {
-          total: items.length,
+          total: processedItems.length,
           duplicates: existingRuleIds.length,
-          new: items.length - existingRuleIds.length
+          new: processedItems.length - existingRuleIds.length,
+          originalRules: items.length,
+          expandedRules: processedItems.length
         }
       });
     }
@@ -315,7 +363,7 @@ router.post('/bulk', async (req, res) => {
       const updates = [];
       const inserts = [];
       
-      items.forEach(item => {
+      processedItems.forEach(item => {
         if (existingRuleIds.includes(item.rule_id)) {
           updates.push(item);
         } else {
@@ -375,7 +423,7 @@ router.post('/bulk', async (req, res) => {
       };
     } else {
       // Insert all new rules (no duplicates)
-      const rulesData = items.map(item => ({
+      const rulesData = processedItems.map(item => ({
         ...item,
         // created_by: req.user.id,
         // updated_by: req.user.id
